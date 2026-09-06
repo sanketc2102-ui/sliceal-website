@@ -1,11 +1,30 @@
 /* ==========================================================================
    Sliceal — Global / base styles
-   Import order matters: tokens first, then Tailwind, then the theme bridge.
-   Nothing here re-declares a design value — everything reads from tokens.css.
+   Nothing here declares a design value — everything reads from tokens.css.
+
+   Import order matters: Tailwind first, then tokens. tokens.css carries the
+   project's @theme block, and a later @theme wins, so importing it second is
+   what makes the Figma gray/slate ramps and --ease-out override Tailwind's
+   built-in defaults instead of losing to them.
    ========================================================================== */
 
-@import "./tokens.css";
 @import "tailwindcss";
+@import "./tokens.css";
+
+/* --------------------------------------------------------------------------
+   Theme bridge: none needed.
+
+   Tailwind reads the project theme straight out of the @theme block in
+   tokens.css. There is deliberately no @theme block in this file. The one
+   that used to be here mapped most keys onto themselves —
+   `--radius-md: var(--radius-md)` — which emits a self-referencing custom
+   property. CSS treats that as a cycle and discards it, so the token resolved
+   to nothing and Tailwind's own default silently took over. For breakpoints
+   it was worse: `@media (width >= var(--bp-lg))` is not valid CSS and broke
+   the build the moment any responsive variant was used.
+
+   Add new design tokens to tokens.css, not here.
+   -------------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------------
    FONTS — OPEN DECISION, deliberately unresolved.
@@ -29,97 +48,6 @@
    written there, commented out). Until a licensed file is actually added, no
    font asset is fabricated. See tokens.css §5 NEEDS_DECISION.
    -------------------------------------------------------------------------- */
-
-/* --------------------------------------------------------------------------
-   Tailwind v4 theme bridge.
-   `@theme inline` tells Tailwind to generate utilities that point at the
-   custom properties already declared in tokens.css, so there is exactly one
-   place a value lives. If you are on Tailwind v3, delete this block and use
-   the tailwind.config.mjs in the blueprint instead.
-   -------------------------------------------------------------------------- */
-@theme inline {
-  /* colors */
-  --color-brand: var(--color-brand-600);
-  --color-brand-25: var(--color-brand-25);
-  --color-brand-50: var(--color-brand-50);
-  --color-brand-400: var(--color-brand-400);
-  --color-brand-500: var(--color-brand-500);
-  --color-brand-600: var(--color-brand-600);
-  --color-brand-800: var(--color-brand-800);
-  --color-brand-950: var(--color-brand-950);
-
-  --color-ink: var(--color-black);
-  --color-ink-muted: var(--color-gray-500);
-  --color-ink-secondary: var(--color-gray-600);
-
-  --color-surface: var(--color-white);
-  --color-surface-alt: var(--color-off-white);
-  --color-surface-sunken: var(--color-gray-100);
-  --color-surface-dark: var(--color-brand-950);
-
-  --color-line: var(--color-gray-200);
-  --color-line-card: var(--color-slate-200);
-  --color-line-strong: var(--color-gray-300);
-
-  /* fonts */
-  --font-sans: var(--font-sans);
-
-  /* type scale — Tailwind emits text-display-lg, text-md, etc. */
-  --text-display-2xl: var(--text-display-2xl);
-  --text-display-2xl--line-height: var(--leading-display-2xl);
-  --text-display-2xl--letter-spacing: var(--tracking-tight);
-  --text-display-xl: var(--text-display-xl);
-  --text-display-xl--line-height: var(--leading-display-xl);
-  --text-display-xl--letter-spacing: var(--tracking-tight);
-  --text-display-lg: var(--text-display-lg);
-  --text-display-lg--line-height: var(--leading-display-lg);
-  --text-display-lg--letter-spacing: var(--tracking-tight);
-  --text-display-md: var(--text-display-md);
-  --text-display-md--line-height: var(--leading-display-md);
-  --text-display-md--letter-spacing: var(--tracking-tight);
-  --text-display-sm: var(--text-display-sm);
-  --text-display-sm--line-height: var(--leading-display-sm);
-  --text-display-xs: var(--text-display-xs);
-  --text-display-xs--line-height: var(--leading-display-xs);
-  --text-xl: var(--text-xl);
-  --text-xl--line-height: var(--leading-xl);
-  --text-lg: var(--text-lg);
-  --text-lg--line-height: var(--leading-lg);
-  --text-md: var(--text-md);
-  --text-md--line-height: var(--leading-md);
-  --text-sm: var(--text-sm);
-  --text-sm--line-height: var(--leading-sm);
-  --text-xs: var(--text-xs);
-  --text-xs--line-height: var(--leading-xs);
-  --text-2xs: var(--text-2xs);
-
-  /* radii */
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
-  --radius-2xl: var(--radius-2xl);
-  --radius-3xl: var(--radius-3xl);
-  --radius-pill: var(--radius-pill);
-
-  /* shadows */
-  --shadow-xs: var(--shadow-xs);
-  --shadow-card: var(--shadow-card);
-  --shadow-md: var(--shadow-md);
-  --shadow-header: var(--shadow-header);
-  --shadow-pill: var(--shadow-pill);
-  --shadow-float: var(--shadow-float);
-  --shadow-glow: var(--shadow-glow);
-
-  /* containers + breakpoints */
-  --container-site: var(--container-max);
-  --container-prose: var(--container-prose);
-  --breakpoint-sm: var(--bp-sm);
-  --breakpoint-md: var(--bp-md);
-  --breakpoint-lg: var(--bp-lg);
-  --breakpoint-xl: var(--bp-xl);
-  --breakpoint-2xl: var(--bp-2xl);
-}
 
 /* --------------------------------------------------------------------------
    Base
@@ -249,7 +177,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Two layout primitives that every page uses. Kept here rather than in a
+   Layout primitives that every page uses. Kept here rather than in a
    component because they are pure layout and carry no markup of their own.
    -------------------------------------------------------------------------- */
 @layer components {
@@ -258,7 +186,8 @@
      16px mobile → 40px at md → 80px at lg. Figma has no tablet artboard, so
      the 40px middle step is ours, borrowed from the header's own gutter. */
   .container-site,
-  .container-header {
+  .container-header,
+  .container-prose {
     width: 100%;
     margin-inline: auto;
     padding-inline: var(--gutter-mobile);
@@ -266,7 +195,8 @@
 
   @media (width >= 48rem) {
     .container-site,
-    .container-header {
+    .container-header,
+    .container-prose {
       padding-inline: var(--gutter-header); /* 40px */
     }
   }
@@ -275,7 +205,7 @@
      Verified against the Figma artboard: section children sit at x=80,
      width=1352 on a 1512 frame. */
   .container-site {
-    max-width: calc(var(--container-max) + (var(--gutter) * 2));
+    max-width: calc(var(--container-site) + (var(--gutter) * 2));
   }
 
   @media (width >= 64rem) {
@@ -287,6 +217,13 @@
   /* 1432px column at a 40px gutter — the site header only. */
   .container-header {
     max-width: calc(var(--container-header) + (var(--gutter-header) * 2));
+  }
+
+  /* 1022px reading column — FAQ and legal body copy. This class exists
+     because Tailwind ships a built-in `max-w-prose` (65ch) that shadows
+     the --container-prose theme value. */
+  .container-prose {
+    max-width: calc(var(--container-prose) + (var(--gutter-header) * 2));
   }
 
   /* Vertical rhythm for a page section: 48px mobile → 80px desktop */

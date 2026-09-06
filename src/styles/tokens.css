@@ -1,14 +1,31 @@
 /* ==========================================================================
    Sliceal — Design Tokens
-   Source: Figma file wBTbnZ7DJMzQwgaGC5k0wK, page "↳Website"
+   Source: Figma file wBTbnZ7DJMzQwgaGC5k0wK, artboard "Website - v4 light"
    All values are read from the Figma variables collection or measured from
    the page frames. Values marked NEEDS_DECISION are not defined in Figma.
 
-   This file is the single source of truth. Tailwind maps onto these vars
-   (see global.css @theme block), so never hard-code a value in a component.
+   This file is the single source of truth. Every value is written exactly
+   once, here, and nothing is re-declared in global.css.
+
+   The file is in two parts:
+
+     @theme  — values Tailwind reads at BUILD time to generate utilities.
+               Written as literals. A plain `@theme` (not `@theme inline`)
+               also emits each one as a `:root` custom property, so
+               hand-written CSS reads them with var() like any other token.
+
+     :root   — values only ever consumed by hand-written CSS. These are not
+               in a Tailwind namespace, so Tailwind has no use for them.
+
+   Why literals and not aliases: writing `--radius-md: var(--radius-md)` in a
+   theme block emits a self-referencing custom property, which CSS treats as a
+   cycle and discards — the token silently resolves to nothing. And for
+   breakpoints it is worse: Tailwind would emit
+   `@media (width >= var(--bp-lg))`, which is not valid CSS at all and fails
+   the build. Hence: one literal, one place.
    ========================================================================== */
 
-:root {
+@theme {
   /* ------------------------------------------------------------------
      1. COLOR — BRAND
      Figma has three near-identical purples in active use. They are kept
@@ -37,6 +54,9 @@
      2. COLOR — NEUTRALS
      Figma ships an Untitled-UI grey ramp. Cards additionally use Tailwind
      slate values the designer pulled in by hand — both are listed.
+     Declaring them here (rather than in :root) is what makes them beat
+     Tailwind's built-in gray/slate ramps; a :root declaration loses to
+     Tailwind's own, which is emitted later in the bundle.
      ------------------------------------------------------------------ */
   --color-black:      #000000; /* Figma B&W/Black — default body text      */
   --color-charcoal:   #0a0a0a; /* Figma B&W/Charcoal Black                 */
@@ -92,23 +112,40 @@
 
   /* ------------------------------------------------------------------
      4. COLOR — SEMANTIC ROLES
-     Build against these, not the raw ramp.
+     Build against these, not the raw ramp. Aliasing is safe here: each one
+     points at a *differently named* token, so there is no cycle.
+
+     The `ink` / `line` names exist because `--color-text-*` and
+     `--color-border-*` would generate utilities that read backwards
+     (`text-text-muted`, `border-border-card`). Both spellings resolve to
+     the same value; `--color-text-*` / `--color-border-*` are kept for
+     hand-written CSS, `ink` / `line` are what the utilities use.
      ------------------------------------------------------------------ */
-  --color-text:          var(--color-black);
-  --color-text-secondary:var(--color-gray-600);
-  --color-text-muted:    var(--color-gray-500);
-  --color-text-inverse:  var(--color-white);
-  --color-text-brand:    var(--color-brand-600);
+  --color-text:           var(--color-black);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-muted:     var(--color-gray-500);
+  --color-text-inverse:   var(--color-white);
+  --color-text-brand:     var(--color-brand-600);
 
-  --color-surface:       var(--color-white);
-  --color-surface-alt:   var(--color-off-white);   /* alternating sections */
-  --color-surface-sunken:var(--color-gray-100);
-  --color-surface-dark:  var(--color-brand-950);
+  --color-ink:           var(--color-black);        /* text-ink            */
+  --color-ink-secondary: var(--color-gray-600);     /* text-ink-secondary  */
+  --color-ink-muted:     var(--color-gray-500);     /* text-ink-muted      */
+  --color-ink-inverse:   var(--color-white);        /* text-ink-inverse    */
 
-  --color-border:        var(--color-gray-200);    /* hairlines, dividers  */
-  --color-border-card:   var(--color-slate-200);   /* media card outline   */
+  --color-surface:        var(--color-white);
+  --color-surface-alt:    var(--color-off-white);   /* alternating sections */
+  --color-surface-sunken: var(--color-gray-100);
+  --color-surface-dark:   var(--color-brand-950);
+
+  --color-border:        var(--color-gray-200);     /* hairlines, dividers */
+  --color-border-card:   var(--color-slate-200);    /* media card outline  */
   --color-border-strong: var(--color-gray-300);
   --color-border-brand:  var(--color-brand-600);
+
+  --color-line:        var(--color-gray-200);       /* border-line         */
+  --color-line-card:   var(--color-slate-200);      /* border-line-card    */
+  --color-line-strong: var(--color-gray-300);       /* border-line-strong  */
+  --color-line-brand:  var(--color-brand-600);      /* border-line-brand   */
 
   /* ------------------------------------------------------------------
      5. TYPOGRAPHY — FAMILIES
@@ -128,26 +165,51 @@
      6. TYPOGRAPHY — SCALE
      Sizes / line-heights / tracking taken verbatim from the Figma text
      style variables. Display styles carry -2% tracking; text styles carry 0.
+     Each --text-* carries its line-height and letter-spacing as modifiers,
+     so `text-display-lg` sets all three in one utility.
      ------------------------------------------------------------------ */
   --text-display-2xl: 4.5rem;   /* 72px */
+  --text-display-2xl--line-height: 5.625rem;   /* 90px */
+  --text-display-2xl--letter-spacing: -0.02em;
   --text-display-xl:  3.75rem;  /* 60px */
+  --text-display-xl--line-height: 4.5rem;      /* 72px */
+  --text-display-xl--letter-spacing: -0.02em;
   --text-display-lg:  3rem;     /* 48px */
+  --text-display-lg--line-height: 3.75rem;     /* 60px */
+  --text-display-lg--letter-spacing: -0.02em;
   --text-display-md:  2.25rem;  /* 36px */
+  --text-display-md--line-height: 2.75rem;     /* 44px */
+  --text-display-md--letter-spacing: -0.02em;
   --text-display-sm:  1.875rem; /* 30px */
+  --text-display-sm--line-height: 2.375rem;    /* 38px */
+  --text-display-sm--letter-spacing: -0.02em;
   --text-display-xs:  1.5rem;   /* 24px */
-  --text-xl:          1.25rem;  /* 20px */
-  --text-lg:          1.125rem; /* 18px */
-  --text-md:          1rem;     /* 16px — Figma "Text Sizes/Text Regular" */
-  --text-sm:          0.875rem; /* 14px — Figma "Text Sizes/Text Small"   */
-  --text-xs:          0.75rem;  /* 12px — Figma "Text Sizes/Text Tiny"    */
-  --text-2xs:         0.625rem; /* 10px — Figma "Text xss"                */
+  --text-display-xs--line-height: 2rem;        /* 32px */
+  --text-display-xs--letter-spacing: -0.02em;
 
-  /* Mobile display sizes (measured on the 440px frames) */
+  --text-xl:  1.25rem;  /* 20px */
+  --text-xl--line-height: 1.875rem; /* 30px */
+  --text-lg:  1.125rem; /* 18px */
+  --text-lg--line-height: 1.75rem;  /* 28px */
+  --text-md:  1rem;     /* 16px — Figma "Text Sizes/Text Regular" */
+  --text-md--line-height: 1.5rem;   /* 24px */
+  --text-sm:  0.875rem; /* 14px — Figma "Text Sizes/Text Small"   */
+  --text-sm--line-height: 1.25rem;  /* 20px */
+  --text-xs:  0.75rem;  /* 12px — Figma "Text Sizes/Text Tiny"    */
+  --text-xs--line-height: 1.125rem; /* 18px */
+  --text-2xs: 0.625rem; /* 10px — Figma "Text xss"                */
+
+  /* Mobile display sizes (measured on the 440px frames). Apply unprefixed
+     and let the desktop size come in at a breakpoint. */
   --text-display-lg-mobile: 2rem;     /* 32px, replaces 48px              */
   --text-display-md-mobile: 1.875rem; /* 30px, replaces 36px              */
   --text-display-sm-mobile: 1.625rem; /* 26px, replaces 30px              */
   --text-display-xs-mobile: 1.375rem; /* 22px, replaces 24px              */
 
+  /* Standalone line-heights — emits leading-display-lg, leading-md, etc.
+     These are the same values the --text-* modifiers above carry; they are
+     spelled out separately because Tailwind cannot read a modifier as a
+     standalone utility. */
   --leading-display-2xl: 5.625rem; /* 90px */
   --leading-display-xl:  4.5rem;   /* 72px */
   --leading-display-lg:  3.75rem;  /* 60px */
@@ -161,7 +223,7 @@
   --leading-xs:          1.125rem; /* 18px */
   --leading-normal:      1.5;      /* the ratio used by most body copy    */
 
-  --tracking-tight: -0.02em; /* -2%, all Display styles                   */
+  --tracking-tight:  -0.02em; /* -2%, all Display styles                  */
   --tracking-normal: 0em;
 
   /* SF Pro's variable weights (510 / 590) map to these CSS weights. */
@@ -170,6 +232,73 @@
   --font-weight-semibold: 600;
   --font-weight-bold:     700;
 
+  /* ------------------------------------------------------------------
+     8. RADIUS
+     ------------------------------------------------------------------ */
+  --radius-xs:   0.25rem;  /* 4  */
+  --radius-sm:   0.5rem;   /* 8  — tags, badges                           */
+  --radius-md:   0.625rem; /* 10 — inputs, header buttons                 */
+  --radius-lg:   0.75rem;  /* 12 — buttons, carousel controls             */
+  --radius-xl:   1rem;     /* 16 — step cards                             */
+  --radius-2xl:  1.25rem;  /* 20 — testimonial cards, CTA banner, panels  */
+  --radius-3xl:  1.5rem;   /* 24 — property / blog / job cards            */
+  --radius-pill: 62.4375rem; /* 999px — eyebrow pills, chips              */
+  --radius-full: 9999px;
+
+  /* ------------------------------------------------------------------
+     10. SHADOWS
+     ------------------------------------------------------------------ */
+  --shadow-xs:     0 1px 2px 0 rgb(10 13 18 / 0.05);              /* buttons        */
+  --shadow-card:   0 1px 3px 0 rgb(0 0 0 / 0.10),
+                   0 1px 2px -1px rgb(0 0 0 / 0.10);              /* media cards    */
+  --shadow-md:     0 2px 4px -2px rgb(10 13 18 / 0.06),
+                   0 4px 8px -2px rgb(10 13 18 / 0.10);
+  --shadow-header: 0 2px 4px 0 rgb(0 0 0 / 0.25);                 /* sticky header  */
+  --shadow-pill:   0 0 5px 0 rgb(0 0 0 / 0.40);                   /* eyebrow pill   */
+  --shadow-nav:    0 0 4px 0 rgb(0 0 0 / 0.25);                   /* active nav pill*/
+  --shadow-float:  0 35px 64px 0 rgb(0 0 0 / 0.08);               /* raised mockups */
+  --shadow-glow:   0 4px 200px 0 rgb(232 249 247 / 0.20);         /* ambient wash   */
+
+  /* ------------------------------------------------------------------
+     11. CONTAINERS
+     Desktop artboard is 1512 with an 80px gutter → 1352 content column.
+     Emits max-w-site / max-w-header / max-w-prose.
+     Note: Tailwind ships a built-in `max-w-prose` (65ch) that wins over
+     --container-prose, so use `max-w-[--container-prose]` or the
+     .container-prose class for the 1022px legal/FAQ column.
+     ------------------------------------------------------------------ */
+  --container-site:   84.5rem;   /* 1352px — every desktop section        */
+  --container-header: 89.5rem;   /* 1432px — header only (40px gutter)    */
+  --container-prose:  63.875rem; /* 1022px — FAQ + legal body column      */
+
+  /* ------------------------------------------------------------------
+     12. BREAKPOINTS
+     NOT defined in Figma — only 1512 (desktop) and 440/390 (mobile)
+     artboards exist. These are a proposal.
+     NEEDS_DECISION: confirm the tablet breakpoint with the designer, and
+     get a ~768px artboard for Properties, Blogs and Careers (their 3-col
+     grids have no documented 2-col state).
+     ------------------------------------------------------------------ */
+  --breakpoint-sm:  40rem;   /* 640  */
+  --breakpoint-md:  48rem;   /* 768  */
+  --breakpoint-lg:  64rem;   /* 1024 */
+  --breakpoint-xl:  80rem;   /* 1280 */
+  --breakpoint-2xl: 94.5rem; /* 1512 — the design artboard width */
+
+  /* ------------------------------------------------------------------
+     13. MOTION
+     No transition or easing values exist in the Figma file.
+     NEEDS_DECISION — these are conservative defaults.
+     --ease-out must live here: Tailwind ships its own --ease-out, and a
+     :root declaration would lose to it.
+     ------------------------------------------------------------------ */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Tokens with no Tailwind namespace — read by hand-written CSS only.
+   ========================================================================== */
+:root {
   /* ------------------------------------------------------------------
      7. SPACING
      A 2px-based scale. Every gap and padding measured in the file lands on
@@ -211,19 +340,6 @@
   --grid-gap-wide:     var(--space-16);  /* 32px, testimonial + step rows  */
 
   /* ------------------------------------------------------------------
-     8. RADIUS
-     ------------------------------------------------------------------ */
-  --radius-xs:   0.25rem;  /* 4  */
-  --radius-sm:   0.5rem;   /* 8  — tags, badges                           */
-  --radius-md:   0.625rem; /* 10 — inputs, header buttons                 */
-  --radius-lg:   0.75rem;  /* 12 — buttons, carousel controls             */
-  --radius-xl:   1rem;     /* 16 — step cards                             */
-  --radius-2xl:  1.25rem;  /* 20 — testimonial cards, CTA banner, panels  */
-  --radius-3xl:  1.5rem;   /* 24 — property / blog / job cards            */
-  --radius-pill: 62.4375rem; /* 999px — eyebrow pills, chips              */
-  --radius-full: 9999px;
-
-  /* ------------------------------------------------------------------
      9. BORDERS
      ------------------------------------------------------------------ */
   --border-width: 1px;      /* Figma "Stroke/Divider Width" = 1           */
@@ -232,30 +348,11 @@
   --border-card:     var(--border-width) solid var(--color-border-card);
 
   /* ------------------------------------------------------------------
-     10. SHADOWS
+     11b. LAYOUT — heights and reference widths
      ------------------------------------------------------------------ */
-  --shadow-xs:     0 1px 2px 0 rgb(10 13 18 / 0.05);              /* buttons        */
-  --shadow-card:   0 1px 3px 0 rgb(0 0 0 / 0.10),
-                   0 1px 2px -1px rgb(0 0 0 / 0.10);              /* media cards    */
-  --shadow-md:     0 2px 4px -2px rgb(10 13 18 / 0.06),
-                   0 4px 8px -2px rgb(10 13 18 / 0.10);
-  --shadow-header: 0 2px 4px 0 rgb(0 0 0 / 0.25);                 /* sticky header  */
-  --shadow-pill:   0 0 5px 0 rgb(0 0 0 / 0.40);                   /* eyebrow pill   */
-  --shadow-nav:    0 0 4px 0 rgb(0 0 0 / 0.25);                   /* active nav pill*/
-  --shadow-float:  0 35px 64px 0 rgb(0 0 0 / 0.08);               /* raised mockups */
-  --shadow-glow:   0 4px 200px 0 rgb(232 249 247 / 0.20);         /* ambient wash   */
-
-  /* ------------------------------------------------------------------
-     11. LAYOUT / CONTAINERS
-     Desktop artboard is 1512 with an 80px gutter → 1352 content column.
-     ------------------------------------------------------------------ */
-  --container-max:     84.5rem;  /* 1352px — every desktop section        */
-  --container-header:  89.5rem;  /* 1432px — header only (40px gutter)    */
-  --container-prose:   63.875rem;/* 1022px — FAQ + legal body column      */
-  --artboard-desktop:  94.5rem;  /* 1512px — reference only               */
-
   --header-height:        5rem;    /* 80px desktop                        */
   --header-height-mobile: 3.875rem;/* 62px, 440px frames                  */
+  --artboard-desktop:     94.5rem; /* 1512px — reference only             */
 
   /* Fixed card widths from the Figma grids — expressed as track counts in
      CSS, listed here for reference:
@@ -264,27 +361,10 @@
        testimonial  575px  → 3 across a 1789px overflow rail, 32px gap  */
 
   /* ------------------------------------------------------------------
-     12. BREAKPOINTS
-     NOT defined in Figma — only 1512 (desktop) and 440/390 (mobile)
-     artboards exist. These are a proposal.
-     NEEDS_DECISION: confirm the tablet breakpoint with the designer, and
-     get a ~768px artboard for Properties, Blogs and Careers (their 3-col
-     grids have no documented 2-col state).
-     ------------------------------------------------------------------ */
-  --bp-sm: 40rem;   /* 640  */
-  --bp-md: 48rem;   /* 768  */
-  --bp-lg: 64rem;   /* 1024 */
-  --bp-xl: 80rem;   /* 1280 */
-  --bp-2xl: 94.5rem;/* 1512 — the design artboard width */
-
-  /* ------------------------------------------------------------------
-     13. MOTION
-     No transition or easing values exist in the Figma file.
-     NEEDS_DECISION — these are conservative defaults.
+     13b. MOTION — durations (--ease-out lives in @theme above)
      ------------------------------------------------------------------ */
   --duration-fast: 150ms;
   --duration-base: 200ms;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* ------------------------------------------------------------------
      14. Z-INDEX
