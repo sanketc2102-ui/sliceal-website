@@ -7,11 +7,39 @@
  *   29373:156370  desktop, 1512x80 — transparent overlay, logo + nav + two buttons
  *   29403:160818  mobile open, 440x670 — gray-600 scrim + white 20px-radius panel
  *
- * The 440px arrangement is the unprefixed baseline; `xl:` only adds the desktop
- * row. The breakpoint is xl (1280px), not lg: the desktop row needs roughly
- * 1030px of content plus gaps, which does not fit inside 1024px minus gutters.
- * Tablets therefore get the mobile arrangement — see tokens.css §12, which
- * already flags the missing tablet artboard as NEEDS_DECISION.
+ * The 440px arrangement is the unprefixed baseline; the desktop row is only
+ * ever added on top of it.
+ *
+ * COLLAPSE POINT — measured from the design, not a generic Tailwind breakpoint.
+ * Widths taken from the desktop frame (1432px inner track at 40px gutters):
+ *
+ *   logo       241  (mark 34 + gap 16 + wordmark 191)
+ *   nav        553  (labels 397 + 5 x 8 padding + 4 gaps x 29)
+ *   actions    237  (Log In 92 + gap 12 + Start Investing 133)
+ *   ---------------
+ *   content   1031  at the designed 29px nav gap
+ *              987  with the gap tightened to 18px
+ *
+ * Those label widths are SF Pro metrics, and SF Pro is the WORST case: it is
+ * not licensed for the web (tokens.css §5), and the faces that actually render
+ * are narrower at 14px — Segoe UI measures x0.905 of the Figma widths, Arial
+ * x0.929. So the numbers above are an upper bound on every non-Apple machine.
+ *
+ * Budgeting a 40px minimum between groups (the header's own --gutter-header,
+ * comfortably clear of the 29px nav gap so the three groups still read apart):
+ *
+ *   full   1031 + 2x40 + 80 gutters = 1191  ->  >= 1200
+ *   tight   987 + 2x40 + 80 gutters = 1147  ->  >= 1150
+ *
+ * Hence:
+ *   >= 1200   full Figma spacing, 29px nav gap
+ *   >= 1150   desktop row, nav gap tightened to 18px
+ *    < 1150   mobile hamburger
+ *
+ * The arbitrary variants are deliberate: this threshold belongs to this
+ * component's content, not to the shared scale, so tokens.css and global.css
+ * are left untouched. Re-derive if a nav label is added, removed, or reworded —
+ * the labels are the dominant term.
  *
  * Fills BaseLayout's `header` slot and owns its own position and background,
  * as that layout's comment requires.
@@ -75,12 +103,12 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
 <header
   class:list={[
     "sticky top-0 z-50 border-b border-line bg-white",
-    "xl:border-b-0 xl:bg-transparent",
+    "min-[1150px]:border-b-0 min-[1150px]:bg-transparent",
     className,
   ]}
 >
   <div
-    class="container-header flex items-center justify-between gap-4 py-3 xl:h-20 xl:py-0"
+    class="container-header flex items-center justify-between gap-4 py-3 min-[1150px]:h-20 min-[1150px]:py-0"
   >
     <a
       href="/"
@@ -88,17 +116,18 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
       class="flex shrink-0 items-center gap-4"
     >
       <Mark
-        class="h-[35px] w-[26.44px] xl:h-[45px] xl:w-[34px]"
+        class="h-[35px] w-[26.44px] min-[1150px]:h-[45px] min-[1150px]:w-[34px]"
         aria-hidden="true"
       />
       <Wordmark
-        class="h-[25px] w-[136.43px] xl:h-[35px] xl:w-[191px]"
+        class="h-[25px] w-[136.43px] min-[1150px]:h-[35px] min-[1150px]:w-[191px]"
         aria-hidden="true"
       />
     </a>
 
-    <nav aria-label="Primary" class="hidden xl:block">
-      <ul class="flex items-center gap-[29px]">
+    <nav aria-label="Primary" class="hidden min-[1150px]:block">
+      {/* 18px is the tightened tier; the Figma 29px returns once there is room. */}
+      <ul class="flex items-center gap-[18px] min-[1200px]:gap-[29px]">
         {
           navLinks.map(({ label, href }) => (
             <li>
@@ -111,7 +140,7 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
       </ul>
     </nav>
 
-    <div class="hidden xl:flex xl:items-center xl:gap-3">
+    <div class="hidden min-[1150px]:flex min-[1150px]:items-center min-[1150px]:gap-3">
       <a href="/login" class:list={[btnSecondary, "w-[92px]"]}>
         <span class="p-1">Log In</span>
       </a>
@@ -125,7 +154,7 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
       [open] with no state to track. The 38x38 box is the drawn size; the
       ::before expands the hit area to the 44x44 minimum without changing it.
     */}
-    <details data-mobile-menu class="group xl:hidden">
+    <details data-mobile-menu class="group min-[1150px]:hidden">
       <summary
         class="relative flex size-[38px] shrink-0 cursor-pointer list-none items-center justify-center rounded-sm bg-gray-100 before:absolute before:-inset-[3px] before:content-[''] [&::-webkit-details-marker]:hidden"
       >
@@ -203,7 +232,8 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
    * Progressive enhancement only. <details> already opens and closes on its
    * own, so everything here is additive: Escape, click-outside, background
    * scroll lock, closing after navigation, and closing if the viewport grows
-   * past the xl breakpoint where the desktop row takes over.
+   * past the collapse point where the desktop row takes over. Keep the query
+   * below in sync with the min-[1180px] variants in the markup.
    */
   const menu = document.querySelector("[data-mobile-menu]");
 
@@ -237,7 +267,7 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
       link.addEventListener("click", close);
     });
 
-    const desktop = window.matchMedia("(width >= 80rem)");
+    const desktop = window.matchMedia("(width >= 1150px)");
     desktop.addEventListener("change", (event) => {
       if (event.matches) close();
     });
