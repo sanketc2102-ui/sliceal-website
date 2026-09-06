@@ -1,0 +1,80 @@
+---
+/**
+ * Section — the shared gutter + vertical-rhythm wrapper for landing-page
+ * sections. It is layout only; it never styles a section's contents.
+ *
+ * The Figma artboard is 1512 wide with section children at x=80, width=1352,
+ * which is exactly what `.container-site` produces. `.section-y` supplies the
+ * 48px mobile → 80px desktop padding-block. Both live in global.css.
+ *
+ * Props:
+ *   as      {string}  Element tag. Defaults to "section".
+ *   id      {string}  Optional anchor id.
+ *   surface {string}  "default" | "alt" | "dark". Background band colour.
+ *   bleed   {boolean} Full-bleed background with the 1352 column still inside.
+ *                     Used by the hero and the CTA banner.
+ *   flush   {boolean} Drop the vertical padding — for sections that set their
+ *                     own (the hero, and the 120px-top explainer section).
+ *   class   {string}  Extra classes on the outer element.
+ *   innerClass {string} Extra classes on the inner container.
+ */
+const {
+  as: Tag = "section",
+  id,
+  surface = "default",
+  bleed = false,
+  flush = false,
+  class: className = "",
+  innerClass = "",
+} = Astro.props;
+
+const surfaceClass = {
+  default: "",
+  alt: "surface-alt",
+  dark: "surface-dark",
+}[surface] ?? "";
+
+const outer = ["section-band", surfaceClass, flush ? "" : "section-y", className]
+  .filter(Boolean)
+  .join(" ");
+
+// `bleed` only changes where the background stops — the content column is the
+// same 1352px track either way.
+const inner = ["container-site", innerClass].filter(Boolean).join(" ");
+---
+
+<Tag id={id} class={outer} data-bleed={bleed ? "" : undefined}>
+  <slot name="bleed" />
+  <div class={inner}>
+    <slot />
+  </div>
+</Tag>
+
+<style>
+  .section-band {
+    position: relative;
+    width: 100%;
+  }
+
+  .surface-alt {
+    background-color: var(--color-surface-alt);
+  }
+
+  .surface-dark {
+    background-color: var(--color-surface-dark);
+    color: var(--color-text-inverse);
+  }
+
+  /* A full-bleed section paints edge to edge; anything passed into the `bleed`
+     slot sits behind the content column. */
+  .section-band[data-bleed] > :global(:first-child) {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .section-band[data-bleed] > .container-site {
+    position: relative;
+    z-index: 1;
+  }
+</style>

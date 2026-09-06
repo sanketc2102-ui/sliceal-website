@@ -1,0 +1,106 @@
+---
+/**
+ * BaseLayout — the page-level shell for every Sliceal page.
+ *
+ * Owns: the document, head/SEO, the single global stylesheet import, the skip
+ * link, and the header / main / footer arrangement.
+ *
+ * Does NOT own: any section's internal layout. Sections bring their own markup
+ * and use <Section> for the shared gutter and vertical rhythm.
+ *
+ * Props:
+ *   title       {string}  Page title. " — Sliceal" is appended automatically.
+ *   description {string}  Meta + OG/Twitter description.
+ *   ogImage     {string}  Optional. Root-relative or absolute OG image path.
+ *   bodyClass   {string}  Optional. Extra classes on <body>.
+ */
+import "../styles/global.css";
+
+const {
+  title,
+  description,
+  ogImage = "/images/og-default.png",
+  bodyClass = "",
+} = Astro.props;
+
+const SITE_NAME = "Sliceal";
+const fullTitle = title.endsWith(SITE_NAME) ? title : `${title} — ${SITE_NAME}`;
+
+// `site` is not set in astro.config.mjs yet, so fall back to the request URL
+// rather than emitting "undefined" into canonical and OG tags.
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const ogImageUrl = new URL(ogImage, canonical);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+
+    {/*
+      Inter is not self-hosted yet — see the FONTS note at the top of
+      global.css. Uncomment once a licensed woff2 lands in public/fonts/.
+
+      <link
+        rel="preload"
+        href="/fonts/InterVariable.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
+    */}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <slot name="head" />
+  </head>
+
+  <body class={bodyClass}>
+    <a href="#main" class="sr-only skip-link">Skip to content</a>
+
+    {/*
+      In Figma the 80px header frame is positioned at y=0, overlapping the
+      hero — so it is a sticky overlay, not an in-flow band. Header.astro owns
+      its own `position` and background; the shell only gives it a slot.
+    */}
+    <slot name="header" />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <slot name="footer" />
+  </body>
+</html>
+
+<style>
+  /* Layout-owned rules only — every value comes from a token. */
+  body {
+    display: flex;
+    min-height: 100dvh;
+    flex-direction: column;
+    /* No top offset: the header overlays the hero. A page whose first section
+       is not full-bleed should clear the header itself. */
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+</style>

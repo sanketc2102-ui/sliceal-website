@@ -8,6 +8,29 @@
 @import "tailwindcss";
 
 /* --------------------------------------------------------------------------
+   FONTS — OPEN DECISION, deliberately unresolved.
+
+   `--font-sans` (tokens.css) leads with SF Pro so Apple hardware renders the
+   face the design was drawn in, and falls back to Inter everywhere else.
+   Inter is NOT self-hosted: there is no @font-face here and public/fonts/ is
+   empty, so on Windows/Android the stack currently lands on system-ui.
+
+   To close this, drop a real Inter variable woff2 into public/fonts/ and add:
+
+     @font-face {
+       font-family: "Inter";
+       src: url("/fonts/InterVariable.woff2") format("woff2");
+       font-weight: 100 900;
+       font-style: normal;
+       font-display: swap;
+     }
+
+   then preload it in BaseLayout.astro (the <link rel="preload"> is already
+   written there, commented out). Until a licensed file is actually added, no
+   font asset is fabricated. See tokens.css §5 NEEDS_DECISION.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
    Tailwind v4 theme bridge.
    `@theme inline` tells Tailwind to generate utilities that point at the
    custom properties already declared in tokens.css, so there is exactly one
@@ -230,18 +253,40 @@
    component because they are pure layout and carry no markup of their own.
    -------------------------------------------------------------------------- */
 @layer components {
-  /* 1352px content column, 80px gutter on desktop / 16px on mobile */
-  .container-site {
+  /* Both container tracks share the same gutter ramp and both max out at the
+     1512px artboard width — they differ only in how much of it is gutter.
+     16px mobile → 40px at md → 80px at lg. Figma has no tablet artboard, so
+     the 40px middle step is ours, borrowed from the header's own gutter. */
+  .container-site,
+  .container-header {
     width: 100%;
-    max-width: calc(var(--container-max) + (var(--gutter) * 2));
     margin-inline: auto;
     padding-inline: var(--gutter-mobile);
   }
 
+  @media (width >= 48rem) {
+    .container-site,
+    .container-header {
+      padding-inline: var(--gutter-header); /* 40px */
+    }
+  }
+
+  /* 1352px content column at an 80px gutter — every landing-page section.
+     Verified against the Figma artboard: section children sit at x=80,
+     width=1352 on a 1512 frame. */
+  .container-site {
+    max-width: calc(var(--container-max) + (var(--gutter) * 2));
+  }
+
   @media (width >= 64rem) {
     .container-site {
-      padding-inline: var(--gutter);
+      padding-inline: var(--gutter); /* 80px */
     }
+  }
+
+  /* 1432px column at a 40px gutter — the site header only. */
+  .container-header {
+    max-width: calc(var(--container-header) + (var(--gutter-header) * 2));
   }
 
   /* Vertical rhythm for a page section: 48px mobile → 80px desktop */
@@ -266,5 +311,24 @@
     clip-path: inset(50%);
     white-space: nowrap;
     border: 0;
+  }
+
+  /* Skip link — hidden until keyboard focus, then pinned over the header. */
+  .skip-link:focus-visible {
+    position: fixed;
+    inset-block-start: var(--space-4);
+    inset-inline-start: var(--space-4);
+    z-index: var(--z-modal);
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: var(--space-6) var(--space-10);
+    overflow: visible;
+    clip-path: none;
+    background-color: var(--color-surface);
+    color: var(--color-text-brand);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    font-weight: var(--font-weight-medium);
   }
 }
