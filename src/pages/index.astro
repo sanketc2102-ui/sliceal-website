@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
 
 const title = "Own Your Slice of Real Estate";
 const description =
@@ -7,6 +8,8 @@ const description =
 ---
 
 <BaseLayout title={title} description={description}>
+  <Header slot="header" />
+
   {/*
     Landing-page sections get appended here, top to bottom, as they are built
     from Figma. Order confirmed against artboard "Website - v4 light"

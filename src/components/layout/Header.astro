@@ -1,0 +1,119 @@
+---
+/**
+ * Header — the site header and primary navigation.
+ *
+ * Built mobile-first from two Figma frames in wBTbnZ7DJMzQwgaGC5k0wK:
+ *   29879:64371  mobile, 440x62 — white band, hairline rule, logo + menu trigger
+ *   29373:156370 desktop, 1512x80 — transparent overlay, logo + nav + two buttons
+ *
+ * The 440px arrangement is the unprefixed baseline; `xl:` only adds the desktop
+ * row. The breakpoint is xl (1280px), not lg: the desktop row needs roughly
+ * 1030px of content plus gaps, which does not fit inside 1024px minus gutters.
+ * Tablets therefore get the mobile arrangement — see tokens.css §12, which
+ * already flags the missing tablet artboard as NEEDS_DECISION.
+ *
+ * Fills BaseLayout's `header` slot and owns its own position and background,
+ * as that layout's comment requires.
+ *
+ * The menu trigger is deliberately inert: it carries the ARIA wiring for a
+ * panel, but the panel's design has not landed yet, so no script ships.
+ *
+ * Props:
+ *   class {string} Optional. Extra classes on the <header> element.
+ */
+import Mark from "../../assets/logo-mark.svg";
+import Wordmark from "../../assets/logo-wordmark.svg";
+import MenuIcon from "../../assets/icons/menu.svg";
+
+const { class: className = "" } = Astro.props;
+
+const navLinks = [
+  { label: "How it Works", href: "#how-it-works" },
+  { label: "Properties", href: "#properties" },
+  { label: "Sell Your Property", href: "#sell-your-property" },
+  { label: "Why Sliceal", href: "#why-sliceal" },
+  { label: "FAQs", href: "#faqs" },
+];
+
+// 14px / 1.5 / weight 500 — the one type treatment every label in the header uses.
+const labelType = "text-sm font-medium leading-normal";
+---
+
+<header
+  class:list={[
+    "sticky top-0 z-50 border-b border-line bg-white",
+    "xl:border-b-0 xl:bg-transparent",
+    className,
+  ]}
+>
+  <div
+    class="container-header flex items-center justify-between gap-4 py-3 xl:h-20 xl:py-0"
+  >
+    <a
+      href="/"
+      aria-label="Sliceal — home"
+      class="flex shrink-0 items-center gap-4"
+    >
+      <Mark
+        class="h-[35px] w-[26.44px] xl:h-[45px] xl:w-[34px]"
+        aria-hidden="true"
+      />
+      <Wordmark
+        class="h-[25px] w-[136.43px] xl:h-[35px] xl:w-[191px]"
+        aria-hidden="true"
+      />
+    </a>
+
+    <nav aria-label="Primary" class="hidden xl:block">
+      <ul class="flex items-center gap-[29px]">
+        {
+          navLinks.map(({ label, href }) => (
+            <li>
+              <a href={href} class:list={["block p-1 text-ink", labelType]}>
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="hidden xl:flex xl:items-center xl:gap-3">
+      <a
+        href="/login"
+        class:list={[
+          "flex h-11 w-[92px] items-center justify-center",
+          "rounded-md border border-black text-ink",
+          labelType,
+        ]}
+      >
+        <span class="p-1">Log In</span>
+      </a>
+      <a
+        href="/start-investing"
+        class:list={[
+          "flex h-11 items-center justify-center py-2.5 pr-2.5 pl-4",
+          "rounded-md bg-brand-purple text-white",
+          labelType,
+        ]}
+      >
+        <span class="p-1">Start Investing</span>
+      </a>
+    </div>
+
+    {/*
+      38x38 is the drawn size; the ::before expands the hit area to the 44x44
+      minimum without changing the visual box.
+    */}
+    <button
+      type="button"
+      data-menu-trigger
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      class="relative flex size-[38px] shrink-0 items-center justify-center rounded-sm bg-gray-100 before:absolute before:-inset-[3px] before:content-[''] xl:hidden"
+    >
+      <MenuIcon class="size-5" aria-hidden="true" />
+    </button>
+  </div>
+</header>
