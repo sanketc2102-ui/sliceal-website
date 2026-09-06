@@ -1,10 +1,11 @@
 ---
 /**
- * Header — the site header and primary navigation.
+ * Header — the site header, primary navigation, and mobile menu panel.
  *
- * Built mobile-first from two Figma frames in wBTbnZ7DJMzQwgaGC5k0wK:
- *   29879:64371  mobile, 440x62 — white band, hairline rule, logo + menu trigger
- *   29373:156370 desktop, 1512x80 — transparent overlay, logo + nav + two buttons
+ * Built mobile-first from three Figma frames in wBTbnZ7DJMzQwgaGC5k0wK:
+ *   29879:64371   mobile closed, 440x62 — white band, hairline rule, logo + trigger
+ *   29373:156370  desktop, 1512x80 — transparent overlay, logo + nav + two buttons
+ *   29403:160818  mobile open, 440x670 — gray-600 scrim + white 20px-radius panel
  *
  * The 440px arrangement is the unprefixed baseline; `xl:` only adds the desktop
  * row. The breakpoint is xl (1280px), not lg: the desktop row needs roughly
@@ -15,8 +16,10 @@
  * Fills BaseLayout's `header` slot and owns its own position and background,
  * as that layout's comment requires.
  *
- * The menu trigger is deliberately inert: it carries the ARIA wiring for a
- * panel, but the panel's design has not landed yet, so no script ships.
+ * The menu is a <details> so it opens and closes with no JavaScript at all
+ * (CLAUDE.md: prefer HTML/CSS over JS). The script below is pure progressive
+ * enhancement — Escape, click-outside, scroll lock, and closing on navigation.
+ * With JS disabled the menu still opens, closes, and every link works.
  *
  * Props:
  *   class {string} Optional. Extra classes on the <header> element.
@@ -24,6 +27,15 @@
 import Mark from "../../assets/logo-mark.svg";
 import Wordmark from "../../assets/logo-wordmark.svg";
 import MenuIcon from "../../assets/icons/menu.svg";
+import CloseIcon from "../../assets/icons/menu/close.svg";
+import ChevronIcon from "../../assets/icons/menu/chevron-forward.svg";
+import IconHome from "../../assets/icons/menu/person_3.svg";
+import IconHowItWorks from "../../assets/icons/menu/account-balance.svg";
+import IconProperties from "../../assets/icons/menu/account-balance-wallet.svg";
+import IconSellProperty from "../../assets/icons/menu/bookmark.svg";
+import IconWhySliceal from "../../assets/icons/menu/badge.svg";
+import IconFaqs from "../../assets/icons/menu/cart.svg";
+import IconContact from "../../assets/icons/menu/settings.svg";
 
 const { class: className = "" } = Astro.props;
 
@@ -35,8 +47,29 @@ const navLinks = [
   { label: "FAQs", href: "#faqs" },
 ];
 
-// 14px / 1.5 / weight 500 — the one type treatment every label in the header uses.
+/*
+ * The mobile panel carries a second line under each label. The strings below
+ * are transcribed verbatim from frame 29403:160818 — they are placeholder copy
+ * left over from the banking template the panel was built on ("Your wallet
+ * details" under Properties, "View Past Orders" under FAQs) and do not describe
+ * what these links actually do. Reproduced as drawn; flagged for the designer.
+ * Icon sizes differ per glyph (18 / 22 / 17.32) and come from the frame.
+ */
+const menuItems = [
+  { label: "Home", detail: "View & edit your details", href: "/", Icon: IconHome, iconClass: "size-[18px]" },
+  { label: "How it Works", detail: "Manage linked accounts", href: "#how-it-works", Icon: IconHowItWorks, iconClass: "size-[18px]" },
+  { label: "Properties", detail: "Your wallet details", href: "#properties", Icon: IconProperties, iconClass: "size-[18px]" },
+  { label: "Sell Your Property", detail: "Your bookmarked listings", href: "#sell-your-property", Icon: IconSellProperty, iconClass: "size-[18px]" },
+  { label: "Why Sliceal", detail: "Complete Risk Profile", href: "#why-sliceal", Icon: IconWhySliceal, iconClass: "size-[22px]" },
+  { label: "FAQs", detail: "View Past Orders", href: "#faqs", Icon: IconFaqs, iconClass: "h-[16.67px] w-[17.32px]" },
+  { label: "Contact Us", detail: "Biometrics & preferences", href: "#contact", Icon: IconContact, iconClass: "size-[18px]" },
+];
+
+// 14px / 1.5 / weight 500 — the one type treatment every button and nav label uses.
 const labelType = "text-sm font-medium leading-normal";
+const btnBase = "flex h-11 items-center justify-center rounded-md";
+const btnSecondary = `${btnBase} border border-black text-ink ${labelType}`;
+const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${labelType}`;
 ---
 
 <header
@@ -79,41 +112,134 @@ const labelType = "text-sm font-medium leading-normal";
     </nav>
 
     <div class="hidden xl:flex xl:items-center xl:gap-3">
-      <a
-        href="/login"
-        class:list={[
-          "flex h-11 w-[92px] items-center justify-center",
-          "rounded-md border border-black text-ink",
-          labelType,
-        ]}
-      >
+      <a href="/login" class:list={[btnSecondary, "w-[92px]"]}>
         <span class="p-1">Log In</span>
       </a>
-      <a
-        href="/start-investing"
-        class:list={[
-          "flex h-11 items-center justify-center py-2.5 pr-2.5 pl-4",
-          "rounded-md bg-brand-purple text-white",
-          labelType,
-        ]}
-      >
+      <a href="/start-investing" class={btnPrimary}>
         <span class="p-1">Start Investing</span>
       </a>
     </div>
 
     {/*
-      38x38 is the drawn size; the ::before expands the hit area to the 44x44
-      minimum without changing the visual box.
+      <details> is the toggle. `group` lets the summary swap its own icon on
+      [open] with no state to track. The 38x38 box is the drawn size; the
+      ::before expands the hit area to the 44x44 minimum without changing it.
     */}
-    <button
-      type="button"
-      data-menu-trigger
-      aria-label="Open menu"
-      aria-expanded="false"
-      aria-controls="site-menu"
-      class="relative flex size-[38px] shrink-0 items-center justify-center rounded-sm bg-gray-100 before:absolute before:-inset-[3px] before:content-[''] xl:hidden"
-    >
-      <MenuIcon class="size-5" aria-hidden="true" />
-    </button>
+    <details data-mobile-menu class="group xl:hidden">
+      <summary
+        class="relative flex size-[38px] shrink-0 cursor-pointer list-none items-center justify-center rounded-sm bg-gray-100 before:absolute before:-inset-[3px] before:content-[''] [&::-webkit-details-marker]:hidden"
+      >
+        <span class="sr-only">Menu</span>
+        <MenuIcon class="size-5 group-open:hidden" aria-hidden="true" />
+        <CloseIcon class="hidden size-5 group-open:block" aria-hidden="true" />
+      </summary>
+
+      {/* Scrim: gray-600 (#535862), sampled from the frame, below the header. */}
+      <div
+        data-menu-scrim
+        class="fixed inset-x-0 top-[3.875rem] bottom-0 bg-gray-600"
+      >
+      </div>
+
+      <div
+        id="site-menu"
+        class="absolute inset-x-4 top-[calc(100%+2px)] max-h-[calc(100dvh-5.25rem)] overflow-y-auto rounded-2xl bg-white p-5"
+      >
+        <nav aria-label="Mobile">
+          <ul>
+            {
+              menuItems.map(({ label, detail, href, Icon, iconClass }) => (
+                <li>
+                  <a
+                    href={href}
+                    class="flex items-center justify-between gap-3 px-1.5 py-3"
+                  >
+                    <span class="flex items-center gap-3">
+                      <span class="flex size-[34px] shrink-0 items-center justify-center rounded-md bg-brand-600">
+                        <Icon class={iconClass} aria-hidden="true" />
+                      </span>
+                      <span class="flex flex-col gap-0.5">
+                        <span class="text-sm font-medium text-gray-900">
+                          {label}
+                        </span>
+                        <span class="text-xs text-ink-muted">{detail}</span>
+                      </span>
+                    </span>
+                    <ChevronIcon class="size-[18px] shrink-0" aria-hidden="true" />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <div class="mt-4 flex items-center justify-center gap-3">
+          <a href="/login" class:list={[btnSecondary, "flex-1"]}>
+            <span class="p-1">Log In</span>
+          </a>
+          <a href="/start-investing" class:list={[btnPrimary, "flex-1"]}>
+            <span class="p-1">Start Investing</span>
+          </a>
+        </div>
+
+        <div
+          class="mt-4 flex items-center justify-between gap-3 border-t border-line pt-[13px] pb-3 text-2xs"
+        >
+          <p class="text-ink-muted">© 2026 Sliceal. All rights reserved.</p>
+          <div class="flex flex-wrap justify-end gap-3 text-brand-purple">
+            <a href="/privacy-policy" class="link-underline">Privacy policy</a>
+            <a href="/terms-of-service" class="link-underline">
+              Terms of service
+            </a>
+          </div>
+        </div>
+      </div>
+    </details>
   </div>
 </header>
+
+<script>
+  /*
+   * Progressive enhancement only. <details> already opens and closes on its
+   * own, so everything here is additive: Escape, click-outside, background
+   * scroll lock, closing after navigation, and closing if the viewport grows
+   * past the xl breakpoint where the desktop row takes over.
+   */
+  const menu = document.querySelector("[data-mobile-menu]");
+
+  if (menu instanceof HTMLDetailsElement) {
+    const summary = menu.querySelector("summary");
+
+    const close = () => {
+      menu.open = false;
+    };
+
+    menu.addEventListener("toggle", () => {
+      // Set inline rather than via a class so no Tailwind utility has to be
+      // kept alive purely for a string that only ever appears in this script.
+      document.body.style.overflow = menu.open ? "hidden" : "";
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menu.open) {
+        close();
+        summary?.focus();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (menu.open && event.target instanceof Node && !menu.contains(event.target)) {
+        close();
+      }
+    });
+
+    menu.querySelectorAll("#site-menu a").forEach((link) => {
+      link.addEventListener("click", close);
+    });
+
+    const desktop = window.matchMedia("(width >= 80rem)");
+    desktop.addEventListener("change", (event) => {
+      if (event.matches) close();
+    });
+  }
+</script>
