@@ -1,0 +1,295 @@
+/* ==========================================================================
+   Sliceal — Design Tokens
+   Source: Figma file wBTbnZ7DJMzQwgaGC5k0wK, page "↳Website"
+   All values are read from the Figma variables collection or measured from
+   the page frames. Values marked NEEDS_DECISION are not defined in Figma.
+
+   This file is the single source of truth. Tailwind maps onto these vars
+   (see global.css @theme block), so never hard-code a value in a component.
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------
+     1. COLOR — BRAND
+     Figma has three near-identical purples in active use. They are kept
+     separate here so the mismatch stays visible, but --color-brand is the
+     one to build with: it is the fill of every primary button and every
+     footer column heading.
+     NEEDS_DECISION: collapse brand-primary / brand-purple / brand-500 to
+     one value with the designer before build starts.
+     ------------------------------------------------------------------ */
+  --color-brand-25:  #eeefff;  /* Figma Brand/25  — active nav pill border */
+  --color-brand-50:  #dee2ff;  /* Figma Brand/50 == Brand/100 (duplicate)  */
+  --color-brand-400: #7e79ff;  /* Figma Brand/400 — 2px accent borders     */
+  --color-brand-500: #6655f5;  /* Figma Brand/500                          */
+  --color-brand-600: #5c3cf0;  /* Figma Brand/600 — PRIMARY ACTION         */
+  --color-brand-800: #4228ac;  /* Figma Brand/800                          */
+  --color-brand-950: #0f082f;  /* Figma Brand/950 — dark section bg        */
+  --color-brand-purple: #6755fb; /* Figma Main/Brand Purple — 407 uses,
+                                    mostly illustration + app mockups      */
+  --color-brand-purple-light: #887afb; /* observed 50x, not a Figma var    */
+
+  --color-brand: var(--color-brand-600);
+  --color-brand-hover: var(--color-brand-800); /* NEEDS_DECISION: no hover
+                                                  state exists in Figma    */
+
+  /* ------------------------------------------------------------------
+     2. COLOR — NEUTRALS
+     Figma ships an Untitled-UI grey ramp. Cards additionally use Tailwind
+     slate values the designer pulled in by hand — both are listed.
+     ------------------------------------------------------------------ */
+  --color-black:      #000000; /* Figma B&W/Black — default body text      */
+  --color-charcoal:   #0a0a0a; /* Figma B&W/Charcoal Black                 */
+  --color-white:      #ffffff; /* Figma B&W/Pure White                     */
+  --color-off-white:  #fafafa; /* Figma B&W/Off White — alt section bg     */
+
+  --color-gray-25:  #fdfdfd;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e9eaeb;   /* hairline borders, dividers, FAQ rows     */
+  --color-gray-300: #d5d7da;   /* secondary button border                  */
+  --color-gray-400: #a4a7ae;
+  --color-gray-500: #717680;   /* muted body copy                          */
+  --color-gray-600: #535862;   /* secondary body copy                      */
+  --color-gray-700: #414651;   /* secondary button label                   */
+  --color-gray-800: #252b37;   /* carousel control border                  */
+  --color-gray-900: #181d27;   /* dark headings                            */
+
+  /* Slate values used on card surfaces (not in the Figma variable set).
+     NEEDS_DECISION: merge slate-200 into gray-200 — they differ by ~2% and
+     no design intent separates them. */
+  --color-slate-50:  #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;  /* card border on every media card          */
+  --color-slate-400: #90a1b9;  /* card meta labels                         */
+  --color-slate-950: #0f172b;
+
+  /* ------------------------------------------------------------------
+     3. COLOR — SEMANTIC / ACCENT
+     ------------------------------------------------------------------ */
+  --color-success-50:  #ecfdf3;
+  --color-success-500: #12b76a;
+  --color-success-600: #039855;
+  --color-success-700: #027a48;
+
+  --color-warning-400: #fdb022;
+  --color-warning-600: #dc6803;
+
+  --color-error-500: #f04438;
+  --color-error-600: #d92d20;
+
+  --color-info-50:  #eff8ff;
+  --color-info-400: #53b1fd;
+  --color-info-700: #175cd3;
+
+  --color-yellow-50:  #fefce8;  /* tag / badge background                  */
+  --color-yellow-200: #fff389;
+  --color-yellow-600: #cb8e03;
+  --color-yellow-800: #86500d;
+
+  --color-mint-500: #00ebab;    /* observed 99x — data-viz + app mockups   */
+  --color-mint-600: #00bc89;    /* Figma Neo Mint/600                      */
+  --color-mint-700: #00d499;
+
+  /* ------------------------------------------------------------------
+     4. COLOR — SEMANTIC ROLES
+     Build against these, not the raw ramp.
+     ------------------------------------------------------------------ */
+  --color-text:          var(--color-black);
+  --color-text-secondary:var(--color-gray-600);
+  --color-text-muted:    var(--color-gray-500);
+  --color-text-inverse:  var(--color-white);
+  --color-text-brand:    var(--color-brand-600);
+
+  --color-surface:       var(--color-white);
+  --color-surface-alt:   var(--color-off-white);   /* alternating sections */
+  --color-surface-sunken:var(--color-gray-100);
+  --color-surface-dark:  var(--color-brand-950);
+
+  --color-border:        var(--color-gray-200);    /* hairlines, dividers  */
+  --color-border-card:   var(--color-slate-200);   /* media card outline   */
+  --color-border-strong: var(--color-gray-300);
+  --color-border-brand:  var(--color-brand-600);
+
+  /* ------------------------------------------------------------------
+     5. TYPOGRAPHY — FAMILIES
+     The design is drawn in SF Pro (1379 text nodes), with Inter (72) on a
+     handful of legacy components and Roboto (12) on the footer copyright.
+     SF Pro is not licensed for web distribution, so the stack below renders
+     SF Pro natively on Apple hardware and falls back to Inter elsewhere —
+     the closest available match.
+     NEEDS_DECISION: self-host Inter (recommended) vs. buy an SF Pro
+     alternative. Roboto and Poppins occurrences should be normalised away.
+     ------------------------------------------------------------------ */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+               "Inter", "Inter var", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: var(--font-sans);
+
+  /* ------------------------------------------------------------------
+     6. TYPOGRAPHY — SCALE
+     Sizes / line-heights / tracking taken verbatim from the Figma text
+     style variables. Display styles carry -2% tracking; text styles carry 0.
+     ------------------------------------------------------------------ */
+  --text-display-2xl: 4.5rem;   /* 72px */
+  --text-display-xl:  3.75rem;  /* 60px */
+  --text-display-lg:  3rem;     /* 48px */
+  --text-display-md:  2.25rem;  /* 36px */
+  --text-display-sm:  1.875rem; /* 30px */
+  --text-display-xs:  1.5rem;   /* 24px */
+  --text-xl:          1.25rem;  /* 20px */
+  --text-lg:          1.125rem; /* 18px */
+  --text-md:          1rem;     /* 16px — Figma "Text Sizes/Text Regular" */
+  --text-sm:          0.875rem; /* 14px — Figma "Text Sizes/Text Small"   */
+  --text-xs:          0.75rem;  /* 12px — Figma "Text Sizes/Text Tiny"    */
+  --text-2xs:         0.625rem; /* 10px — Figma "Text xss"                */
+
+  /* Mobile display sizes (measured on the 440px frames) */
+  --text-display-lg-mobile: 2rem;     /* 32px, replaces 48px              */
+  --text-display-md-mobile: 1.875rem; /* 30px, replaces 36px              */
+  --text-display-sm-mobile: 1.625rem; /* 26px, replaces 30px              */
+  --text-display-xs-mobile: 1.375rem; /* 22px, replaces 24px              */
+
+  --leading-display-2xl: 5.625rem; /* 90px */
+  --leading-display-xl:  4.5rem;   /* 72px */
+  --leading-display-lg:  3.75rem;  /* 60px */
+  --leading-display-md:  2.75rem;  /* 44px */
+  --leading-display-sm:  2.375rem; /* 38px */
+  --leading-display-xs:  2rem;     /* 32px */
+  --leading-xl:          1.875rem; /* 30px */
+  --leading-lg:          1.75rem;  /* 28px */
+  --leading-md:          1.5rem;   /* 24px */
+  --leading-sm:          1.25rem;  /* 20px */
+  --leading-xs:          1.125rem; /* 18px */
+  --leading-normal:      1.5;      /* the ratio used by most body copy    */
+
+  --tracking-tight: -0.02em; /* -2%, all Display styles                   */
+  --tracking-normal: 0em;
+
+  /* SF Pro's variable weights (510 / 590) map to these CSS weights. */
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* ------------------------------------------------------------------
+     7. SPACING
+     A 2px-based scale. Every gap and padding measured in the file lands on
+     one of these steps; 50px is the only true outlier and it is kept
+     because the page-content stack uses it 30 times.
+     ------------------------------------------------------------------ */
+  --space-0:   0;
+  --space-1:   0.125rem; /* 2  */
+  --space-2:   0.25rem;  /* 4  */
+  --space-3:   0.375rem; /* 6  */
+  --space-4:   0.5rem;   /* 8  */
+  --space-5:   0.625rem; /* 10 */
+  --space-6:   0.75rem;  /* 12 */
+  --space-7:   0.875rem; /* 14 */
+  --space-8:   1rem;     /* 16 */
+  --space-9:   1.125rem; /* 18 */
+  --space-10:  1.25rem;  /* 20 */
+  --space-12:  1.5rem;   /* 24 */
+  --space-14:  1.75rem;  /* 28 */
+  --space-16:  2rem;     /* 32 */
+  --space-20:  2.5rem;   /* 40 */
+  --space-24:  3rem;     /* 48 */
+  --space-25:  3.125rem; /* 50 */
+  --space-32:  4rem;     /* 64 */
+  --space-40:  5rem;     /* 80 */
+  --space-60:  7.5rem;   /* 120 */
+
+  /* Semantic spacing — use these in section and card markup. */
+  --section-py:        var(--space-40);  /* 80px, desktop                  */
+  --section-py-mobile: var(--space-24);  /* 48px, 440px frames             */
+  --section-py-lg:     var(--space-60);  /* 120px, feature sections        */
+  --gutter:            var(--space-40);  /* 80px page gutter, desktop      */
+  --gutter-mobile:     var(--space-8);   /* 16px page gutter, mobile       */
+  --gutter-header:     var(--space-20);  /* 40px, header only              */
+  --stack-gap:         var(--space-12);  /* 24px, header→body inside blocks*/
+  --content-gap:       var(--space-25);  /* 50px, between blocks in a page */
+  --card-padding:      var(--space-10);  /* 20px, media card body          */
+  --grid-gap:          1.375rem;         /* 22px, 3/4-col card grids       */
+  --grid-gap-wide:     var(--space-16);  /* 32px, testimonial + step rows  */
+
+  /* ------------------------------------------------------------------
+     8. RADIUS
+     ------------------------------------------------------------------ */
+  --radius-xs:   0.25rem;  /* 4  */
+  --radius-sm:   0.5rem;   /* 8  — tags, badges                           */
+  --radius-md:   0.625rem; /* 10 — inputs, header buttons                 */
+  --radius-lg:   0.75rem;  /* 12 — buttons, carousel controls             */
+  --radius-xl:   1rem;     /* 16 — step cards                             */
+  --radius-2xl:  1.25rem;  /* 20 — testimonial cards, CTA banner, panels  */
+  --radius-3xl:  1.5rem;   /* 24 — property / blog / job cards            */
+  --radius-pill: 62.4375rem; /* 999px — eyebrow pills, chips              */
+  --radius-full: 9999px;
+
+  /* ------------------------------------------------------------------
+     9. BORDERS
+     ------------------------------------------------------------------ */
+  --border-width: 1px;      /* Figma "Stroke/Divider Width" = 1           */
+  --border-width-thick: 2px;
+  --border-hairline: var(--border-width) solid var(--color-border);
+  --border-card:     var(--border-width) solid var(--color-border-card);
+
+  /* ------------------------------------------------------------------
+     10. SHADOWS
+     ------------------------------------------------------------------ */
+  --shadow-xs:     0 1px 2px 0 rgb(10 13 18 / 0.05);              /* buttons        */
+  --shadow-card:   0 1px 3px 0 rgb(0 0 0 / 0.10),
+                   0 1px 2px -1px rgb(0 0 0 / 0.10);              /* media cards    */
+  --shadow-md:     0 2px 4px -2px rgb(10 13 18 / 0.06),
+                   0 4px 8px -2px rgb(10 13 18 / 0.10);
+  --shadow-header: 0 2px 4px 0 rgb(0 0 0 / 0.25);                 /* sticky header  */
+  --shadow-pill:   0 0 5px 0 rgb(0 0 0 / 0.40);                   /* eyebrow pill   */
+  --shadow-nav:    0 0 4px 0 rgb(0 0 0 / 0.25);                   /* active nav pill*/
+  --shadow-float:  0 35px 64px 0 rgb(0 0 0 / 0.08);               /* raised mockups */
+  --shadow-glow:   0 4px 200px 0 rgb(232 249 247 / 0.20);         /* ambient wash   */
+
+  /* ------------------------------------------------------------------
+     11. LAYOUT / CONTAINERS
+     Desktop artboard is 1512 with an 80px gutter → 1352 content column.
+     ------------------------------------------------------------------ */
+  --container-max:     84.5rem;  /* 1352px — every desktop section        */
+  --container-header:  89.5rem;  /* 1432px — header only (40px gutter)    */
+  --container-prose:   63.875rem;/* 1022px — FAQ + legal body column      */
+  --artboard-desktop:  94.5rem;  /* 1512px — reference only               */
+
+  --header-height:        5rem;    /* 80px desktop                        */
+  --header-height-mobile: 3.875rem;/* 62px, 440px frames                  */
+
+  /* Fixed card widths from the Figma grids — expressed as track counts in
+     CSS, listed here for reference:
+       media card   436px  → 3 cols in 1352 with 22px gap
+       step card    314px  → 4 cols in 1352 with 32px gap
+       testimonial  575px  → 3 across a 1789px overflow rail, 32px gap  */
+
+  /* ------------------------------------------------------------------
+     12. BREAKPOINTS
+     NOT defined in Figma — only 1512 (desktop) and 440/390 (mobile)
+     artboards exist. These are a proposal.
+     NEEDS_DECISION: confirm the tablet breakpoint with the designer, and
+     get a ~768px artboard for Properties, Blogs and Careers (their 3-col
+     grids have no documented 2-col state).
+     ------------------------------------------------------------------ */
+  --bp-sm: 40rem;   /* 640  */
+  --bp-md: 48rem;   /* 768  */
+  --bp-lg: 64rem;   /* 1024 */
+  --bp-xl: 80rem;   /* 1280 */
+  --bp-2xl: 94.5rem;/* 1512 — the design artboard width */
+
+  /* ------------------------------------------------------------------
+     13. MOTION
+     No transition or easing values exist in the Figma file.
+     NEEDS_DECISION — these are conservative defaults.
+     ------------------------------------------------------------------ */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ------------------------------------------------------------------
+     14. Z-INDEX
+     ------------------------------------------------------------------ */
+  --z-header: 50;
+  --z-drawer: 60;
+  --z-modal: 70;
+}
