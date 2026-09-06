@@ -100,10 +100,33 @@ const btnSecondary = `${btnBase} border border-black text-ink ${labelType}`;
 const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${labelType}`;
 ---
 
+{/*
+  SCROLLED STATE. The desktop frame draws the header transparent over the hero,
+  which only works while the page is at rest at the top — scroll and the hero
+  photo runs straight under the nav. `data-scrolled` (set by the script below)
+  turns the bar into a surface again so it stays legible over whatever passes
+  beneath it. Below 1150px the bar is already opaque at every scroll position,
+  so only the lift is added there.
+
+  The fill is plain white, the same surface the mobile bar already uses, and
+  it now reads as a bar rather than a mistake because the hero underneath is
+  #fafafa (see the ground note at the top of Hero.astro — the hero was on pure
+  white, so the bar's bottom edge stepped against the photo's plate on the
+  right half only and matched the page on the left, which is what made the
+  colour look wrong). White on #fafafa is the slight, even step both Figma
+  frames draw.
+
+  shadow-xs, not shadow-header: the header token is 0.25 alpha, which lands a
+  dark 4px smudge on the field below (measured rgb(241 243 244) against 248) —
+  a second edge, right where the first one was just removed.
+*/}
 <header
+  data-site-header
   class:list={[
     "sticky top-0 z-50 border-b border-line bg-white",
     "min-[1150px]:border-b-0 min-[1150px]:bg-transparent",
+    "transition-[background-color,border-color,box-shadow] duration-200",
+    "data-scrolled:shadow-xs min-[1150px]:data-scrolled:border-b min-[1150px]:data-scrolled:bg-white",
     className,
   ]}
 >
@@ -235,6 +258,36 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
    * past the collapse point where the desktop row takes over. Keep the query
    * below in sync with the min-[1180px] variants in the markup.
    */
+  /*
+   * Scrolled state. There is no HTML/CSS way to do this that is safe across
+   * browsers yet (`animation-timeline: scroll()` is Chromium + Safari only), so
+   * it is a passive scroll listener rAF-throttled to one class write per frame.
+   * Pure enhancement: with JS off the header keeps the transparent desktop
+   * treatment the Figma frame draws.
+   */
+  const header = document.querySelector("[data-site-header]");
+
+  if (header) {
+    let queued = false;
+
+    const syncScrolled = () => {
+      queued = false;
+      header.toggleAttribute("data-scrolled", window.scrollY > 8);
+    };
+
+    syncScrolled();
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(syncScrolled);
+      },
+      { passive: true },
+    );
+  }
+
   const menu = document.querySelector("[data-mobile-menu]");
 
   if (menu instanceof HTMLDetailsElement) {

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/layout/Header.astro";
+import Hero from "../components/sections/Hero.astro";
 
 const title = "Own Your Slice of Real Estate";
 const description =
@@ -15,7 +16,7 @@ const description =
     from Figma. Order confirmed against artboard "Website - v4 light"
     (29373:154734):
 
-      1  Hero                          29373:154735
+      1  Hero                          29373:154735   [built]
       2  Why we exist / 3 pillars      29373:154929
       3  One apartment, 1.3M slices    29373:154962
       4  How Sliceal Works             29373:154997
@@ -32,5 +33,5 @@ const description =
 
     Header 29373:156370 and Footer 29373:156428 fill the layout's named slots.
   */}
-  <h1>Sliceal</h1>
+  <Hero />
 </BaseLayout>
