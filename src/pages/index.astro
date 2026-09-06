@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/layout/Header.astro";
 import Hero from "../components/sections/Hero.astro";
+import WhyWeExist from "../components/sections/WhyWeExist.astro";
+import SlicealEngine from "../components/sections/SlicealEngine.astro";
 
 const title = "Own Your Slice of Real Estate";
 const description =
@@ -17,8 +19,8 @@ const description =
     (29373:154734):
 
       1  Hero                          29373:154735   [built]
-      2  Why we exist / 3 pillars      29373:154929
-      3  One apartment, 1.3M slices    29373:154962
+      2  Why we exist / 3 pillars      29373:154929   [built]
+      3  One apartment, 1.3M slices    29373:154962   [built]
       4  How Sliceal Works             29373:154997
       5  At a Glance (stats)           29373:155050
       6  How you make money            29373:155119
@@ -34,4 +36,6 @@ const description =
     Header 29373:156370 and Footer 29373:156428 fill the layout's named slots.
   */}
   <Hero />
+  <WhyWeExist />
+  <SlicealEngine />
 </BaseLayout>

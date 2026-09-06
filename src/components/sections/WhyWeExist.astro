@@ -1,0 +1,80 @@
+---
+
+import Section from "../layout/Section.astro";
+
+const pillars = [
+  {
+    number: "01",
+    title: "Capital",
+    body: "Start building your property portfolio with AED 2,000 in under four minutes.",
+  },
+  {
+    number: "02",
+    title: "Liquidity",
+    body: "Property tokens clear on our secondary marketplace in seconds after lock-in.",
+  },
+  {
+    number: "03",
+    title: "Visibility",
+    body: "Ownership records, monthly rental yields, and appraisals sit on-ledger—timestamped and 100% auditable.",
+  },
+];
+
+const eyebrow =
+  "rounded-pill border border-line px-3 py-1.5 text-xs/[0.875rem] text-brand-purple lg:text-sm/5 lg:font-semibold lg:shadow-pill";
+
+// 768-1023 has no artboard. Without this the stacked layout runs 85-115ch wide.
+// Never bites at 440; superseded by the 358px measure at lg.
+const measureCap = "md:max-w-[30rem]";
+---
+
+<Section surface="alt" innerClass="flex flex-col gap-6 lg:gap-7">
+  <header
+    class="flex flex-col items-center gap-4 text-center lg:items-start lg:gap-8 lg:text-left"
+  >
+    <p class={eyebrow}>THE OLD DAY</p>
+
+    <h2
+      class:list={[
+        measureCap,
+        "text-display-sm-mobile leading-[2.125rem] font-normal tracking-normal text-gray-900 lg:max-w-[40.9375rem] lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight lg:text-ink",
+      ]}
+    >
+      Real estate was illiquid, opaque and closed.{" "}
+      <span class="text-brand-purple">We unlocked it.</span>
+    </h2>
+  </header>
+
+  {/* global.css already draws hr as the 1px #e9eaeb hairline; lg adds the 2px. */}
+  <hr class="lg:border-t-2" />
+
+  {/*
+    <ol> puts the ordinal in the accessibility tree, so the drawn 01/02/03 is
+    aria-hidden rather than read twice. role="list" because VoiceOver drops
+    list semantics once list-style is none.
+  */}
+  <ol role="list" class="grid list-none gap-6 lg:grid-cols-3 lg:gap-5.5">
+    {
+      pillars.map(({ number, title, body }) => (
+        <li class="flex flex-col gap-3 lg:gap-4.5">
+          <span class="text-sm font-semibold text-ink-muted" aria-hidden="true">
+            {number}
+          </span>
+          <div class="flex flex-col gap-3">
+            <h3 class="text-xl font-semibold tracking-normal text-gray-900 lg:text-display-xs lg:font-medium lg:text-brand-950">
+              {title}
+            </h3>
+            <p
+              class:list={[
+                measureCap,
+                "text-sm text-ink-secondary lg:max-w-[22.375rem] lg:text-[0.9375rem] lg:leading-normal",
+              ]}
+            >
+              {body}
+            </p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Section>
