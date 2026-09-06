@@ -1,5 +1,8 @@
 # Project Guidelines
 
+Keep your replies extremely concise and focus on conveying the key information. No unnecessary fluff, no long code
+snippets.
+
 ## Tech Stack
 
 - **Astro** — all pages, layouts, and components are `.astro` files

@@ -1,17 +1,33 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 
+const title = "Own Your Slice of Real Estate";
+const description =
+  "Start investing in Dubai real estate from just AED 2,000. Earn your share of the rent every month, and sell whenever you want on a regulated secondary market — all powered by DLD-verified properties tokenized on the XRP Ledger.";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title={title} description={description}>
+  {/*
+    Landing-page sections get appended here, top to bottom, as they are built
+    from Figma. Order confirmed against artboard "Website - v4 light"
+    (29373:154734):
+
+      1  Hero                          29373:154735
+      2  Why we exist / 3 pillars      29373:154929
+      3  One apartment, 1.3M slices    29373:154962
+      4  How Sliceal Works             29373:154997
+      5  At a Glance (stats)           29373:155050
+      6  How you make money            29373:155119
+      7  Four barriers removed         29373:155762
+      8  Timeline                      29373:155828
+      9  Featured opportunities        29373:155888
+     10  Customer stories              29373:156225
+     11  Statement band                29373:156266
+     12  Our Partners                  29373:156272
+     13  FAQ                           29373:156307
+     14  App CTA banner                29373:156396
+
+    Header 29373:156370 and Footer 29373:156428 fill the layout's named slots.
+  */}
+  <h1>Sliceal</h1>
+</BaseLayout>
