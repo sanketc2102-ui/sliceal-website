@@ -1,0 +1,203 @@
+---
+import { Image } from "astro:assets";
+import Section from "../layout/Section.astro";
+import logoWordmark from "../../assets/logo-wordmark.svg";
+
+const stats = [
+  {
+    value: "AED 50M",
+    accent: "+",
+    description: "Total property value tokenised",
+  },
+  {
+    value: "30",
+    accent: "+",
+    description: "Dubai properties listed & funded",
+    highlight: true,
+  },
+  {
+    value: "12–18",
+    accent: "%",
+    suffix: " p.a.",
+    description: "Average Capital Appreciation",
+  },
+  {
+    value: "6–10",
+    accent: "%",
+    suffix: " p.a.",
+    description: "Average rental yield distributed",
+  },
+  {
+    value: "AED 2,000",
+    description: "minimum investment",
+  },
+  {
+    value: "3,200",
+    accent: "+",
+    description: "Token holders & growing",
+  },
+  {
+    value: "24/7",
+    description: "Secondary market trading",
+  },
+  {
+    value: "100",
+    accent: "%",
+    description: "VARA-licensed & DLD-registered",
+  },
+];
+---
+
+<Section
+  surface="alt"
+  class="shadow-[var(--shadow-glow)]"
+  innerClass="flex flex-col items-center"
+>
+  <div class="w-full flex flex-col items-center gap-6 lg:gap-16">
+
+    <!-- Heading -->
+    <header class="w-full flex flex-col items-center gap-4 lg:gap-6">
+
+      <div class="flex items-center justify-center gap-3 lg:gap-6">
+        <Image
+          src={logoWordmark}
+          alt="Sliceal"
+          class="h-6 w-auto lg:h-10"
+        />
+
+        <h2
+          class="
+            text-2xl
+            font-normal
+            leading-8
+            text-black
+
+            lg:w-72
+            lg:text-5xl
+            lg:leading-[4.875rem]
+            lg:font-medium
+          "
+        >
+          at a Glance
+        </h2>
+      </div>
+
+      <p
+        class="
+          w-full
+          text-center
+          text-sm
+          font-normal
+          leading-5
+          text-gray-500
+
+          lg:w-[830px]
+          lg:text-xl
+          lg:leading-8
+        "
+      >
+        Dubai real estate from AED 2,000 — regulated, verified, and open to
+        everyone.
+      </p>
+
+    </header>
+
+    <!-- Statistics -->
+    <div
+      class="
+        grid
+        w-full
+        grid-cols-2
+        gap-2
+
+        lg:w-[1056px]
+        lg:grid-cols-4
+        lg:grid-rows-2
+        lg:gap-0
+      "
+    >
+      {
+        stats.map((stat, index) => (
+          <div
+            class:list={[
+        `
+          flex
+          min-h-24
+          flex-col
+          items-center
+          justify-center
+          gap-2
+          rounded-xl
+          border
+          border-gray-200
+          bg-white
+          p-4
+          text-center
+
+          lg:h-[180px]
+          lg:min-h-0
+          lg:rounded-none
+          lg:border-0
+          lg:bg-transparent
+          lg:p-0
+          lg:gap-4
+        `,
+        stat.highlight && "lg:bg-brand-25",
+        index % 4 !== 3 && "lg:border-r lg:border-gray-200",
+        index < 4 && "lg:border-b lg:border-gray-200",
+      ]}
+          >
+            <div
+              class="
+                text-xl
+                font-bold
+                leading-6
+                text-gray-900
+
+                lg:text-4xl
+                lg:font-normal
+                lg:leading-10
+              "
+            >
+              <span>{stat.value}</span>
+
+              {
+                stat.accent && (
+                  <span class="text-brand-purple">
+                    {stat.accent}
+                  </span>
+                )
+              }
+
+              {
+                stat.suffix && (
+                  <span class="text-black">
+                    {stat.suffix}
+                  </span>
+                )
+              }
+            </div>
+
+            <p
+              class="
+                max-w-[180px]
+                text-center
+                text-xs
+                font-normal
+                leading-4
+                text-gray-500
+
+                lg:max-w-[176px]
+                lg:text-lg
+                lg:leading-7
+              "
+            >
+              {stat.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+  </div>
+</Section>
