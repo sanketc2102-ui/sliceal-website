@@ -1,5 +1,8 @@
 ---
-import PropertyCarousel from "./PropertyCarousel.astro";
+// import PropertyCarousel from "./PropertyCarousel.astro";
+import  Carousel  from "../ui/Carousel.astro";
+import Section  from "../layout/Section.astro";
+import PropertyCard  from "./PropertyCard.astro";
 
 import burjAlArab from "../../assets/properties-imgs/burj-al-arab.png"
 import jbr from '../../assets/properties-imgs/jbr.png';
@@ -70,9 +73,13 @@ const properties = [
 ];
 ---
 
-<section
+<!-- <section
   class="overflow-hidden px-4 py-12 shadow-[0px_4px_200px_0px_rgba(232,249,247,0.20)] md:px-20 md:py-20"
->
+> -->
+
+<Section surface="alt" flush class="py-12 xl:py-30">
+
+
   <div class="flex flex-col gap-6 md:gap-10">
     <!-- Header -->
     <div class="flex flex-col gap-4 md:gap-6">
@@ -105,6 +112,16 @@ const properties = [
     </div>
 
     <!-- Cards -->
-    <PropertyCarousel properties={properties} />
+    <!-- <PropertyCarousel properties={properties} /> -->
+     <!-- <Carousel  properties={properties}/> -->
+      <Carousel showDots>
+  {
+    properties.map((property) => (
+      <PropertyCard property={property} />
+    ))
+  }
+</Carousel>
+      
   </div>
-</section>
+<!-- </section> -->
+ </Section>

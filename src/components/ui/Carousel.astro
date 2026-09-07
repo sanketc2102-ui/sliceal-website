@@ -1,0 +1,442 @@
+---
+const {
+  showArrows = false,
+  controlsInHeader = false,
+  showDots = false,
+} = Astro.props;
+---
+
+<div class="carousel">
+  <!-- Header -->
+  {
+    controlsInHeader && (
+      <div class="carousel__header mb-6 flex items-center justify-between">
+        <slot name="header" />
+
+        {
+          showArrows && (
+            <div class="carousel__controls flex shrink-0 items-center gap-4">
+              <button
+                type="button"
+                aria-label="Previous slide"
+                data-carousel-prev
+                class="flex size-10 items-center justify-center rounded-xl border border-gray-800 bg-white disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="size-6"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M15 6l-6 6 6 6"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                aria-label="Next slide"
+                data-carousel-next
+                class="flex size-10 items-center justify-center rounded-xl border border-gray-800 bg-white disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="size-6"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M9 6l6 6-6 6"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          )
+        }
+      </div>
+    )
+  }
+
+  <!-- Viewport -->
+  <div
+    class="carousel__viewport overflow-hidden"
+    data-carousel-viewport
+  >
+    <!-- Track -->
+    <div
+      class="carousel__track flex"
+      data-carousel-track
+    >
+      <slot />
+    </div>
+  </div>
+
+  <!-- Controls below carousel -->
+  {
+    showArrows && !controlsInHeader && (
+      <div class="carousel__controls mt-6 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          aria-label="Previous slide"
+          data-carousel-prev
+          class="flex size-10 items-center justify-center rounded-xl border border-gray-800 bg-white disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            class="size-6"
+            aria-hidden="true"
+          >
+            <path
+              d="M15 6l-6 6 6 6"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          aria-label="Next slide"
+          data-carousel-next
+          class="flex size-10 items-center justify-center rounded-xl border border-gray-800 bg-white disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            class="size-6"
+            aria-hidden="true"
+          >
+            <path
+              d="M9 6l6 6-6 6"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    )
+  }
+
+  <!-- Dots -->
+  {
+    showDots && (
+      <div
+        class="mt-6 flex items-center justify-center gap-1"
+        data-carousel-dots
+      />
+    )
+  }
+</div>
+
+<script>
+  const initCarousels = () => {
+    document.querySelectorAll('.carousel').forEach((carousel) => {
+      if (carousel.dataset.carouselInitialized === 'true') return;
+
+      carousel.dataset.carouselInitialized = 'true';
+
+      const viewport = carousel.querySelector(
+        '[data-carousel-viewport]',
+      );
+
+      const track = carousel.querySelector(
+        '[data-carousel-track]',
+      );
+
+      const prevButtons = Array.from(
+        carousel.querySelectorAll('[data-carousel-prev]'),
+      );
+
+      const nextButtons = Array.from(
+        carousel.querySelectorAll('[data-carousel-next]'),
+      );
+
+      const dotsContainer = carousel.querySelector(
+        '[data-carousel-dots]',
+      );
+
+      if (!viewport || !track) return;
+
+      const slides = Array.from(track.children);
+
+      if (!slides.length) return;
+
+      let currentIndex = 0;
+      let dragging = false;
+      let startX = 0;
+      let startTranslate = 0;
+
+      const getGap = () => {
+        const styles = getComputedStyle(track);
+
+        return parseFloat(
+          styles.columnGap || styles.gap || '0',
+        ) || 0;
+      };
+
+      const getSlideStep = () => {
+        const slide = slides[0];
+
+        if (!slide) return 0;
+
+        return slide.getBoundingClientRect().width + getGap();
+      };
+
+      const getMaxTranslate = () => {
+        return Math.max(
+          0,
+          track.scrollWidth - viewport.clientWidth,
+        );
+      };
+
+      const getTranslateForIndex = (index) => {
+        const step = getSlideStep();
+        const requestedTranslate = step * index;
+
+        return Math.min(
+          requestedTranslate,
+          getMaxTranslate(),
+        );
+      };
+
+      const updateButtons = () => {
+        const currentTranslate = getTranslateForIndex(currentIndex);
+        const maxTranslate = getMaxTranslate();
+
+        const atStart = currentTranslate <= 1;
+        const atEnd =
+          currentTranslate >= maxTranslate - 1;
+
+        prevButtons.forEach((button) => {
+          button.disabled = atStart;
+        });
+
+        nextButtons.forEach((button) => {
+          button.disabled = atEnd;
+        });
+      };
+
+      const updateDots = () => {
+        if (!dotsContainer) return;
+
+        const dots = Array.from(
+          dotsContainer.querySelectorAll('[data-carousel-dot]'),
+        );
+
+        dots.forEach((dot, index) => {
+          const active = index === currentIndex;
+
+          dot.setAttribute(
+            'aria-current',
+            active ? 'true' : 'false',
+          );
+
+          dot.classList.toggle('w-8', active);
+          dot.classList.toggle('bg-indigo-500', active);
+
+          dot.classList.toggle('w-5', !active);
+          dot.classList.toggle('bg-gray-200', !active);
+        });
+      };
+
+      const update = (index) => {
+        const maxIndex = Math.max(
+          0,
+          slides.length - 1,
+        );
+
+        currentIndex = Math.max(
+          0,
+          Math.min(index, maxIndex),
+        );
+
+        const translate = getTranslateForIndex(
+          currentIndex,
+        );
+
+        track.style.transform =
+          `translateX(-${translate}px)`;
+
+        updateButtons();
+        updateDots();
+      };
+
+      const createDots = () => {
+        if (!dotsContainer) return;
+
+        dotsContainer.innerHTML = '';
+
+        slides.forEach((_, index) => {
+          const dot = document.createElement('button');
+
+          dot.type = 'button';
+          dot.setAttribute(
+            'aria-label',
+            `Go to slide ${index + 1}`,
+          );
+          dot.setAttribute(
+            'aria-current',
+            index === 0 ? 'true' : 'false',
+          );
+          dot.dataset.carouselDot = String(index);
+
+          dot.className =
+            index === 0
+              ? 'h-2.5 w-8 rounded-md bg-indigo-500 transition-all duration-200'
+              : 'h-2.5 w-5 rounded-md bg-gray-200 transition-all duration-200';
+
+          dot.addEventListener('click', () => {
+            update(index);
+          });
+
+          dotsContainer.appendChild(dot);
+        });
+      };
+
+      prevButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          update(currentIndex - 1);
+        });
+      });
+
+      nextButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          update(currentIndex + 1);
+        });
+      });
+
+      viewport.addEventListener(
+        'pointerdown',
+        (event) => {
+          dragging = true;
+          startX = event.clientX;
+
+          startTranslate =
+            getTranslateForIndex(currentIndex);
+
+          track.style.transition = 'none';
+
+          viewport.setPointerCapture(
+            event.pointerId,
+          );
+        },
+      );
+
+      viewport.addEventListener(
+        'pointermove',
+        (event) => {
+          if (!dragging) return;
+
+          const delta =
+            event.clientX - startX;
+
+          let translate =
+            startTranslate - delta;
+
+          const maxTranslate =
+            getMaxTranslate();
+
+          translate = Math.max(
+            0,
+            Math.min(
+              translate,
+              maxTranslate,
+            ),
+          );
+
+          track.style.transform =
+            `translateX(-${translate}px)`;
+        },
+      );
+
+      const finishDrag = (event) => {
+        if (!dragging) return;
+
+        dragging = false;
+
+        track.style.transition = '';
+
+        const delta =
+          event.clientX - startX;
+
+        if (Math.abs(delta) > 50) {
+          update(
+            delta < 0
+              ? currentIndex + 1
+              : currentIndex - 1,
+          );
+        } else {
+          update(currentIndex);
+        }
+      };
+
+      viewport.addEventListener(
+        'pointerup',
+        finishDrag,
+      );
+
+      viewport.addEventListener(
+        'pointercancel',
+        () => {
+          if (!dragging) return;
+
+          dragging = false;
+
+          track.style.transition = '';
+
+          update(currentIndex);
+        },
+      );
+
+      createDots();
+      update(0);
+
+      window.addEventListener('resize', () => {
+        update(currentIndex);
+      });
+    });
+  };
+
+  initCarousels();
+</script>
+
+<style>
+  .carousel__track {
+    gap: 1.5rem;
+    transition: transform 300ms ease;
+    will-change: transform;
+  }
+
+  .carousel__viewport {
+    overflow: hidden;
+  }
+
+  .carousel__track > * {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 767px) {
+    .carousel__viewport {
+      margin-inline: -1rem;
+      padding-inline: 1rem;
+    }
+
+    .carousel__track {
+      touch-action: pan-y;
+    }
+  }
+</style>

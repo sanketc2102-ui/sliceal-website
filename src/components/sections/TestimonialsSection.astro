@@ -1,0 +1,93 @@
+---
+import Carousel from '../ui/Carousel.astro';
+import { Image } from 'astro:assets';
+import Section from '../layout/Section.astro';
+
+import priyaMenon from '../../assets/testimonials/home-testimonials-alli.jpg.png';
+import anjaliSingh from '../../assets/testimonials/home-testimonials-allii.jpg.png';
+import juniyaKhan from '../../assets/testimonials/home-testimonials-alliii.jpg.png';
+
+const testimonials = [
+  {
+    quote:
+      "“I live in London and I'd never buy a Dubai flat I couldn't visit. Seeing the deed number and the appraiser's report changed that. I started with AED 5,000 in a JVC apartment.”",
+    name: 'Priya Menon',
+    role: 'Software Engineer · London, UK',
+    image: priyaMenon,
+  },
+  {
+    quote:
+      "“My worry wasn't buying in, it was getting out. I sold a third of my slices in about a minute when I needed the cash. That's what convinced me to put more in.”",
+    name: 'Anjali Singh',
+    role: 'Operations Manager · Bangalore, India',
+    image: anjaliSingh,
+  },
+  {
+    quote:
+      "“I wanted Dubai property exposure without a down payment I couldn't justify. AED 2,000 got me started, and the rent arrives on the 5th like a salary.”",
+    name: 'Juniya Khan',
+    role: 'Teacher · Dubai, UAE',
+    image: juniyaKhan,
+  },
+];
+---
+
+<Section surface="alt" flush class="py-12 xl:py-30">
+  <div class="flex flex-col gap-6 md:gap-14">
+
+    <!-- Heading + desktop carousel controls -->
+    <div class="flex items-center justify-between">
+      <h2
+        class="text-2xl font-normal text-black md:text-5xl md:leading-[60px]"
+      >
+        Investors who trust us
+      </h2>
+    </div>
+
+    <!-- Testimonials carousel -->
+    <Carousel showArrows >
+      {
+        testimonials.map((testimonial) => (
+          <article
+            class="box-border flex w-[calc(100vw-2rem)] shrink-0 flex-col gap-4 rounded-2xl border border-gray-200 bg-neutral-50 p-5 md:w-[575px] md:gap-2.5 md:rounded-[20px] md:bg-transparent md:p-10"
+          >
+            <div
+              class="flex min-h-[224px] flex-col justify-between gap-6 md:min-h-[224px]"
+            >
+              <!-- Quote -->
+              <p
+                class="text-sm font-normal leading-5 text-gray-900 md:max-w-[489px] md:text-lg md:leading-7 md:text-black"
+              >
+                {testimonial.quote}
+              </p>
+
+              <!-- Investor -->
+              <div class="flex items-center gap-3 md:gap-4">
+                <Image
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  class="size-11 shrink-0 rounded-full object-cover md:size-16"
+                  loading="lazy"
+                />
+
+                <div class="flex min-w-0 flex-1 flex-col gap-0.5 md:gap-1.5">
+                  <p
+                    class="text-sm font-normal leading-5 text-gray-900 md:text-lg md:leading-6 md:text-black"
+                  >
+                    {testimonial.name}
+                  </p>
+
+                  <p
+                    class="text-xs font-normal leading-4 text-gray-500 md:text-base md:leading-5 md:text-gray-600"
+                  >
+                    {testimonial.role}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </Carousel>
+  </div>
+</Section>
