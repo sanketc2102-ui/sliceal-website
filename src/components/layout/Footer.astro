@@ -1,0 +1,692 @@
+---
+import Section from "./Section.astro";
+import { Image } from "astro:assets";
+
+import logoMark from "../../assets/logo-mark.svg";
+import logoWordmark from "../../assets/logo-wordmark.svg";
+
+// social icons
+import fb from "../../assets/socials/Facebook.svg";
+import insta from "../../assets/socials/Instagram.svg";
+import linkedIn from "../../assets/socials/LinkedIn.svg";
+import x from "../../assets/socials/X.svg";
+import yt from "../../assets/socials/Youtube.svg";
+
+const startTodayLinks = [
+  { label: "Buy tokens", href: "#" },
+  { label: "Sell property", href: "#" },
+  { label: "How it works", href: "#" },
+  { label: "FAQs", href: "#" },
+  { label: "Team", href: "#" },
+];
+
+const platformLinks = [
+  { label: "Security & Compliances", href: "#" },
+  { label: "Blog", href: "#" },
+  { label: "Career", href: "#" },
+  { label: "Contact Us", href: "#" },
+];
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: "#",
+    icon: fb,
+  },
+  {
+    label: "Instagram",
+    href: "#",
+    icon: insta,
+  },
+  {
+    label: "X",
+    href: "#",
+    icon: x,
+  },
+  {
+    label: "LinkedIn",
+    href: "#",
+    icon: linkedIn,
+  },
+  {
+    label: "YouTube",
+    href: "#",
+    icon: yt,
+  },
+];
+---
+
+<footer class="border-t border-gray-200 bg-white">
+  <Section
+    flush
+    class="!py-0"
+    innerClass="!max-w-none !px-0"
+  >
+    <div
+      class="
+        mx-auto
+        w-full
+        max-w-[1512px]
+        px-4
+        py-12
+
+        lg:px-20
+        lg:py-20
+      "
+    >
+      <!-- =======================================================
+           MAIN FOOTER CONTENT
+           ======================================================= -->
+
+      <div
+        class="
+          flex
+          flex-col
+          gap-12
+
+          lg:gap-12
+        "
+      >
+        <!-- =====================================================
+             TOP ROW
+             ===================================================== -->
+
+        <div
+          class="
+            flex
+            flex-col
+            gap-12
+
+            lg:flex-row
+            lg:items-start
+            lg:justify-between
+          "
+        >
+          <!-- =================================================
+               NEWSLETTER
+               ================================================= -->
+
+       <div
+  class="flex w-full flex-col gap-6 lg:w-[500px] lg:shrink-0"
+>
+  <!-- Logo -->
+
+  <a
+    href="/"
+    aria-label="Sliceal home"
+    class="
+      flex
+      w-44
+      items-center
+      self-center
+
+      lg:self-start
+    "
+  >
+    <Image
+      src={logoMark}
+      alt=""
+      width={32}
+      height={32}
+      class="h-8 w-auto"
+    />
+
+    <Image
+      src={logoWordmark}
+      alt="Sliceal"
+      width={112}
+      height={32}
+      class="ml-2 h-8 w-auto"
+    />
+  </a>
+
+  <!-- Newsletter description -->
+
+  <p
+    class="
+      text-base
+      font-normal
+      leading-6
+      text-black
+    "
+  >
+    Get updates on new properties and market insights
+  </p>
+
+  <!-- Newsletter form -->
+
+  <form
+    class="flex flex-col gap-3"
+    data-newsletter-form
+  >
+    <div
+      class="
+        flex
+        flex-col
+        gap-3
+
+        sm:flex-row
+      "
+    >
+      <label class="sr-only" for="footer-email">
+        Your email
+      </label>
+
+      <input
+        id="footer-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="Your email"
+        required
+        class="
+          min-w-0
+          flex-1
+          rounded-[10px]
+          border
+          border-black
+          px-3
+          py-3
+          text-base
+          leading-6
+          text-black
+          outline-none
+          placeholder:text-gray-600
+          focus:ring-2
+          focus:ring-brand-400
+        "
+      />
+
+      <button
+        type="submit"
+        class="
+          rounded-[10px]
+          bg-black
+          px-6
+          py-3
+          text-base
+          leading-6
+          text-white
+          transition-opacity
+          hover:opacity-80
+          focus:outline-none
+          focus:ring-2
+          focus:ring-brand-400
+          focus:ring-offset-2
+        "
+      >
+        Subscribe
+      </button>
+    </div>
+
+    <p
+      class="hidden text-xs leading-4 text-gray-600"
+      data-newsletter-message
+      aria-live="polite"
+    ></p>
+  </form>
+</div>
+
+
+          <!-- =================================================
+               DESKTOP NAVIGATION
+               ================================================= -->
+
+          <div
+            class="
+              hidden
+
+              lg:flex
+              lg:w-[678px]
+              lg:gap-10
+            "
+          >
+            <!-- Start Today -->
+
+            <nav
+              aria-label="Start Today"
+              class="flex-1"
+            >
+              <h2
+                class="
+                  mb-2
+                  text-base
+                  font-normal
+                  leading-6
+                  text-brand-500
+                "
+              >
+                Start Today
+              </h2>
+
+              <ul class="flex flex-col">
+                {
+                  startTodayLinks.map((link) => (
+                    <li>
+                      <a
+                        href={link.href}
+                        class="
+                          block
+                          py-2
+                          text-sm
+                          font-normal
+                          leading-5
+                          text-black
+                          transition-opacity
+                          hover:opacity-60
+                        "
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+
+
+            <!-- Platform -->
+
+            <nav
+              aria-label="Platform"
+              class="flex-1"
+            >
+              <h2
+                class="
+                  mb-2
+                  text-base
+                  font-normal
+                  leading-6
+                  text-brand-500
+                "
+              >
+                Platform
+              </h2>
+
+              <ul class="flex flex-col">
+                {
+                  platformLinks.map((link) => (
+                    <li>
+                      <a
+                        href={link.href}
+                        class="
+                          block
+                          py-2
+                          text-sm
+                          font-normal
+                          leading-5
+                          text-black
+                          transition-opacity
+                          hover:opacity-60
+                        "
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+
+
+            <!-- Social -->
+
+            <nav
+              aria-label="Social"
+              class="flex-1"
+            >
+              <h2
+                class="
+                  mb-2
+                  text-base
+                  font-normal
+                  leading-6
+                  text-brand-500
+                "
+              >
+                Social
+              </h2>
+
+              <ul class="flex flex-col">
+                {
+                  socialLinks.map((social) => (
+                    <li>
+                      <a
+                        href={social.href}
+                        aria-label={social.label}
+                        class="
+                          flex
+                          items-center
+                          gap-3
+                          py-2
+                          text-sm
+                          font-normal
+                          leading-5
+                          text-black
+                          transition-opacity
+                          hover:opacity-60
+                        "
+                      >
+                        <Image
+                          src={social.icon}
+                          alt=""
+                          width={24}
+                          height={24}
+                          class="h-6 w-6 shrink-0"
+                        />
+
+                        <span>{social.label}</span>
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+
+        <!-- =====================================================
+             MOBILE NAVIGATION + SOCIAL
+             ===================================================== -->
+
+        <div
+          class="
+            flex
+            flex-col
+            gap-8
+
+            lg:hidden
+          "
+        >
+          <!-- Divider -->
+
+          <div class="h-px w-full bg-black/10"></div>
+
+
+          <!-- Two columns -->
+
+          <div class="grid grid-cols-2 gap-8">
+            <!-- Start Today -->
+
+            <nav aria-label="Start Today">
+              <h2
+                class="
+                  mb-3
+                  text-sm
+                  font-normal
+                  leading-5
+                  text-brand-500
+                "
+              >
+                Start Today
+              </h2>
+
+              <ul class="flex flex-col gap-2">
+                {
+                  startTodayLinks
+                    .filter((link) => link.label !== "Team")
+                    .map((link) => (
+                      <li>
+                        <a
+                          href={link.href}
+                          class="
+                            block
+                            text-xs
+                            font-normal
+                            leading-4
+                            text-black
+                          "
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))
+                }
+              </ul>
+            </nav>
+
+
+            <!-- Platform -->
+
+            <nav aria-label="Platform">
+              <h2
+                class="
+                  mb-3
+                  text-sm
+                  font-normal
+                  leading-5
+                  text-brand-500
+                "
+              >
+                Platform
+              </h2>
+
+              <ul class="flex flex-col gap-2">
+                {
+                  platformLinks.map((link) => (
+                    <li>
+                      <a
+                        href={link.href}
+                        class="
+                          block
+                          text-xs
+                          font-normal
+                          leading-4
+                          text-black
+                        "
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+          </div>
+
+
+          <!-- Social links -->
+
+          <div class="flex flex-col items-center gap-3">
+            <h2
+              class="
+                text-sm
+                font-normal
+                leading-5
+                text-brand-500
+              "
+            >
+              Social Links
+            </h2>
+
+            <div class="flex items-center gap-4">
+              {
+                socialLinks.map((social) => (
+                  <a
+                    href={social.href}
+                    aria-label={social.label}
+                    class="
+                      flex
+                      h-6
+                      w-6
+                      items-center
+                      justify-center
+                      transition-opacity
+                      hover:opacity-60
+                    "
+                  >
+                    <Image
+                      src={social.icon}
+                      alt=""
+                      width={24}
+                      height={24}
+                      class="h-6 w-6"
+                    />
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+
+        <!-- =====================================================
+             LARGE SLICEAL WORDMARK
+             ===================================================== -->
+
+        <div
+          class="
+            relative
+            flex
+            h-[112px]
+            w-full
+            items-center
+            justify-center
+            overflow-hidden
+
+            lg:h-[224px]
+          "
+          aria-hidden="true"
+        >
+          <!-- Large faded wordmark -->
+
+          <Image
+            src={logoWordmark}
+            alt=""
+            class="
+              absolute
+              left-1/2
+              w-[calc(100%+24px)]
+              max-w-none
+              -translate-x-1/2
+              opacity-[0.08]
+
+              lg:w-[90%]
+            "
+          />
+
+          <!--
+            Small teal accent from the Sliceal wordmark is already
+            contained in the actual logo asset.
+          -->
+        </div>
+
+
+        <!-- =====================================================
+             BOTTOM DIVIDER + LEGAL
+             ===================================================== -->
+
+        <div class="flex flex-col gap-8">
+          <div class="h-px w-full bg-gray-600"></div>
+
+          <div
+            class="
+              flex
+              flex-col
+              gap-4
+
+              lg:flex-row
+              lg:items-start
+              lg:justify-between
+            "
+          >
+            <!-- Copyright -->
+
+            <p
+              class="
+                text-sm
+                font-normal
+                leading-5
+                text-black
+              "
+            >
+              © 2026 Sliceal. All rights reserved.
+            </p>
+
+
+            <!-- Legal links -->
+
+            <nav aria-label="Legal">
+              <ul
+                class="
+                  flex
+                  flex-wrap
+                  gap-x-6
+                  gap-y-2
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="
+                      text-sm
+                      font-normal
+                      leading-5
+                      text-brand-500
+                      underline
+                      underline-offset-2
+                    "
+                  >
+                    Privacy policy
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class="
+                      text-sm
+                      font-normal
+                      leading-5
+                      text-brand-500
+                      underline
+                      underline-offset-2
+                    "
+                  >
+                    Terms of service
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class="
+                      text-sm
+                      font-normal
+                      leading-5
+                      text-brand-500
+                      underline
+                      underline-offset-2
+                    "
+                  >
+                    Cookie settings
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+</footer>
+
+<script>
+  const newsletterForm = document.querySelector("[data-newsletter-form]");
+  const newsletterMessage = document.querySelector(
+    "[data-newsletter-message]",
+  );
+
+  if (newsletterForm && newsletterMessage) {
+    newsletterForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      newsletterMessage.textContent =
+        "Thanks! You're subscribed to Sliceal updates.";
+      newsletterMessage.classList.remove("hidden");
+
+      newsletterForm.reset();
+    });
+  }
+</script>
