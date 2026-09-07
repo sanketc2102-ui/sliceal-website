@@ -1,0 +1,260 @@
+---
+import Section from "../layout/Section.astro";
+import { faqCategories } from "../../data/faq.js";
+
+const {
+  title = "Frequently asked.",
+  eyebrow = "QUESTIONS",
+  preview = false,
+} = Astro.props;
+
+const visibleCategories = preview
+  ? faqCategories
+  : faqCategories;
+
+const initialCategory = visibleCategories[0];
+---
+
+<Section
+  surface="default"
+  class="border-y border-gray-200"
+  innerClass="!py-0"
+>
+  <div
+    class="
+      flex
+      w-full
+      flex-col
+      gap-8
+      py-12
+
+      lg:gap-10
+      lg:py-12
+    "
+    data-faq
+  >
+    <!-- Heading -->
+    <header class="flex flex-col gap-4">
+      <span
+        class="
+          w-fit
+          rounded-full
+          border
+          border-gray-200
+          px-2
+          py-1
+          text-[10px]
+          font-medium
+          uppercase
+          leading-3
+          tracking-wide
+          text-brand-purple
+        "
+      >
+        {eyebrow}
+      </span>
+
+      <h2
+        class="
+          text-3xl
+          font-medium
+          leading-9
+          tracking-tight
+          text-black
+
+          lg:text-4xl
+          lg:leading-[3rem]
+        "
+      >
+        {title}
+      </h2>
+    </header>
+
+    <!-- FAQ layout -->
+    <div
+      class="
+        flex
+        flex-col
+        gap-8
+
+        lg:grid
+        lg:grid-cols-[280px_minmax(0,1fr)]
+        lg:gap-10
+      "
+    >
+      <!-- Categories -->
+      <nav
+        aria-label="FAQ categories"
+        class="
+          flex
+          gap-2
+          overflow-x-auto
+          pb-1
+
+          lg:flex-col
+          lg:gap-0
+          lg:overflow-visible
+          lg:pb-0
+        "
+        data-faq-tabs
+      >
+        {
+          visibleCategories.map((category, index) => (
+            <button
+              type="button"
+              class:list={[
+                "min-w-fit rounded-md px-3 py-2 text-left text-sm font-medium transition-colors",
+                "lg:w-full lg:rounded-md lg:px-3 lg:py-2.5",
+                index === 0
+                  ? "bg-brand-600 text-white"
+                  : "text-gray-900 hover:bg-gray-100",
+              ]}
+              data-faq-tab={category.id}
+              aria-selected={index === 0 ? "true" : "false"}
+            >
+              {category.label}
+            </button>
+          ))
+        }
+      </nav>
+
+      <!-- Questions -->
+      <div class="min-w-0">
+        {
+          visibleCategories.map((category, categoryIndex) => (
+            <div
+              class:list={[
+                "flex flex-col",
+                categoryIndex === 0 ? "block" : "hidden",
+              ]}
+              data-faq-panel={category.id}
+            >
+              {
+                category.questions.map((item) => (
+                  <details
+                    class="
+                      group
+                      border-b
+                      border-gray-200
+                      first:border-t
+                    "
+                    open={categoryIndex === 0 && item === category.questions[0]}
+                  >
+                    <summary
+                      class="
+                        flex
+                        min-h-16
+                        cursor-pointer
+                        list-none
+                        items-center
+                        justify-between
+                        gap-6
+                        py-4
+                        text-sm
+                        font-medium
+                        leading-5
+                        text-gray-900
+
+                        lg:min-h-20
+                        lg:py-5
+                        lg:text-base
+                      "
+                    >
+                      <span>{item.question}</span>
+
+                      <span
+                        class="
+                          relative
+                          flex
+                          size-5
+                          shrink-0
+                          items-center
+                          justify-center
+                        "
+                        aria-hidden="true"
+                      >
+                        <span
+                          class="
+                            absolute
+                            h-px
+                            w-3
+                            bg-gray-700
+                          "
+                        ></span>
+
+                        <span
+                          class="
+                            absolute
+                            h-3
+                            w-px
+                            bg-gray-700
+                            transition-transform
+                            group-open:rotate-90
+                          "
+                        ></span>
+                      </span>
+                    </summary>
+
+                    <div
+                      class="
+                        max-w-3xl
+                        pb-5
+                        pr-8
+                        text-xs
+                        leading-5
+                        text-gray-500
+
+                        lg:text-sm
+                        lg:leading-5
+                      "
+                    >
+                      {item.answer}
+                    </div>
+                  </details>
+                ))
+              }
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Section>
+
+<script>
+  const initialiseFaq = () => {
+    document.querySelectorAll("[data-faq]").forEach((faq) => {
+      const tabs = faq.querySelectorAll("[data-faq-tab]");
+      const panels = faq.querySelectorAll("[data-faq-panel]");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const category = tab.dataset.faqTab;
+
+          tabs.forEach((item) => {
+            const active = item === tab;
+
+            item.setAttribute("aria-selected", String(active));
+
+            item.classList.toggle("bg-brand-600", active);
+            item.classList.toggle("text-white", active);
+
+            item.classList.toggle("text-gray-900", !active);
+            item.classList.toggle("hover:bg-gray-100", !active);
+          });
+
+          panels.forEach((panel) => {
+            panel.classList.toggle(
+              "hidden",
+              panel.dataset.faqPanel !== category,
+            );
+          });
+        });
+      });
+    });
+  };
+
+  initialiseFaq();
+
+  document.addEventListener("astro:page-load", initialiseFaq);
+</script>
