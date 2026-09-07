@@ -1,0 +1,294 @@
+---
+import Section from "../layout/Section.astro";
+
+const barriers = [
+  {
+    title: "Own from AED 2,000 with Title Deed from DLD",
+    body: "No mortgage, no deposit, no agent fees. Start with AED 2,000 and own a legally backed share of a premium Dubai property. Plus, you can easily check the title deed and verify your ownership through the REST app.",
+    icon: "grid",
+  },
+  {
+    title: "Regulated end-to-end",
+    body: "VARA-licensed and DLD-registered. Every property is registered on its own DLD title deed, valued by accredited appraisers, and legally ring-fenced from the platform.",
+    icon: "shield",
+  },
+  {
+    title: "Liquidity built in",
+    body: "After a 3-month lock-in, list your tokens on the Sliceal marketplace 24/7. Sell a portion or exit entirely — no waiting for a buyer to close.",
+    icon: "chart",
+  },
+  {
+    title: "Rent on schedule, valuation on record",
+    body: "Rental income lands on the 5th of every month, benchmarked against the DLD rental index. Your property is revalued every 3–6 months by an accredited agency, so appreciation is measured against official reports, not our estimates.",
+    icon: "clock",
+  },
+];
+
+const eyebrow =
+  "rounded-[40px] border border-gray-200 px-3 py-1.5 text-xs leading-[0.875rem] text-brand-purple lg:text-sm lg:leading-5";
+---
+
+<Section surface="alt" class="shadow-[var(--shadow-glow)]">
+  <div class="flex w-full flex-col gap-6 lg:gap-7">
+
+    <!-- Heading -->
+    <header class="flex flex-col items-center gap-4 lg:items-start lg:gap-6">
+      <p class={eyebrow}>BUILD FOR THE MODERN INVESTOR</p>
+
+      <h2
+        class="
+          text-center
+          text-2xl
+          font-normal
+          leading-8
+          text-black
+
+          lg:text-left
+          lg:text-5xl
+          lg:leading-[3.75rem]
+        "
+      >
+        Four barriers, removed.
+      </h2>
+    </header>
+
+    <hr class="border-black/10 lg:border-gray-200 lg:border-t-2" />
+
+    <!-- Barrier cards -->
+    <div
+      class="
+        grid
+        grid-cols-1
+        gap-2
+
+        lg:grid-cols-4
+        lg:gap-0
+      "
+    >
+      {
+        barriers.map((barrier, index) => (
+          <article
+            class:list={[
+              `
+                flex
+                min-h-[122px]
+                flex-col
+                items-start
+                gap-3
+                rounded-2xl
+                border
+                border-gray-200
+                bg-neutral-50
+                p-5
+
+                lg:h-80
+                lg:min-h-0
+                lg:rounded-none
+                lg:bg-white
+                lg:p-7
+                lg:gap-4
+              `,
+              index === 0 && "lg:rounded-tl-2xl lg:rounded-bl-2xl",
+              index === barriers.length - 1 &&
+                "lg:rounded-tr-2xl lg:rounded-br-2xl",
+              index > 0 && "lg:border-l-0",
+            ]}
+          >
+            <!-- Icon -->
+            <div class="flex size-6 shrink-0 items-center justify-center">
+              {barrier.icon === "grid" && (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="size-5"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="3"
+                    y="3"
+                    width="18"
+                    height="18"
+                    rx="2"
+                    stroke="currentColor"
+                    class="text-gray-500"
+                    stroke-width="1.4"
+                  />
+                  <rect x="5" y="5" width="6" height="6" fill="#6655F5" />
+                  <rect x="13" y="5" width="6" height="6" fill="#A4A7AE" />
+                  <rect x="5" y="13" width="6" height="6" fill="#A4A7AE" />
+                  <rect x="13" y="13" width="6" height="6" fill="#887AFB" />
+                </svg>
+              )}
+
+              {barrier.icon === "shield" && (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="size-5 text-brand-purple"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 3.5 19 6v5.2c0 4.5-2.8 7.6-7 9.3-4.2-1.7-7-4.8-7-9.3V6l7-2.5Z"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                  />
+                  <path
+                    d="m9 12 2 2 4-4"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+
+              {barrier.icon === "chart" && (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="size-5 text-brand-purple"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4 17 9 12l3 3 7-8"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M15 7h4v4"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+
+              {barrier.icon === "clock" && (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="size-5 text-brand-purple"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="8"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                  />
+                  <path
+                    d="M12 7v5l3 2"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              )}
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <h3
+                class="
+                  text-lg
+                  font-normal
+                  leading-7
+                  text-gray-900
+
+                  lg:text-2xl
+                  lg:leading-8
+                "
+              >
+                {barrier.title}
+              </h3>
+
+              <p
+                class="
+                  text-xs
+                  leading-4
+                  text-gray-600
+
+                  lg:text-base
+                  lg:leading-6
+                "
+              >
+                {barrier.body}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Mission / Vision -->
+    <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-3">
+      <article
+        class="
+          flex
+          flex-col
+          items-start
+          gap-4
+          rounded-xl
+          border
+          border-gray-200
+          bg-white
+          p-5
+
+          lg:h-64
+          lg:p-7
+        "
+      >
+        <p class={eyebrow}>OUR MISSION</p>
+
+        <div class="flex flex-col gap-3">
+          <h3 class="text-xl font-normal leading-7 text-gray-900 lg:text-3xl lg:leading-9">
+            Making real estate ownership borderless
+          </h3>
+
+          <p class="text-xs leading-4 text-gray-600 lg:text-base lg:leading-6">
+            Remove the capital barrier from the world’s most stable asset class.
+            Through DLD-verified tokenization on the XRP Ledger, anyone —
+            regardless of geography or bank balance — can own, earn from, and
+            build wealth in Dubai real estate with full transparency.
+          </p>
+        </div>
+      </article>
+
+      <article
+        class="
+          hidden
+          flex-col
+          items-start
+          gap-4
+          rounded-xl
+          border
+          border-gray-200
+          bg-brand-25
+          p-7
+
+          lg:flex
+          lg:h-64
+        "
+      >
+        <p class={eyebrow}>OUR VISION</p>
+
+        <div class="flex flex-col gap-3">
+          <h3 class="text-3xl font-normal leading-9 text-black">
+            The global standard for property ownership
+          </h3>
+
+          <p class="text-base leading-6 text-gray-600">
+            A future where real estate moves as freely as currency — where a
+            title deed is a token, rent arrives automatically, and a border or
+            bank balance no longer decides who gets to build generational
+            wealth.
+          </p>
+        </div>
+      </article>
+    </div>
+
+  </div>
+</Section>
