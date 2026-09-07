@@ -1,0 +1,470 @@
+---
+import Section from "../layout/Section.astro";
+import { Image } from "astro:assets";
+
+import desktopBackground from "../../assets/own-slice/own-your-slice-bg-img-desktop.png";
+
+import phoneLeft from "../../assets/own-slice/gold-left.png";
+import phoneCenter from "../../assets/own-slice/gold-middle.png";
+import phoneRight from "../../assets/own-slice/gold-right.png";
+
+import googlePlayIcon from "../../assets/own-slice/Playstore-logo.svg";
+import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
+---
+
+<!-- <Section flush class="overflow-hidden" innerClass="!max-w-none !px-0"> -->
+  <section
+    class="
+      relative
+      w-full
+      overflow-hidden
+      bg-linear-to-br
+      from-brand-800
+      to-brand-400
+    "
+  >
+    <!-- =========================================================
+         DESKTOP BACKGROUND
+         ========================================================= -->
+
+    <div
+      class="pointer-events-none absolute inset-0 hidden lg:block"
+      aria-hidden="true"
+    >
+      <Image
+        src={desktopBackground}
+        alt=""
+        class="absolute inset-0 h-full w-full object-cover"
+      />
+
+      <div
+        class="
+          absolute
+          inset-0
+          bg-brand-800/65
+          mix-blend-multiply
+        "
+      ></div>
+    </div>
+
+
+    <!-- =========================================================
+         DESKTOP FRAME
+
+         Figma frame:
+         1374 × 614
+         ========================================================= -->
+
+    <div
+      class="
+        relative
+        mx-auto
+        w-full
+        lg:h-[614px]
+        lg:max-w-[1374px]
+      "
+    >
+
+      <!-- =======================================================
+           COPY
+           ======================================================= -->
+
+      <div
+        class="
+          relative
+          z-30
+          flex
+          w-full
+          flex-col
+          items-center
+          px-4
+          pt-12
+          text-center
+
+          lg:absolute
+          lg:left-0
+          lg:top-0
+          lg:h-[614px]
+          lg:w-[550px]
+          lg:justify-center
+          lg:px-0
+          lg:pt-0
+        "
+      >
+        <div
+          class="
+            flex
+            w-full
+            flex-col
+            items-center
+            gap-8
+          "
+        >
+
+          <!-- Heading + description -->
+
+          <div
+            class="
+              flex
+              w-full
+              flex-col
+              items-center
+              gap-3
+            "
+          >
+            <h2
+              class="
+                w-full
+                max-w-[390px]
+                font-display
+                text-display-sm
+                font-normal
+                leading-display-sm
+                tracking-tight
+                text-white
+
+                lg:w-[484px]
+                lg:max-w-none
+                lg:text-display-lg
+                lg:leading-display-lg
+              "
+            >
+              <span class="text-mint-500">Own Your</span>
+              <span> Slice Download </span>
+              <span class="text-mint-500">the App</span>
+            </h2>
+
+            <p
+              class="
+                w-full
+                max-w-[390px]
+                text-sm
+                font-normal
+                leading-5
+                text-white
+
+                lg:w-[550px]
+                lg:max-w-none
+              "
+            >
+              Get full control over your portfolio, track live property
+              performance, and trade your slices instantly from anywhere.
+            </p>
+          </div>
+
+
+          <!-- ===================================================
+               STORE BUTTONS
+               =================================================== -->
+
+          <div
+            class="
+              flex
+              h-10
+              w-64
+              items-center
+              justify-start
+              gap-2
+            "
+          >
+
+            <!-- Google Play -->
+
+            <a
+              href="#"
+              aria-label="Get it on Google Play"
+              class="
+                flex
+                h-10
+                w-28
+                shrink-0
+                items-center
+                overflow-hidden
+                rounded-md
+                bg-black
+                outline
+                outline-1
+                -outline-offset-1
+                outline-neutral-50
+              "
+            >
+              <!-- logo -->
+              <span
+                class="
+                  flex
+                  h-6
+                  w-5
+                  shrink-0
+                  items-center
+                  justify-center
+                  ml-2
+                "
+              >
+                <Image
+                  src={googlePlayIcon}
+                  alt=""
+                  class="h-6 w-5 object-contain"
+                />
+              </span>
+
+              <!-- text -->
+              <span
+                class="
+                  ml-2
+                  flex
+                  min-w-0
+                  flex-col
+                  items-start
+                  text-left
+                "
+              >
+                <span
+                  class="
+                    whitespace-nowrap
+                    text-[8px]
+                    font-normal
+                    uppercase
+                    leading-[10px]
+                    text-white
+                  "
+                >
+                  GET IT ON
+                </span>
+
+                <span
+                  class="
+                    whitespace-nowrap
+                    text-[14px]
+                    font-medium
+                    leading-[14px]
+                    text-white
+                  "
+                >
+                  Google Play
+                </span>
+              </span>
+            </a>
+
+
+            <!-- App Store -->
+
+            <a
+              href="#"
+              aria-label="Download on the App Store"
+              class="
+                flex
+                h-10
+                w-28
+                shrink-0
+                items-center
+                overflow-hidden
+                rounded-md
+                bg-black
+                outline
+                outline-1
+                -outline-offset-1
+                outline-neutral-50
+              "
+            >
+              <!-- Apple logo -->
+
+              <span
+                class="
+                  ml-2
+                  flex
+                  h-6
+                  w-5
+                  shrink-0
+                  items-center
+                  justify-center
+                "
+              >
+                <Image
+                  src={appStoreIcon}
+                  alt=""
+                  class="h-6 w-5 object-contain"
+                />
+              </span>
+
+              <!-- text -->
+
+              <span
+                class="
+                  ml-2
+                  flex
+                  min-w-0
+                  flex-col
+                  items-start
+                  text-left
+                "
+              >
+                <span
+                  class="
+                    whitespace-nowrap
+                    text-[8px]
+                    font-medium
+                    leading-[9px]
+                    text-white
+                  "
+                >
+                  Download on the
+                </span>
+
+                <span
+                  class="
+                    whitespace-nowrap
+                    text-[17px]
+                    font-medium
+                    leading-4
+                    text-white
+                  "
+                >
+                  App Store
+                </span>
+              </span>
+            </a>
+
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- =======================================================
+           DESKTOP PHONES
+
+           IMPORTANT:
+
+           We use the Figma composition:
+           550px copy
+           + phone
+           + phone
+           + phone
+
+           But the phone images are anchored from the BOTTOM.
+
+           This matches the actual visual composition much better
+           than top-aligning all three images.
+           ======================================================= -->
+
+     <!-- =======================================================
+     DESKTOP PHONES
+     ======================================================= -->
+
+<div
+  class="
+    pointer-events-none
+    absolute
+    inset-0
+    z-20
+    hidden
+    lg:block
+  "
+  aria-hidden="true"
+>
+  <!-- LEFT PHONE -->
+
+  <div
+    class="
+      absolute
+      bottom-0
+      left-[610px]
+      z-10
+      h-[548px]
+      w-[267px]
+    "
+  >
+    <Image
+      src={phoneLeft}
+      alt=""
+      class="block h-full w-full object-contain"
+    />
+  </div>
+
+
+  <!-- CENTER PHONE -->
+
+  <div
+    class="
+      absolute
+      bottom-0
+      left-[820px]
+      z-20
+      h-[564px]
+      w-[274px]
+    "
+  >
+    <Image
+      src={phoneCenter}
+      alt=""
+      class="block h-full w-full object-contain"
+    />
+  </div>
+
+
+  <!-- RIGHT PHONE -->
+
+  <div
+    class="
+      absolute
+      bottom-0
+      left-[1100px]
+      z-10
+      h-[710px]
+      w-[346px]
+    "
+  >
+    <Image
+      src={phoneRight}
+      alt=""
+      class="block h-full w-full object-contain"
+    />
+  </div>
+
+</div>
+
+
+      <!-- =======================================================
+           MOBILE PHONES
+           ======================================================= -->
+
+      <div
+        class="
+          flex
+          h-[267px]
+          w-full
+          items-end
+          justify-center
+          gap-2
+
+          lg:hidden
+        "
+      >
+        <div class="h-[226px] w-[110px] shrink-0">
+          <Image
+            src={phoneLeft}
+            alt="Sliceal property investment app"
+            class="h-full w-full object-contain"
+          />
+        </div>
+
+        <div class="z-10 h-[267px] w-[130px] shrink-0">
+          <Image
+            src={phoneCenter}
+            alt="Sliceal portfolio dashboard"
+            class="h-full w-full object-contain"
+          />
+        </div>
+
+        <div class="h-[226px] w-[110px] shrink-0">
+          <Image
+            src={phoneRight}
+            alt="Sliceal investment app"
+            class="h-full w-full object-contain"
+          />
+        </div>
+      </div>
+
+    </div>
+  </section>
+<!-- </Section> -->
