@@ -1,0 +1,182 @@
+---
+import Section from "../layout/Section.astro";
+
+const milestones = [
+  {
+    date: "28 FEB 2025",
+    title: "Platform goes live under VARA",
+    description:
+      "First tokenized listing funded in Jumeirah Village Circle, settled on the XRP Ledger",
+    stat: "1 Listing",
+  },
+  {
+    date: "28 FEB 2025",
+    title: "Secondary market opens",
+    description:
+      "Matched order book with a $10k DLD price sand and three-month lock-in",
+    stat: "5,000+ investors",
+  },
+  {
+    date: "26 FEB 2025",
+    title: "Three hundred properties fully funded",
+    description:
+      "Average time to full funding fell from eleven days to under three",
+    stat: "300+ funded",
+  },
+  {
+    date: "19 MAY 2026",
+    title: "Fastest funding on record",
+    description:
+      "A Business Bay studio filled in five minutes and forty seconds across 412 investors",
+    stat: "5m 40s",
+  },
+  {
+    date: "TODAY",
+    title: "New capital on the platform this quarter",
+    description:
+      "Retail and institutional flows combined, across eleven Dubai districts",
+    stat: "AED 20M+",
+    current: true,
+  },
+];
+---
+
+<Section surface="alt">
+  <div class="flex w-full flex-col gap-6 lg:gap-12">
+
+    <!-- Heading -->
+    <header class="flex w-full flex-col items-center gap-4 lg:items-start lg:gap-7">
+      <div class="inline-flex rounded-[40px] border border-gray-200 px-3 py-1.5">
+        <span class="text-xs leading-4 text-indigo-500 lg:text-sm lg:leading-5">
+          A QUICK RECAP
+        </span>
+      </div>
+
+      <h2
+        class="w-full text-center text-2xl font-normal leading-8 text-black lg:text-left lg:text-5xl lg:leading-[60px]"
+      >
+        Sliceal's first eighteen months.
+      </h2>
+    </header>
+
+    <!-- MOBILE -->
+    <ol class="flex flex-col gap-6 lg:hidden">
+      {milestones.map((milestone) => (
+        <li class="flex flex-col gap-3">
+
+          <div class="flex items-center gap-2">
+            <span
+              class:list={[
+                "size-3 shrink-0 rounded-full border-2 border-indigo-500 bg-indigo-600/20",
+                milestone.current &&
+                  "border-emerald-500 bg-emerald-500/10",
+              ]}
+            />
+            <time class="text-xs leading-4 text-black">
+              {milestone.date}
+            </time>
+          </div>
+
+          <article class="flex flex-col gap-3 rounded-xl border border-gray-200 bg-neutral-50 p-4">
+            <h3 class="text-base leading-6 text-black">
+              {milestone.title}
+            </h3>
+
+            <p class="text-xs leading-4 text-gray-500">
+              {milestone.description}
+            </p>
+
+            <span
+              class:list={[
+                "self-start rounded-md border border-gray-200 px-2 py-1 text-xs leading-4 text-indigo-500",
+                milestone.current && "text-emerald-500",
+              ]}
+            >
+              {milestone.stat}
+            </span>
+          </article>
+        </li>
+      ))}
+    </ol>
+
+    <!-- DESKTOP -->
+    <div class="hidden lg:block">
+
+      <!-- Timeline/date row -->
+      <div class="timeline-row relative grid grid-cols-5 gap-6">
+
+        <!-- Connector -->
+        <div
+          aria-hidden="true"
+          class="timeline-track absolute left-0 right-0 top-3 h-0.5 bg-gray-200"
+        />
+
+{milestones.map((milestone, index) => (
+  <div class="relative z-10 flex items-center gap-3">
+    <span
+      class:list={[
+        "size-6 shrink-0 rounded-full border-2 border-indigo-500 bg-indigo-600/20",
+        milestone.current &&
+          "border-emerald-500 bg-emerald-500/10",
+      ]}
+    />
+
+    <time class="text-sm font-semibold leading-5 text-black">
+      {milestone.date}
+    </time>
+
+    {index < milestones.length - 1 && (
+      <span
+        class="timeline-line"
+        aria-hidden="true"
+      />
+    )}
+  </div>
+))}
+          
+          
+      </div>
+
+      <!-- Cards -->
+      <div class="mt-5 grid grid-cols-5 gap-6">
+        {milestones.map((milestone) => (
+          <article
+            class="flex min-h-[135px] flex-col rounded-2xl border border-gray-200 p-6"
+          >
+            <h3 class="text-base font-semibold leading-6 text-black">
+              {milestone.title}
+            </h3>
+
+            <p class="mt-4 text-sm font-semibold leading-5 text-gray-500">
+              {milestone.description}
+            </p>
+
+            <span
+              class:list={[
+                "mt-auto self-start rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-semibold leading-5 text-indigo-500",
+                milestone.current && "text-emerald-500",
+              ]}
+            >
+              {milestone.stat}
+            </span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+.timeline-line {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .timeline-line {
+    display: block;
+    flex: 1;
+    height: 2px;
+    background: #e5e7eb;
+  }
+}
+</style>
