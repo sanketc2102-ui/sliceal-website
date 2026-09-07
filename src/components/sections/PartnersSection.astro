@@ -1,0 +1,125 @@
+---
+import Section from "../layout/Section.astro";
+import PartnerLogo from "../cards/PartnerLogo.astro";
+
+import aws from "../../assets/company-logos/aws-logo.png";
+import dld from "../../assets/company-logos/dubai-land-logo.png";
+import vara from "../../assets/company-logos/vara-logo.png";
+import uaePass from "../../assets/company-logos/uae-pass-logo.png";
+import dubaiRest from "../../assets/company-logos/dubai-rest-logo.jpg";
+import onfido from "../../assets/company-logos/onfido-logo.png";
+import ripple from "../../assets/company-logos/ripple-logo.png";
+import sumsub from "../../assets/company-logos/sumsub-logo.png";
+import rentin from "../../assets/company-logos/rentinit-logo.png";
+import xrpLedger from "../../assets/company-logos/xrp-ledgers.png";
+import partner from "../../assets/company-logos/unknow-logo.png";
+
+const partners = [
+  { src: aws, alt: "AWS" },
+  { src: dld, alt: "Dubai Land Department" },
+  { src: vara, alt: "VARA" },
+  { src: uaePass, alt: "UAE Pass" },
+  { src: dubaiRest, alt: "Dubai REST" },
+  { src: onfido, alt: "Onfido" },
+  { src: ripple, alt: "Ripple" },
+  { src: sumsub, alt: "Sumsub" },
+  { src: rentin, alt: "RentIn" },
+  { src: xrpLedger, alt: "XRP Ledger" },
+  { src: partner, alt: "Partner" },
+];
+---
+
+<Section
+  class="shadow-glow py-12 xl:py-30"
+  innerClass="flex flex-col gap-6 md:gap-10"
+  surface="alt" 
+  flush 
+>
+  <!-- Heading -->
+  <div class="flex flex-col gap-4 lg:gap-6">
+    <h2
+      class="
+        text-center
+        font-display
+        text-xl
+        font-normal
+        leading-7
+        text-gray-900
+
+        lg:text-left
+        lg:text-display-lg
+      "
+    >
+      Our Partners
+    </h2>
+
+    <p
+      class="
+        text-center
+        font-display
+        text-sm
+        font-normal
+        leading-5
+        text-gray-500
+
+        lg:text-left
+        lg:text-lg
+        lg:leading-7
+        lg:text-gray-600
+      "
+    >
+      Working with leading regulatory, financial, and PropTech institutions
+      to keep your investment secure and every transaction seamless.
+    </p>
+  </div>
+
+  <!-- Partner logos -->
+<div
+  class="
+    flex
+    flex-wrap
+    justify-center
+    gap-3
+
+    lg:flex-col
+    lg:items-center
+    lg:gap-8
+  "
+>
+  <!-- Desktop row 1 -->
+  <div
+    class="
+      contents
+
+      lg:grid
+      lg:w-full
+      lg:grid-cols-6
+      lg:gap-6
+    "
+  >
+    {
+      partners.slice(0, 6).map((partner) => (
+        <PartnerLogo {...partner} />
+      ))
+    }
+  </div>
+
+  <!-- Desktop row 2 -->
+  <div
+    class="
+      contents
+
+      lg:grid
+      lg:w-full
+      lg:grid-cols-5
+      lg:gap-6
+    "
+  >
+    {
+      partners.slice(6).map((partner) => (
+        <PartnerLogo {...partner} />
+      ))
+    }
+  </div>
+</div>
+</Section>
