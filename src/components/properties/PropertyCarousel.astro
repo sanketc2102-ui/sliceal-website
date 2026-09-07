@@ -1,0 +1,213 @@
+---
+import PropertyCard from './PropertyCard.astro';
+
+const { properties } = Astro.props;
+---
+
+<div class="property-carousel">
+  <!-- Viewport -->
+  <div
+    class="property-carousel__viewport overflow-hidden"
+    data-carousel-viewport
+  >
+    <!-- Track -->
+    <div
+      class="property-carousel__track flex gap-6"
+      data-carousel-track
+    >
+      {
+        properties.map((property) => (
+          <PropertyCard property={property} />
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div
+    class="mt-6 flex items-center justify-center gap-1"
+    data-carousel-dots
+  >
+    {
+      properties.map((_, index) => (
+        <button
+          type="button"
+          aria-label={`Go to property ${index + 1}`}
+          aria-current={index === 0 ? 'true' : 'false'}
+          data-carousel-dot={index}
+          class:list={[
+            'h-2.5 rounded-md transition-all duration-200',
+            index === 0 ? 'w-8 bg-indigo-500' : 'w-5 bg-gray-200',
+          ]}
+        ></button>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const initCarousels = () => {
+    document.querySelectorAll('.property-carousel').forEach((carousel) => {
+      const viewport = carousel.querySelector(
+        '[data-carousel-viewport]',
+      );
+
+      const track = carousel.querySelector(
+        '[data-carousel-track]',
+      );
+
+      const dots = Array.from(
+        carousel.querySelectorAll('[data-carousel-dot]'),
+      );
+
+      if (!viewport || !track || !dots.length) return;
+
+      let currentIndex = 0;
+
+      const getCardWidth = () => {
+        const card = track.children[0];
+
+        if (!card) return 0;
+
+        const gap = parseFloat(
+          getComputedStyle(track).columnGap || '0',
+        );
+
+        return card.offsetWidth + gap;
+      };
+
+      const updateDots = (index) => {
+        dots.forEach((dot, dotIndex) => {
+          const active = dotIndex === index;
+
+          dot.setAttribute(
+            'aria-current',
+            active ? 'true' : 'false',
+          );
+
+          dot.classList.toggle('w-8', active);
+          dot.classList.toggle('bg-indigo-500', active);
+
+          dot.classList.toggle('w-5', !active);
+          dot.classList.toggle('bg-gray-200', !active);
+        });
+      };
+
+      const goTo = (index) => {
+        const maxIndex = track.children.length - 1;
+
+        currentIndex = Math.max(
+          0,
+          Math.min(index, maxIndex),
+        );
+
+        const offset = getCardWidth() * currentIndex;
+
+        track.style.transform =
+          `translateX(-${offset}px)`;
+
+        updateDots(currentIndex);
+      };
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          goTo(index);
+        });
+      });
+
+      let startX = 0;
+      let startTranslate = 0;
+      let dragging = false;
+
+      viewport.addEventListener(
+        'pointerdown',
+        (event) => {
+          if (window.innerWidth >= 768) return;
+
+          dragging = true;
+          startX = event.clientX;
+          startTranslate = getCardWidth() * currentIndex;
+
+          track.style.transition = 'none';
+
+          viewport.setPointerCapture(event.pointerId);
+        },
+      );
+
+      viewport.addEventListener('pointermove', (event) => {
+        if (!dragging) return;
+
+        const delta = event.clientX - startX;
+
+        track.style.transform =
+          `translateX(${-(startTranslate - delta)}px)`;
+      });
+
+      viewport.addEventListener('pointerup', (event) => {
+        if (!dragging) return;
+
+        dragging = false;
+        track.style.transition = '';
+
+        const delta = event.clientX - startX;
+
+        if (Math.abs(delta) > 50) {
+          goTo(
+            delta < 0
+              ? currentIndex + 1
+              : currentIndex - 1,
+          );
+        } else {
+          goTo(currentIndex);
+        }
+      });
+
+      viewport.addEventListener('pointercancel', () => {
+        if (!dragging) return;
+
+        dragging = false;
+        track.style.transition = '';
+
+        goTo(currentIndex);
+      });
+
+      window.addEventListener('resize', () => {
+        goTo(currentIndex);
+      });
+    });
+  };
+
+  initCarousels();
+</script>
+
+<style>
+  .property-carousel__track {
+    transition: transform 300ms ease;
+    will-change: transform;
+  }
+
+@media (min-width: 768px) {
+  .property-carousel__viewport {
+    overflow: hidden;
+  }
+
+  .property-carousel {
+    overflow: hidden;
+  }
+}
+
+  @media (max-width: 767px) {
+    .property-carousel__track {
+      touch-action: pan-y;
+    }
+
+    .property-carousel__viewport {
+      margin-inline: -1rem;
+      padding-inline: 1rem;
+    }
+
+    .property-carousel__track > * {
+      width: calc(100vw - 2rem);
+    }
+  }
+</style>

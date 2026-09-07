@@ -1,0 +1,110 @@
+---
+import PropertyCarousel from "./PropertyCarousel.astro";
+
+import burjAlArab from "../../assets/properties-imgs/burj-al-arab.png"
+import jbr from '../../assets/properties-imgs/jbr.png';
+import damacHills from '../../assets/properties-imgs/damac-hills.png';
+import property4 from '../../assets/properties-imgs/property-4.png';
+
+const properties = [
+  {
+    image: burjAlArab,
+    location: 'Palm Jumeirah, Dubai',
+    title: 'Two Bedroom Apartment in Burj Al Arab',
+    roi: '8.2%',
+    tokenPrice: 'AED 2.00/Token',
+    funded: 'AED 550k',
+    total: '650k',
+    fundingPercentage: 85,
+    area: '1,250 sqm',
+    type: 'Apt',
+    bedrooms: '2',
+    bathrooms: '3',
+    status: 'Closes soon',
+  },
+  {
+    image: jbr,
+    location: 'Jumeirah, Dubai',
+    title: 'One Bedroom Apartment in JBR',
+    roi: '9.2%',
+    tokenPrice: 'AED 1.90/Token',
+    funded: 'AED 240k',
+    total: '550k',
+    fundingPercentage: 44,
+    area: '650 sqm',
+    type: 'Apt',
+    bedrooms: '1',
+    bathrooms: '1',
+    status: 'Closes soon',
+  },
+  {
+    image: damacHills,
+    location: 'DAMAC Hills, Dubai',
+    title: 'Five Bedroom Villa in DAMAC Hills',
+    roi: '7.2%',
+    tokenPrice: 'AED 2.10/Token',
+    funded: 'AED 350k',
+    total: '990k',
+    fundingPercentage: 35,
+    area: '2,850 sqm',
+    type: 'Villa',
+    bedrooms: '5',
+    bathrooms: '3',
+    status: 'Closes soon',
+  },
+  {
+    image: property4,
+    location: 'Palm Jumeirah, Dubai',
+    title: 'Two Bedroom Apartment in Palm Jumeirah',
+    roi: '8.2%',
+    tokenPrice: 'AED 2.00/Token',
+    funded: 'AED 550k',
+    total: '650k',
+    fundingPercentage: 85,
+    area: '1,250 sqm',
+    type: 'Apt',
+    bedrooms: '2',
+    bathrooms: '3',
+    status: 'Closes soon',
+  },
+];
+---
+
+<section
+  class="overflow-hidden px-4 py-12 shadow-[0px_4px_200px_0px_rgba(232,249,247,0.20)] md:px-20 md:py-20"
+>
+  <div class="flex flex-col gap-6 md:gap-10">
+    <!-- Header -->
+    <div class="flex flex-col gap-4 md:gap-6">
+      <!-- Eyebrow -->
+      <div class="flex justify-center md:justify-start">
+        <span
+          class="rounded-[40px] border border-gray-200 px-3 py-1.5 text-xs text-indigo-500 md:text-sm"
+        >
+          PROPERTIES
+        </span>
+      </div>
+
+      <!-- Title + CTA -->
+      <div
+        class="flex flex-col items-center gap-4 md:flex-row md:items-center md:justify-between"
+      >
+        <h2
+          class="text-center text-2xl font-normal leading-8 text-black md:text-left md:text-5xl md:leading-[60px]"
+        >
+          Featured Investment Opportunity
+        </h2>
+
+        <a
+          href="/properties"
+          class="hidden rounded-xl border border-zinc-300 px-5 py-3 text-base font-semibold leading-6 text-indigo-500 md:block"
+        >
+          View all Properties
+        </a>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <PropertyCarousel properties={properties} />
+  </div>
+</section>
