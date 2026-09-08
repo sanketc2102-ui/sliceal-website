@@ -1,0 +1,27 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import Section from "../components/layout/Section.astro";
+import LegalContent from "../components/ui/LegalContent.astro";
+
+import { Content } from "../content/legal/terms-condtion.md" ;
+
+const title = "Terms & Conditions";
+
+const description = "Sliceal Terms & Conditions.";
+
+const lastUpdated = "4 September 2026";
+---
+
+<LegalLayout
+  title={title}
+  description={description}
+  lastUpdated={lastUpdated}
+>
+  <Section>
+    <article class="mx-auto w-full max-w-[900px]">
+      <LegalContent>
+        <Content />
+      </LegalContent>
+    </article>
+  </Section>
+</LegalLayout>

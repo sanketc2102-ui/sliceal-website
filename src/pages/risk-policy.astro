@@ -1,0 +1,31 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import Section from "../components/layout/Section.astro";
+import LegalContent from "../components/ui/LegalContent.astro";
+
+import { Content } from "../content/legal/risk-policy.md";
+
+const title = "Risk Policy";
+
+const description = "Sliceal Risk Policy.";
+
+const lastUpdated = "4 September 2026";
+
+const intro =
+  "Investing through Sliceal involves risks that you should consider carefully before making any decision. Digital tokens representing fractional real estate ownership are speculative in nature, past performance is not indicative of future results, and you should only invest funds you can afford to lose.";
+---
+
+<LegalLayout
+  title={title}
+  description={description}
+  lastUpdated={lastUpdated}
+  intro={intro}
+>
+  <Section>
+    <article class="mx-auto w-full max-w-[900px]">
+      <LegalContent>
+        <Content />
+      </LegalContent>
+    </article>
+  </Section>
+</LegalLayout>

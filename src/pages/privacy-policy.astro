@@ -1,0 +1,31 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import Section from "../components/layout/Section.astro";
+import LegalContent from "../components/ui/LegalContent.astro";
+
+import { Content } from "../content/legal/privacy-policy.md";
+
+const title = "Privacy Policy";
+
+const description = "Sliceal Privacy Policy.";
+
+const lastUpdated = "4 September 2026";
+
+const intro =
+  "This Privacy Policy explains how Sliceal collects, uses, shares, and protects personal data when you use our website, mobile application, and services. We process personal data in accordance with UAE Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data (PDPL) and other applicable regulations.";
+---
+
+<LegalLayout
+  title={title}
+  description={description}
+  lastUpdated={lastUpdated}
+  intro={intro}
+>
+  <Section>
+    <article class="mx-auto w-full max-w-[900px]">
+      <LegalContent>
+        <Content />
+      </LegalContent>
+    </article>
+  </Section>
+</LegalLayout>
