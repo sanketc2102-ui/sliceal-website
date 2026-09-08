@@ -18,7 +18,7 @@ export const faqCategories = [
       {
         question: "Is Sliceal regulated?",
         answer:
-          "Yes, Sliceal operates under applicable UAE financial and real estate regulations. We are committed to full regulatory compliance to ensure the safety and transparency of your investments.",
+          "Yes, SliceAL operates under applicable UAE financial and real estate regulations. We are committed to full regulatory compliance to ensure the safety and transparency of your investments..",
       },
       {
         question: "How secure is my data?",
@@ -37,19 +37,19 @@ export const faqCategories = [
     label: "Getting Start",
     questions: [
       {
-        question: "How do I create a Sliceal account?",
+        question: "Who can invest on Sliceal?",
         answer:
-          "Download the app or sign up on our website, verify your email and phone number, then complete a short KYC check to start investing.",
+          "SliceAL is open to UAE residents and international investors who meet our KYC requirements. You must be at least 18 years old and have a valid government-issued ID to register and invest.",
       },
       {
-        question: "What documents do I need to sign up?",
+        question: "Can I cancel an investment after placing an order?",
         answer:
-          "A valid Emirates ID or passport, plus a proof of address if it's requested during verification.",
+          "Orders can be cancelled within a short window after placement, before the funding period closes. Once a property is fully funded, cancellations are no longer possible. Check the order status page for available actions.",
       },
       {
-        question: "How long does onboarding take?",
+        question: "How do I get started?",
         answer:
-          "Most people finish verification in under 10 minutes, and approval is typically confirmed within 24 hours.",
+          "Sign up with your email, complete KYC verification by uploading a valid ID, deposit funds into your wallet, and browse the Marketplace to make your first investment. The entire process takes as little as 15 minutes.",
       },
     ],
   },
@@ -58,19 +58,24 @@ export const faqCategories = [
     label: "Account & KYC",
     questions: [
       {
-        question: "Why do I need to complete KYC?",
+        question: "Why is KYC required?",
         answer:
-          "KYC verification is required under UAE regulations to confirm your identity and keep the platform secure for every investor.",
+          "KYC (Know Your Customer) is a regulatory requirement that verifies your identity to prevent fraud and money laundering. We are required by law to verify all investors before they can deposit funds or invest.",
       },
       {
-        question: "Can I invest without completing KYC?",
+        question: "What documents are needed for KYC?",
         answer:
-          "No, KYC approval is required before you can fund your wallet or purchase any property tokens.",
+          "You will need a valid government-issued photo ID (Emirates ID, passport, or national ID) and a proof of address issued within the last 3 months such as a utility bill, bank statement, or tenancy contract.",
       },
       {
-        question: "How do I update my account details?",
+        question: "My KYC is rejected, what do I do?",
         answer:
-          "You can update your profile, contact details, and documents at any time from Settings → Account in the app.",
+          "If your KYC is rejected, you will receive an email explaining the reason. Common reasons include blurry documents, expired IDs, or mismatched information. Resubmit with clear, valid documents that match your registration details.",
+      },
+      {
+        question: "How long does KYC approval take?",
+        answer:
+          "KYC verification is usually completed within 1â€“2 business days. During peak periods it may take slightly longer. You will receive an email notification as soon as your account is verified.",
       },
     ],
   },
@@ -79,19 +84,24 @@ export const faqCategories = [
     label: "Investments",
     questions: [
       {
-        question: "What is the minimum investment amount?",
+        question: "What is fractional ownership?",
         answer:
-          "You can start investing in Dubai real estate from as little as AED 2,000.",
+          "Fractional ownership lets you purchase a share of a property rather than the entire asset. You receive proportional rental income and capital appreciation based on your ownership percentage, making real estate investment accessible with smaller capital.",
       },
       {
-        question: "How are properties selected for the platform?",
+        question: "What is the minimum investment?",
         answer:
-          "Every property is vetted for location, yield potential, and legal standing before it's listed and DLD-registered.",
+          "You can start investing from as little as AED 500 per property. Each property listing displays the minimum ticket size clearly on its detail page.",
       },
       {
-        question: "Can I sell my investment before the property is sold?",
+        question: "How do I invest in a property?",
         answer:
-          "Yes, tokens can be traded at any time on our regulated secondary market, subject to buyer availability.",
+          "Browse the Marketplace, select a property, review the investment details, and tap 'Invest'. Choose your investment amount, confirm the transaction, and the funds will be deducted from your wallet instantly.",
+      },
+      {
+        question: "Can I cancel an investment after placing an order?",
+        answer:
+          "Orders can be cancelled within a short window after placement, before the funding period closes. Once a property is fully funded, cancellations are no longer possible.",
       },
     ],
   },
@@ -100,19 +110,24 @@ export const faqCategories = [
     label: "Wallet & Payments",
     questions: [
       {
-        question: "What payment methods are supported?",
+        question: "What is the Platform Wallet?",
         answer:
-          "We support bank transfer and major debit or credit cards for both deposits and withdrawals.",
+          "Your SliceAL wallet is a digital balance that holds your funds on the platform. You deposit money into it before investing, and all rental income distributions and refunds are credited directly to it.",
       },
       {
-        question: "How do I withdraw my rental income?",
+        question: "How do I add funds to my wallet?",
         answer:
-          "Rental income is distributed to your Sliceal wallet every month and can be withdrawn to your linked bank account at any time.",
+          "Go to Wallet â†’ Deposit, enter the amount, and follow the payment instructions. We support bank transfers and select debit/credit cards. Bank transfers settle within 1â€“2 business days.",
       },
       {
-        question: "Are there any fees for deposits or withdrawals?",
+        question: "How do I link a bank account?",
         answer:
-          "Deposits are free. Any withdrawal fee is shown clearly before you confirm the transaction.",
+          "Go to Profile â†’ Bank Accounts and tap 'Add Bank Account'. Enter your IBAN and account details. Your bank account is required for withdrawals and will be verified before your first withdrawal.",
+      },
+      {
+        question: "Why is my wallet activation failing?",
+        answer:
+          "Wallet activation requires a completed KYC verification. If your KYC is pending or rejected, you will not be able to activate your wallet. Complete your KYC first, then try activating your wallet again.",
       },
     ],
   },
@@ -121,19 +136,19 @@ export const faqCategories = [
     label: "Orders & Transactions",
     questions: [
       {
-        question: "How do I track my order status?",
+        question: "What does 'Pending Funding' mean?",
         answer:
-          "Every purchase or sale appears under Orders & Transactions with a real-time status update.",
+          "'Pending Funding' means your order has been placed and your funds are reserved, but the property has not yet reached its full funding target. Once the target is met, your investment is confirmed and tokens are issued.",
       },
       {
-        question: "What happens if my order isn't matched?",
+        question: "When will I receive my tokens?",
         answer:
-          "Unmatched buy or sell orders stay open on the secondary market until a match is found or you cancel them.",
+          "Tokens representing your ownership share are issued once the property reaches its full funding target and the legal transfer is completed. You will receive a notification when your tokens appear in your portfolio.",
       },
       {
-        question: "Can I cancel a pending order?",
+        question: "Where can I see my transaction history?",
         answer:
-          "Yes, pending orders can be cancelled any time before they're matched, from the order details screen.",
+          "Go to Wallet â†’ Transaction History to view all deposits, withdrawals, investments, and income distributions with full details and timestamps.",
       },
     ],
   },
@@ -142,19 +157,19 @@ export const faqCategories = [
     label: "Tokens & Ownership",
     questions: [
       {
-        question: "What does owning a token represent?",
+        question: "What does a token represent?",
         answer:
-          "Each token represents a fractional, DLD-registered ownership stake in a specific property.",
+          "Each token represents a fractional ownership share in a specific property held within a Special Purpose Vehicle (SPV). Tokens give you the right to proportional rental income and proceeds from property sale.",
       },
       {
-        question: "Are my tokens legally recognized?",
+        question: "What does a token represent?",
         answer:
-          "Yes. Ownership is recorded on-chain on the XRP Ledger and backed by DLD registration.",
+          "Each token represents a fractional ownership share in a specific property held within a Special Purpose Vehicle (SPV). Tokens give you the right to proportional rental income and proceeds from property sale.",
       },
       {
-        question: "Can I transfer my tokens to someone else?",
+        question: "When will I receive my tokens?",
         answer:
-          "Tokens can be moved through the secondary market, or in specific cases via a direct wallet-to-wallet transfer.",
+          "Tokens are issued once the property reaches its full funding target and the legal transfer to the SPV is finalised. You will be notified when tokens appear in your portfolio.",
       },
     ],
   },

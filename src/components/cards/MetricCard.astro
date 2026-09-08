@@ -1,0 +1,119 @@
+---
+
+import Image from 'astro/components/Image.astro';
+import Card from './Card.astro'
+
+const {
+  icon,
+  title,
+  description,
+  value,
+  label,
+} = Astro.props;
+
+import { Image } from "astro:assets";
+
+---
+
+
+
+<Card
+  class="
+    flex
+    flex-col
+    items-start
+    gap-6
+    p-6
+
+    lg:h-80
+    lg:justify-between
+    lg:p-8
+  "
+>
+  <div class="flex w-full flex-col items-start gap-6">
+    <div
+      class="
+        flex
+        items-start
+        rounded-xl
+        bg-indigo-50
+        p-3
+      "
+    >
+      <Image
+        src={icon}
+        alt=""
+        aria-hidden="true"
+        class="size-6"
+      />
+    </div>
+
+    <div class="flex w-full flex-col items-start gap-3">
+      <h3
+        class="
+          w-full
+          text-lg
+          font-normal
+          leading-7
+          text-gray-900
+
+          lg:text-xl
+          lg:leading-8
+        "
+      >
+        {title}
+      </h3>
+
+      <p
+        class="
+          w-full
+          max-w-prose
+          text-sm
+          font-normal
+          leading-5
+          text-gray-600
+        "
+      >
+        {description}
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="
+      flex
+      w-full
+      flex-col
+      items-start
+      gap-2
+      border-t
+      border-gray-200
+      pt-4
+    "
+  >
+    <div
+      class="
+        w-full
+        text-2xl
+        font-normal
+        leading-8
+        text-indigo-600
+      "
+    >
+      {value}
+    </div>
+
+    <p
+      class="
+        w-full
+        text-xs
+        font-normal
+        leading-4
+        text-gray-500
+      "
+    >
+      {label}
+    </p>
+  </div>
+</Card>
+

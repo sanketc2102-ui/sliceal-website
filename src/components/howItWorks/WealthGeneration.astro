@@ -1,0 +1,114 @@
+
+
+
+
+---
+
+import Section from "../layout/Section.astro";
+import MetricCard from "../cards/MetricCard.astro";
+import passiveIncomeIcon from "../../assets/icons/howItWorks/coins.svg";
+import appreciationIcon from "../../assets/icons/howItWorks/shuffle.svg";
+import liquidityIcon from "../../assets/icons/howItWorks/trending-up.svg";
+
+const cards = [
+  {
+    icon: passiveIncomeIcon,
+    title: "Earn consistent passive income",
+    description:
+      "Build a new income stream from the monthly rent paid by income-generating properties.",
+    value: "5.6%",
+    label: "Average Rental Yield in 2025",
+  },
+  {
+    icon: appreciationIcon,
+    title: "Long-term capital appreciation",
+    description:
+      "Watch your asset value grow as premium Dubai property prices appreciate over time, building generational wealth.",
+    value: "30+",
+    label: "Properties listed & funded",
+  },
+  {
+    icon: liquidityIcon,
+    title: "Liquidity, when you need it most",
+    description:
+      "Exit your investments on your own terms. List your tokens on the marketplace after just a 3-month lock-in period.",
+    value: "AED 16M+",
+    label: "Total distributed liquidity",
+  },
+];
+---
+
+
+<Section
+  surface="alt"
+  innerClass="flex flex-col gap-14"
+>
+  <!-- Heading -->
+  <header class="flex w-full flex-col items-center gap-4 text-center">
+    <div
+      class="
+        rounded-[40px]
+        border
+        border-gray-200
+        bg-white
+        px-3.5
+        py-1.5
+      "
+    >
+      <span class="text-xs font-bold text-indigo-600">
+        WEALTH GENERATION
+      </span>
+    </div>
+
+    <h2
+      class="
+        w-full
+        max-w-[680px]
+        text-center
+        text-gray-900
+
+        lg:text-5xl
+        lg:leading-[60px]
+      "
+    >
+      So how do I actually make money?
+    </h2>
+
+    <p
+      class="
+        w-full
+        max-w-[680px]
+        text-center
+        text-base
+        font-normal
+        leading-6
+        text-gray-600
+
+        lg:text-lg
+        lg:leading-7
+      "
+    >
+      Three ways. Monthly rent, long-term appreciation, and the option to sell.
+    </p>
+  </header>
+
+  <!-- Metrics -->
+  <div
+    class="
+      grid
+      w-full
+      grid-cols-1
+      gap-6
+
+      md:grid-cols-2
+
+      lg:grid-cols-3
+    "
+  >
+    {
+      cards.map((card) => (
+        <MetricCard {...card} />
+      ))
+    }
+  </div>
+</Section>

@@ -1,0 +1,12 @@
+---
+const { class: className = "" } = Astro.props;
+---
+
+<article
+  class:list={[
+    "w-full rounded-2xl border border-gray-200 bg-white",
+    className,
+  ]}
+>
+  <slot />
+</article>

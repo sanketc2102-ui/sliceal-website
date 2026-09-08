@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import WealthGeneration from '../components/howItWorks/WealthGeneration.astro'
+import PartnersSection   from "../components/sections/PartnersSection.astro";
+import ConcludingCTA   from "../components/sections/ConcludingCTA.astro";
+import TestimonialsSection   from "../components/sections/TestimonialsSection.astro";
+import  Faq  from "../components/sections/Faq.astro";
+import  OwnYouSliceSection  from "../components/sections/OwnYouSliceSection.astro";
+import Footer from "../components/layout/Footer.astro";
+
+
+const title = "How It Works";
+const description =
+  "Discover how Sliceal makes investing in tokenised real estate simple and accessible.";
+---
+
+
+<BaseLayout title={title} description={description}>
+  <Header slot="header" />
+
+  <WealthGeneration />
+  <PartnersSection />
+  <ConcludingCTA 
+    layout="centered"
+    heading="Start Your Investment Journey Today"
+    subtext="Build your Dubai property portfolio in under four minutes Regulated by VARA. Verified by DLD."
+    buttons={[
+      { 
+      label: "Start Investing", 
+      href: "/start-investing", 
+      variant: "primary" 
+      },
+       { 
+          label: "Download the App", href: "#download", variant: "secondary" 
+        }, 
+      ]
+    }
+   />
+  <TestimonialsSection />
+  <Faq />
+  <OwnYouSliceSection />
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+
+
+
+
