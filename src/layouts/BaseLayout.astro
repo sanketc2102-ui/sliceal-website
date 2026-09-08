@@ -15,6 +15,7 @@
  *   bodyClass   {string}  Optional. Extra classes on <body>.
  */
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 const {
   title,
@@ -43,6 +44,7 @@ const ogImageUrl = new URL(ogImage, canonical);
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <ClientRouter />
 
     {/*
       Inter is not self-hosted yet — see the FONTS note at the top of
