@@ -1,0 +1,75 @@
+---
+/**
+ * Breadcrumb — reusable trail pill.
+ *
+ * Figma: node with the "Home > Properties" pill (dev-mode reference only —
+ * rebuilt against tokens.css: rounded-pill/shadow-pill match the source
+ * radius/shadow exactly, border-line = gray-200 as specified).
+ *
+ * "Home" is always the first crumb and always links to "/". Add every
+ * crumb after that via `trail`. The last entry in `trail` is treated as
+ * the current page: it renders as plain (non-link) bold text, even if you
+ * pass an `href` for it.
+ *
+ * Icons: src/assets/icons/radio-button-checked.svg and
+ * src/assets/icons/menu/chevron-forward.svg, used as-is (their fill color
+ * is baked into the file, same convention as every other icon in
+ * Header.astro) — swap those two files in /assets and this component picks
+ * up the new artwork with no code changes.
+ *
+ * Usage:
+ *   <Breadcrumb trail={[{ label: "Properties", href: "/properties" }]} />
+ *
+ *   <Breadcrumb
+ *     trail={[
+ *       { label: "Properties", href: "/properties" },
+ *       { label: "Marina Heights Tower" },
+ *     ]}
+ *   />
+ */
+import RadioIcon from "../../assets/icons/radio_button_checked.svg";
+import ChevronIcon from "../../assets/icons/arrow_back_ios_new.svg";
+
+const { trail = [] } = Astro.props;
+
+const crumbs = [{ label: "Home", href: "/" }, ...trail];
+---
+
+<nav
+  aria-label="Breadcrumb"
+  class="inline-flex max-w-full items-center gap-2 rounded-pill border border-line bg-white px-3 py-1.5 shadow-pill"
+>
+  <RadioIcon class="size-2.5 shrink-0" aria-hidden="true" />
+
+  <ol class="flex min-w-0 items-center gap-1">
+    {
+      crumbs.map((crumb, index) => {
+        const isLast = index === crumbs.length - 1;
+
+        return (
+          <li class="flex min-w-0 items-center gap-1">
+            {index > 0 && (
+              <ChevronIcon class="size-3 shrink-0" aria-hidden="true" />
+            )}
+
+            {isLast || !crumb.href ? (
+              <span
+                class="truncate text-xs leading-4 font-semibold text-gray-900"
+                aria-current={isLast ? "page" : undefined}
+              >
+                {crumb.label}
+              </span>
+            ) : (
+              <a
+                href={crumb.href}
+                class="truncate text-xs leading-4 font-normal text-gray-600 transition-colors hover:text-gray-900"
+              >
+                {crumb.label}
+              </a>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>

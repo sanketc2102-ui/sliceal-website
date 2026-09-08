@@ -124,14 +124,14 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
   data-site-header
   class:list={[
     "sticky top-0 z-50 border-b border-line bg-white",
-    "min-[1150px]:border-b-0 min-[1150px]:bg-transparent",
+    "lg:border-b-0 lg:bg-transparent",
     "transition-[background-color,border-color,box-shadow] duration-200",
-    "data-scrolled:shadow-xs min-[1150px]:data-scrolled:border-b min-[1150px]:data-scrolled:bg-white",
+    "data-scrolled:shadow-xs lg:data-scrolled:border-b lg:data-scrolled:bg-white",
     className,
   ]}
 >
   <div
-    class="container-header flex items-center justify-between gap-4 py-3 min-[1150px]:h-20 min-[1150px]:py-0"
+    class="container-header flex items-center justify-between gap-4 py-3 lg:h-20 lg:py-0"
   >
     <a
       href="/"
@@ -139,16 +139,16 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
       class="flex shrink-0 items-center gap-4"
     >
       <Mark
-        class="h-[35px] w-[26.44px] min-[1150px]:h-[45px] min-[1150px]:w-[34px]"
+        class="h-[35px] w-[26.44px] lg:h-[45px] lg:w-[34px]"
         aria-hidden="true"
       />
       <Wordmark
-        class="h-[25px] w-[136.43px] min-[1150px]:h-[35px] min-[1150px]:w-[191px]"
+        class="h-[25px] w-[136.43px] lg:h-[35px] lg:w-[191px]"
         aria-hidden="true"
       />
     </a>
 
-    <nav aria-label="Primary" class="hidden min-[1150px]:block">
+    <nav aria-label="Primary" class="hidden lg:block">
       {/* 18px is the tightened tier; the Figma 29px returns once there is room. */}
       <ul class="flex items-center gap-[18px] min-[1200px]:gap-[29px]">
         {
@@ -163,7 +163,7 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
       </ul>
     </nav>
 
-    <div class="hidden min-[1150px]:flex min-[1150px]:items-center min-[1150px]:gap-3">
+    <div class="hidden lg:flex lg:items-center lg:gap-3">
       <a href="/login" class:list={[btnSecondary, "w-[92px]"]}>
         <span class="p-1">Log In</span>
       </a>
@@ -177,7 +177,7 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
       [open] with no state to track. The 38x38 box is the drawn size; the
       ::before expands the hit area to the 44x44 minimum without changing it.
     */}
-    <details data-mobile-menu class="group min-[1150px]:hidden">
+    <details data-mobile-menu class="group lg:hidden">
       <summary
         class="relative flex size-[38px] shrink-0 cursor-pointer list-none items-center justify-center rounded-sm bg-gray-100 before:absolute before:-inset-[3px] before:content-[''] [&::-webkit-details-marker]:hidden"
       >

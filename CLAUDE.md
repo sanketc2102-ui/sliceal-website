@@ -19,6 +19,8 @@ Do not add these without asking first:
 - No TypeScript-only patterns unless the project already uses TS
 - No jQuery, Lodash, or utility libraries for things the platform already does
 - No CSS-in-JS, Sass, or CSS frameworks other than Tailwind
+- No arbitrary breakpoints (`min-[...]`, `max-[...]`) — use only the
+  `sm`/`md`/`lg`/`xl`/`2xl` tokens defined in `tokens.css`
 - No `npm install` of a new dependency without explaining why it is needed
 
 If a task seems to need one of the above, say so and propose a vanilla approach instead.
@@ -67,6 +69,39 @@ Run `astro check` and `astro build` before declaring work finished.
 - Use fluid units and `min-h-dvh` (not `min-h-screen`) so mobile browser chrome doesn't break layouts.
 - Avoid hover-only interactions — they don't exist on touch.
 - Prefer `flex-wrap` and `grid` with `auto-fit`/`minmax` over breakpoint-specific column counts where it works.
+
+### Building without a mobile or tablet design yet
+
+Some pages are built desktop-first because Figma mobile/tablet frames
+don't exist yet and won't for an unknown amount of time. Until real frames
+land, follow these rules instead of guessing per-component:
+
+- **Never skip straight from unprefixed to `lg:`.** Any layout using
+  `lg:grid-cols-3` or higher must also define a `md:grid-cols-2` step.
+  Single-column layouts and `flex-col lg:flex-row` patterns are exempt —
+  they degrade safely without a tablet step.
+- **The unprefixed (mobile) layer must be a safe placeholder, not empty.**
+  Even with no mobile Figma frame, always write a deliberate default:
+  single column, fluid widths (`w-full`, no large fixed `w-[Npx]`), body
+  text capped with a `max-w-*`, no desktop-scale font sizes. The goal is
+  that when a real mobile design arrives, we edit these values in place —
+  we never restructure the component's DOM, props, or slots to add
+  mobile support later.
+- **Only use the breakpoint tokens already defined in `tokens.css`**
+  (`sm` `md` `lg` `xl` `2xl`). Never introduce an arbitrary breakpoint like
+  `min-[1150px]:` — every one-off breakpoint is a future seam where one
+  component switches to "desktop" at a different width than the rest of
+  the page.
+- **Tag every component built without a real mobile/tablet frame** with a
+  comment at the top:
+
+```astro
+  <!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
+       placeholder, not a designed layout. Revisit when frames land. -->
+```
+
+When designs arrive, run `grep -rl "TODO(mobile)" src/` to get the exact
+list of components to revisit — not a full-site re-audit.
 
 ## Accessibility & Semantics
 
