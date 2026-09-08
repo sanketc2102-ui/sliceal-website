@@ -1,10 +1,13 @@
 ---
+
 import Section from "../layout/Section.astro";
 import StepRow from "./StepRow.astro";
-import PhoneMockup from "./PhoneMockup.astro";
-import DashboardScreen from "./DashboardScreen.astro";
 import PropertyPreviewCard from "./PropertyPreviewCard.astro";
 import Breadcrumb from "../ui/Breadcrumb.astro";
+
+import goldLeft from "../../assets/own-slice/gold-left.png";
+import goldMiddle from "../../assets/own-slice/gold-middle.png";
+import goldRight from "../../assets/own-slice/gold-right.png";
 
 const portfolioStats = [
   { label: "TOTAL INVESTED", value: "৳175,000" },
@@ -23,6 +26,7 @@ const steps = [
       "DLD verified properties only",
       "Projected yields & independent valuation transparently listed",
     ],
+    visual: "properties",
   },
   {
     eyebrow: "STEP 02",
@@ -33,6 +37,7 @@ const steps = [
       "Start with as low as AED 2,000",
       "Tokens minted securely on the XRP Ledger",
     ],
+    visual: "property",
   },
   {
     eyebrow: "STEP 03",
@@ -43,6 +48,7 @@ const steps = [
       "Rental income distributed monthly",
       "Revalued every 3–6 months by an accredited agency",
     ],
+    visual: "portfolio",
   },
   {
     eyebrow: "STEP 04",
@@ -53,80 +59,194 @@ const steps = [
       "Track rent and value in your portfolio dashboard",
       "Trade on secondary market after 3 months",
     ],
+    visual: "dashboard",
   },
 ];
+
 ---
 
 <Section surface="alt" innerClass="flex flex-col gap-16 lg:gap-24">
   <!-- Heading -->
   <header class="flex w-full flex-col items-center gap-4 text-center">
-    
+    <Breadcrumb trail={[{ label: "How it Works" }]} />
 
-    <Breadcrumb trail={[{label: "How it Works"}]} />
-
-    <h1 class="w-full max-w-[680px] text-center text-2xl leading-8 text-gray-900 lg:text-5xl lg:leading-[60px]">
+    <h1
+      class="w-full max-w-[680px] text-center text-2xl leading-8 text-gray-900 lg:text-5xl lg:leading-[60px]"
+    >
       How Sliceal <span class="text-brand-purple">Works</span>
     </h1>
 
-    <p class="w-full max-w-[680px] text-center text-sm leading-5 text-gray-600 lg:text-lg lg:leading-7">
-      Own a share of DLD-verified Dubai real estate in three simple steps — from browsing to earning rental income, all on the XRP Ledger.
+    <p
+      class="w-full max-w-[680px] text-center text-sm leading-5 text-gray-600 lg:text-lg lg:leading-7"
+    >
+      Own a share of DLD-verified Dubai real estate in three simple steps — from browsing to earning
+      rental income, all on the XRP Ledger.
     </p>
   </header>
 
   <!-- Steps -->
-  <div class="flex flex-col gap-16 lg:gap-24">
-    {steps.map((step, i) => (
-      <StepRow eyebrow={step.eyebrow} reverse={i % 2 === 1}>
-        <h3 class="text-xl leading-7 text-gray-900 lg:text-3xl lg:leading-9">
-          {step.title}
-        </h3>
+  <div class="flex w-full flex-col gap-16 lg:gap-24">
+    {
+      steps.map((step, i) => (
+        <StepRow eyebrow={step.eyebrow} reverse={i % 2 === 1}>
+          <h3 class="max-w-xl text-xl leading-7 text-gray-900 lg:text-3xl lg:leading-9">
+            {step.title}
+          </h3>
 
-        <p class="text-sm leading-6 text-gray-600 lg:text-base">
-          {step.description}
-        </p>
+          <p class="max-w-xl text-sm leading-6 text-gray-600 lg:text-base lg:leading-6">
+            {step.description}
+          </p>
 
-        <ul class="flex flex-col gap-2">
-          {step.points.map((point) => (
-            <li class="flex items-start gap-2 text-sm leading-5 text-gray-700">
-              <svg viewBox="0 0 20 20" fill="none" class="mt-0.5 size-4 shrink-0 text-indigo-500" aria-hidden="true">
-                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.3" />
-                <path d="m6.5 10 2.3 2.3L13.5 7.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              {point}
-            </li>
-          ))}
-        </ul>
+          <ul class="flex max-w-xl flex-col gap-2">
+            {step.points.map((point) => (
+              <li class="flex items-start gap-2 text-sm leading-5 text-gray-700">
+                <svg
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  class="mt-0.5 size-4 shrink-0 text-indigo-500"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="9"
+                    stroke="currentColor"
+                    stroke-width="1.3"
+                  />
+                  <path
+                    d="m6.5 10 2.3 2.3L13.5 7.8"
+                    stroke="currentColor"
+                    stroke-width="1.3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
 
-        <Fragment slot="visual">
-          {i === 0 && (
-            <PhoneMockup>
-              <div class="flex flex-col gap-3 p-4 text-left">
-                <p class="text-xs font-semibold leading-4 text-gray-900">Good Morning, Ahmed</p>
-                <div class="flex items-center gap-2 rounded-full border border-gray-200 px-3 py-2">
-                  <svg viewBox="0 0 20 20" fill="none" class="size-3.5 shrink-0 text-gray-400" aria-hidden="true">
-                    <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.4" />
-                    <path d="m14 14 4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-                  </svg>
-                  <span class="text-[10px] leading-3 text-gray-400">Search by location or project...</span>
+                {point}
+              </li>
+            ))}
+          </ul>
+
+          <Fragment slot="visual">
+            {
+              step.visual === "property" && (
+                <PropertyPreviewCard />
+              )
+            }
+
+            {
+              step.visual === "properties" && (
+                <div
+                  class="
+                    relative
+                    w-full
+                    max-w-[360px]
+                    overflow-hidden
+                    rounded-2xl
+                    bg-white
+                    shadow-lg
+
+                    lg:h-[368px]
+                    lg:w-[500px]
+                    lg:max-w-none
+                  "
+                >
+                  <img
+                    src={goldLeft.src}
+                    alt="Sliceal property browsing app"
+                    class="
+                      absolute
+                      left-1/2
+                      top-6
+                      w-[280px]
+                      max-w-none
+                      -translate-x-1/2
+
+                      lg:top-8
+                      lg:w-[330px]
+                    "
+                    loading="lazy"
+                  />
                 </div>
-                <div class="relative h-32 overflow-hidden rounded-xl bg-linear-to-br from-brand-purple/30 to-brand-800/50">
-                  <span class="absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-[9px] font-bold text-indigo-600">
-                    DLD Verified
-                  </span>
+              )
+            }
+
+            {
+              step.visual === "portfolio" && (
+                <div
+                  class="
+                    relative
+                    w-full
+                    max-w-[360px]
+                    overflow-hidden
+                    rounded-2xl
+                    bg-white
+                    shadow-lg
+
+                    lg:h-[368px]
+                    lg:w-[500px]
+                    lg:max-w-none
+                  "
+                >
+                  <img
+                    src={goldMiddle.src}
+                    alt="Sliceal investment portfolio"
+                    class="
+                      absolute
+                      left-1/2
+                      top-6
+                      w-[280px]
+                      max-w-none
+                      -translate-x-1/2
+
+                      lg:top-8
+                      lg:w-[330px]
+                    "
+                    loading="lazy"
+                  />
                 </div>
-              </div>
-            </PhoneMockup>
-          )}
+              )
+            }
 
-          {i === 1 && <PropertyPreviewCard />}
+            {
+              step.visual === "dashboard" && (
+                <div
+                  class="
+                    relative
+                    w-full
+                    max-w-[360px]
+                    overflow-hidden
+                    rounded-2xl
+                    bg-white
+                    shadow-lg
 
-          {(i === 2 || i === 3) && (
-            <PhoneMockup>
-              <DashboardScreen stats={portfolioStats} />
-            </PhoneMockup>
-          )}
-        </Fragment>
-      </StepRow>
-    ))}
+                    lg:h-[368px]
+                    lg:w-[500px]
+                    lg:max-w-none
+                  "
+                >
+                  <img
+                    src={goldRight.src}
+                    alt="Sliceal investment dashboard"
+                    class="
+                      absolute
+                      left-1/2
+                      top-6
+                      w-[280px]
+                      max-w-none
+                      -translate-x-1/2
+
+                      lg:top-8
+                      lg:w-[330px]
+                    "
+                    loading="lazy"
+                  />
+                </div>
+              )
+            }
+          </Fragment>
+        </StepRow>
+      ))
+    }
   </div>
 </Section>
