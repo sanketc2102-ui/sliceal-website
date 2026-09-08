@@ -9,6 +9,7 @@ import  Faq  from "../components/sections/Faq.astro";
 import  OwnYouSliceSection  from "../components/sections/OwnYouSliceSection.astro";
 import Footer from "../components/layout/Footer.astro";
 import  PageUnderDevelopment  from "../components/sections/PageUnderDevelopment.astro";
+import HowSlicealWorksSection from "../components/howItWorks/HowSlicealWorksSection.astro"
 
 
 const title = "How It Works";
@@ -17,9 +18,9 @@ const description =
 ---
 
 
-<!-- <BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description}>
   <Header slot="header" />
-
+  <HowSlicealWorksSection />
   <WealthGeneration />
   <PartnersSection />
   <ConcludingCTA 
@@ -43,9 +44,9 @@ const description =
   <OwnYouSliceSection />
 
   <Footer slot="footer" />
-</BaseLayout> -->
+</BaseLayout>
 
 
 
 
-<PageUnderDevelopment />
+<!-- <PageUnderDevelopment /> -->
