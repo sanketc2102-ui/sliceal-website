@@ -1,5 +1,72 @@
 ---
+/**
+ * ConcludingCTA — reusable purple gradient CTA banner.
+ *
+ * Same gradient-card structure shows up three times in the designs, each
+ * with different copy/buttons. Instead of three components, this is one,
+ * driven by props. Defaults match the original homepage banner exactly, so
+ * <ConcludingCTA /> with no props is unchanged.
+ *
+ * layout="split" (default) — heading left, one button to the right, on
+ *   desktop; matches the "Everyone Deserves a slice" banner. Supports
+ *   per-word color highlights via the `heading` array form.
+ *
+ * layout="centered" — heading + optional subtext centered, buttons row
+ *   centered below; matches the "Start your Dubai property portfolio
+ *   today" / "Start Your Investment Journey Today" banners.
+ *
+ * Usage:
+ *
+ *   Default (unchanged homepage banner):
+ *     <ConcludingCTA />
+ *
+ *   "Start your Dubai property portfolio today":
+ *     <ConcludingCTA
+ *       layout="centered"
+ *       heading="Start your Dubai property portfolio today"
+ *       subtext="Build your Dubai property portfolio in under four minutes. Regulated by VARA. Verified by DLD."
+ *       buttons={[
+ *         { label: "Create Free Account", href: "/start-investing", variant: "primary" },
+ *         { label: "Contact Investment Team", href: "/contact", variant: "secondary" },
+ *       ]}
+ *     />
+ *
+ *   "Start Your Investment Journey Today":
+ *     <ConcludingCTA
+ *       layout="centered"
+ *       heading="Start Your Investment Journey Today"
+ *       subtext="Build your Dubai property portfolio in under four minutes. Regulated by VARA. Verified by DLD."
+ *       buttons={[
+ *         { label: "Start Investing", href: "/start-investing", variant: "primary" },
+ *         { label: "Download the App", href: "#download", variant: "secondary" },
+ *       ]}
+ *     />
+ */
 import Section from "../layout/Section.astro";
+
+const {
+  layout = "split",
+  heading = [
+    { text: "Everyone ", highlight: true },
+    { text: "Deserves a slice, We Make Sure " },
+    { text: "It’s Possible.", highlight: true },
+  ],
+  subtext,
+  buttons = [{ label: "Start Investing", href: "#", variant: "primary" }],
+} = Astro.props;
+
+// Normalize `heading` so callers can pass a plain string (centered layout)
+// or an array of {text, highlight} segments (split layout, colored words).
+const headingSegments =
+  typeof heading === "string" ? [{ text: heading }] : heading;
+
+const buttonBase =
+  "flex h-12 shrink-0 items-center justify-center rounded-lg px-5 py-3 text-md font-semibold transition-colors";
+
+const buttonVariants = {
+  primary: "border border-gray-300 bg-white text-gray-700 shadow-xs hover:bg-gray-50",
+  secondary: "border border-white/40 bg-transparent text-white hover:bg-white/10",
+};
 ---
 
 <Section
@@ -7,69 +74,59 @@ import Section from "../layout/Section.astro";
   innerClass="flex flex-col items-center"
 >
   <div
-    class="
-      w-full
-      overflow-hidden
-      rounded-xl
-      bg-linear-to-br from-brand-800 to-brand-600
-      p-8
-      md:rounded-2xl
-      md:p-10
-    "
+    class:list={[
+      "w-full overflow-hidden rounded-xl bg-linear-to-br from-brand-800 to-brand-600 md:rounded-2xl",
+      layout === "centered" ? "p-8 text-center md:p-16" : "p-8 md:p-10",
+    ]}
   >
-    <div
-      class="
-        flex
-        flex-col
-        items-stretch
-        gap-6
-        md:flex-row
-        md:items-center
-        md:justify-between
-        md:gap-8
-      "
-    >
-      <h2
-        class="
-          text-center
-          font-display
-          text-display-xs
-          font-normal
-          text-white
-          md:max-w-[565px]
-          md:text-left
-          md:text-display-lg
-        "
-      >
-        <span class="text-mint-500">Everyone </span>
-        <span>Deserves a slice, We Make Sure </span>
-        <span class="text-mint-500">It’s Possible.</span>
-      </h2>
+    {
+      layout === "centered" ? (
+        <div class="mx-auto flex max-w-[45.5rem] flex-col items-center gap-4 md:gap-5">
+          <h2 class="font-display text-display-xs font-normal text-white md:text-display-lg">
+            {headingSegments.map(({ text, highlight }) =>
+              highlight ? <span class="text-mint-500">{text}</span> : <span>{text}</span>,
+            )}
+          </h2>
 
-      <a
-        href="#"
-        class="
-          flex
-          h-12
-          w-full
-          shrink-0
-          items-center
-          justify-center
-          rounded-lg
-          border
-          border-gray-300
-          bg-white
-          px-5
-          py-3
-          text-md
-          font-semibold
-          text-gray-700
-          shadow-xs
-          md:w-44
-        "
-      >
-        Start Investing
-      </a>
-    </div>
+          {subtext && (
+            <p class="max-w-[38rem] text-sm leading-6 text-white/70 md:text-md">
+              {subtext}
+            </p>
+          )}
+
+          {buttons.length > 0 && (
+            <div class="mt-2 flex flex-wrap items-center justify-center gap-3">
+              {buttons.map((button) => (
+                <a
+                  href={button.href}
+                  class:list={[buttonBase, buttonVariants[button.variant ?? "primary"]]}
+                >
+                  {button.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div class="flex flex-col items-stretch gap-6 md:flex-row md:items-center md:justify-between md:gap-8">
+          <h2 class="text-center font-display text-display-xs font-normal text-white md:max-w-[565px] md:text-left md:text-display-lg">
+            {headingSegments.map(({ text, highlight }) =>
+              highlight ? <span class="text-mint-500">{text}</span> : <span>{text}</span>,
+            )}
+          </h2>
+
+          <div class="flex w-full shrink-0 flex-col gap-3 sm:flex-row md:w-auto">
+            {buttons.map((button) => (
+              <a
+                href={button.href}
+                class:list={[buttonBase, "w-full md:w-44", buttonVariants[button.variant ??"primary"]]}
+              >
+                {button.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )
+    }
   </div>
 </Section>
