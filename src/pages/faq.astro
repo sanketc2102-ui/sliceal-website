@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import  Faq  from "../components/sections/Faq.astro";
+
+const title = "Frequently Asked Questions";
+const description =
+  "Find answers to common questions about Sliceal, investing, tokenised real estate, payments, ownership and more.";
+---
+
+<BaseLayout title={title} description={description}>
+  <Header slot="header" />
+
+  <main>
+    <section
+      class="
+        border-b
+        border-gray-200
+        bg-white
+      "
+    >
+      <div
+        class="
+          container-site
+          flex
+          flex-col
+          items-center
+          gap-5
+          py-16
+          text-center
+
+          lg:py-20
+        "
+      >
+        <span
+          class="
+            rounded-full
+            border
+            border-gray-200
+            px-2
+            py-1
+            text-[10px]
+            font-medium
+            uppercase
+            tracking-wide
+            text-brand-purple
+          "
+        >
+          FAQ
+        </span>
+
+        <h1
+          class="
+            text-4xl
+            font-medium
+            leading-tight
+            tracking-tight
+            text-black
+
+            lg:text-5xl
+          "
+        >
+          Frequently Asked Questions
+        </h1>
+      </div>
+    </section>
+
+    <Faq
+      eyebrow="QUESTIONS"
+      title="Frequently asked."
+    />
+  </main>
+
+  <Footer />
+</BaseLayout>

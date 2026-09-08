@@ -1,0 +1,220 @@
+---
+/**
+ * FaqAccordion — category tabs + accordion, reusable across pages.
+ *
+ * Renders two synchronized tab lists (a horizontal chip row for mobile, a
+ * vertical sidebar for desktop) plus one accordion panel per category. Only
+ * the active category's panel is shown; JS swaps the active state on click.
+ * Without JS, the first category's panel still renders and is fully
+ * readable — the rest are just a click away from working once JS loads.
+ *
+ * Each question/answer pair is a native <details>/<summary>, so opening and
+ * closing an answer needs no JS at all.
+ *
+ * Props:
+ *   categories {Array<{ id, label, questions: Array<{ question, answer }> }>}
+ *   instanceId {string} Optional. Disambiguates ids when this component is
+ *              used more than once on the same page. Defaults to "faq".
+ */
+const { categories, instanceId = "faq" } = Astro.props;
+
+const tabId = (categoryId) => `${instanceId}-tab-${categoryId}`;
+const panelId = (categoryId) => `${instanceId}-panel-${categoryId}`;
+
+const activeTabClasses =
+  "bg-brand text-white outline outline-2 outline-offset-[-2px] outline-brand-400";
+const inactiveTabClasses =
+  "text-gray-900 border-b border-gray-100 hover:bg-gray-25";
+
+const activeChipClasses = "border-transparent bg-brand text-white";
+const inactiveChipClasses = "border-gray-200 text-gray-700";
+---
+
+<div class="faq-accordion flex flex-col gap-8" data-faq-accordion>
+  <!-- Mobile: horizontal scrollable category chips -->
+  <div
+    class="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:hidden"
+    role="tablist"
+    aria-label="FAQ categories"
+    data-faq-chip-list
+  >
+    {
+      categories.map((category, index) => (
+        <button
+          type="button"
+          id={`${tabId(category.id)}-mobile`}
+          role="tab"
+          aria-selected={index === 0 ? "true" : "false"}
+          aria-controls={panelId(category.id)}
+          tabindex={index === 0 ? 0 : -1}
+          data-faq-tab
+          data-target={category.id}
+          class:list={[
+            "shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium leading-5 transition-colors",
+            index === 0 ? activeChipClasses : inactiveChipClasses,
+          ]}
+        >
+          {category.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="flex flex-col gap-8 lg:flex-row lg:items-start">
+    <!-- Desktop: vertical sidebar -->
+    <div
+      class="hidden w-72 shrink-0 flex-col lg:flex"
+      role="tablist"
+      aria-orientation="vertical"
+      aria-label="FAQ categories"
+      data-faq-tab-list
+    >
+      {
+        categories.map((category, index) => (
+          <button
+            type="button"
+            id={tabId(category.id)}
+            role="tab"
+            aria-selected={index === 0 ? "true" : "false"}
+            aria-controls={panelId(category.id)}
+            tabindex={index === 0 ? 0 : -1}
+            data-faq-tab
+            data-target={category.id}
+            class:list={[
+              "flex items-center justify-between gap-2.5 overflow-hidden rounded-[10px] px-5 py-3.5 text-left text-lg leading-7 transition-colors",
+              index === 0 ? activeTabClasses : inactiveTabClasses,
+            ]}
+          >
+            {category.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Panels -->
+    <div class="min-w-0 flex-1" data-faq-panels>
+      {
+        categories.map((category, index) => (
+          <div
+            id={panelId(category.id)}
+            role="tabpanel"
+            aria-labelledby={tabId(category.id)}
+            data-faq-panel={category.id}
+            class:list={["flex flex-col", index !== 0 && "hidden"]}
+          >
+            {category.questions.map((item, qIndex) => (
+              <details class="group border-t border-gray-200 py-5" open={qIndex === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+                  <span class="text-base font-normal leading-6 text-gray-900 lg:text-lg lg:leading-7">
+                    {item.question}
+                  </span>
+
+                  <span
+                    class="relative flex size-6 shrink-0 items-center justify-center text-gray-900"
+                    aria-hidden="true"
+                  >
+                    <span class="absolute h-0.5 w-3.5 rounded-full bg-current" />
+                    <span class="absolute h-3.5 w-0.5 rounded-full bg-current transition-opacity duration-150 group-open:opacity-0" />
+                  </span>
+                </summary>
+
+                <p class="mt-3.5 max-w-[61.375rem] text-sm font-normal leading-5 text-gray-500">
+                  {item.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  const ACTIVE_TAB_CLASSES = [
+    "bg-brand",
+    "text-white",
+    "outline",
+    "outline-2",
+    "outline-offset-[-2px]",
+    "outline-brand-400",
+  ];
+  const INACTIVE_TAB_CLASSES = ["text-gray-900", "border-b", "border-gray-100"];
+  const ACTIVE_CHIP_CLASSES = ["border-transparent", "bg-brand", "text-white"];
+  const INACTIVE_CHIP_CLASSES = ["border-gray-200", "text-gray-700"];
+
+  const initFaqAccordions = () => {
+    document
+      .querySelectorAll("[data-faq-accordion]")
+      .forEach((accordion) => {
+        if (accordion.dataset.faqInitialized === "true") return;
+        accordion.dataset.faqInitialized = "true";
+
+        const tabs = Array.from(
+          accordion.querySelectorAll("[data-faq-tab]"),
+        );
+        const panels = Array.from(
+          accordion.querySelectorAll("[data-faq-panel]"),
+        );
+
+        if (!tabs.length || !panels.length) return;
+
+        const isChip = (tab) =>
+          tab.closest("[data-faq-chip-list]") !== null;
+
+        const activate = (targetId, { focusTab = false } = {}) => {
+          tabs.forEach((tab) => {
+            const active = tab.dataset.target === targetId;
+            const activeClasses = isChip(tab)
+              ? ACTIVE_CHIP_CLASSES
+              : ACTIVE_TAB_CLASSES;
+            const inactiveClasses = isChip(tab)
+              ? INACTIVE_CHIP_CLASSES
+              : INACTIVE_TAB_CLASSES;
+
+            tab.setAttribute("aria-selected", active ? "true" : "false");
+            tab.tabIndex = active ? 0 : -1;
+            tab.classList.remove(...activeClasses, ...inactiveClasses);
+            tab.classList.add(
+              ...(active ? activeClasses : inactiveClasses),
+            );
+
+            if (active && focusTab) tab.focus();
+          });
+
+          panels.forEach((panel) => {
+            panel.classList.toggle(
+              "hidden",
+              panel.dataset.faqPanel !== targetId,
+            );
+          });
+        };
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            activate(tab.dataset.target);
+          });
+
+          tab.addEventListener("keydown", (event) => {
+            if (!["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp"].includes(event.key)) {
+              return;
+            }
+
+            event.preventDefault();
+
+            const group = tabs.filter((t) => isChip(t) === isChip(tab));
+            const currentIndex = group.indexOf(tab);
+            const forward =
+              event.key === "ArrowRight" || event.key === "ArrowDown";
+            const nextIndex =
+              (currentIndex + (forward ? 1 : -1) + group.length) %
+              group.length;
+
+            activate(group[nextIndex].dataset.target, { focusTab: true });
+          });
+        });
+      });
+  };
+
+  initFaqAccordions();
+</script>

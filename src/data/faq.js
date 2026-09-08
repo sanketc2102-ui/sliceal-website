@@ -1,3 +1,15 @@
+/**
+ * FAQ content, grouped by category.
+ *
+ * Single source of truth for every FAQ list on the site — the homepage
+ * "Frequently asked" preview (FAQSection.astro) and the dedicated FAQs page
+ * both render this via <FaqAccordion />. Edit the copy here; nothing else
+ * needs to change.
+ *
+ * Only the "general" category holds real, confirmed copy (from Figma
+ * node 28900-181416). Every other category is placeholder content in the
+ * Sliceal voice — replace it with the real answers when they're ready.
+ */
 export const faqCategories = [
   {
     id: "general",
@@ -20,29 +32,27 @@ export const faqCategories = [
       },
     ],
   },
-
   {
     id: "getting-started",
     label: "Getting Start",
     questions: [
       {
-        question: "How do I get started with Sliceal?",
+        question: "How do I create a Sliceal account?",
         answer:
-          "Create your Sliceal account, complete the verification process, and explore available real estate investment opportunities.",
+          "Download the app or sign up on our website, verify your email and phone number, then complete a short KYC check to start investing.",
       },
       {
-        question: "Who can invest through Sliceal?",
+        question: "What documents do I need to sign up?",
         answer:
-          "Eligible investors can invest through Sliceal once their account verification and onboarding requirements have been completed.",
+          "A valid Emirates ID or passport, plus a proof of address if it's requested during verification.",
       },
       {
-        question: "What documents do I need?",
+        question: "How long does onboarding take?",
         answer:
-          "You will generally need a valid identification document and the information required to complete your account verification.",
+          "Most people finish verification in under 10 minutes, and approval is typically confirmed within 24 hours.",
       },
     ],
   },
-
   {
     id: "account-kyc",
     label: "Account & KYC",
@@ -50,105 +60,101 @@ export const faqCategories = [
       {
         question: "Why do I need to complete KYC?",
         answer:
-          "KYC helps us verify your identity and meet applicable regulatory and compliance requirements.",
+          "KYC verification is required under UAE regulations to confirm your identity and keep the platform secure for every investor.",
       },
       {
-        question: "How long does verification take?",
+        question: "Can I invest without completing KYC?",
         answer:
-          "Verification is normally completed quickly, although additional checks may sometimes be required.",
+          "No, KYC approval is required before you can fund your wallet or purchase any property tokens.",
       },
       {
-        question: "Can I update my account information?",
+        question: "How do I update my account details?",
         answer:
-          "Yes. You can update eligible account information through your Sliceal account or by contacting support.",
+          "You can update your profile, contact details, and documents at any time from Settings → Account in the app.",
       },
     ],
   },
-
   {
     id: "investments",
     label: "Investments",
     questions: [
       {
-        question: "How much can I invest?",
+        question: "What is the minimum investment amount?",
         answer:
-          "Investment amounts depend on the individual property opportunity and the applicable investment requirements.",
+          "You can start investing in Dubai real estate from as little as AED 2,000.",
       },
       {
-        question: "How do property investments work?",
+        question: "How are properties selected for the platform?",
         answer:
-          "Properties are tokenised into digital ownership interests, allowing eligible investors to participate with smaller investment amounts.",
+          "Every property is vetted for location, yield potential, and legal standing before it's listed and DLD-registered.",
       },
       {
-        question: "How do I earn from my investment?",
+        question: "Can I sell my investment before the property is sold?",
         answer:
-          "Returns may come from rental income and potential capital appreciation, depending on the underlying property.",
+          "Yes, tokens can be traded at any time on our regulated secondary market, subject to buyer availability.",
       },
     ],
   },
-
   {
     id: "wallet-payments",
     label: "Wallet & Payments",
     questions: [
       {
-        question: "How do I add funds?",
+        question: "What payment methods are supported?",
         answer:
-          "You can add funds through the supported payment methods available inside your Sliceal account.",
+          "We support bank transfer and major debit or credit cards for both deposits and withdrawals.",
       },
       {
-        question: "Where can I see my balance?",
+        question: "How do I withdraw my rental income?",
         answer:
-          "Your available balance and transaction information are displayed inside your Sliceal wallet.",
+          "Rental income is distributed to your Sliceal wallet every month and can be withdrawn to your linked bank account at any time.",
       },
       {
-        question: "Are payments secure?",
+        question: "Are there any fees for deposits or withdrawals?",
         answer:
-          "Payments are processed using secure systems designed to protect your financial information.",
+          "Deposits are free. Any withdrawal fee is shown clearly before you confirm the transaction.",
       },
     ],
   },
-
   {
     id: "orders-transactions",
     label: "Orders & Transactions",
     questions: [
       {
-        question: "How do I place an investment order?",
+        question: "How do I track my order status?",
         answer:
-          "Select an available property, review its details, choose your investment amount, and follow the order process.",
+          "Every purchase or sale appears under Orders & Transactions with a real-time status update.",
       },
       {
-        question: "Where can I see my transactions?",
+        question: "What happens if my order isn't matched?",
         answer:
-          "Your completed and pending transactions are available through your Sliceal account.",
+          "Unmatched buy or sell orders stay open on the secondary market until a match is found or you cancel them.",
       },
       {
-        question: "Can I cancel an order?",
+        question: "Can I cancel a pending order?",
         answer:
-          "Cancellation availability depends on the status and type of the transaction.",
+          "Yes, pending orders can be cancelled any time before they're matched, from the order details screen.",
       },
     ],
   },
-
   {
     id: "tokens-ownership",
     label: "Tokens & Ownership",
     questions: [
       {
-        question: "What do Sliceal tokens represent?",
+        question: "What does owning a token represent?",
         answer:
-          "Tokens represent digital ownership interests associated with tokenised real estate opportunities.",
+          "Each token represents a fractional, DLD-registered ownership stake in a specific property.",
       },
       {
-        question: "Can I transfer my tokens?",
+        question: "Are my tokens legally recognized?",
         answer:
-          "Token transferability depends on the applicable property, market and regulatory requirements.",
+          "Yes. Ownership is recorded on-chain on the XRP Ledger and backed by DLD registration.",
       },
       {
-        question: "Where are my tokens held?",
+        question: "Can I transfer my tokens to someone else?",
         answer:
-          "Your token holdings are associated with your Sliceal account and supported wallet infrastructure.",
+          "Tokens can be moved through the secondary market, or in specific cases via a direct wallet-to-wallet transfer.",
       },
     ],
   },
