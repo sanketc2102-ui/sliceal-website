@@ -79,8 +79,8 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
           items-center
           px-4
           pt-12
+          pb-10
           text-center
-
           lg:absolute
           lg:left-0
           lg:top-0
@@ -89,6 +89,7 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
           lg:justify-center
           lg:px-0
           lg:pt-0
+          lg:pb-0
         "
       >
         <div
@@ -114,15 +115,14 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
           >
             <h2
               class="
-                w-full
-                max-w-[390px]
+               w-full
+                max-w-[320px]
                 font-display
-                text-display-sm
+                text-display-xs-mobile
                 font-normal
-                leading-display-sm
+                leading-8
                 tracking-tight
                 text-white
-
                 lg:w-[484px]
                 lg:max-w-none
                 lg:text-display-lg
@@ -158,14 +158,7 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
                =================================================== -->
 
           <div
-            class="
-              flex
-              h-10
-              w-64
-              items-center
-              justify-start
-              gap-2
-            "
+            class="flex h-10 w-auto items-center justify-center gap-2"
           >
 
             <!-- Google Play -->
@@ -189,61 +182,12 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
               "
             >
               <!-- logo -->
-              <span
-                class="
-                  flex
-                  h-6
-                  w-5
-                  shrink-0
-                  items-center
-                  justify-center
-                  ml-2
-                "
-              >
-                <Image
-                  src={googlePlayIcon}
-                  alt=""
-                  class="h-6 w-5 object-contain"
-                />
-              </span>
-
-              <!-- text -->
-              <span
-                class="
-                  ml-2
-                  flex
-                  min-w-0
-                  flex-col
-                  items-start
-                  text-left
-                "
-              >
-                <span
-                  class="
-                    whitespace-nowrap
-                    text-[8px]
-                    font-normal
-                    uppercase
-                    leading-[10px]
-                    text-white
-                  "
-                >
-                  GET IT ON
-                </span>
-
-                <span
-                  class="
-                    whitespace-nowrap
-                    text-[14px]
-                    font-medium
-                    leading-[14px]
-                    text-white
-                  "
-                >
-                  Google Play
-                </span>
-              </span>
-            </a>
+            <Image src={googlePlayIcon} alt="" class="h-6 w-5 shrink-0 object-contain" />
+            <span class="flex flex-col items-start whitespace-nowrap text-left">
+              <span class="text-[8px] font-normal uppercase leading-[10px] text-white">GET IT ON</span>
+              <span class="text-[14px] font-medium leading-[14px] text-white">Google Play</span>
+            </span>
+          </a>
 
 
             <!-- App Store -->
@@ -268,59 +212,10 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
             >
               <!-- Apple logo -->
 
-              <span
-                class="
-                  ml-2
-                  flex
-                  h-6
-                  w-5
-                  shrink-0
-                  items-center
-                  justify-center
-                "
-              >
-                <Image
-                  src={appStoreIcon}
-                  alt=""
-                  class="h-6 w-5 object-contain"
-                />
-              </span>
-
-              <!-- text -->
-
-              <span
-                class="
-                  ml-2
-                  flex
-                  min-w-0
-                  flex-col
-                  items-start
-                  text-left
-                "
-              >
-                <span
-                  class="
-                    whitespace-nowrap
-                    text-[8px]
-                    font-medium
-                    leading-[9px]
-                    text-white
-                  "
-                >
-                  Download on the
-                </span>
-
-                <span
-                  class="
-                    whitespace-nowrap
-                    text-[17px]
-                    font-medium
-                    leading-4
-                    text-white
-                  "
-                >
-                  App Store
-                </span>
+              <Image src={appStoreIcon} alt="" class="h-6 w-5 shrink-0 object-contain" />
+              <span class="flex flex-col items-start whitespace-nowrap text-left">
+                <span class="text-[8px] font-medium leading-[9px] text-white">Download on the</span>
+                <span class="text-[17px] font-medium leading-4 text-white">App Store</span>
               </span>
             </a>
 
@@ -408,10 +303,10 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
     class="
       absolute
       bottom-0
-      left-[1100px]
+      left-[1024px]
       z-10
-      h-[710px]
-      w-[346px]
+      h-[548px]
+      w-[267px]
     "
   >
     <Image
