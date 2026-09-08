@@ -15,53 +15,32 @@ const description =
   <Header slot="header" />
 
   <main>
-    <Section
-      surface="alt" flush class=""
-      class="
-        border-b
-        border-gray-200
-        bg-white
-        py-12 
-        xl:py-30
-      "
+   <Section
+      surface="alt"
+      flush
+      class="border-b border-gray-200 bg-white"
     >
-      <div
-        class="
-          container-site
-          flex
-          flex-col
-          items-center
-          gap-5
-          py-16
-          text-center
+      <div class="flex flex-col items-center gap-4 py-10 text-center lg:py-14">
+        <Breadcrumb trail={[{ label: 'FAQs' }]} />
 
-          lg:py-20
-        "
-      >
-      
-        <Breadcrumb trail={[{label: 'FAQs'}]}  />
-
-        <h1
-          class="
-            text-4xl
-            font-medium
-            leading-tight
-            tracking-tight
-            text-black
-
-            lg:text-5xl
-          "
-        >
+        <h1 class="text-4xl font-medium leading-tight tracking-tight text-black lg:text-5xl">
           Frequently Asked Questions
         </h1>
       </div>
     </Section>
 
-    <Faq
+    <Section 
+      surface="alt" 
+      flush
+      class="border-b border-gray-200 bg-white"
+    >
+
+      <Faq
       eyebrow="QUESTIONS"
       title="Frequently asked."
-    />
+      />
+    </Section>
   </main>
-
+    
   <Footer />
 </BaseLayout>
