@@ -1,0 +1,137 @@
+---
+/*
+ * PageUnderDevelopment — temporary full-page placeholder for unfinished pages.
+ *
+ * Props:
+ *   title        {string} Page-specific heading.
+ *   description  {string} Page-specific supporting text.
+ *   eyebrow      {string} Page/category label.
+ *   buttonText   {string} CTA label.
+ *   buttonHref   {string} CTA destination.
+ */
+
+// TODO(mobile): Replace placeholder layout with the real mobile Figma design
+// when mobile frames become available.
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../layout/Header.astro";
+import Footer from "../layout/Footer.astro";
+
+const {
+  title = "Something exciting is taking shape.",
+  description =
+    "We're putting the finishing touches on this page. Check back soon to discover more about Sliceal.",
+  eyebrow = "COMING SOON",
+  buttonText = "Back to home",
+  buttonHref = "/",
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+>
+  <Header slot="header" />
+
+  <section
+    class="
+      flex
+      min-h-[calc(100dvh-80px)]
+      w-full
+      items-center
+      justify-center
+      bg-white
+      px-6
+      py-16
+
+      lg:min-h-[calc(100dvh-80px)]
+      lg:px-20
+    "
+  >
+    <div
+      class="
+        flex
+        w-full
+        max-w-3xl
+        flex-col
+        items-center
+        gap-6
+        text-center
+      "
+    >
+      <!-- Eyebrow -->
+      <div
+        class="
+          rounded-[40px]
+          border
+          border-gray-200
+          bg-white
+          px-3.5
+          py-1.5
+        "
+      >
+        <span class="text-xs font-bold text-indigo-600">
+          {eyebrow}
+        </span>
+      </div>
+
+      <!-- Heading -->
+      <h1
+        class="
+          w-full
+          max-w-[680px]
+          text-3xl
+          font-normal
+          leading-tight
+          text-gray-900
+
+          lg:text-5xl
+          lg:leading-[60px]
+        "
+      >
+        {title}
+      </h1>
+
+      <!-- Description -->
+      <p
+        class="
+          w-full
+          max-w-[600px]
+          text-base
+          font-normal
+          leading-6
+          text-gray-600
+
+          lg:text-lg
+          lg:leading-7
+        "
+      >
+        {description}
+      </p>
+
+      <!-- CTA -->
+      <a
+        href={buttonHref}
+        class="
+          mt-2
+          inline-flex
+          items-center
+          justify-center
+          rounded-full
+          bg-indigo-600
+          px-6
+          py-3
+          text-sm
+          font-medium
+          text-white
+          transition-opacity
+          hover:opacity-90
+        "
+      >
+        {buttonText}
+      </a>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
