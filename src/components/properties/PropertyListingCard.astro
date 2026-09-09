@@ -1,0 +1,100 @@
+---
+import MediaCard from "../cards/MediaCard.astro";
+
+const { property } = Astro.props;
+
+const tagTone = {
+  neutral: "border-white/20 bg-white/20 text-white",
+  success: "border-white/20 bg-emerald-500/90 text-white",
+};
+---
+
+<article class="w-full">
+  <MediaCard image={property.image} alt={property.title}>
+    <Fragment slot="topOverlay">
+      <div class="flex flex-wrap gap-2">
+        {
+          property.tags.map((tag) => (
+            <span
+              class:list={[
+                "inline-flex h-7 items-center gap-1.5 rounded-full border px-3 backdrop-blur-sm",
+                tagTone[tag.tone] ?? tagTone.neutral,
+              ]}
+            >
+              <span class="size-1.5 rounded-full bg-white/80" aria-hidden="true" />
+              <span class="text-[10px] font-bold">{tag.label}</span>
+            </span>
+          ))
+        }
+      </div>
+    </Fragment>
+
+    <Fragment slot="bottomOverlay">
+      <div class="flex gap-2 overflow-hidden">
+        {
+          [property.area, property.type, property.bedrooms, property.bathrooms].map(
+            (value) => (
+              <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-white/20 px-3 text-xs text-white backdrop-blur-sm">
+                {value}
+              </span>
+            ),
+          )
+        }
+      </div>
+    </Fragment>
+
+    <div class="flex flex-col gap-3">
+      <div class="flex items-center gap-1.5">
+        <svg viewBox="0 0 24 24" fill="none" class="size-3.5 shrink-0 text-indigo-500" aria-hidden="true">
+          <path d="M20 10.5c0 5.5-8 11-8 11s-8-5.5-8-11a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.5" />
+          <circle cx="12" cy="10.5" r="2.5" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <span class="truncate text-sm leading-5 text-gray-600">{property.location}</span>
+      </div>
+
+      <h3 class="text-lg font-bold leading-7 text-slate-900">{property.title}</h3>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <div class="flex flex-col gap-1">
+        <p class="text-[10px] font-bold text-slate-400">LISTED PRICE</p>
+        <p class="text-base font-bold leading-6 text-gray-900">{property.listedPrice}</p>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <p class="text-[10px] font-bold text-slate-400">CURRENT VALUATION</p>
+        <p class="flex items-center gap-1 text-base font-bold leading-6 text-gray-900">
+          {property.currentValuation}
+          <span class="inline-flex items-center gap-0.5 text-xs font-bold text-emerald-600">
+            <svg viewBox="0 0 24 24" fill="none" class="size-2.5" aria-hidden="true">
+              <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            {property.valuationChange}
+          </span>
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <p class="flex items-center gap-1 text-[10px] font-bold text-slate-400">
+          PROJECTED ROI
+          <svg viewBox="0 0 24 24" fill="none" class="size-2.5" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
+            <path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </p>
+        <p class="text-base font-bold leading-6 text-emerald-600">{property.projectedRoi}</p>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <p class="flex items-center gap-1 text-[10px] font-bold text-slate-400">
+          GROSS RENTAL YIELD
+          <svg viewBox="0 0 24 24" fill="none" class="size-2.5" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
+            <path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </p>
+        <p class="text-base font-bold leading-6 text-gray-900">{property.grossRentalYield}</p>
+      </div>
+    </div>
+  </MediaCard>
+</article>

@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+
+const {
+  image,
+  alt,
+  imageHeightClass = "h-56",
+  class: className = "",
+} = Astro.props;
+---
+
+<article
+  class:list={[
+    "w-full overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-card",
+    className,
+  ]}
+>
+  <div class:list={["relative overflow-hidden", imageHeightClass]}>
+    <Image
+      src={image}
+      alt={alt}
+      class="absolute inset-0 h-full w-full object-cover"
+      loading="lazy"
+    />
+
+    <div
+      class="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-black/20"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="absolute inset-x-4 top-4">
+      <slot name="topOverlay" />
+    </div>
+
+    <div class="absolute inset-x-4 bottom-4">
+      <slot name="bottomOverlay" />
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-6 p-5">
+    <slot />
+  </div>
+</article>

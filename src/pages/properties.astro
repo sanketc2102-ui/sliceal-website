@@ -1,0 +1,47 @@
+---
+// TODO(mobile): only the desktop "Properties" artboard exists in Figma
+// (tokens.css §12 flags this page by name for a missing tablet frame).
+// Falls back to the site's standard grid-cols-1 md:grid-cols-2 lg:grid-cols-3.
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import Section from "../components/layout/Section.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+import PropertyListingCard from "../components/properties/PropertyListingCard.astro";
+import { properties } from "../data/properties.js";
+
+const title = "Properties";
+const description =
+  "Browse DLD-verified Dubai investment properties available on Sliceal.";
+---
+
+<BaseLayout title={title} description={description}>
+  <Header slot="header" />
+
+  <Section surface="alt" flush class="border-b border-gray-200 bg-white">
+    <div class="flex flex-col items-center gap-4 py-10 text-center lg:py-14">
+      <Breadcrumb trail={[{ label: "Properties" }]} />
+
+      <h1 class="text-4xl font-medium leading-tight tracking-tight text-black lg:text-5xl">
+        Our Dubai investment properties.
+      </h1>
+
+      <p class="text-sm font-normal leading-5 text-gray-500">
+        Trusted by 3,000+ investors
+      </p>
+    </div>
+  </Section>
+
+  <Section surface="alt" flush>
+    <div class="grid grid-cols-1 gap-6 py-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-5.5 lg:py-14">
+      {
+        properties.map((property) => (
+          <PropertyListingCard property={property} />
+        ))
+      }
+    </div>
+  </Section>
+
+  <Footer slot="footer" />
+</BaseLayout>
