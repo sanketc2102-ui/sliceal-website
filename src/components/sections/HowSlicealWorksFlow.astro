@@ -1,0 +1,173 @@
+---
+/**
+ * HowSlicealWorksFlow — the four-step "How Sliceal Works" band on the landing
+ * page. One step per row: eyebrow, headline, body, and a photo.
+ *
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK
+ *   desktop 29373:154997 ("section", 1512)  — split header, hairline rules,
+ *     rows of 48px headline + arrow on the left, pill-cropped 200px photo right
+ *   mobile  29879:63755 ("WorkflowSection", 440) — centred header, then four
+ *     bordered white cards, photo 160px tall under the copy
+ *
+ * Both frames exist, so nothing here is a guessed mobile layout — the card
+ * chrome is real at mobile and unwound at xl, and the DOM is shared.
+ *
+ * Not to be confused with the other two "how it works" treatments:
+ *   sections/HowSlicealWorksSteps.astro       — 4 condensed cards, /why-sliceal
+ *   howItWorks/HowSlicealWorksSection.astro   — alternating StepRow, /how-it-works
+ *
+ * Deliberate deviations from the desktop frame:
+ *   - Step 1's body is 15px and steps 2–4 are 14px. Normalised to 14px; a 1px
+ *     drift on one row reads as a slip, not intent.
+ *   - Body copy widths are 494/488/468px per row. Normalised to 488px.
+ *   - Figma draws a rule under the header and between steps 1–2 and 2–3, but
+ *     none between 3 and 4. Reproduced as drawn — flag it if it was an
+ *     oversight and it becomes a one-line change.
+ *   - The rows are <a> in Figma with no destination on the frame. Rendered as
+ *     plain list items rather than inventing hrefs; wrap the contents in an <a>
+ *     once the targets are decided.
+ */
+import { Image } from "astro:assets";
+
+import Section from "../layout/Section.astro";
+
+import arrowUpRight from "../../assets/icons/arrow-up-right.svg";
+import pickYourProperty from "../../assets/how-sliceal-works/step-1-pick-your-property.webp";
+import earnAndGrow from "../../assets/how-sliceal-works/step-3-earn-and-grow.webp";
+import earnAndTrade from "../../assets/how-sliceal-works/step-4-earn-and-trade.webp";
+
+const steps = [
+  {
+    title: "Pick Your Property",
+    body: "Browse DLD-verified Dubai apartments and villas, each with projected rental yields, title deed details, and an independent valuation — so you invest on facts, not promises.",
+    image: pickYourProperty,
+    alt: "Dubai's downtown towers under a bright afternoon sky.",
+  },
+  {
+    title: "Buy Your Slice",
+    body: "Fund from AED 2,000 via bank transfer or digital wallet. Your tokens are minted on the XRP Ledger and held in a regulated SPV — VARA-licensed, legally yours.",
+    /* TODO(media): step 2's image slot is an empty fill in both frames — no
+       asset was ever placed. The slot falls back to the brand gradient (see
+       below) so the row keeps its rhythm and reads as deliberate; drop the
+       photo in here when the designer supplies one. */
+    image: null,
+    alt: "",
+  },
+  {
+    title: "Earn & Grow",
+    body: "Net rental income lands in your wallet on the 5th of every month, in proportion to the tokens you hold. Your property is revalued every 3–6 months by an accredited agency, so appreciation is measured against what you paid.",
+    image: earnAndGrow,
+    alt: "Aerial view of Dubai at sunset, towers running out to the coast.",
+  },
+  {
+    title: "Earn & Trade",
+    body: "Collect your share of monthly rental income directly to your wallet. After a 3-month lock-in, list your tokens on the Sliceal secondary market anytime — 24/7 liquidity.",
+    image: earnAndTrade,
+    alt: "A rising gold arrow charted over Dubai's skyline at sunset.",
+  },
+];
+
+/*
+ * Desktop rules sit mid-gap: the 32px column gap supplies the space above the
+ * rule, the row's own 32px top padding the space below. Step 4 gets neither —
+ * it butts straight onto step 3 in the frame.
+ */
+const ruleAbove = "xl:border-t xl:border-line xl:pt-8";
+
+/* Between 768 and the xl frame there is no artboard. Cap the card stack the
+   way SlicealEngine does rather than let it stretch to the full 1352 track. */
+const stackCap = "md:mx-auto md:max-w-[36rem] xl:mx-0 xl:max-w-none";
+---
+
+<Section innerClass="flex flex-col gap-6 xl:gap-8">
+  {/*
+    Explicit tracking and leading at both tiers — an unprefixed value would
+    otherwise still win inside the xl: layer (see tokens.css §6).
+  */}
+  <header
+    class:list={[
+      stackCap,
+      "flex flex-col items-center gap-3 text-center xl:flex-row xl:items-center xl:justify-between xl:gap-8 xl:text-left",
+    ]}
+  >
+    <h2
+      class="text-display-sm-mobile leading-[2.125rem] font-medium tracking-normal xl:shrink-0 xl:text-display-2xl xl:leading-display-2xl xl:font-normal xl:tracking-tight"
+    >
+      How Sliceal Works
+    </h2>
+
+    <p class="text-sm leading-sm text-ink-muted xl:max-w-[41.4375rem] xl:text-lg xl:leading-lg">
+      Own a share of DLD-verified Dubai real estate in three simple steps — from
+      browsing to earning rental income, all on the XRP Ledger.
+    </p>
+  </header>
+
+  <hr class={stackCap} />
+
+  <ol class:list={[stackCap, "m-0 flex list-none flex-col gap-2 p-0 xl:gap-8"]}>
+    {
+      steps.map(({ title, body, image, alt }, i) => (
+        <li
+          class:list={[
+            "flex flex-col gap-4 rounded-xl border border-line bg-white p-4",
+            "xl:grid xl:grid-cols-[591fr_761fr] xl:items-center xl:gap-0 xl:rounded-none xl:border-0 xl:bg-transparent xl:p-0 xl:min-h-[13.75rem]",
+            i === 1 || i === 2 ? ruleAbove : "",
+          ]}
+        >
+          <div class="flex flex-col gap-2 xl:gap-2.5">
+            <p class="text-[0.8125rem] text-brand-purple xl:text-lg xl:leading-[1.625rem] xl:text-ink">
+              Step {i + 1}
+            </p>
+
+            <h3 class="flex items-start gap-2.5 text-xl leading-xl font-semibold tracking-normal text-gray-900 xl:text-display-lg xl:leading-display-lg xl:font-normal xl:tracking-tight xl:text-ink">
+              {title}
+              <Image
+                src={arrowUpRight}
+                alt=""
+                aria-hidden="true"
+                width={55}
+                height={60}
+                class="hidden shrink-0 xl:block xl:h-15 xl:w-[3.4375rem]"
+              />
+            </h3>
+
+            <p class="text-[0.8125rem] leading-xs text-ink-muted xl:max-w-[30.5rem] xl:text-sm xl:leading-[1.3rem]">
+              {body}
+            </p>
+          </div>
+
+          {/*
+            12px radius on the mobile card, fully pilled at xl. A step with no
+            photo falls back to a wash off the light end of the brand ramp
+            (25 → 50 → 400 at 40%). ConcludingCTA's brand-800 → brand-600 pair
+            is the site's other gradient, but at this size it lands as a heavy
+            dark slab between three bright photos; the tints keep the panel
+            recognisably brand without out-shouting the rows around it. Three
+            stops rather than two so the blend stays smooth across the 760px
+            desktop pill.
+          */}
+          <div
+            class:list={[
+              "h-40 overflow-hidden rounded-lg xl:h-50 xl:rounded-full",
+              image
+                ? "bg-slate-50"
+                : "bg-linear-to-br from-brand-25 via-brand-50 to-brand-400/40",
+            ]}
+          >
+            {image && (
+              <Image
+                src={image}
+                alt={alt}
+                widths={[408, 760, 816, 1520]}
+                sizes="(min-width: 1280px) 760px, (min-width: 768px) 544px, 100vw"
+                quality={72}
+                loading="lazy"
+                class="h-full w-full object-cover"
+              />
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Section>
