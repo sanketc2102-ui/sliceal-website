@@ -1,0 +1,37 @@
+---
+// TODO(mobile): no mobile/tablet Figma yet — default state below is a
+//      placeholder, not a designed layout. Revisit when frames land.
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+
+const title = "Latest Articles";
+const description =
+  "Fresh insights from our editorial team";
+---
+
+<BaseLayout title={title} description={description}>
+  <Header slot="header" />
+
+  <section class="bg-white pt-20">
+      <div class="container-site flex flex-col items-center gap-6 text-center">
+        <Breadcrumb trail={[{ label: "Blogs" }]} />
+
+        <h1
+          class="text-display-lg-mobile leading-tight font-medium tracking-tight text-black lg:text-display-xl lg:leading-display-xl"
+        >
+          Latest Articles
+        </h1>
+
+        <p class="max-w-141 text-sm leading-normal font-normal text-gray-600">
+          Fresh insights from our editorial team
+        </p>
+      </div>
+    </section>
+
+ 
+
+  <Footer slot="footer" />
+</BaseLayout>
