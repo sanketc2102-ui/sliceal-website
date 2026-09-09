@@ -1,0 +1,94 @@
+---
+/**
+ * SecurityComplianceOverview — trust pill + headline/subhead, then a 4-card
+ * compliance-pillar grid, on /security-complience.
+ *
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 29864:72396 (named "Hero", 1512 frame).
+ *
+ * The frame draws the "Segregated client money" card taller than its three
+ * siblings (261px vs 215-238px) — that is Figma's hover/expanded state for
+ * that card, not four different card heights. The grid below stretches every
+ * card to the row's tallest card instead of sizing each to its own content.
+ */
+import Section from "../layout/Section.astro";
+import { Image } from "astro:assets";
+
+import deedVerifiedIcon from "../../assets/icons/security-compliance/deed-verified.svg";
+import segregatedFundsIcon from "../../assets/icons/security-compliance/segregated-funds.svg";
+import oneDeedIcon from "../../assets/icons/security-compliance/one-deed.svg";
+import varaLicensedIcon from "../../assets/icons/security-compliance/vara-licensed.svg";
+
+const pillars = [
+  {
+    icon: varaLicensedIcon,
+    title: "VARA licensed",
+    description:
+      "Supervised by Dubai's virtual assets regulator. We're not licensed to advise, lend or offer leverage.",
+  },
+  {
+    icon: deedVerifiedIcon,
+    title: "DLD-verified deed",
+    description:
+      "Every deed checked against Dubai Land Department records, valued independently, encumbrances cleared.",
+  },
+  {
+    icon: segregatedFundsIcon,
+    title: "Segregated client money",
+    description:
+      "When you place an order, the amount is locked in your account — not deducted. Funds move only once your tokens are issued; if funding fails, the lock is released.",
+  },
+  {
+    icon: oneDeedIcon,
+    title: "One property, one deed",
+    description:
+      "Every property stays on its own DLD title deed, with fractional ownership recorded against it — never pooled, never commingled.",
+  },
+];
+---
+
+<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
+     placeholder, not a designed layout. Revisit when frames land. -->
+<Section
+  class="shadow-[var(--shadow-glow)]"
+  innerClass="flex flex-col items-start gap-7"
+>
+  <div class="flex w-full flex-col items-start gap-6">
+    <p class="rounded-pill border border-line px-3 py-1.5 text-sm leading-sm font-semibold text-brand shadow-pill">
+      Regulated · VARA licensed · DLD registered
+    </p>
+
+    <h2 class="text-display-lg-mobile leading-10 font-medium tracking-tight text-ink xl:text-display-lg xl:leading-display-lg">
+      Your ownership is on the title deed. Your money sits in a bank. Neither
+      one is on our balance sheet.
+    </h2>
+
+    <p class="text-lg leading-lg text-ink-muted">
+      Tokenizing a property doesn't move it outside the rules. Here is the
+      short version of how it's structured — and the full version is one
+      click away.
+    </p>
+  </div>
+
+  <ul class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 xl:grid-cols-4">
+    {
+      pillars.map(({ icon, title, description }, i) => (
+        <li
+          class:list={[
+            "flex flex-col gap-[1.125rem] border border-line bg-white p-[1.875rem]",
+            i === 0 && "xl:rounded-l-xl",
+            i === pillars.length - 1 && "xl:rounded-r-lg",
+          ]}
+        >
+          <Image src={icon} alt="" aria-hidden="true" width={24} height={24} class="size-6 shrink-0" />
+
+          <div class="flex flex-col gap-3">
+            <h3 class="text-display-xs leading-display-xs font-medium text-[#0c0626]">
+              {title}
+            </h3>
+            <p class="text-sm leading-normal text-ink-secondary">{description}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</Section>

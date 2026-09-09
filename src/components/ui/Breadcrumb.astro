@@ -17,6 +17,11 @@
  * Header.astro) — swap those two files in /assets and this component picks
  * up the new artwork with no code changes.
  *
+ * `dark`: for the pill laid over a photo (Figma node 29864:72392, the
+ * Security & Compliance hero). Same layout, different baked icon colors —
+ * mint dot + white chevron instead of brand-purple + black — so it needs its
+ * own asset pair, not just a text-color swap.
+ *
  * Usage:
  *   <Breadcrumb trail={[{ label: "Properties", href: "/properties" }]} />
  *
@@ -26,20 +31,30 @@
  *       { label: "Marina Heights Tower" },
  *     ]}
  *   />
+ *
+ *   <Breadcrumb dark trail={[{ label: "Security & Compliance" }]} />
  */
 import RadioIcon from "../../assets/icons/radio_button_checked.svg";
 import ChevronIcon from "../../assets/icons/arrow_back_ios_new.svg";
+import RadioIconMint from "../../assets/icons/radio_button_checked_mint.svg";
+import ChevronIconWhite from "../../assets/icons/arrow_back_ios_new_white.svg";
 
-const { trail = [] } = Astro.props;
+const { trail = [], dark = false } = Astro.props;
 
 const crumbs = [{ label: "Home", href: "/" }, ...trail];
+
+const Dot = dark ? RadioIconMint : RadioIcon;
+const Chevron = dark ? ChevronIconWhite : ChevronIcon;
 ---
 
 <nav
   aria-label="Breadcrumb"
-  class="inline-flex max-w-full items-center gap-2 rounded-pill border border-line bg-white px-3 py-1.5 shadow-pill"
+  class:list={[
+    "inline-flex max-w-full items-center gap-2 rounded-pill px-3 py-1.5 shadow-pill",
+    dark ? "border border-line/50 bg-transparent" : "border border-line bg-white",
+  ]}
 >
-  <RadioIcon class="size-2.5 shrink-0" aria-hidden="true" />
+  <Dot class="size-2.5 shrink-0" aria-hidden="true" />
 
   <ol class="flex min-w-0 items-center gap-1">
     {
@@ -48,13 +63,14 @@ const crumbs = [{ label: "Home", href: "/" }, ...trail];
 
         return (
           <li class="flex min-w-0 items-center gap-1">
-            {index > 0 && (
-              <ChevronIcon class="size-3 shrink-0" aria-hidden="true" />
-            )}
+            {index > 0 && <Chevron class="size-3 shrink-0" aria-hidden="true" />}
 
             {isLast || !crumb.href ? (
               <span
-                class="truncate text-xs leading-4 font-semibold text-gray-900"
+                class:list={[
+                  "truncate text-xs leading-4 font-semibold",
+                  dark ? "text-white" : "text-gray-900",
+                ]}
                 aria-current={isLast ? "page" : undefined}
               >
                 {crumb.label}
@@ -62,7 +78,10 @@ const crumbs = [{ label: "Home", href: "/" }, ...trail];
             ) : (
               <a
                 href={crumb.href}
-                class="truncate text-xs leading-4 font-normal text-gray-950 font-semibold transition-colors hover:text-gray-900"
+                class:list={[
+                  "truncate text-xs leading-4 font-semibold transition-colors",
+                  dark ? "text-white/90 hover:text-white" : "text-gray-950 hover:text-gray-900",
+                ]}
               >
                 {crumb.label}
               </a>

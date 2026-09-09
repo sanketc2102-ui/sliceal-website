@@ -1,0 +1,64 @@
+---
+/**
+ * SecurityComplianceCta — closing "Compliance & Security" banner on
+ * /security-complience, after <Faq />.
+ *
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 26790:47232 ("section", 1512 frame).
+ * Three soft-focus color blobs sit behind the copy at low opacity — exported
+ * as-is from Figma rather than redrawn as CSS gradients.
+ */
+import { Image } from "astro:assets";
+
+import Section from "../layout/Section.astro";
+
+import blobTopRight from "../../assets/security-compliance/cta-blob-top-right.png";
+import blobLeft from "../../assets/security-compliance/cta-blob-left.png";
+import blobBottomRight from "../../assets/security-compliance/cta-blob-bottom-right.png";
+
+const btnBase =
+  "flex h-12 w-full items-center justify-center rounded-lg border border-brand bg-white px-5 text-md font-semibold text-brand shadow-xs transition-colors hover:bg-brand-25 sm:w-auto";
+---
+
+<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
+     placeholder, not a designed layout. Revisit when frames land. -->
+<Section
+  bleed
+  class="overflow-hidden shadow-[var(--shadow-glow)]"
+  innerClass="relative flex flex-col items-center gap-6 text-center xl:gap-8"
+>
+  <div slot="bleed" class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <Image
+      src={blobTopRight}
+      alt=""
+      class="absolute -right-30 -bottom-14 w-[45%] max-w-[48rem] rotate-[12deg] opacity-50 xl:-right-15"
+    />
+    <Image
+      src={blobLeft}
+      alt=""
+      class="absolute -bottom-6 -left-10 w-[35%] max-w-[33rem] opacity-50"
+    />
+    <Image
+      src={blobBottomRight}
+      alt=""
+      class="absolute -right-6 -bottom-8 w-[20%] max-w-[20rem] opacity-20"
+    />
+  </div>
+
+  <h2
+    class="max-w-3xl text-display-lg-mobile leading-10 font-medium tracking-tight text-ink xl:text-display-xl xl:leading-display-xl"
+  >
+    Compliance & Security
+  </h2>
+
+  <p class="max-w-2xl text-md leading-md text-ink-muted xl:text-lg xl:leading-lg">
+    Your security is our top priority. We adhere to the highest industry
+    standards and regulatory frameworks to ensure your data and assets are
+    always protected. Our infrastructure is built with enterprise-grade
+    encryption, continuous monitoring, and rigorous compliance protocols.
+  </p>
+
+  <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+    <a href="#" class={btnBase}>View Policies</a>
+    <a href="#" class={btnBase}>Contact Security</a>
+  </div>
+</Section>

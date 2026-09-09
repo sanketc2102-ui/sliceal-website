@@ -1,0 +1,59 @@
+---
+// TODO(mobile): no mobile/tablet Figma yet — default state below is a
+//      placeholder, not a designed layout. Revisit when frames land.
+
+import { Image } from "astro:assets";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+import SecurityComplianceOverview from "../components/sections/SecurityComplianceOverview.astro";
+import  Faq  from "../components/sections/Faq.astro";
+import SecurityComplianceCta from "../components/sections/SecurityComplianceCta.astro";
+
+import heroBg from "../assets/security-compliance/hero-bg.png";
+
+const title = "Security & Compliance";
+const description =
+  "Meet the people behind Sliceal — a mix of strategy, creativity, and technical expertise.";
+---
+
+<BaseLayout title={title} description={description}>
+  <Header slot="header" />
+
+  {/* Figma node 29864:72390 — full-bleed photo, 60% black scrim, centered
+      pill + headline. 172px/115px vertical/horizontal padding on the 1512
+      frame; the horizontal gutter is swapped for .container-site so the
+      hero lines up with every section under it. */}
+  <section class="relative isolate flex items-center justify-center overflow-hidden py-16 lg:py-43">
+    <Image
+      src={heroBg}
+      alt=""
+      widths={[768, 1024, 1512, 2048]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 -z-10 size-full object-cover"
+    />
+    <div class="absolute inset-0 -z-10 bg-black/60" aria-hidden="true"></div>
+
+    <div class="container-site flex flex-col items-center gap-6 text-center">
+      <Breadcrumb dark trail={[{ label: "Security & Compliance" }]} />
+
+      <h1
+        class="text-display-lg-mobile leading-tight font-medium tracking-tight text-white lg:text-display-xl lg:leading-display-xl"
+      >
+        Security & Compliance
+      </h1>
+    </div>
+  </section>
+
+  <SecurityComplianceOverview />
+
+  <Faq />
+
+  <SecurityComplianceCta />
+
+  <Footer slot="footer" />
+</BaseLayout>
