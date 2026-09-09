@@ -1,0 +1,49 @@
+---
+/**
+ * LocationMapSection — Dubai map with the "Sliceal HQ" info card overlay.
+ *
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 26908:341937 (Hero, 1512x771).
+ *
+ * The map background is the designer's exact Google Maps screenshot from
+ * Figma (baked-in zoom/layers/transit controls included) — shipped as a
+ * static decorative image, not a live embed, matching how the page hero
+ * above already uses a static photo rather than real functionality.
+ */
+import { Image } from "astro:assets";
+
+import LogoMark from "../../assets/logo-mark.svg";
+import mapBg from "../../assets/contact-us/map-bg.png";
+---
+
+<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
+     placeholder, not a designed layout. Revisit when frames land. -->
+<section class="section-y">
+  <div class="container-site">
+    <div
+      class="relative flex aspect-4/5 w-full items-start overflow-hidden rounded-2xl p-4 shadow-glow sm:aspect-video lg:aspect-[1512/771] lg:p-20"
+    >
+      <Image
+        src={mapBg}
+        alt=""
+        widths={[640, 1024, 1512, 2048]}
+        sizes="100vw"
+        loading="lazy"
+        class="absolute inset-0 -z-10 size-full object-cover"
+      />
+
+      <div class="flex max-w-full flex-col items-start rounded-2xl bg-white px-[25px] py-6 sm:w-[413px]">
+        <div class="flex w-full gap-3">
+          <LogoMark class="h-[35px] w-[26.44px] shrink-0 lg:h-[45px] lg:w-[34px]" />
+          <div class="flex min-w-0 flex-1 flex-col gap-3">
+            <p class="text-display-sm-mobile leading-8 font-semibold text-black lg:text-display-sm lg:leading-display-sm">
+              The Sliceal HQ
+            </p>
+            <p class="text-base leading-6 text-gray-500">
+              50th Floor, Conrad Office Tower, World trade Center<br />Dubai, UAE
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

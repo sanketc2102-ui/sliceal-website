@@ -1,0 +1,216 @@
+---
+/**
+ * ContactFormSection — "Contact Information" panel + enquiry form.
+ *
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 26879:340999 (Hero, 1512).
+ *
+ * The left panel's gray background and two decorative circles are flat solid
+ * fills in Figma (#E9EAEB rect, #6755FB circles at 60%/20% opacity) — rebuilt
+ * as plain divs against tokens.css rather than shipped as image assets.
+ *
+ * Every field in the Figma frame shows a filled-in example ("Deepak",
+ * "jangra", "Deepak@Sliceal.io"…) rather than an empty state — those become
+ * `placeholder`s here, not values, since this is a live form.
+ *
+ * "Select Subject?" repeats the same "General Inquiry" label on all four
+ * pills in Figma (unfinished placeholder copy). Real, distinct subjects are
+ * used here instead; revisit if the designer supplies the intended set.
+ *
+ * Submission has no backend yet — the script below only validates and shows
+ * an inline confirmation, same pattern as the footer newsletter form.
+ */
+import PhoneIcon from "../../assets/contact-us/icons/phone-call.svg";
+import EmailIcon from "../../assets/contact-us/icons/email.svg";
+import LocationIcon from "../../assets/contact-us/icons/location.svg";
+import TwitterIcon from "../../assets/contact-us/icons/social-twitter.svg";
+import InstagramIcon from "../../assets/contact-us/icons/social-instagram.svg";
+import DiscordIcon from "../../assets/contact-us/icons/social-discord.svg";
+import TickChecked from "../../assets/contact-us/icons/tick-checked.svg";
+import TickUnchecked from "../../assets/contact-us/icons/tick-unchecked.svg";
+
+const contactRows = [
+  { Icon: PhoneIcon, label: "+971 528770054", href: "tel:+971528770054" },
+  { Icon: EmailIcon, label: "Support@sliceal.io", href: "mailto:Support@sliceal.io" },
+];
+
+const socialLinks = [
+  { label: "Twitter", href: "#", Icon: TwitterIcon },
+  { label: "Instagram", href: "#", Icon: InstagramIcon },
+  { label: "Discord", href: "#", Icon: DiscordIcon },
+];
+
+const subjects = [
+  "General Inquiry",
+  "Investment Support",
+  "Property Listing",
+  "Partnership",
+];
+
+const fieldLabel = "text-lg font-semibold leading-7 text-black";
+const fieldInput =
+  "peer w-full border-0 border-b border-gray-200 bg-transparent pb-3 text-sm leading-5 text-gray-600 outline-none placeholder:text-gray-500 focus:border-brand";
+---
+
+<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
+     placeholder, not a designed layout. Revisit when frames land. -->
+<section id="contact-form" class="section-y">
+  <div class="container-site">
+    <div
+      class="rounded-2xl bg-white p-4 drop-shadow-[0px_4px_100px_rgba(232,249,247,0.2)] sm:p-6 lg:p-[15px]"
+    >
+      <div class="flex flex-col gap-10 lg:flex-row lg:items-stretch lg:gap-[57px]">
+        <!-- Contact Information panel -->
+        <div
+          class="relative flex w-full flex-col justify-between gap-16 overflow-hidden rounded-2xl bg-gray-200 p-8 lg:w-[555px] lg:shrink-0 lg:p-10"
+        >
+          <div class="relative z-10 flex flex-col gap-[50px]">
+            <div class="flex flex-col gap-3">
+              <h2
+                class="text-display-sm-mobile leading-9 font-semibold tracking-tight text-black lg:text-display-md lg:leading-[44px]"
+              >
+                Contact Information
+              </h2>
+              <p class="text-base leading-6 text-gray-500">
+                Say something to start a live chat!
+              </p>
+            </div>
+
+            <ul class="m-0 flex list-none flex-col gap-[31px] p-0">
+              {
+                contactRows.map(({ Icon, label, href }) => (
+                  <li>
+                    <a
+                      href={href}
+                      class="flex items-center gap-[25px] text-base leading-normal text-black transition-opacity hover:opacity-70"
+                    >
+                      <Icon class="size-6 shrink-0" aria-hidden="true" />
+                      {label}
+                    </a>
+                  </li>
+                ))
+              }
+              <li class="flex items-start gap-[25px] text-base leading-normal text-black">
+                <LocationIcon class="size-6 shrink-0" aria-hidden="true" />
+                <span>50th Floor, Conrad Office Tower, World trade Center<br />Dubai, UAE</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="relative z-10 flex items-center gap-[25px]">
+            {
+              socialLinks.map(({ label, href, Icon }) => (
+                <a
+                  href={href}
+                  aria-label={label}
+                  class="flex size-[30px] shrink-0 items-center justify-center transition-opacity hover:opacity-80"
+                >
+                  <Icon class="size-[30px]" aria-hidden="true" />
+                </a>
+              ))
+            }
+          </div>
+
+          <!--
+            Decorative circles, clipped to the panel — flat fills, see comment
+            above. Offsets are exact at lg (Figma: big circle left 336/top 396
+            in the 555x569 panel -> right -50px/bottom -96px; small circle
+            left 325/top 363 -> right 92px/bottom 68px), scaled down for the
+            mobile placeholder.
+          -->
+          <div
+            aria-hidden="true"
+            class="absolute -right-8 -bottom-15 size-40 rounded-full bg-brand-purple/60 lg:-right-[50px] lg:-bottom-24 lg:size-[269px]"
+          >
+          </div>
+          <div
+            aria-hidden="true"
+            class="absolute right-14 bottom-10 size-20 rounded-full bg-brand-purple/20 lg:right-23 lg:bottom-17 lg:size-[138px]"
+          >
+          </div>
+        </div>
+
+        <!-- Enquiry form -->
+        <form class="flex w-full flex-col gap-10 p-2 lg:gap-11" data-contact-form>
+          <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-11">
+            <div class="flex flex-col gap-3">
+              <label for="contact-first-name" class={fieldLabel}>First Name</label>
+              <input id="contact-first-name" name="firstName" type="text" autocomplete="given-name" placeholder="Deepak" required class={fieldInput} />
+            </div>
+            <div class="flex flex-col gap-3">
+              <label for="contact-last-name" class={fieldLabel}>Last Name</label>
+              <input id="contact-last-name" name="lastName" type="text" autocomplete="family-name" placeholder="Jangra" required class={fieldInput} />
+            </div>
+            <div class="flex flex-col gap-3">
+              <label for="contact-email" class={fieldLabel}>Email</label>
+              <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Deepak@Sliceal.io" required class={fieldInput} />
+            </div>
+            <div class="flex flex-col gap-3">
+              <label for="contact-phone" class={fieldLabel}>Phone Number</label>
+              <input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="+971 528770054" class={fieldInput} />
+            </div>
+          </div>
+
+          <fieldset class="m-0 flex flex-col gap-3.5 border-0 p-0">
+            <legend class={`${fieldLabel} p-0`}>Select Subject?</legend>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+              {
+                subjects.map((subject, index) => (
+                  <label class="has-[:focus-visible]:ring-brand inline-flex cursor-pointer items-center gap-1.5 rounded-full py-1 text-xs leading-5 text-black has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-offset-2">
+                    <input
+                      type="radio"
+                      name="subject"
+                      value={subject}
+                      checked={index === 0}
+                      class="peer sr-only"
+                    />
+                    <TickChecked class="hidden size-[15px] shrink-0 peer-checked:block" aria-hidden="true" />
+                    <TickUnchecked class="size-[15px] shrink-0 peer-checked:hidden" aria-hidden="true" />
+                    {subject}
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <div class="flex flex-col gap-3.5">
+            <label for="contact-message" class={fieldLabel}>Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="3"
+              placeholder="Write your message.."
+              required
+              class={`${fieldInput} resize-y`}
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center self-start rounded-lg border border-brand bg-brand px-5 py-3 text-base leading-6 font-semibold text-white shadow-xs transition-colors hover:bg-brand-hover"
+          >
+            Submit Enquiry
+          </button>
+
+          <p class="hidden text-sm leading-5 text-gray-600" data-contact-form-message aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector("[data-contact-form]");
+  const message = document.querySelector("[data-contact-form-message]");
+
+  if (form instanceof HTMLFormElement && message) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      message.textContent =
+        "Thanks! Your enquiry has been sent — we'll get back to you shortly.";
+      message.classList.remove("hidden");
+
+      if (form instanceof HTMLFormElement) form.reset();
+    });
+  }
+</script>
