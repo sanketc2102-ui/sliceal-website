@@ -1,0 +1,165 @@
+---
+// TODO(mobile): no mobile/tablet Figma yet — default state below is a
+//      placeholder, not a designed layout. Revisit when frames land.
+
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+import Section from "../components/layout/Section.astro";
+import MediaCard from "../components/cards/MediaCard.astro";
+import  Faq  from "../components/sections/Faq.astro";
+import GlowCta from "../components/sections/GlowCta.astro";
+
+import blobTopRight from "../assets/security-compliance/cta-blob-top-right.png";
+import blobLeft from "../assets/security-compliance/cta-blob-left.png";
+import blobBottomRight from "../assets/security-compliance/cta-blob-bottom-right.png";
+
+import HeartIcon from "../assets/icons/career/heart.svg";
+import MapPinIcon from "../assets/icons/career/map-pin.svg";
+import WalletIcon from "../assets/icons/career/wallet.svg";
+import jobProductDesigner from "../assets/career/job-product-designer.png";
+import jobFrontendEngineer from "../assets/career/job-frontend-engineer.png";
+import jobMarketingManager from "../assets/career/job-marketing-manager.png";
+
+const title = "Current Position";
+const description =
+  "Meet the people behind Sliceal — a mix of strategy, creativity, and technical expertise.";
+
+/* Figma 26765:22380 "Hero" */
+const jobs = [
+  {
+    image: jobProductDesigner,
+    title: "Product Designer",
+    company: "Acme Corp",
+    location: "Dubai, UAE",
+    salary: "AED 18k - 22k/mo",
+    tags: ["Full-time", "Remote"],
+    description:
+      "We are looking for a senior product designer to lead our mobile app redesign. 5+ years of experience in Figma and a strong portfolio of consumer-facing products.",
+  },
+  {
+    image: jobFrontendEngineer,
+    title: "Frontend Engineer",
+    company: "TechFlow Solutions",
+    location: "Abu Dhabi, UAE",
+    salary: "AED 25k - 30k/mo",
+    tags: ["Full-time", "Hybrid"],
+    description:
+      "Seeking an experienced frontend engineer to build scalable React applications. Strong knowledge of TypeScript, Redux, and modern CSS frameworks required.",
+  },
+  {
+    image: jobMarketingManager,
+    title: "Marketing Manager",
+    company: "Globex Inc.",
+    location: "Sharjah, UAE",
+    salary: "AED 22k - 28k/mo",
+    tags: ["Contract", "Remote"],
+    description:
+      "Lead our regional marketing efforts. Experience with performance marketing, Google Analytics, and team management is essential for this role.",
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <Header slot="header" />
+
+  <Section class="shadow-[var(--shadow-glow)]" innerClass="flex flex-col items-center gap-12.5">
+    <div class="flex w-full flex-col items-center gap-6">
+      <Breadcrumb trail={[{ label: "Careers" }]} />
+
+      <h1
+        class="text-display-lg-mobile leading-tight font-medium tracking-tight text-black text-center lg:text-display-xl lg:leading-display-xl"
+      >
+        Current Position.
+      </h1>
+    </div>
+
+    <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-5.5">
+      {
+        jobs.map((job) => (
+          <MediaCard image={job.image} alt={`${job.title} at ${job.company}`}>
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-3">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex flex-col gap-1">
+                    <p class="text-lg leading-lg font-bold text-slate-950">{job.title}</p>
+                    <p class="text-sm leading-sm font-medium text-ink-secondary">
+                      {job.company}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    aria-label={`Save ${job.title}`}
+                    class="flex size-8 shrink-0 items-center justify-center rounded-xl bg-slate-50"
+                  >
+                    <HeartIcon class="size-4" aria-hidden="true" />
+                  </button>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <span class="flex items-center gap-1.5">
+                    <MapPinIcon class="size-3.5" aria-hidden="true" />
+                    <span class="text-sm leading-sm text-ink-secondary">{job.location}</span>
+                  </span>
+                  <span class="flex items-center gap-1.5">
+                    <WalletIcon class="size-3.5" aria-hidden="true" />
+                    <span class="text-sm leading-sm text-ink-secondary">{job.salary}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                {job.tags.map((tag) => (
+                  <span class="rounded-sm bg-yellow-50 px-2 py-1 text-xs leading-xs font-bold text-warning-600">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <p class="text-2xs leading-normal font-bold tracking-wide text-slate-400 uppercase">
+                  Key Requirements
+                </p>
+                <p class="text-[13px] leading-sm text-gray-700">{job.description}</p>
+              </div>
+
+              <button
+                type="button"
+                class="flex h-11 w-full items-center justify-center rounded-lg bg-brand-600 text-sm leading-sm font-semibold text-white shadow-xs"
+              >
+                Apply Now
+              </button>
+            </div>
+          </MediaCard>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Faq />
+
+  <GlowCta
+    heading="Can’t find your prefer role?"
+    description="We are always open to discuss new value-adding partnerships. Do reach out if you are an exchange or a project looking for liquidity; an algorithmic trader or a software developer looking to improve the markets with us or just have a great idea you can’t wait to share with us!"
+    buttons={[
+      { label: "Get In Touch", href: "#" },
+    ]}
+    blobs={[
+      {
+        src: blobTopRight,
+        class:
+          "absolute -right-30 -bottom-14 w-[45%] max-w-[48rem] rotate-[12deg] opacity-50 xl:-right-15",
+      },
+      { src: blobLeft, class: "absolute -bottom-6 -left-10 w-[35%] max-w-[33rem] opacity-50" },
+      {
+        src: blobBottomRight,
+        class: "absolute -right-6 -bottom-8 w-[20%] max-w-[20rem] opacity-20",
+      },
+    ]}
+  />
+
+  <Footer slot="footer" />
+</BaseLayout>
