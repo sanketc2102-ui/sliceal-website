@@ -1,0 +1,41 @@
+---
+// TODO(mobile): no mobile/tablet Figma yet — default state below is a
+//      placeholder, not a designed layout. Revisit when frames land.
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+import TeamPhotoSection from "../components/team/TeamPhotoSection.astro";
+
+const title = "Team";
+const description =
+  "Meet the people behind Sliceal — a mix of strategy, creativity, and technical expertise.";
+---
+
+<BaseLayout title={title} description={description}>
+  <Header slot="header" />
+
+  <section class="bg-white pt-20">
+    <div class="container-site flex flex-col items-center gap-6 text-center">
+      <Breadcrumb trail={[{ label: "Team" }]} />
+
+      <h1
+        class="text-display-lg-mobile leading-tight font-medium tracking-tight text-black lg:text-display-xl lg:leading-display-xl"
+      >
+        Meet the People Behind the Vision
+      </h1>
+
+      <p class="max-w-141 text-sm leading-normal font-normal text-gray-600">
+        A thoughtful mix of strategy, creativity, and technical expertise. The
+        right team to turn ideas into meaningful digital experiences.
+      </p>
+    </div>
+  </section>
+
+  {/* No gap: Figma's 64px flex gap is filled by the faded top of the photo,
+      which bleeds up to meet the sub-copy. */}
+  <TeamPhotoSection />
+
+  <Footer slot="footer" />
+</BaseLayout>
