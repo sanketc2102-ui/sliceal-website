@@ -169,20 +169,24 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
               class="
                 flex
                 h-10
-                w-28
+                w-32
                 shrink-0
                 items-center
+                gap-2
                 overflow-hidden
                 rounded-md
                 bg-black
+                px-3
                 outline
                 outline-1
                 -outline-offset-1
                 outline-neutral-50
+                transition-colors
+                hover:bg-neutral-800
               "
             >
               <!-- logo -->
-            <Image src={googlePlayIcon} alt="" class="h-6 w-5 shrink-0 object-contain" />
+            <Image src={googlePlayIcon} alt="" class="h-5 w-5 shrink-0 object-contain" />
             <span class="flex flex-col items-start whitespace-nowrap text-left">
               <span class="text-[8px] font-normal uppercase leading-[10px] text-white">GET IT ON</span>
               <span class="text-[14px] font-medium leading-[14px] text-white">Google Play</span>
@@ -198,21 +202,25 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
               class="
                 flex
                 h-10
-                w-28
+                w-32
                 shrink-0
                 items-center
+                gap-2
                 overflow-hidden
                 rounded-md
                 bg-black
+                px-3
                 outline
                 outline-1
                 -outline-offset-1
                 outline-neutral-50
+                transition-colors
+                hover:bg-neutral-800
               "
             >
               <!-- Apple logo -->
 
-              <Image src={appStoreIcon} alt="" class="h-6 w-5 shrink-0 object-contain" />
+              <Image src={appStoreIcon} alt="" class="h-5 w-5 shrink-0 object-contain" />
               <span class="flex flex-col items-start whitespace-nowrap text-left">
                 <span class="text-[8px] font-medium leading-[9px] text-white">Download on the</span>
                 <span class="text-[17px] font-medium leading-4 text-white">App Store</span>
