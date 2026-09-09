@@ -121,8 +121,10 @@ const socialLinks = [
       flex
       w-44
       items-center
+      justify-center
       self-center
 
+      lg:justify-start
       lg:self-start
     "
   >
@@ -147,10 +149,13 @@ const socialLinks = [
 
   <p
     class="
+      text-center
       text-base
       font-normal
       leading-6
       text-black
+
+      lg:text-left
     "
   >
     Get updates on new properties and market insights
@@ -542,14 +547,14 @@ const socialLinks = [
           class="
             relative
             flex
-            h-[112px]
+            h-[74px]
             w-full
             items-center
             justify-center
             overflow-hidden
-            -mb-8
+            -mb-12
+
             lg:h-[224px]
-            lg:-mb-12
           "
           aria-hidden="true"
         >
@@ -559,13 +564,18 @@ const socialLinks = [
             src={logoWordmark}
             alt=""
             class="
-               absolute
-                inset-x-0
-                top-1/2
-                w-full
-                max-w-none
-                -translate-y-1/2
-                opacity-[0.08]
+              absolute
+              left-1/2
+              top-1/2
+              w-full
+              h-auto
+              max-w-none
+              -translate-x-1/2
+              -translate-y-1/2
+              opacity-[0.08]
+
+              lg:h-full
+              lg:w-auto
             "
           />
 
