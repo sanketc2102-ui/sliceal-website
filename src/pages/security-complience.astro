@@ -10,9 +10,12 @@ import Footer from "../components/layout/Footer.astro";
 import Breadcrumb from "../components/ui/Breadcrumb.astro";
 import SecurityComplianceOverview from "../components/sections/SecurityComplianceOverview.astro";
 import  Faq  from "../components/sections/Faq.astro";
-import SecurityComplianceCta from "../components/sections/SecurityComplianceCta.astro";
+import GlowCta from "../components/sections/GlowCta.astro";
 
 import heroBg from "../assets/security-compliance/hero-bg.png";
+import blobTopRight from "../assets/security-compliance/cta-blob-top-right.png";
+import blobLeft from "../assets/security-compliance/cta-blob-left.png";
+import blobBottomRight from "../assets/security-compliance/cta-blob-bottom-right.png";
 
 const title = "Security & Compliance";
 const description =
@@ -53,7 +56,26 @@ const description =
 
   <Faq />
 
-  <SecurityComplianceCta />
+  <GlowCta
+    heading="Compliance & Security"
+    description="Your security is our top priority. We adhere to the highest industry standards and regulatory frameworks to ensure your data and assets are always protected. Our infrastructure is built with enterprise-grade encryption, continuous monitoring, and rigorous compliance protocols."
+    buttons={[
+      { label: "View Policies", href: "#" },
+      { label: "Contact Security", href: "#" },
+    ]}
+    blobs={[
+      {
+        src: blobTopRight,
+        class:
+          "absolute -right-30 -bottom-14 w-[45%] max-w-[48rem] rotate-[12deg] opacity-50 xl:-right-15",
+      },
+      { src: blobLeft, class: "absolute -bottom-6 -left-10 w-[35%] max-w-[33rem] opacity-50" },
+      {
+        src: blobBottomRight,
+        class: "absolute -right-6 -bottom-8 w-[20%] max-w-[20rem] opacity-20",
+      },
+    ]}
+  />
 
   <Footer slot="footer" />
 </BaseLayout>
