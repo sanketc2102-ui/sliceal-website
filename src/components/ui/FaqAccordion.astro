@@ -226,5 +226,8 @@ const inactiveChipClasses = "border-gray-200 text-gray-700 hover:text-gray-900";
       });
   };
 
-  initFaqAccordions();
+  // ClientRouter swaps the DOM on navigation without a full page load, so a
+  // plain top-level call only ever runs once. `astro:page-load` fires after
+  // the initial load and after every subsequent navigation.
+  document.addEventListener("astro:page-load", initFaqAccordions);
 </script>

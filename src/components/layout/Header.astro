@@ -358,37 +358,73 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
    * Pure enhancement: with JS off the header keeps the transparent desktop
    * treatment the Figma frame draws.
    */
-  const header = document.querySelector("[data-site-header]");
+  /*
+   * ClientRouter (view transitions) swaps the document on navigation instead
+   * of doing a full page load, so this module only ever executes once per
+   * session — a top-level `querySelector` call binds to the *first* header/
+   * menu and goes stale the moment the next page swaps in a new one.
+   *
+   * Fix: bind the one-off, per-instance listeners (toggle, in-panel link
+   * clicks) inside `initHeader`, which reruns on `astro:page-load` — an
+   * event Astro fires after the initial load AND after every subsequent
+   * navigation. The listeners that live on `document`/`window` (which persist
+   * across navigations) are registered exactly once, at module scope, and
+   * re-query the live header/menu each time they fire instead of closing
+   * over an element that may already be detached.
+   */
+  let scrollQueued = false;
 
-  if (header) {
-    let queued = false;
+  const syncScrolled = () => {
+    scrollQueued = false;
+    const header = document.querySelector("[data-site-header]");
+    if (header) header.toggleAttribute("data-scrolled", window.scrollY > 8);
+  };
 
-    const syncScrolled = () => {
-      queued = false;
-      header.toggleAttribute("data-scrolled", window.scrollY > 8);
-    };
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (scrollQueued) return;
+      scrollQueued = true;
+      requestAnimationFrame(syncScrolled);
+    },
+    { passive: true },
+  );
 
+  const closeMenu = () => {
+    const menu = document.querySelector("[data-mobile-menu]");
+    if (menu instanceof HTMLDetailsElement) menu.open = false;
+  };
+
+  document.addEventListener("keydown", (event) => {
+    const menu = document.querySelector("[data-mobile-menu]");
+    if (menu instanceof HTMLDetailsElement && event.key === "Escape" && menu.open) {
+      closeMenu();
+      menu.querySelector("summary")?.focus();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    const menu = document.querySelector("[data-mobile-menu]");
+    if (
+      menu instanceof HTMLDetailsElement &&
+      menu.open &&
+      event.target instanceof Node &&
+      !menu.contains(event.target)
+    ) {
+      closeMenu();
+    }
+  });
+
+  const desktop = window.matchMedia("(width >= 1150px)");
+  desktop.addEventListener("change", (event) => {
+    if (event.matches) closeMenu();
+  });
+
+  const initHeader = () => {
     syncScrolled();
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (queued) return;
-        queued = true;
-        requestAnimationFrame(syncScrolled);
-      },
-      { passive: true },
-    );
-  }
-
-  const menu = document.querySelector("[data-mobile-menu]");
-
-  if (menu instanceof HTMLDetailsElement) {
-    const summary = menu.querySelector("summary");
-
-    const close = () => {
-      menu.open = false;
-    };
+    const menu = document.querySelector("[data-mobile-menu]");
+    if (!(menu instanceof HTMLDetailsElement)) return;
 
     menu.addEventListener("toggle", () => {
       // Set inline rather than via a class so no Tailwind utility has to be
@@ -396,26 +432,10 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
       document.body.style.overflow = menu.open ? "hidden" : "";
     });
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && menu.open) {
-        close();
-        summary?.focus();
-      }
-    });
-
-    document.addEventListener("click", (event) => {
-      if (menu.open && event.target instanceof Node && !menu.contains(event.target)) {
-        close();
-      }
-    });
-
     menu.querySelectorAll("#site-menu a").forEach((link) => {
-      link.addEventListener("click", close);
+      link.addEventListener("click", closeMenu);
     });
+  };
 
-    const desktop = window.matchMedia("(width >= 1150px)");
-    desktop.addEventListener("change", (event) => {
-      if (event.matches) close();
-    });
-  }
+  document.addEventListener("astro:page-load", initHeader);
 </script>
