@@ -6,6 +6,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 import Breadcrumb from "../components/ui/Breadcrumb.astro";
+import BlogCard from "../components/blog/BlogCard.astro";
+import { blogs, blogCategories } from "../data/blogs.js";
 
 const title = "Latest Articles";
 const description =
@@ -15,23 +17,113 @@ const description =
 <BaseLayout title={title} description={description}>
   <Header slot="header" />
 
-  <section class="bg-white pt-20">
-      <div class="container-site flex flex-col items-center gap-6 text-center">
-        <Breadcrumb trail={[{ label: "Blogs" }]} />
+  <section class="bg-white pt-20 pb-14 lg:pb-20">
+      <div class="container-site flex flex-col items-center gap-8">
+        <div class="flex flex-col items-center gap-6 text-center">
+          <Breadcrumb trail={[{ label: "Blogs" }]} />
 
-        <h1
-          class="text-display-lg-mobile leading-tight font-medium tracking-tight text-black lg:text-display-xl lg:leading-display-xl"
+          <h1
+            class="text-display-lg-mobile leading-tight font-medium tracking-tight text-black lg:text-display-xl lg:leading-display-xl"
+          >
+            Latest Articles
+          </h1>
+
+          <p class="max-w-141 text-sm leading-normal font-normal text-gray-600">
+            Fresh insights from our editorial team.
+          </p>
+
+          <div
+            class="flex flex-wrap items-center justify-center gap-2"
+            role="group"
+            aria-label="Filter articles by category"
+            data-blog-filter
+          >
+            {
+              blogCategories.map((category, index) => (
+                <button
+                  type="button"
+                  data-filter-tab
+                  data-target={category}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                  tabindex={index === 0 ? 0 : -1}
+                  class:list={[
+                    "shrink-0 rounded-pill px-5 py-2.5 text-sm leading-sm font-semibold whitespace-nowrap transition-colors",
+                    index === 0
+                      ? "bg-brand-600 text-white"
+                      : "border border-gray-200 text-gray-700 hover:bg-gray-25 hover:text-gray-900",
+                  ]}
+                >
+                  {category}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div
+          class="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-5.5"
+          data-blog-grid
         >
-          Latest Articles
-        </h1>
-
-        <p class="max-w-141 text-sm leading-normal font-normal text-gray-600">
-          Fresh insights from our editorial team
-        </p>
+          {blogs.map((post) => <BlogCard post={post} />)}
+        </div>
       </div>
     </section>
 
- 
-
   <Footer slot="footer" />
 </BaseLayout>
+
+<script>
+  const ACTIVE_TAB_CLASSES = ["bg-brand-600", "text-white"];
+  const INACTIVE_TAB_CLASSES = [
+    "border",
+    "border-gray-200",
+    "text-gray-700",
+    "hover:bg-gray-25",
+    "hover:text-gray-900",
+  ];
+
+  const initBlogFilters = () => {
+    document.querySelectorAll("[data-blog-filter]").forEach((filter) => {
+      if (filter.dataset.blogFilterInitialized === "true") return;
+      filter.dataset.blogFilterInitialized = "true";
+
+      const tabs = Array.from(filter.querySelectorAll("[data-filter-tab]"));
+      const grid = document.querySelector("[data-blog-grid]");
+      if (!tabs.length || !grid) return;
+
+      const cards = Array.from(grid.querySelectorAll("[data-blog-card]"));
+
+      const activate = (target, { focusTab = false } = {}) => {
+        tabs.forEach((tab) => {
+          const active = tab.dataset.target === target;
+          tab.setAttribute("aria-pressed", active ? "true" : "false");
+          tab.tabIndex = active ? 0 : -1;
+          tab.classList.remove(...ACTIVE_TAB_CLASSES, ...INACTIVE_TAB_CLASSES);
+          tab.classList.add(...(active ? ACTIVE_TAB_CLASSES : INACTIVE_TAB_CLASSES));
+          if (active && focusTab) tab.focus();
+        });
+
+        cards.forEach((card) => {
+          const show = target === "All" || card.dataset.category === target;
+          card.classList.toggle("hidden", !show);
+        });
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => activate(tab.dataset.target));
+        tab.addEventListener("keydown", (event) => {
+          if (!["ArrowRight", "ArrowLeft"].includes(event.key)) return;
+          event.preventDefault();
+          const nextIndex =
+            (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+          activate(tabs[nextIndex].dataset.target, { focusTab: true });
+        });
+      });
+    });
+  };
+
+  // ClientRouter swaps the DOM on navigation without a full page load, so a
+  // plain top-level call only ever runs once. `astro:page-load` fires after
+  // the initial load and after every subsequent navigation.
+  document.addEventListener("astro:page-load", initBlogFilters);
+</script>
