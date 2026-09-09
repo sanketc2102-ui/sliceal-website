@@ -1,0 +1,100 @@
+---
+/**
+ * HowSlicealWorksSteps — the four-step "How Sliceal Works" row on /why-sliceal.
+ *
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 29864:71294 (How-It-Works-Section, 1512).
+ *
+ * Not to be confused with howItWorks/HowSlicealWorksSection.astro, which is the
+ * long alternating StepRow treatment on /how-it-works. Same four steps, a
+ * different, condensed component.
+ *
+ * Deliberate deviation: Figma pads the frame 80px on all four sides. The
+ * horizontal gutter follows `.container-site` (80px / 1352) via Section so the
+ * cards line up with the KPI figures and partner logos above; only the 80px
+ * padding-block is kept (Section's `section-y`).
+ *
+ * The card is cards/IconTextCard.astro in its "plain" variant — the same card
+ * BenefitsSection draws, minus the border and with the STEP badge in the
+ * badge slot. It is NOT cards/MetricCard.astro, which adds a value/label
+ * footer on a 20px-radius surface.
+ */
+import Section from "../layout/Section.astro";
+import IconTextCard from "../cards/IconTextCard.astro";
+
+import searchIcon from "../../assets/icons/how-sliceal-works/search.svg";
+import creditCardIcon from "../../assets/icons/how-sliceal-works/credit-card.svg";
+import walletIcon from "../../assets/icons/how-sliceal-works/wallet.svg";
+import trendingUpIcon from "../../assets/icons/how-sliceal-works/trending-up.svg";
+
+const steps = [
+  {
+    icon: searchIcon,
+    title: "Select Asset",
+    description:
+      "Browse detailed data profiles and IRR projections with full transparency.",
+  },
+  {
+    icon: creditCardIcon,
+    title: "Acquire Fractions",
+    description:
+      "Buy compliant digital tokens starting securely from just AED 2,000.",
+  },
+  {
+    icon: walletIcon,
+    title: "Earn Passive Yields",
+    description:
+      "Collect automated rental income distributions directly in your wallet.",
+  },
+  {
+    icon: trendingUpIcon,
+    title: "Capital Growth",
+    description:
+      "Enjoy property appreciation over time + list on our secondary marketplace.",
+  },
+];
+---
+
+<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
+     placeholder, not a designed layout. Revisit when frames land. -->
+<Section innerClass="flex flex-col items-center gap-10 xl:gap-12">
+  <header class="flex flex-col items-center gap-3 text-center">
+    {/*
+      Explicit leading at both tiers — an unprefixed leading-* would otherwise
+      still win inside the xl: layer (see tokens.css §6).
+    */}
+    <h2
+      class="text-display-lg-mobile leading-10 tracking-tight xl:text-display-lg xl:leading-display-lg"
+    >
+      How Sliceal Works
+    </h2>
+
+    <p class="max-w-[40rem] text-sm leading-sm text-ink-muted">
+      Go from discovering a listing to securing your share in a matter of
+      minutes.
+    </p>
+  </header>
+
+  {/*
+    Figma lays the four 314px cards on one 32px-gap row. Two columns from md so
+    the tablet step is explicit rather than a jump straight to four.
+  */}
+  <ol class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
+    {
+      steps.map(({ icon, title, description }, i) => (
+        <IconTextCard
+          variant="plain"
+          icon={icon}
+          title={title}
+          description={description}
+        >
+          <span
+            slot="badge"
+            class="text-xs leading-xs font-bold whitespace-nowrap text-brand"
+          >
+            STEP {String(i + 1).padStart(2, "0")}
+          </span>
+        </IconTextCard>
+      ))
+    }
+  </ol>
+</Section>

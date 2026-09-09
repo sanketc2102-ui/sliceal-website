@@ -1,0 +1,156 @@
+---
+/**
+ * WhySlicealHero — the "Build premium wealth" hero on /why-sliceal.
+ *
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 29864:71247 (Hero-Section, 1512 frame).
+ *
+ * One deliberate deviation from the frame: Figma draws this hero on a 120px
+ * gutter (1272 content column) while every other section on the site sits on
+ * `.container-site` (80px gutter, 1352). The hero follows the site column so
+ * it stays aligned with the sections under it; the two tracks keep their
+ * designed widths (688 copy / 520 card) and the extra 80px lands in the gap.
+ */
+import { Image } from "astro:assets";
+
+import Section from "../layout/Section.astro";
+
+import avatar from "../../assets/why-sliceal/investor-avatar.png";
+import yieldChart from "../../assets/why-sliceal/yield-growth-chart.png";
+
+const stats = [
+  { label: "PORTFOLIO VALUE", value: "AED 384,150" },
+  { label: "NET P.A. YIELD", value: "9.4%", positive: true },
+];
+
+/* 16/24 semibold, 20/12 padding, 12px radius, 48px tall — the Button
+   component instance both CTAs use in the frame. */
+const btnBase =
+  "flex h-12 w-full items-center justify-center rounded-lg px-5 text-md font-semibold shadow-xs transition-colors sm:w-auto sm:flex-1 xl:flex-none";
+
+/* Figma "Shadow/lg": two stacked drop shadows, no token for it yet. */
+const cardShadow =
+  "shadow-[0_4px_6px_-2px_rgb(10_13_18/0.03),0_12px_16px_-4px_rgb(10_13_18/0.08)]";
+---
+
+<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
+     placeholder, not a designed layout. Revisit when frames land. -->
+<Section
+  flush
+  class="pt-10 pb-12 xl:pt-20 xl:pb-25"
+  innerClass="flex flex-col gap-10 xl:flex-row xl:items-center xl:justify-between xl:gap-16"
+>
+  <div class="flex flex-col gap-6 xl:max-w-[43rem] xl:gap-8">
+    <p class="text-sm font-semibold text-ink-muted">
+      <span aria-hidden="true">•</span> Dubai Land Department Verified
+    </p>
+
+    <div class="flex flex-col gap-4">
+      {/*
+        Explicit leading at both tiers — an unprefixed leading-* would
+        otherwise still win inside the xl: layer. The 688px cap is the frame's;
+        the line still breaks a word earlier than Figma on Windows, where the
+        font stack falls back off SF Pro (see tokens.css §5).
+      */}
+      <h1
+        class="text-display-lg-mobile leading-10 tracking-tight xl:max-w-[43rem] xl:text-display-xl xl:leading-display-xl"
+      >
+        Build premium wealth with <span class="text-brand">fractional</span> real
+        estate.
+      </h1>
+
+      <p
+        class="max-w-[40rem] text-md leading-md text-ink-muted xl:max-w-none xl:text-lg xl:leading-lg"
+      >
+        Diversify your portfolio across Dubai’s most sought-after properties.
+        Start investing from just AED 2,000 with institutional-grade due
+        diligence, on a VARA-regulated platform.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 xl:gap-4">
+      <a
+        href="/properties"
+        class:list={[btnBase, "border border-brand bg-brand text-white hover:bg-brand-hover"]}
+      >
+        Browse Live Properties
+      </a>
+      <a
+        href="#roi-calculator"
+        class:list={[btnBase, "border border-line-strong bg-white text-gray-700 hover:bg-gray-100"]}
+      >
+        Calculate Potential ROI
+      </a>
+    </div>
+  </div>
+
+  {/*
+    Illustrative portfolio dashboard. The figures are sample data, but they
+    stay in the accessibility tree — nothing else on the page states them.
+  */}
+  <div
+    class:list={[
+      cardShadow,
+      "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-white p-6 xl:w-[32.5rem]",
+    ]}
+  >
+    <div class="flex items-center gap-3">
+      <Image
+        src={avatar}
+        alt="Ahmed Hassan"
+        width={40}
+        height={40}
+        loading="eager"
+        class="size-10 shrink-0 rounded-full object-cover"
+      />
+      <div class="flex flex-col gap-0.5">
+        <p class="text-sm font-semibold">Ahmed Hassan</p>
+        <p class="text-xs text-ink-muted">Premium Investor</p>
+      </div>
+    </div>
+
+    <hr />
+
+    <dl class="m-0 grid grid-cols-2 gap-4">
+      {
+        stats.map(({ label, value, positive }) => (
+          <div class="flex flex-col gap-1 rounded-sm bg-off-white p-3">
+            <dt class="text-xs text-ink-muted">{label}</dt>
+            {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
+            <dd
+              class:list={[
+                /* 18px is the frame's; stepped down below xl so the figure
+                   still fits one line in a half-width box on a phone. */
+                "m-0 text-md leading-md font-bold whitespace-nowrap xl:text-lg xl:leading-lg",
+                positive ? "text-success-600" : "text-ink",
+              ]}
+            >
+              {value}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div
+      class="flex h-40 flex-col gap-3 overflow-hidden rounded-lg border border-line p-4"
+    >
+      <div class="flex items-center justify-between text-xs">
+        <p class="font-semibold">Monthly Yield Growth</p>
+        <p class="text-success-600">+14.2% IRR</p>
+      </div>
+
+      {/* 6px — between --radius-xs (4) and --radius-sm (8), so it is literal. */}
+      <div class="relative min-h-0 flex-1 overflow-hidden rounded-[0.375rem]">
+        <Image
+          src={yieldChart}
+          alt=""
+          widths={[440, 880]}
+          sizes="(min-width: 1280px) 440px, 100vw"
+          quality={70}
+          loading="eager"
+          class="absolute inset-0 size-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</Section>

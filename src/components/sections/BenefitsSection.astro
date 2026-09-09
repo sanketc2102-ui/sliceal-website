@@ -1,0 +1,76 @@
+---
+/**
+ * BenefitsSection — "A Smarter Way to Own Dubai Real Estate", the four-card
+ * benefit grid on /why-sliceal.
+ *
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 29864:71339 (Benefits-Section, 1512).
+ *
+ * Deliberate deviation: Figma pads the frame 80px on all four sides. The
+ * horizontal gutter follows `.container-site` (80px / 1352) via Section so the
+ * cards line up with the step cards and KPI figures above; only the 80px
+ * padding-block is kept (Section's `section-y`).
+ *
+ * The grid is two uneven columns, not two equal ones: Figma draws every left
+ * card at 600px and every right card at 728px across the 1352 column with a
+ * 24px gap. `[600fr_728fr]` reproduces that ratio at any width.
+ *
+ * The wallet glyph is the same export the How-It-Works steps use, so it is
+ * imported from that folder rather than duplicated.
+ */
+import Section from "../layout/Section.astro";
+import IconTextCard from "../cards/IconTextCard.astro";
+
+import gavelIcon from "../../assets/icons/why-sliceal/gavel.svg";
+import arrowLeftRightIcon from "../../assets/icons/why-sliceal/arrow-left-right.svg";
+import walletIcon from "../../assets/icons/how-sliceal-works/wallet.svg";
+import starIcon from "../../assets/icons/why-sliceal/star.svg";
+
+const benefits = [
+  {
+    icon: gavelIcon,
+    title: "DLD & VARA Compliance",
+    description:
+      "Full regulatory coverage across the Dubai Land Department & Virtual Assets Regulatory Authority.",
+  },
+  {
+    icon: arrowLeftRightIcon,
+    title: "On-Ledger Secondary Trading",
+    description:
+      "Gain flexibility. Trade your fractional tokens on the secondary marketplace 24/7, once the 3-month lock-in ends.",
+  },
+  {
+    icon: walletIcon,
+    title: "Smart Passive Distribution",
+    description:
+      "Automated, secure rental income payouts distributed straight to your digital wallet every month.",
+  },
+  {
+    icon: starIcon,
+    title: "Professional Asset Sourcing",
+    description:
+      "Institutional-grade properties selected by industry experts with deep valuation metrics and performance history.",
+  },
+];
+---
+
+<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
+     placeholder, not a designed layout. Revisit when frames land. -->
+<Section surface="alt" innerClass="flex flex-col items-center gap-10 xl:gap-12">
+  {/*
+    Explicit leading at both tiers — an unprefixed leading-* would otherwise
+    still win inside the xl: layer (see tokens.css §6).
+  */}
+  <h2
+    class="text-display-lg-mobile leading-10 tracking-tight text-center xl:text-display-lg xl:leading-display-lg"
+  >
+    A Smarter Way to Own Dubai Real Estate
+  </h2>
+
+  <ul class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-[600fr_728fr]">
+    {
+      benefits.map(({ icon, title, description }) => (
+        <IconTextCard icon={icon} title={title} description={description} />
+      ))
+    }
+  </ul>
+</Section>

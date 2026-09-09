@@ -1,0 +1,65 @@
+---
+/**
+ * KpiProofBar — the four-figure proof strip that sits directly under the
+ * /why-sliceal hero.
+ *
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 29864:71277 (KPIProofBar, 1512 frame).
+ *
+ * Two deliberate deviations from the frame:
+ *   1. Figma pads the band 64px on all four sides (1384 content column). The
+ *      horizontal gutter follows `.container-site` (80px / 1352) instead, so
+ *      the figures line up with the hero above and the partner logos below.
+ *      Only the 64px padding-block is kept.
+ *   2. The dividers are drawn in Figma as 1px × 48px vector lines. They are
+ *      hairlines, not artwork, so they are `w-px` boxes filled with the
+ *      border token rather than four copies of the same exported SVG.
+ *
+ * "0%" on the third figure is verbatim from the frame — worth confirming with
+ * the designer, since the label reads like it wants 100%.
+ */
+import Section from "../layout/Section.astro";
+
+/* tone → the value colour. Figma paints figure 1 brand purple, figure 4
+   success green, and the middle two the dark heading grey. */
+const stats = [
+  { value: "AED 50M+", label: "Total Property Value Tokenized", tone: "text-brand" },
+  { value: "14.2%", label: "Projected Annual ROI", tone: "text-gray-900" },
+  { value: "0%", label: "DLD-Registered Title Deeds", tone: "text-gray-900" },
+  { value: "VARA", label: "Fully Regulated Platform", tone: "text-success-500" },
+];
+
+/* 32px bold. There is no desktop 32px step in the type scale — only
+   --text-display-lg-mobile — so that token carries the desktop size here, and
+   both tiers set leading explicitly so the mobile value can't leak into xl:. */
+const valueClass =
+  "text-display-xs leading-display-xs font-bold tracking-tight xl:text-display-lg-mobile xl:leading-display-sm";
+---
+
+<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
+     placeholder, not a designed layout. Revisit when frames land. -->
+<Section surface="alt" flush class="border-y border-line py-10 xl:py-16">
+  {/*
+    Two columns up to xl, then the designed single row: four 260px tracks
+    spread across the content column with the hairlines between them.
+    dt/dd are reversed in the flow so the label still precedes its figure for
+    a screen reader while the figure renders on top.
+  */}
+  <dl
+    class="m-0 grid grid-cols-2 gap-x-6 gap-y-8 xl:flex xl:items-center xl:justify-between xl:gap-x-0"
+  >
+    {
+      stats.map(({ value, label, tone }, i) => (
+        <>
+          {i > 0 && (
+            <div aria-hidden="true" class="hidden h-12 w-px shrink-0 bg-line xl:block" />
+          )}
+          <div class="flex flex-col-reverse gap-2 xl:w-[16.25rem] xl:shrink-0">
+            <dt class="text-sm leading-sm text-ink-secondary">{label}</dt>
+            {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
+            <dd class:list={["m-0", valueClass, tone]}>{value}</dd>
+          </div>
+        </>
+      ))
+    }
+  </dl>
+</Section>

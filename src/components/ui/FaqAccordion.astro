@@ -24,10 +24,10 @@ const panelId = (categoryId) => `${instanceId}-panel-${categoryId}`;
 const activeTabClasses =
   "bg-brand text-white outline outline-2 outline-offset-[-2px] outline-brand-400";
 const inactiveTabClasses =
-  "text-gray-900 border-b border-gray-100 hover:bg-gray-25";
+  "text-gray-900 border-b border-gray-100 hover:bg-gray-25 hover:text-gray-900";
 
 const activeChipClasses = "border-transparent bg-brand text-white";
-const inactiveChipClasses = "border-gray-200 text-gray-700";
+const inactiveChipClasses = "border-gray-200 text-gray-700 hover:text-gray-900";
 ---
 
 <div class="faq-accordion flex flex-col gap-8" data-faq-accordion>
@@ -102,8 +102,8 @@ const inactiveChipClasses = "border-gray-200 text-gray-700";
             data-faq-panel={category.id}
             class:list={["flex flex-col", index !== 0 && "hidden"]}
           >
-            {category.questions.map((item, qIndex) => (
-              <details class="group border-t border-gray-200 py-5" open={qIndex === 0}>
+            {category.questions.map((item) => (
+              <details class="group border-t border-gray-200 py-5">
                 <summary class="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
                   <span class="text-base font-normal leading-6 text-gray-900 lg:text-lg lg:leading-7">
                     {item.question}
@@ -139,9 +139,19 @@ const inactiveChipClasses = "border-gray-200 text-gray-700";
     "outline-offset-[-2px]",
     "outline-brand-400",
   ];
-  const INACTIVE_TAB_CLASSES = ["text-gray-900", "border-b", "border-gray-100"];
+  const INACTIVE_TAB_CLASSES = [
+    "text-gray-900",
+    "border-b",
+    "border-gray-100",
+    "hover:bg-gray-25",
+    "hover:text-gray-900",
+  ];
   const ACTIVE_CHIP_CLASSES = ["border-transparent", "bg-brand", "text-white"];
-  const INACTIVE_CHIP_CLASSES = ["border-gray-200", "text-gray-700"];
+  const INACTIVE_CHIP_CLASSES = [
+    "border-gray-200",
+    "text-gray-700",
+    "hover:text-gray-900",
+  ];
 
   const initFaqAccordions = () => {
     document

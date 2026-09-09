@@ -1,0 +1,85 @@
+---
+/**
+ * IconTextCard — tinted icon box, optional badge on the same row, then a
+ * title + description stack.
+ *
+ * Shared by two frames that draw the same card at two weights:
+ *   "bordered" — Benefits-Section (Figma 29864:71342): white surface, hairline
+ *                border, shadow-xs, 32px padding, 20px semibold title.
+ *   "plain"    — How-It-Works-Section (Figma 29864:71294): off-white surface,
+ *                no border, 24px padding, 18px bold title, STEP badge.
+ *
+ * Everything else — 16px radius, 12px icon box, the 16/8 gaps — is identical
+ * in both frames, which is why they share a component at all.
+ *
+ * This is NOT cards/MetricCard.astro: that one adds a value/label footer on a
+ * 20px-radius surface and has no badge row.
+ *
+ * Props:
+ *   icon        {ImageMetadata} Imported 24×24 SVG. Rendered decorative.
+ *   title       {string}
+ *   description {string}
+ *   variant     {"bordered"|"plain"} Surface treatment. Defaults to "bordered".
+ *   as          {string} Element tag. Defaults to "li" — both callers list them.
+ *   class       {string} Extra classes on the card element.
+ *
+ * Slots:
+ *   badge — optional trailing content on the icon row (the STEP nn label).
+ */
+import { Image } from "astro:assets";
+
+const {
+  icon,
+  title,
+  description,
+  variant = "bordered",
+  as: Tag = "li",
+  class: className = "",
+} = Astro.props;
+
+const surface = {
+  bordered: "border border-line bg-white p-6 shadow-xs xl:p-8",
+  plain: "bg-off-white p-6",
+}[variant];
+
+const iconBox = {
+  bordered: "bg-brand-25",
+  plain: "bg-brand-50",
+}[variant];
+
+/* Explicit leading at both tiers — an unprefixed leading-* would otherwise
+   still win inside the xl: layer (see tokens.css §6). */
+const titleClass = {
+  bordered: "text-lg leading-lg font-semibold xl:text-xl xl:leading-xl",
+  plain: "text-lg leading-lg font-bold",
+}[variant];
+
+const hasBadge = Astro.slots.has("badge");
+---
+
+<Tag class:list={["flex flex-col gap-4 rounded-xl", surface, className]}>
+  <div
+    class:list={[
+      "flex items-center gap-3",
+      hasBadge ? "justify-between" : "",
+    ]}
+  >
+    <span class:list={["flex shrink-0 rounded-lg p-3", iconBox]}>
+      <Image
+        src={icon}
+        alt=""
+        aria-hidden="true"
+        width={24}
+        height={24}
+        class="size-6"
+      />
+    </span>
+
+    <slot name="badge" />
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <h3 class:list={[titleClass, "text-ink"]}>{title}</h3>
+    <p class="text-sm leading-sm text-ink-muted">{description}</p>
+  </div>
+</Tag>

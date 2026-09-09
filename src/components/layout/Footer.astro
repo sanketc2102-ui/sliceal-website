@@ -12,11 +12,14 @@ import linkedIn from "../../assets/socials/LinkedIn.svg";
 import x from "../../assets/socials/X.svg";
 import yt from "../../assets/socials/Youtube.svg";
 
+// Links resolve to real pages in src/pages/. Entries still on "#" have no page
+// yet (no Team, Security, Blog, Career, or Contact route) — point them at a
+// route the moment one lands.
 const startTodayLinks = [
-  { label: "Buy tokens", href: "#" },
-  { label: "Sell property", href: "#" },
-  { label: "How it works", href: "#" },
-  { label: "FAQs", href: "#" },
+  { label: "Buy tokens", href: "/properties" },
+  { label: "Sell property", href: "/how-it-works" },
+  { label: "How it works", href: "/how-it-works" },
+  { label: "FAQs", href: "/faq" },
   { label: "Team", href: "#" },
 ];
 
@@ -649,7 +652,7 @@ const socialLinks = [
 
                 <li>
                   <a
-                    href="terms-and-conditions"
+                    href="/terms-and-conditions"
                     class="
                       text-sm
                       font-normal

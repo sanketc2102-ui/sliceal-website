@@ -1,26 +1,30 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/layout/Header.astro";
-import WealthGeneration from '../components/howItWorks/WealthGeneration.astro'
+import WhySlicealHero from "../components/sections/WhySlicealHero.astro";
+import KpiProofBar from "../components/sections/KpiProofBar.astro";
+import HowSlicealWorksSteps from "../components/sections/HowSlicealWorksSteps.astro";
+import BenefitsSection from "../components/sections/BenefitsSection.astro";
 import PartnersSection   from "../components/sections/PartnersSection.astro";
 import ConcludingCTA   from "../components/sections/ConcludingCTA.astro";
 import TestimonialsSection   from "../components/sections/TestimonialsSection.astro";
 import  Faq  from "../components/sections/Faq.astro";
 import  OwnYouSliceSection  from "../components/sections/OwnYouSliceSection.astro";
 import Footer from "../components/layout/Footer.astro";
-import HowSlicealWorksSection from "../components/howItWorks/HowSlicealWorksSection.astro"
 
 
-const title = "How It Works";
+const title = "Why Sliceal";
 const description =
-  "Discover how Sliceal makes investing in tokenised real estate simple and accessible.";
+  "Build premium wealth with fractional real estate. Diversify across Dubai’s most sought-after properties from just AED 2,000 on a VARA-regulated platform.";
+import PageUnderDevelopment from "../components/sections/PageUnderDevelopment.astro";
 ---
-
 
 <BaseLayout title={title} description={description}>
   <Header slot="header" />
-  <HowSlicealWorksSection />
-  <WealthGeneration />
+  <WhySlicealHero />
+  <KpiProofBar />
+  <HowSlicealWorksSteps />
+  <BenefitsSection />
   <PartnersSection />
   <ConcludingCTA 
     layout="centered"
@@ -44,8 +48,3 @@ const description =
 
   <Footer slot="footer" />
 </BaseLayout>
-
-
-
-
-<!-- <PageUnderDevelopment /> -->

@@ -1,6 +1,9 @@
 ---
+import { Image } from "astro:assets";
 
 import Section from "../layout/Section.astro";
+
+import panelImage from "../../assets/sliceal-engine/dubai-marina-residences.jpg";
 
 const points = [
   {
@@ -64,10 +67,22 @@ const stackCap = "md:mx-auto md:max-w-[36rem] xl:mx-0 xl:max-w-none";
     <div
       class="overflow-hidden rounded-2xl border border-line bg-white xl:col-start-2 xl:row-span-2 xl:row-start-1 xl:ml-auto xl:w-full xl:max-w-[37.4375rem] xl:bg-transparent"
     >
+      {/*
+        TODO(media): placeholder still — the Figma panel is an empty fill and
+        this slot is meant to hold a product video. Swap the <Image /> for a
+        <video> with this file as its `poster` when the cut lands.
+      */}
       <div
         class="aspect-[408/220] border-b border-line bg-slate-50 xl:aspect-[598/566]"
-        aria-hidden="true"
       >
+        <Image
+          src={panelImage}
+          alt="Residential towers overlooking Dubai Marina, with a rooftop pool in the foreground."
+          widths={[408, 598, 816, 1196]}
+          sizes="(min-width: 1280px) 598px, 100vw"
+          quality={70}
+          class="h-full w-full object-cover"
+        />
       </div>
 
       <dl

@@ -71,7 +71,7 @@ const navLinks = [
   { label: "How it Works", href: "/how-it-works" },
   { label: "Properties", href: "/properties" },
   { label: "Sell Your Property", href: "/how-it-works" },
-  { label: "Why Sliceal", href: "/how-it-works" },
+  { label: "Why Sliceal", href: "/why-sliceal" },
   { label: "FAQs", href: "/faq" },
 ];
 
@@ -95,9 +95,72 @@ const menuItems = [
 
 // 14px / 1.5 / weight 500 — the one type treatment every button and nav label uses.
 const labelType = "text-sm font-medium leading-normal";
-const btnBase = "flex h-11 items-center justify-center rounded-md";
-const btnSecondary = `${btnBase} border border-black text-ink ${labelType}`;
-const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${labelType}`;
+
+/*
+ * HOVER. Figma draws no hover states (tokens.css §1 NEEDS_DECISION), so these
+ * are built from tokens already in the file and kept to one gesture per group:
+ *   nav      — a brand hairline that wipes out from the centre, label to brand
+ *   buttons  — one step darker + the shadow they already own, 1px lift
+ *   logo     — the opacity dip the footer links already use
+ * All of it is decorative: nothing here is the only signal that an element is
+ * interactive, so touch loses nothing (CLAUDE.md: avoid hover-only). The
+ * reduced-motion block in global.css flattens every duration below.
+ */
+const motion = "transition-colors duration-200 ease-out";
+const btnBase = `flex h-11 items-center justify-center rounded-md transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-out active:translate-y-0 active:shadow-xs`;
+const btnSecondary = `${btnBase} border border-black text-ink hover:-translate-y-px hover:bg-gray-100 hover:shadow-md ${labelType}`;
+const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white hover:-translate-y-px hover:bg-brand-hover hover:shadow-md ${labelType}`;
+
+// Nav label: colour swap plus an underline that scales out from its centre.
+const navLink = `relative block p-1 text-ink ${motion} hover:text-brand
+  after:absolute after:inset-x-1 after:-bottom-px after:h-px after:origin-center
+  after:scale-x-0 after:bg-brand after:transition-transform after:duration-200
+  after:ease-out after:content-[''] hover:after:scale-x-100`;
+
+/*
+ * ACTIVE / CURRENT SECTION.
+ *
+ * Frame 29373:156370 draws all five labels plain — the website header has no
+ * current-page state in Figma. tokens.css does record one, though: Brand/25 is
+ * annotated "active nav pill border" (§1) and --shadow-nav "active nav pill"
+ * (§10), so the pill below is assembled from those two rather than invented.
+ *
+ * The frost is real, not a painted tint: on the home page the desktop bar is
+ * transparent over the hero photo, so backdrop-blur has something to sample.
+ * Everywhere else it sits over #fafafa/white and blurs nothing — which is why
+ * the Brand/25 fill is carried at 70% and does the work on its own. (Sampling
+ * first is the rule: a Figma "background blur" is usually a flat tint with no
+ * source behind it.) The mobile panel is opaque white, so its rows get the
+ * tint with no blur at all.
+ *
+ * LAYOUT IS UNCHANGED BY DESIGN. The pill's px-2.5 is cancelled by -mx-1.5 and
+ * the outline is a ring (box-shadow, zero-width), so an active label occupies
+ * exactly the same track as an inactive one. The collapse arithmetic in the
+ * header comment above stays valid and the row does not reflow between pages.
+ */
+const navActive = `-mx-1.5 rounded-pill bg-brand-25/70 px-2.5 text-brand shadow-nav
+  ring-1 ring-brand-25 backdrop-blur-md backdrop-saturate-150 hover:bg-brand-25
+  hover:text-brand after:hidden`;
+
+/*
+ * Exact match for "/", prefix match for everything else (so /properties/burj
+ * keeps Properties lit). Compared by INDEX, not href: "Sell Your Property"
+ * currently points at /how-it-works, the same route as "How it Works" — an
+ * href match would light two pills at once. First match wins until the
+ * designer supplies the real /sell route.
+ */
+const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+// Written inline rather than as a shared helper: the Astro TS plugin does not
+// apply frontmatter JSDoc to an arrow parameter, so a helper's `href` reports
+// as an implicit any under the project's strict tsconfig. Destructured here,
+// it types itself off the array.
+const activeIndex = navLinks.findIndex(({ href }) =>
+  href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`),
+);
+const menuActiveIndex = menuItems.findIndex(({ href }) =>
+  href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`),
+);
 ---
 
 {/*
@@ -108,13 +171,20 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
   beneath it. Below 1150px the bar is already opaque at every scroll position,
   so only the lift is added there.
 
-  The fill is plain white, the same surface the mobile bar already uses, and
-  it now reads as a bar rather than a mistake because the hero underneath is
-  #fafafa (see the ground note at the top of Hero.astro — the hero was on pure
-  white, so the bar's bottom edge stepped against the photo's plate on the
-  right half only and matched the page on the left, which is what made the
-  colour look wrong). White on #fafafa is the slight, even step both Figma
-  frames draw.
+  The fill is frosted white rather than a flat one: white/70 over a 24px blur
+  and a 150% saturate, the same recipe (one step stronger) as the active nav
+  pill above, so the header and the pill read as the same material. Unlike a
+  Figma "background blur", this one is real — a sticky bar always has live page
+  content running under it for backdrop-filter to sample.
+
+  70% white lands the surface at roughly #fbfbfb over the page's #fafafa
+  ground, keeping the slight even step both Figma frames draw while the photo,
+  cards, and brand colour underneath stay faintly legible through it. The
+  saturate is what stops the blurred hero going grey.
+
+  No @supports fallback: every target browser has backdrop-filter, and where it
+  is missing the bar degrades to 70% white over the page — still a surface,
+  just a softer one.
 
   shadow-xs, not shadow-header: the header token is 0.25 alpha, which lands a
   dark 4px smudge on the field below (measured rgb(241 243 244) against 248) —
@@ -126,7 +196,11 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
     "sticky top-0 z-50 border-b border-line bg-white",
     "lg:border-b-0 lg:bg-transparent",
     "transition-[background-color,border-color,box-shadow] duration-200",
-    "data-scrolled:shadow-xs lg:data-scrolled:border-b lg:data-scrolled:bg-white",
+    "data-scrolled:bg-white/70 data-scrolled:shadow-xs",
+    "data-scrolled:backdrop-blur-xl data-scrolled:backdrop-saturate-150",
+    // lg:bg-transparent lives in a media query and outranks the base-layer
+    // fill above, so the scrolled frost is restated at lg.
+    "lg:data-scrolled:border-b lg:data-scrolled:bg-white/70",
     className,
   ]}
 >
@@ -136,7 +210,7 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
     <a
       href="/"
       aria-label="Sliceal — home"
-      class="flex shrink-0 items-center gap-4"
+      class="flex shrink-0 items-center gap-4 transition-opacity duration-200 ease-out hover:opacity-80"
     >
       <Mark
         class="h-[35px] w-[26.44px] lg:h-[45px] lg:w-[34px]"
@@ -152,9 +226,13 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
       {/* 18px is the tightened tier; the Figma 29px returns once there is room. */}
       <ul class="flex items-center gap-[18px] min-[1200px]:gap-[29px]">
         {
-          navLinks.map(({ label, href }) => (
+          navLinks.map(({ label, href }, i) => (
             <li>
-              <a href={href} class:list={["block p-1 text-ink", labelType]}>
+              <a
+                href={href}
+                aria-current={i === activeIndex ? "page" : undefined}
+                class:list={[navLink, labelType, i === activeIndex && navActive]}
+              >
                 {label}
               </a>
             </li>
@@ -179,7 +257,7 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
     */}
     <details data-mobile-menu class="group lg:hidden">
       <summary
-        class="relative flex size-[38px] shrink-0 cursor-pointer list-none items-center justify-center rounded-sm bg-gray-100 before:absolute before:-inset-[3px] before:content-[''] [&::-webkit-details-marker]:hidden"
+        class="relative flex size-[38px] shrink-0 cursor-pointer list-none items-center justify-center rounded-sm bg-gray-100 transition-colors duration-200 ease-out before:absolute before:-inset-[3px] before:content-[''] hover:bg-gray-200 active:bg-gray-300 [&::-webkit-details-marker]:hidden"
       >
         <span class="sr-only">Menu</span>
         <MenuIcon class="size-5 group-open:hidden" aria-hidden="true" />
@@ -200,24 +278,39 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white ${l
         <nav aria-label="Mobile">
           <ul>
             {
-              menuItems.map(({ label, detail, href, Icon, iconClass }) => (
+              menuItems.map(({ label, detail, href, Icon, iconClass }, i) => (
                 <li>
                   <a
                     href={href}
-                    class="flex items-center justify-between gap-3 px-1.5 py-3"
+                    aria-current={i === menuActiveIndex ? "page" : undefined}
+                    class:list={[
+                      "group/row -mx-1.5 flex items-center justify-between gap-3 rounded-lg px-3 py-3 transition-colors duration-200 ease-out hover:bg-gray-100 active:bg-gray-100",
+                      // No blur here: the panel is opaque white, so there is
+                      // nothing behind the row for a backdrop-filter to sample.
+                      i === menuActiveIndex &&
+                        "bg-brand-25/70 ring-1 ring-brand-25 hover:bg-brand-25",
+                    ]}
                   >
                     <span class="flex items-center gap-3">
                       <span class="flex size-[34px] shrink-0 items-center justify-center rounded-md bg-brand-600">
                         <Icon class={iconClass} aria-hidden="true" />
                       </span>
                       <span class="flex flex-col gap-0.5">
-                        <span class="text-sm font-medium text-gray-900">
+                        <span
+                          class:list={[
+                            "text-sm font-medium",
+                            i === menuActiveIndex ? "text-brand" : "text-gray-900",
+                          ]}
+                        >
                           {label}
                         </span>
                         <span class="text-xs text-ink-muted">{detail}</span>
                       </span>
                     </span>
-                    <ChevronIcon class="size-[18px] shrink-0" aria-hidden="true" />
+                    <ChevronIcon
+                      class="size-[18px] shrink-0 transition-transform duration-200 ease-out group-hover/row:translate-x-0.5"
+                      aria-hidden="true"
+                    />
                   </a>
                 </li>
               ))
