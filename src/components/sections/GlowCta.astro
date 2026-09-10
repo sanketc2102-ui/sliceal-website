@@ -18,11 +18,9 @@ import Section from "../layout/Section.astro";
 const { heading, description, buttons = [], blobs = [] } = Astro.props;
 
 const btnBase =
-  "flex h-12 w-full items-center justify-center rounded-lg border border-brand bg-white px-5 text-md font-semibold text-brand shadow-xs transition-colors hover:bg-brand-25 sm:w-auto";
+  "flex min-h-11 items-center justify-center rounded-xl border border-brand bg-brand px-3.5 py-2 text-sm leading-sm font-normal text-white shadow-xs transition-colors hover:bg-brand-hover sm:h-12 sm:rounded-lg sm:bg-white sm:px-5 sm:py-0 sm:text-md sm:leading-md sm:font-semibold sm:text-brand sm:hover:bg-brand-25";
 ---
 
-<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
-     placeholder, not a designed layout. Revisit when frames land. -->
 <Section
   bleed
   class="overflow-hidden shadow-[var(--shadow-glow)]"
@@ -30,7 +28,7 @@ const btnBase =
 >
   {
     blobs.length > 0 && (
-      <div slot="bleed" class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div slot="bleed" class="pointer-events-none absolute inset-0 hidden xl:block" aria-hidden="true">
         {blobs.map((blob) => (
           <Image src={blob.src} alt="" class={blob.class} />
         ))}
@@ -39,18 +37,18 @@ const btnBase =
   }
 
   <h2
-    class="max-w-3xl text-display-lg-mobile leading-10 font-medium tracking-tight text-ink xl:text-display-xl xl:leading-display-xl"
+    class="max-w-3xl text-lg leading-lg font-semibold tracking-normal text-ink xl:text-display-xl xl:leading-display-xl xl:font-medium xl:tracking-tight"
   >
     {heading}
   </h2>
 
-  <p class="max-w-2xl text-md leading-md text-ink-muted xl:text-lg xl:leading-lg">
+  <p class="max-w-2xl text-sm leading-sm text-ink-muted xl:text-lg xl:leading-lg">
     {description}
   </p>
 
   {
     buttons.length > 0 && (
-      <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+      <div class="flex w-full flex-row flex-wrap items-center justify-center gap-4 sm:w-auto sm:gap-3">
         {buttons.map((button) => (
           <a href={button.href} class={btnBase}>
             {button.label}
