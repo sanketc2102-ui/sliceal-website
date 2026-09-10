@@ -9,8 +9,9 @@
  * as plain divs against tokens.css rather than shipped as image assets.
  *
  * Every field in the Figma frame shows a filled-in example ("Deepak",
- * "jangra", "Deepak@Sliceal.io"…) rather than an empty state — those become
- * `placeholder`s here, not values, since this is a live form.
+ * "jangra", "Deepak@Sliceal.io"…) rather than an empty state — those are
+ * replaced here with generic instructional placeholders instead of values,
+ * since this is a live form.
  *
  * "Select Subject?" repeats the same "General Inquiry" label on all four
  * pills in Figma (unfinished placeholder copy). Real, distinct subjects are
@@ -46,13 +47,12 @@ const subjects = [
   "Partnership",
 ];
 
-const fieldLabel = "text-lg font-semibold leading-7 text-black";
+const fieldLabel =
+  "text-xs font-semibold leading-[18px] text-black sm:text-lg sm:leading-7";
 const fieldInput =
-  "peer w-full border-0 border-b border-gray-200 bg-transparent pb-3 text-sm leading-5 text-gray-600 outline-none placeholder:text-gray-500 focus:border-brand";
+  "peer w-full rounded-md border border-gray-200 bg-transparent p-4 text-sm leading-5 text-gray-600 outline-none placeholder:text-gray-500 focus:border-brand sm:rounded-none sm:border-0 sm:border-b sm:p-0 sm:pb-3";
 ---
 
-<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
-     placeholder, not a designed layout. Revisit when frames land. -->
 <section id="contact-form" class="section-y">
   <div class="container-site">
     <div
@@ -130,32 +130,32 @@ const fieldInput =
         </div>
 
         <!-- Enquiry form -->
-        <form class="flex w-full flex-col gap-10 p-2 lg:gap-11" data-contact-form>
-          <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-11">
-            <div class="flex flex-col gap-3">
+        <form class="flex w-full flex-col gap-6 p-2 lg:gap-11" data-contact-form>
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-11">
+            <div class="flex flex-col gap-2 sm:gap-3">
               <label for="contact-first-name" class={fieldLabel}>First Name</label>
-              <input id="contact-first-name" name="firstName" type="text" autocomplete="given-name" placeholder="Deepak" required class={fieldInput} />
+              <input id="contact-first-name" name="firstName" type="text" autocomplete="given-name" placeholder="Enter your first name" required class={fieldInput} />
             </div>
-            <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-2 sm:gap-3">
               <label for="contact-last-name" class={fieldLabel}>Last Name</label>
-              <input id="contact-last-name" name="lastName" type="text" autocomplete="family-name" placeholder="Jangra" required class={fieldInput} />
+              <input id="contact-last-name" name="lastName" type="text" autocomplete="family-name" placeholder="Enter your last name" required class={fieldInput} />
             </div>
-            <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-2 sm:gap-3">
               <label for="contact-email" class={fieldLabel}>Email</label>
-              <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Deepak@Sliceal.io" required class={fieldInput} />
+              <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required class={fieldInput} />
             </div>
-            <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-2 sm:gap-3">
               <label for="contact-phone" class={fieldLabel}>Phone Number</label>
-              <input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="+971 528770054" class={fieldInput} />
+              <input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="Enter your phone number" class={fieldInput} />
             </div>
           </div>
 
-          <fieldset class="m-0 flex flex-col gap-3.5 border-0 p-0">
+          <fieldset class="m-0 flex flex-col gap-2 border-0 p-0 sm:gap-3.5">
             <legend class={`${fieldLabel} p-0`}>Select Subject?</legend>
-            <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div class="flex flex-col gap-4 rounded-md border border-gray-200 p-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3 sm:rounded-none sm:border-0 sm:p-0">
               {
                 subjects.map((subject, index) => (
-                  <label class="has-[:focus-visible]:ring-brand inline-flex cursor-pointer items-center gap-1.5 rounded-full py-1 text-xs leading-5 text-black has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-offset-2">
+                  <label class="has-[:focus-visible]:ring-brand inline-flex cursor-pointer items-center gap-2 rounded-md text-sm leading-normal text-black has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-offset-2 sm:gap-1.5 sm:rounded-full sm:py-1 sm:text-xs sm:leading-5">
                     <input
                       type="radio"
                       name="subject"
@@ -172,7 +172,7 @@ const fieldInput =
             </div>
           </fieldset>
 
-          <div class="flex flex-col gap-3.5">
+          <div class="flex flex-col gap-2 sm:gap-3.5">
             <label for="contact-message" class={fieldLabel}>Message</label>
             <textarea
               id="contact-message"
@@ -180,13 +180,13 @@ const fieldInput =
               rows="3"
               placeholder="Write your message.."
               required
-              class={`${fieldInput} resize-y`}
+              class={`${fieldInput} min-h-[120px] resize-y sm:min-h-0`}
             ></textarea>
           </div>
 
           <button
             type="submit"
-            class="inline-flex items-center justify-center self-start rounded-lg border border-brand bg-brand px-5 py-3 text-base leading-6 font-semibold text-white shadow-xs transition-colors hover:bg-brand-hover"
+            class="inline-flex w-full items-center justify-center rounded-lg border border-brand bg-brand px-5 py-3 text-base leading-6 font-semibold text-white shadow-xs transition-colors hover:bg-brand-hover sm:w-auto sm:self-start"
           >
             Submit Enquiry
           </button>

@@ -2,7 +2,8 @@
 /**
  * LocationMapSection — Dubai map with the "Sliceal HQ" info card overlay.
  *
- * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 26908:341937 (Hero, 1512x771).
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 26908:341937 (Hero, 1512x771, desktop);
+ * node 30685:46336 (Hero, 440x286, mobile).
  *
  * The map background is the designer's exact Google Maps screenshot from
  * Figma (baked-in zoom/layers/transit controls included) — shipped as a
@@ -15,12 +16,10 @@ import LogoMark from "../../assets/logo-mark.svg";
 import mapBg from "../../assets/contact-us/map-bg.png";
 ---
 
-<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
-     placeholder, not a designed layout. Revisit when frames land. -->
 <section class="section-y">
   <div class="container-site">
     <div
-      class="relative flex aspect-4/5 w-full items-start overflow-hidden rounded-2xl p-4 shadow-glow sm:aspect-video lg:aspect-[1512/771] lg:p-20"
+      class="relative -mx-4 flex aspect-[440/286] w-[calc(100%+2rem)] items-start overflow-hidden rounded-none p-4 shadow-glow sm:mx-0 sm:w-full sm:aspect-video sm:rounded-2xl lg:aspect-[1512/771] lg:p-20"
     >
       <Image
         src={mapBg}
@@ -31,14 +30,14 @@ import mapBg from "../../assets/contact-us/map-bg.png";
         class="absolute inset-0 -z-10 size-full object-cover"
       />
 
-      <div class="flex max-w-full flex-col items-start rounded-2xl bg-white px-[25px] py-6 sm:w-[413px]">
+      <div class="flex w-[198px] flex-col items-start rounded-lg bg-white p-3 sm:w-[413px] sm:rounded-2xl sm:px-[25px] sm:py-6">
         <div class="flex w-full gap-3">
-          <LogoMark class="h-[35px] w-[26.44px] shrink-0 lg:h-[45px] lg:w-[34px]" />
-          <div class="flex min-w-0 flex-1 flex-col gap-3">
-            <p class="text-display-sm-mobile leading-8 font-semibold text-black lg:text-display-sm lg:leading-display-sm">
+          <LogoMark class="h-[26px] w-[18px] shrink-0 sm:h-[35px] sm:w-[26.44px] lg:h-[45px] lg:w-[34px]" />
+          <div class="flex min-w-0 flex-1 flex-col gap-[5px] sm:gap-3">
+            <p class="text-xs leading-[18px] font-semibold text-black sm:text-display-sm-mobile sm:leading-8 lg:text-display-sm lg:leading-display-sm">
               The Sliceal HQ
             </p>
-            <p class="text-base leading-6 text-gray-500">
+            <p class="text-[10px] leading-normal text-gray-500 sm:text-base sm:leading-6">
               50th Floor, Conrad Office Tower, World trade Center<br />Dubai, UAE
             </p>
           </div>
