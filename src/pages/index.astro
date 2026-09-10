@@ -6,6 +6,7 @@ import WhyWeExist from "../components/sections/WhyWeExist.astro";
 import  AtAGlance  from "../components/sections/AtAGlance.astro";
 import SlicealEngine from "../components/sections/SlicealEngine.astro";
 import HowSlicealWorksFlow from "../components/sections/HowSlicealWorksFlow.astro";
+import HowSlicealWorksSection from "../components/howItWorks/HowSlicealWorksSection.astro";
 import BarriersSection from "../components/sections/BarriersSection.astro"
 import Timeline from '../components/sections/Timeline.astro'
 import FeaturedInvestment from '../components/properties/FeaturedInvestment.astro'
@@ -16,9 +17,60 @@ import OwnYouSliceSection from '../components/sections/OwnYouSliceSection.astro'
 import  Footer  from "../components/layout/Footer.astro";
 import  Faq  from "../components/sections/Faq.astro";
 
+import goldLeft from "../assets/own-slice/gold-left.png";
+import goldMiddle from "../assets/own-slice/gold-middle.png";
+import goldRight from "../assets/own-slice/gold-right.png";
+
 const title = "Own Your Slice of Real Estate";
 const description =
   "Start investing in Dubai real estate from just AED 2,000. Earn your share of the rent every month, and sell whenever you want on a regulated secondary market — all powered by DLD-verified properties tokenized on the XRP Ledger.";
+
+/*
+ * Section 6, "How you make money" — reuses howItWorks/HowSlicealWorksSection
+ * as-is (same StepRow chrome), with stat cards instead of a checkmark list.
+ * Figma: desktop 30708:49098, mobile 30732:151876 (mobile step 1's title/
+ * stats are a copy-paste bug there — duplicate step 2's title and step 3's
+ * stats — so desktop is the source of truth for all three steps below).
+ */
+const makeMoneySteps = [
+  {
+    prefix: "Earn consistent ",
+    highlight: "Rental income",
+    description:
+      "Build new income streams with rental payments from income generating properties and funds.",
+    stats: [
+      { value: "AED 1,200", suffix: "+", label: "Average monthly rent per investor" },
+      { value: "5.6", suffix: "%", label: "Average rental yield (2025)" },
+    ],
+    image: goldLeft,
+    imageAlt: "Sliceal investment app screenshot",
+  },
+  {
+    prefix: "Long term ",
+    highlight: "capital appreciation",
+    description:
+      "Watch your investment grow as property values rise and funds near maturity.",
+    stats: [
+      { value: "30", suffix: "+", label: "Properties funded to date" },
+      { value: "12.5", suffix: "%", label: "Average capital appreciation to date" },
+      { value: "12.5", suffix: "%", label: "Quarterly capital appreciation & long-term growth" },
+    ],
+    image: goldMiddle,
+    imageAlt: "Sliceal investment app screenshot",
+  },
+  {
+    highlight: "Liquidity",
+    suffix: ", when you need it most",
+    description:
+      "Take profits or free up cash by listing your tokens on our secondary market 24/7 — anytime after the 3-month lock-in.",
+    stats: [
+      { value: "12", suffix: "+", label: "Property Fully Exited" },
+      { value: "AED 16", suffix: "M+", label: "Total distributed to investors" },
+    ],
+    image: goldRight,
+    imageAlt: "Sliceal investment app screenshot",
+  },
+];
 ---
 
 <BaseLayout title={title} description={description}>
@@ -35,7 +87,8 @@ const description =
       4  How Sliceal Works             29373:154997   [built]
                                      mobile 29879:63755
       5  At a Glance (stats)           29373:155050
-      6  How you make money            29373:155119
+      6  How you make money            30708:49098    [built]
+                                     mobile 30732:151876
       7  Four barriers removed         29373:155762
       8  Timeline                      29373:155828
       9  Featured opportunities        29373:155888
@@ -52,6 +105,14 @@ const description =
   <SlicealEngine />
   <HowSlicealWorksFlow />
   <AtAGlance />
+  <HowSlicealWorksSection
+    as="h2"
+    subtitle="Three ways: monthly rent, long-term appreciation, and the option to sell."
+    steps={makeMoneySteps}
+    alternate={true}
+  >
+    So how do I actually make money?
+  </HowSlicealWorksSection>
   <BarriersSection />
   <Timeline />
   <FeaturedInvestment />

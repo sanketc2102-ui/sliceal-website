@@ -9,6 +9,60 @@ import  Faq  from "../components/sections/Faq.astro";
 import  OwnYouSliceSection  from "../components/sections/OwnYouSliceSection.astro";
 import Footer from "../components/layout/Footer.astro";
 import HowSlicealWorksSection from "../components/howItWorks/HowSlicealWorksSection.astro"
+import goldLeft from "../assets/own-slice/gold-left.png";
+import goldMiddle from "../assets/own-slice/gold-middle.png";
+import goldRight from "../assets/own-slice/gold-right.png";
+
+const howItWorksSteps = [
+  {
+    eyebrow: "STEP 01",
+    title: "Browse Properties",
+    description:
+      "Browse DLD-verified Dubai apartments and villas, each with projected rental yields, title deed details, and an independent valuation — so you invest on facts, not promises.",
+    points: [
+      "DLD verified properties only",
+      "Projected yields & independent valuation transparently listed",
+    ],
+    image: goldLeft,
+    imageAlt: "Sliceal property browsing app",
+  },
+  {
+    eyebrow: "STEP 02",
+    title: "Purchase Tokens",
+    description:
+      "Fund from AED 2,000 via bank transfer or digital wallet. Your tokens are minted on the XRP Ledger and held in a regulated SPV — VARA-licensed, legally yours.",
+    points: [
+      "Start with as low as AED 2,000",
+      "Tokens minted securely on the XRP Ledger",
+    ],
+    image: goldLeft,
+    imageAlt: "Sliceal token purchase app",
+  },
+  {
+    eyebrow: "STEP 03",
+    title: "Earn & Grow",
+    description:
+      "Net rental income lands in your wallet on the 5th of every month, in proportion to the tokens you hold. Your property is revalued every 3–6 months by an accredited agency, so appreciation is measured against what you paid.",
+    points: [
+      "Rental income distributed monthly",
+      "Revalued every 3–6 months by an accredited agency",
+    ],
+    image: goldMiddle,
+    imageAlt: "Sliceal investment portfolio",
+  },
+  {
+    eyebrow: "STEP 04",
+    title: "Track & Trade",
+    description:
+      "Follow rent received and current value in your portfolio dashboard. After a 3-month lock-in, list your tokens on the Sliceal secondary market anytime for 24/7 liquidity.",
+    points: [
+      "Track rent and value in your portfolio dashboard",
+      "Trade on secondary market after 3 months",
+    ],
+    image: goldRight,
+    imageAlt: "Sliceal investment dashboard",
+  },
+];
 
 
 const title = "How It Works";
@@ -19,7 +73,13 @@ const description =
 
 <BaseLayout title={title} description={description}>
   <Header slot="header" />
-  <HowSlicealWorksSection />
+  <HowSlicealWorksSection
+    breadcrumb={[{ label: "How it Works" }]}
+    subtitle="Own a share of DLD-verified Dubai real estate in three simple steps — from browsing to earning rental income, all on the XRP Ledger."
+    steps={howItWorksSteps}
+  >
+    How Sliceal <span class="text-brand-purple">Works</span>
+  </HowSlicealWorksSection>
   <WealthGeneration />
   <PartnersSection />
   <ConcludingCTA 
