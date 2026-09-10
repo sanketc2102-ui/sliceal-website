@@ -294,6 +294,10 @@
      :root declaration would lose to it.
      ------------------------------------------------------------------ */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-duration-fast: 150ms;
+  --transition-duration-base: 200ms;
+  --animate-fade-in: fade-in var(--transition-duration-base) var(--ease-out);
+  --animate-slide-up: slide-up var(--transition-duration-base) var(--ease-out);
 }
 
 /* ==========================================================================
@@ -360,12 +364,6 @@
        media card   436px  → 3 cols in 1352 with 22px gap
        step card    314px  → 4 cols in 1352 with 32px gap
        testimonial  575px  → 3 across a 1789px overflow rail, 32px gap  */
-
-  /* ------------------------------------------------------------------
-     13b. MOTION — durations (--ease-out lives in @theme above)
-     ------------------------------------------------------------------ */
-  --duration-fast: 150ms;
-  --duration-base: 200ms;
 
   /* ------------------------------------------------------------------
      14. Z-INDEX

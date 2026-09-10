@@ -31,6 +31,14 @@ const fullTitle = title.endsWith(SITE_NAME) ? title : `${title} — ${SITE_NAME}
 // rather than emitting "undefined" into canonical and OG tags.
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 const ogImageUrl = new URL(ogImage, canonical);
+
+// Simple fade, same both directions, timed off tokens.css §13 MOTION instead
+// of Astro's built-in crossfade duration/easing. Reuses the astroFadeIn /
+// astroFadeOut keyframes that <ClientRouter /> already injects.
+const fade = {
+  old: { name: "astroFadeOut", duration: "var(--transition-duration-base)", easing: "var(--ease-out)" },
+  new: { name: "astroFadeIn", duration: "var(--transition-duration-base)", easing: "var(--ease-out)" },
+};
 ---
 
 <!doctype html>
@@ -84,7 +92,7 @@ const ogImageUrl = new URL(ogImage, canonical);
     */}
     <slot name="header" />
 
-    <main id="main">
+    <main id="main" transition:animate={{ forwards: fade, backwards: fade }}>
       <slot />
     </main>
 

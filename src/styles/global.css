@@ -177,6 +177,30 @@
 }
 
 /* --------------------------------------------------------------------------
+   Animations — keyframes backing the --animate-fade-in / --animate-slide-up
+   tokens declared in tokens.css §13 MOTION.
+   -------------------------------------------------------------------------- */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-4));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
    Layout primitives that every page uses. Kept here rather than in a
    component because they are pure layout and carry no markup of their own.
    -------------------------------------------------------------------------- */
