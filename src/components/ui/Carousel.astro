@@ -196,10 +196,20 @@ const {
         return slide.getBoundingClientRect().width + getGap();
       };
 
+      const getViewportPadding = () => {
+        const styles = getComputedStyle(viewport);
+
+        return (
+          (parseFloat(styles.paddingLeft) || 0) +
+          (parseFloat(styles.paddingRight) || 0)
+        );
+      };
+
       const getMaxTranslate = () => {
         return Math.max(
           0,
-          track.scrollWidth - viewport.clientWidth,
+          track.scrollWidth -
+            (viewport.clientWidth - getViewportPadding()),
         );
       };
 

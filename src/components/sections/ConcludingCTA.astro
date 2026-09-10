@@ -63,9 +63,18 @@ const headingSegments =
 const buttonBase =
   "flex h-12 shrink-0 items-center justify-center rounded-lg px-5 py-3 text-md font-semibold transition-colors";
 
+// Split (homepage) and centered (mobile Figma node 30732:151807) use
+// different button treatments — gray/neutral vs brand-colored — so the
+// variant styles are keyed per layout rather than shared.
 const buttonVariants = {
-  primary: "border border-gray-300 bg-white text-gray-700 shadow-xs hover:bg-gray-50",
-  secondary: "border border-white/40 bg-transparent text-white hover:bg-white/10",
+  split: {
+    primary: "border border-gray-300 bg-white text-gray-700 shadow-xs hover:bg-gray-50",
+    secondary: "border border-white/40 bg-transparent text-white hover:bg-white/10",
+  },
+  centered: {
+    primary: "border border-brand-600 bg-white text-brand-600 shadow-xs hover:bg-brand-25",
+    secondary: "border border-white/25 bg-transparent text-white hover:bg-white/10",
+  },
 };
 ---
 
@@ -75,31 +84,35 @@ const buttonVariants = {
 >
   <div
     class:list={[
-      "w-full overflow-hidden rounded-xl bg-linear-to-br from-brand-800 to-brand-600 md:rounded-2xl",
-      layout === "centered" ? "p-8 text-center md:p-16" : "p-8 md:p-10",
+      "w-full overflow-hidden md:rounded-2xl",
+      layout === "centered"
+        ? "rounded-3xl bg-linear-to-r from-brand-600 to-brand-800 px-6 py-16 text-center md:p-16"
+        : "rounded-xl bg-linear-to-br from-brand-800 to-brand-600 p-8 md:p-10",
     ]}
   >
     {
       layout === "centered" ? (
-        <div class="mx-auto flex max-w-[45.5rem] flex-col items-center gap-4 md:gap-5">
-          <h2 class="font-display text-display-xs font-normal text-white md:text-display-lg">
-            {headingSegments.map(({ text, highlight }) =>
-              highlight ? <span class="text-mint-500">{text}</span> : <span>{text}</span>,
-            )}
-          </h2>
+        <div class="mx-auto flex max-w-[45.5rem] flex-col items-center gap-8 md:gap-5">
+          <div class="flex flex-col items-center gap-4 md:contents">
+            <h2 class="font-display text-lg font-semibold text-white md:text-display-lg md:font-normal">
+              {headingSegments.map(({ text, highlight }) =>
+                highlight ? <span class="text-mint-500">{text}</span> : <span>{text}</span>,
+              )}
+            </h2>
 
-          {subtext && (
-            <p class="max-w-[38rem] text-sm leading-6 text-white/70 md:text-md">
-              {subtext}
-            </p>
-          )}
+            {subtext && (
+              <p class="max-w-[38rem] text-sm text-white/70 md:text-md">
+                {subtext}
+              </p>
+            )}
+          </div>
 
           {buttons.length > 0 && (
-            <div class="mt-2 flex flex-wrap items-center justify-center gap-3">
+            <div class="flex flex-wrap items-center justify-center gap-4 md:mt-2">
               {buttons.map((button) => (
                 <a
                   href={button.href}
-                  class:list={[buttonBase, buttonVariants[button.variant ?? "primary"]]}
+                  class:list={[buttonBase, buttonVariants.centered[button.variant ?? "primary"]]}
                 >
                   {button.label}
                 </a>
@@ -119,7 +132,7 @@ const buttonVariants = {
             {buttons.map((button) => (
               <a
                 href={button.href}
-                class:list={[buttonBase, "w-full md:w-44", buttonVariants[button.variant ??"primary"]]}
+                class:list={[buttonBase, "w-full md:w-44", buttonVariants.split[button.variant ?? "primary"]]}
               >
                 {button.label}
               </a>
