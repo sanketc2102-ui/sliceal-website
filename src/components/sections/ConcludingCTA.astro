@@ -53,6 +53,7 @@ const {
   ],
   subtext,
   buttons = [{ label: "Start Investing", href: "#", variant: "primary" }],
+  ...rest
 } = Astro.props;
 
 // Normalize `heading` so callers can pass a plain string (centered layout)
@@ -81,6 +82,7 @@ const buttonVariants = {
 <Section
   class="shadow-[0px_4px_200px_0px_rgba(232,249,247,0.20)]"
   innerClass="flex flex-col items-center"
+  {...rest}
 >
   <div
     class:list={[

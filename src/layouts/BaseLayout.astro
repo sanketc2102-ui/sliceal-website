@@ -46,6 +46,30 @@ const fade = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {/*
+      Marks JS-capable documents as early as possible so global.css can scope
+      the [data-reveal] hidden starting state to html.js — if this script
+      never runs (JS disabled/failed), sections stay fully visible instead of
+      hiding behind an animation that will never fire. See reveal.js.
+    */}
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+
+    {/*
+      ClientRouter resets <html>'s attributes to match each new page's static
+      markup on every soft navigation, wiping the class the script above only
+      ever adds once. Re-add it to the incoming document before the swap so
+      html.js [data-reveal] keeps hiding sections pre-reveal instead of
+      silently no-oping after the first in-app navigation.
+    */}
+    <script is:inline>
+      document.addEventListener("astro:before-swap", (event) => {
+        event.newDocument.documentElement.classList.add("js");
+      });
+    </script>
+
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />

@@ -100,27 +100,28 @@ const makeMoneySteps = [
 
     Header 29373:156370 and Footer 29373:156428 fill the layout's named slots.
   */}
-  <Hero />
-  <WhyWeExist />
-  <SlicealEngine />
-  <HowSlicealWorksFlow />
-  <AtAGlance />
+  <Hero data-reveal />
+  <WhyWeExist data-reveal />
+  <SlicealEngine data-reveal />
+  <HowSlicealWorksFlow data-reveal />
+  <AtAGlance data-reveal />
   <HowSlicealWorksSection
     as="h2"
     subtitle="Three ways: monthly rent, long-term appreciation, and the option to sell."
     steps={makeMoneySteps}
     alternate={true}
+    data-reveal
   >
     So how do I actually make money?
   </HowSlicealWorksSection>
-  <BarriersSection />
-  <Timeline />
-  <FeaturedInvestment />
-  <TestimonialsSection/>
-  <ConcludingCTA />
-  <PartnersSection />
-  <Faq />
-  <OwnYouSliceSection />
+  <BarriersSection data-reveal />
+  <Timeline data-reveal />
+  <FeaturedInvestment data-reveal />
+  <TestimonialsSection data-reveal />
+  <ConcludingCTA data-reveal />
+  <PartnersSection data-reveal />
+  <Faq data-reveal />
+  <OwnYouSliceSection data-reveal />
   <Footer />
 
 </BaseLayout>

@@ -47,15 +47,15 @@ const pillars = [
 ---
 
 <Section
-  class="bg-surface-alt shadow-[var(--shadow-glow)] xl:bg-white"
+  class="bg-surface-alt shadow-[var(--shadow-glow)] lg:bg-white"
   innerClass="flex flex-col items-start gap-7"
 >
-  <div class="flex w-full flex-col items-center gap-6 text-center xl:items-start xl:text-left">
+  <div class="flex w-full flex-col items-center gap-6 text-center lg:items-start lg:text-left">
     <p class="rounded-pill border border-line px-3 py-1.5 text-sm leading-sm font-semibold text-brand shadow-pill">
       Regulated · VARA licensed · DLD registered
     </p>
 
-    <h2 class="text-display-xs-mobile leading-display-xs font-medium tracking-tight text-ink xl:text-display-lg xl:leading-display-lg">
+    <h2 class="text-display-xs-mobile leading-display-xs font-medium tracking-tight text-ink lg:text-display-lg lg:leading-display-lg">
       Your ownership is on the title deed. Your money sits in a bank. Neither
       one is on our balance sheet.
     </h2>
@@ -67,14 +67,14 @@ const pillars = [
     </p>
   </div>
 
-  <ul class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 xl:grid-cols-4">
+  <ul class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 lg:grid-cols-4">
     {
       pillars.map(({ icon, title, description }, i) => (
         <li
           class:list={[
-            "flex flex-col gap-[1.125rem] rounded-xl border border-line bg-white p-4 xl:rounded-none xl:p-[1.875rem]",
-            i === 0 && "xl:rounded-l-xl",
-            i === pillars.length - 1 && "xl:rounded-r-lg",
+            "flex flex-col gap-[1.125rem] rounded-xl border border-line bg-white p-4 lg:rounded-none lg:p-[1.875rem]",
+            i === 0 && "lg:rounded-l-xl",
+            i === pillars.length - 1 && "lg:rounded-r-lg",
           ]}
         >
           <Image src={icon} alt="" aria-hidden="true" width={24} height={24} class="size-6 shrink-0" />

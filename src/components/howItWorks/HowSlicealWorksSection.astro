@@ -41,10 +41,11 @@ const {
   /** @type {Step[]} */
   steps = [],
   alternate = true,
+  ...rest
 } = Astro.props;
 ---
 
-<Section surface="alt" innerClass="flex flex-col gap-16 lg:gap-24">
+<Section surface="alt" innerClass="flex flex-col gap-16 lg:gap-24" {...rest}>
   <header class="flex w-full flex-col items-center gap-4 text-center">
     {breadcrumb && <Breadcrumb trail={breadcrumb} />}
 

@@ -25,7 +25,7 @@ const stats = [
 /* 16/24 semibold, 20/12 padding, 12px radius, 48px tall — the Button
    component instance both CTAs use in the frame. */
 const btnBase =
-  "flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-lg px-4 text-center text-xs font-semibold shadow-xs transition-colors sm:text-sm sm:px-5 xl:flex-none xl:text-md";
+  "flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-lg px-4 text-center text-xs font-semibold shadow-xs transition-colors sm:text-sm sm:px-5 lg:flex-none lg:text-md";
 
 /* Figma "Shadow/lg": two stacked drop shadows, no token for it yet. */
 const cardShadow =
@@ -37,30 +37,30 @@ const cardShadow =
 <Section
   flush
   surface="alt"
-  class="pt-10 pb-12 xl:pt-20 xl:pb-25"
-  innerClass="flex flex-col gap-10 xl:flex-row xl:items-center xl:justify-between xl:gap-16"
+  class="pt-10 pb-12 lg:pt-20 lg:pb-25"
+  innerClass="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16"
 >
-  <div class="flex flex-col gap-6 xl:max-w-[43rem] xl:gap-8">
-    <p class="text-center text-sm font-semibold text-ink-muted xl:text-left">
+  <div class="flex flex-col gap-6 lg:max-w-[43rem] lg:gap-8">
+    <p class="text-center text-sm font-semibold text-ink-muted lg:text-left">
       <span aria-hidden="true">•</span> Dubai Land Department Verified
     </p>
 
     <div class="flex flex-col gap-4">
       {/*
         Explicit leading at both tiers — an unprefixed leading-* would
-        otherwise still win inside the xl: layer. The 688px cap is the frame's;
+        otherwise still win inside the lg: layer. The 688px cap is the frame's;
         the line still breaks a word earlier than Figma on Windows, where the
         font stack falls back off SF Pro (see tokens.css §5).
       */}
       <h1
-        class="text-center text-display-lg-mobile leading-10 tracking-tight xl:max-w-[43rem] xl:text-left xl:text-display-xl xl:leading-display-xl"
+        class="text-center text-display-lg-mobile leading-10 tracking-tight lg:max-w-[43rem] lg:text-left lg:text-display-xl lg:leading-display-xl"
       >
         Build premium wealth with <span class="text-brand">fractional</span> real
         estate.
       </h1>
 
       <p
-        class="max-w-[40rem] text-center text-md leading-md text-ink-muted xl:max-w-none xl:text-left xl:text-lg xl:leading-lg"
+        class="max-w-[40rem] text-center text-md leading-md text-ink-muted lg:max-w-none lg:text-left lg:text-lg lg:leading-lg"
       >
         Diversify your portfolio across Dubai’s most sought-after properties.
         Start investing from just AED 2,000 with institutional-grade due
@@ -68,7 +68,7 @@ const cardShadow =
       </p>
     </div>
 
-    <div class="flex items-center gap-2 sm:gap-3 xl:gap-4">
+    <div class="flex items-center gap-2 sm:gap-3 lg:gap-4">
       <a
         href="/properties"
         class:list={[btnBase, "border border-brand bg-brand text-white hover:bg-brand-hover"]}
@@ -91,7 +91,7 @@ const cardShadow =
   <div
     class:list={[
       cardShadow,
-      "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-white p-6 xl:w-[32.5rem]",
+      "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-white p-6 lg:w-[32.5rem]",
     ]}
   >
     <div class="flex items-center gap-3">
@@ -119,9 +119,9 @@ const cardShadow =
             {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
             <dd
               class:list={[
-                /* 18px is the frame's; stepped down below xl so the figure
+                /* 18px is the frame's; stepped down below lg so the figure
                    still fits one line in a half-width box on a phone. */
-                "m-0 text-md leading-md font-bold whitespace-nowrap xl:text-lg xl:leading-lg",
+                "m-0 text-md leading-md font-bold whitespace-nowrap lg:text-lg lg:leading-lg",
                 positive ? "text-success-600" : "text-ink",
               ]}
             >
@@ -146,7 +146,7 @@ const cardShadow =
           src={yieldChart}
           alt=""
           widths={[440, 880]}
-          sizes="(min-width: 1280px) 440px, 100vw"
+          sizes="(min-width: 1024px) 440px, 100vw"
           quality={70}
           loading="eager"
           class="absolute inset-0 size-full object-cover"

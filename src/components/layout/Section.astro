@@ -26,6 +26,7 @@ const {
   flush = false,
   class: className = "",
   innerClass = "",
+  ...rest
 } = Astro.props;
 
 const surfaceClass = {
@@ -43,7 +44,7 @@ const outer = ["section-band", surfaceClass, flush ? "" : "section-y", className
 const inner = ["container-site", innerClass].filter(Boolean).join(" ");
 ---
 
-<Tag id={id} class={outer} data-bleed={bleed ? "" : undefined}>
+<Tag id={id} class={outer} data-bleed={bleed ? "" : undefined} {...rest}>
   <slot name="bleed" />
   <div class={inner}>
     <slot />

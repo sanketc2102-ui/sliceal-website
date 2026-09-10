@@ -24,11 +24,11 @@ const btnBase =
 <Section
   bleed
   class="overflow-hidden shadow-[var(--shadow-glow)]"
-  innerClass="relative flex flex-col items-center gap-6 text-center xl:gap-8"
+  innerClass="relative flex flex-col items-center gap-6 text-center lg:gap-8"
 >
   {
     blobs.length > 0 && (
-      <div slot="bleed" class="pointer-events-none absolute inset-0 hidden xl:block" aria-hidden="true">
+      <div slot="bleed" class="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden="true">
         {blobs.map((blob) => (
           <Image src={blob.src} alt="" class={blob.class} />
         ))}
@@ -37,12 +37,12 @@ const btnBase =
   }
 
   <h2
-    class="max-w-3xl text-lg leading-lg font-semibold tracking-normal text-ink xl:text-display-xl xl:leading-display-xl xl:font-medium xl:tracking-tight"
+    class="max-w-3xl text-lg leading-lg font-semibold tracking-normal text-ink lg:text-display-xl lg:leading-display-xl lg:font-medium lg:tracking-tight"
   >
     {heading}
   </h2>
 
-  <p class="max-w-2xl text-sm leading-sm text-ink-muted xl:text-lg xl:leading-lg">
+  <p class="max-w-2xl text-sm leading-sm text-ink-muted lg:text-lg lg:leading-lg">
     {description}
   </p>
 

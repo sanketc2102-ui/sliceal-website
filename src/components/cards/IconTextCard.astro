@@ -38,7 +38,7 @@ const {
 } = Astro.props;
 
 const surface = {
-  bordered: "border border-line bg-white p-6 shadow-xs xl:p-8",
+  bordered: "border border-line bg-white p-6 shadow-xs lg:p-8",
   plain: "bg-off-white p-6",
 }[variant];
 
@@ -48,9 +48,9 @@ const iconBox = {
 }[variant];
 
 /* Explicit leading at both tiers — an unprefixed leading-* would otherwise
-   still win inside the xl: layer (see tokens.css §6). */
+   still win inside the lg: layer (see tokens.css §6). */
 const titleClass = {
-  bordered: "text-lg leading-lg font-semibold xl:text-xl xl:leading-xl",
+  bordered: "text-lg leading-lg font-semibold lg:text-xl lg:leading-xl",
   plain: "text-lg leading-lg font-bold",
 }[variant];
 

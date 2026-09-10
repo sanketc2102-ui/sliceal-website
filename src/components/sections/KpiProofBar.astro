@@ -30,30 +30,30 @@ const stats = [
 
 /* 32px bold. There is no desktop 32px step in the type scale — only
    --text-display-lg-mobile — so that token carries the desktop size here, and
-   both tiers set leading explicitly so the mobile value can't leak into xl:. */
+   both tiers set leading explicitly so the mobile value can't leak into lg:. */
 const valueClass =
-  "text-display-xs leading-display-xs font-bold tracking-tight xl:text-display-lg-mobile xl:leading-display-sm";
+  "text-display-xs leading-display-xs font-bold tracking-tight lg:text-display-lg-mobile lg:leading-display-sm";
 ---
 
 <!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
      placeholder, not a designed layout. Revisit when frames land. -->
-<Section surface="alt" flush class="border-y border-line py-10 xl:py-16">
+<Section surface="alt" flush class="border-y border-line py-10 lg:py-16">
   {/*
-    Two columns up to xl, then the designed single row: four 260px tracks
+    Two columns up to lg, then the designed single row: four 260px tracks
     spread across the content column with the hairlines between them.
     dt/dd are reversed in the flow so the label still precedes its figure for
     a screen reader while the figure renders on top.
   */}
   <dl
-    class="m-0 grid grid-cols-2 gap-x-6 gap-y-8 xl:flex xl:items-center xl:justify-between xl:gap-x-0"
+    class="m-0 grid grid-cols-2 gap-x-6 gap-y-8 lg:flex lg:items-center lg:justify-between lg:gap-x-0"
   >
     {
       stats.map(({ value, label, tone }, i) => (
         <>
           {i > 0 && (
-            <div aria-hidden="true" class="hidden h-12 w-px shrink-0 bg-line xl:block" />
+            <div aria-hidden="true" class="hidden h-12 w-px shrink-0 bg-line lg:block" />
           )}
-          <div class="flex flex-col-reverse items-center gap-2 text-center xl:w-[16.25rem] xl:shrink-0 xl:items-start xl:text-left">
+          <div class="flex flex-col-reverse items-center gap-2 text-center lg:w-[16.25rem] lg:shrink-0 lg:items-start lg:text-left">
             <dt class="text-sm leading-sm text-ink-secondary">{label}</dt>
             {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
             <dd class:list={["m-0", valueClass, tone]}>{value}</dd>

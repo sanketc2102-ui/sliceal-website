@@ -1,6 +1,15 @@
 ---
 import Section from "../layout/Section.astro";
 
+/*
+ * data-reveal is consumed here instead of forwarding it to <Section>: the
+ * milestones should cascade in one at a time (left to right on desktop,
+ * top to bottom on mobile), not fade in as one flat block, so each card
+ * gets its own data-reveal below and reveal.js's per-batch stagger handles
+ * the cascade since same-row cards cross the viewport threshold together.
+ */
+const { "data-reveal": _dataReveal, ...rest } = Astro.props;
+
 const milestones = [
   {
     date: "28 FEB 2025",
@@ -41,11 +50,11 @@ const milestones = [
 ];
 ---
 
-<Section surface="alt">
+<Section surface="alt" {...rest}>
   <div class="flex w-full flex-col gap-6 lg:gap-12">
 
     <!-- Heading -->
-    <header class="flex w-full flex-col items-center gap-4 lg:items-start lg:gap-7">
+    <header class="flex w-full flex-col items-center gap-4 lg:items-start lg:gap-7" data-reveal>
       <div class="inline-flex rounded-[40px] border border-gray-200 px-3 py-1.5">
         <span class="text-xs leading-4 text-indigo-500 lg:text-sm lg:leading-5">
           A QUICK RECAP
@@ -62,7 +71,7 @@ const milestones = [
     <!-- MOBILE -->
     <ol class="flex flex-col gap-6 lg:hidden">
       {milestones.map((milestone) => (
-        <li class="flex flex-col gap-3">
+        <li class="flex flex-col gap-3" data-reveal>
 
           <div class="flex items-center gap-2">
             <span
@@ -137,6 +146,7 @@ const milestones = [
         {milestones.map((milestone) => (
           <article
             class="flex min-h-[135px] flex-col rounded-2xl border border-gray-200 p-6"
+            data-reveal
           >
             <h3 class="text-base font-semibold leading-6 text-black">
               {milestone.title}

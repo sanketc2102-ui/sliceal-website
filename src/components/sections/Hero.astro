@@ -30,26 +30,27 @@ const btnBase =
 
 
 <section
-  class="relative isolate flex flex-col overflow-hidden bg-surface-alt xl:-mt-20 xl:block xl:min-h-[61.375rem]"
+  class="relative isolate flex flex-col overflow-hidden bg-surface-alt lg:-mt-20 lg:block lg:min-h-[61.375rem]"
+  {...Astro.props}
 >
 
-  <div class="flex flex-col xl:absolute xl:inset-0 xl:justify-center xl:gap-8">
-    <div class="order-1 container-site pt-[3.125rem] pb-8 xl:pt-0 xl:pb-0">
-      <div class="flex flex-col gap-5 xl:w-[41.5rem] xl:gap-8">
+  <div class="flex flex-col lg:absolute lg:inset-0 lg:justify-center lg:gap-8">
+    <div class="order-1 container-site pt-[3.125rem] pb-8 lg:pt-0 lg:pb-0">
+      <div class="flex flex-col gap-5 lg:w-[41.5rem] lg:gap-8">
         {/*
           The badge is the first thing on mobile and the last on desktop, so it
           is ordered rather than duplicated. 18px of extra top margin turns the
           column's 32px gap into the 50px Figma draws above it.
         */}
         <p
-          class="order-1 flex w-fit items-center gap-2 rounded-pill border border-gray-100/20 bg-off-white px-3 py-1.5 text-2xs xl:order-4 xl:mt-[1.125rem] xl:bg-transparent xl:font-semibold xl:shadow-pill"
+          class="order-1 flex w-fit items-center gap-2 rounded-pill border border-gray-100/20 bg-off-white px-3 py-1.5 text-2xs lg:order-4 lg:mt-[1.125rem] lg:bg-transparent lg:font-semibold lg:shadow-pill"
         >
           <Dot class="size-2.5 shrink-0" aria-hidden="true" />
           Licensed by VARA - In partnership with DLD
         </p>
 
         <h1
-          class="order-2 text-display-lg-mobile leading-10 tracking-tight xl:order-1 xl:max-w-[32.5rem] xl:text-display-xl xl:leading-display-xl"
+          class="order-2 text-display-lg-mobile leading-10 tracking-tight lg:order-1 lg:max-w-[32.5rem] lg:text-display-xl lg:leading-display-xl"
         >
           Own Your <span class="text-brand-purple">Slice</span> of Real Estate.
         </h1>
@@ -60,24 +61,24 @@ const btnBase =
           is ever in the accessibility tree, since `hidden` removes the other.
           15/22 is not on the type scale; it exists only here.
         */}
-        <p class="order-3 text-[0.9375rem]/[1.375rem] xl:hidden">
+        <p class="order-3 text-[0.9375rem]/[1.375rem] lg:hidden">
           Invest in Dubai real estate from AED 2,000. Earn monthly rent and sell
           anytime on a regulated market with DLD-verified properties on the XRP
           Ledger.
         </p>
-        <p class="order-3 hidden xl:order-2 xl:block xl:text-lg">
+        <p class="order-3 hidden lg:order-2 lg:block lg:text-lg">
           Start investing in Dubai real estate from just AED 2,000. Earn your
           share of the rent every month, and sell whenever you want on a
           regulated secondary market — all powered by DLD-verified properties
           tokenized on the XRP Ledger.
         </p>
 
-        <div class="order-4 flex gap-3 xl:order-3 xl:gap-4">
+        <div class="order-4 flex gap-3 lg:order-3 lg:gap-4">
           <a
             href="/properties"
             class:list={[
               btnBase,
-              "flex-1 border border-brand-purple bg-brand-purple text-white shadow-xs transition-colors hover:border-brand-800 hover:bg-brand-800 xl:w-56 xl:flex-none",
+              "flex-1 border border-brand-purple bg-brand-purple text-white shadow-xs transition-colors hover:border-brand-800 hover:bg-brand-800 lg:w-56 lg:flex-none",
             ]}
           >
             Explore Properties
@@ -86,7 +87,7 @@ const btnBase =
             href="/download"
             class:list={[
               btnBase,
-              "flex-1 border border-line-strong shadow-xs transition-colors hover:bg-gray-100 xl:w-[14.5rem] xl:flex-none",
+              "flex-1 border border-line-strong shadow-xs transition-colors hover:bg-gray-100 lg:w-[14.5rem] lg:flex-none",
             ]}
           >
             Download the App
@@ -97,30 +98,30 @@ const btnBase =
 
 
     <div
-      class="relative -z-10 order-2 aspect-[440/339] overflow-hidden sm:aspect-3/2 sm:max-h-[32rem] xl:absolute xl:top-[4.52%] xl:right-[-9.33%] xl:aspect-auto xl:h-[83.86%] xl:max-h-none xl:w-[97.58%] xl:max-w-[92.1875rem]"
+      class="relative -z-10 order-2 aspect-[440/339] overflow-hidden sm:aspect-3/2 sm:max-h-[32rem] lg:absolute lg:top-[4.52%] lg:right-[-9.33%] lg:aspect-auto lg:h-[83.86%] lg:max-h-none lg:w-[97.58%] lg:max-w-[92.1875rem]"
     >
       <Image
         src={heroPhoto}
         alt="A hand holding a phone with the Sliceal app open on a tokenized two-bedroom apartment in Palm Jumeirah, Dubai."
         widths={[440, 880, 1320, 1760, 2752]}
-        sizes="(min-width: 1280px) 98vw, 100vw"
+        sizes="(min-width: 1024px) 98vw, 100vw"
         loading="eager"
         fetchpriority="high"
-        class="size-full object-cover object-[88%_50%] sm:object-[70%_50%] xl:object-center 2xl:[mask-image:linear-gradient(to_right,transparent,#000_10%)]"
+        class="size-full object-cover object-[88%_50%] sm:object-[70%_50%] lg:object-center 2xl:[mask-image:linear-gradient(to_right,transparent,#000_10%)]"
       />
     </div>
 
 
     <div
-      class="order-3 bg-[linear-gradient(to_bottom,rgb(0_0_0/0.085),transparent_92%),linear-gradient(to_right,rgb(0_0_0/0.15)_0%,rgb(0_0_0/0.15)_5%,rgb(0_0_0/0.08)_22%,rgb(0_0_0/0.02)_55%,rgb(0_0_0/0.01)_72%,rgb(0_0_0/0.07)_100%)] backdrop-blur-2xl xl:bg-none xl:backdrop-blur-none"
+      class="order-3 bg-[linear-gradient(to_bottom,rgb(0_0_0/0.085),transparent_92%),linear-gradient(to_right,rgb(0_0_0/0.15)_0%,rgb(0_0_0/0.15)_5%,rgb(0_0_0/0.08)_22%,rgb(0_0_0/0.02)_55%,rgb(0_0_0/0.01)_72%,rgb(0_0_0/0.07)_100%)] backdrop-blur-2xl lg:bg-none lg:backdrop-blur-none"
     >
-      <div class="container-site py-5 xl:py-0">
-     
+      <div class="container-site py-5 lg:py-0">
+
         <div
-          class="mx-auto flex max-w-full flex-wrap items-center justify-center gap-3 min-[440px]:gap-4 xl:mx-0 xl:w-fit xl:max-w-none xl:flex-nowrap xl:justify-start xl:gap-6 xl:rounded-lg xl:bg-white xl:p-5 xl:shadow-[0_0_2.5px_rgb(0_0_0/0.1)]"
+          class="mx-auto flex max-w-full flex-wrap items-center justify-center gap-3 min-[440px]:gap-4 lg:mx-0 lg:w-fit lg:max-w-none lg:flex-nowrap lg:justify-start lg:gap-6 lg:rounded-lg lg:bg-white lg:p-5 lg:shadow-[0_0_2.5px_rgb(0_0_0/0.1)]"
         >
           <div
-            class="rounded-lg border border-line bg-white/30 p-4 min-[440px]:p-5 xl:rounded-none xl:border-0 xl:bg-transparent xl:p-0"
+            class="rounded-lg border border-line bg-white/30 p-4 min-[440px]:p-5 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0"
           >
             <Vara
               class="h-8 w-[100px] min-[440px]:h-[38px] min-[440px]:w-[119px]"
@@ -129,7 +130,7 @@ const btnBase =
             />
           </div>
           <div
-            class="rounded-lg border border-line bg-white/30 p-4 min-[440px]:p-5 xl:rounded-none xl:border-0 xl:bg-transparent xl:p-0"
+            class="rounded-lg border border-line bg-white/30 p-4 min-[440px]:p-5 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0"
           >
             <Dld
               class="h-8 w-[136px] min-[440px]:h-[38px] min-[440px]:w-[161px]"
@@ -149,19 +150,19 @@ const btnBase =
     up. The band is transparent so the blurred photo behind it is the fill.
   */}
   <dl
-    class="relative m-0 mt-auto grid grid-cols-2 border-t border-line bg-white backdrop-blur-2xl md:grid-cols-4 xl:absolute xl:inset-x-0 xl:bottom-0 xl:mt-0 xl:bg-transparent"
+    class="relative m-0 mt-auto grid grid-cols-2 border-t border-line bg-white backdrop-blur-2xl md:grid-cols-4 lg:absolute lg:inset-x-0 lg:bottom-0 lg:mt-0 lg:bg-transparent"
   >
     {
       /* dt precedes dd as the spec requires; `order` puts the figure on top. */
       stats.map(({ prefix, value, accent, label }) => (
-        <div class="flex min-h-[5.6875rem] flex-col items-center justify-center gap-1 border-b border-l border-line p-4 text-center xl:min-h-[9.75rem] xl:gap-2.5 xl:px-[1.875rem] xl:py-2.5">
-          <dt class="order-2 text-sm leading-tight text-ink-muted xl:text-md xl:leading-md">
+        <div class="flex min-h-[5.6875rem] flex-col items-center justify-center gap-1 border-b border-l border-line p-4 text-center lg:min-h-[9.75rem] lg:gap-2.5 lg:px-[1.875rem] lg:py-2.5">
+          <dt class="order-2 text-sm leading-tight text-ink-muted lg:text-md lg:leading-md">
             {label}
           </dt>
           {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
-          <dd class="order-1 m-0 text-display-lg-mobile leading-[1.1875] font-normal tracking-tight text-gray-900 xl:text-display-lg xl:leading-display-lg xl:font-medium">
+          <dd class="order-1 m-0 text-display-lg-mobile leading-[1.1875] font-normal tracking-tight text-gray-900 lg:text-display-lg lg:leading-display-lg lg:font-medium">
             {prefix && (
-              <span class="text-sm font-semibold xl:text-xl">{prefix} </span>
+              <span class="text-sm font-semibold lg:text-xl">{prefix} </span>
             )}
             {value}
             <span class="text-brand-purple">{accent}</span>

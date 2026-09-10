@@ -9,9 +9,14 @@
  *   Mobile:  node 30732:151490 (Content, 440 frame) — 4 standalone cards,
  *     each fully rounded (16px), stacked with an 18px gap.
  *
- * The eyebrow pill and the fused-strip corner treatment (first xl:rounded-l-xl,
- * last xl:rounded-r-lg, middles xl:rounded-none) are the same pattern
+ * The eyebrow pill and the fused-strip corner treatment (first lg:rounded-l-xl,
+ * last lg:rounded-r-lg, middles lg:rounded-none) are the same pattern
  * SecurityComplianceOverview.astro uses — reused verbatim.
+ *
+ * No tablet artboard exists for the fused strip, so 768–1023px gets a plain
+ * 2-up grid of the mobile's standalone rounded cards (matching the
+ * md:grid-cols-2 step every 3+-column grid on the site uses) rather than
+ * jumping straight from one column to four.
  */
 import Section from "../layout/Section.astro";
 import { Image } from "astro:assets";
@@ -51,31 +56,31 @@ const steps = [
 
 <Section
   flush
-  class="py-10 shadow-[var(--shadow-glow)] xl:py-20"
-  innerClass="flex flex-col items-center gap-8 xl:items-start xl:gap-7"
+  class="py-10 shadow-[var(--shadow-glow)] lg:py-20"
+  innerClass="flex flex-col items-center gap-8 lg:items-start lg:gap-7"
 >
-  <div class="flex w-full flex-col items-center gap-6 text-center xl:items-start xl:text-left">
+  <div class="flex w-full flex-col items-center gap-6 text-center lg:items-start lg:text-left">
     <p class="rounded-pill border border-line px-3 py-1.5 text-sm leading-sm font-semibold text-brand shadow-pill">
       Regulated · VARA licensed · DLD registered
     </p>
 
-    <h2 class="text-lg leading-lg font-semibold text-ink xl:text-display-lg xl:leading-display-lg xl:font-medium xl:tracking-tight">
+    <h2 class="text-lg leading-lg font-semibold text-ink lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight">
       How to List Your Property
     </h2>
 
-    <p class="text-sm leading-sm text-ink-muted xl:text-lg xl:leading-lg">
+    <p class="text-sm leading-sm text-ink-muted lg:text-lg lg:leading-lg">
       A simple, transparent process to get your property in front of global capital.
     </p>
   </div>
 
-  <ol class="m-0 flex w-full list-none flex-col gap-[1.125rem] p-0 xl:grid xl:grid-cols-4 xl:gap-0">
+  <ol class="m-0 grid w-full list-none grid-cols-1 gap-[1.125rem] p-0 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
     {
       steps.map(({ icon, title, description }, i) => (
         <li
           class:list={[
-            "flex flex-col gap-4 rounded-xl border border-line bg-white p-4 xl:gap-[1.125rem] xl:rounded-none xl:p-[1.875rem]",
-            i === 0 && "xl:rounded-l-xl",
-            i === steps.length - 1 && "xl:rounded-r-lg",
+            "flex flex-col gap-4 rounded-xl border border-line bg-white p-4 lg:gap-[1.125rem] lg:rounded-none lg:p-[1.875rem]",
+            i === 0 && "lg:rounded-l-xl",
+            i === steps.length - 1 && "lg:rounded-r-lg",
           ]}
         >
           <div class="flex w-full items-center justify-between">
@@ -89,10 +94,10 @@ const steps = [
           </div>
 
           <div class="flex flex-col gap-3">
-            <h3 class="text-lg leading-lg font-semibold text-[#0c0626] xl:text-display-xs xl:leading-display-xs xl:font-medium">
+            <h3 class="text-lg leading-lg font-semibold text-[#0c0626] lg:text-display-xs lg:leading-display-xs lg:font-medium">
               {title}
             </h3>
-            <p class="text-xs leading-xs text-ink-secondary xl:text-[0.9375rem] xl:leading-normal">
+            <p class="text-xs leading-xs text-ink-secondary lg:text-[0.9375rem] lg:leading-normal">
               {description}
             </p>
           </div>

@@ -56,14 +56,14 @@ const steps = [
 
 <!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
      placeholder, not a designed layout. Revisit when frames land. -->
-<Section innerClass="flex flex-col items-center gap-10 xl:gap-12">
+<Section innerClass="flex flex-col items-center gap-10 lg:gap-12">
   <header class="flex flex-col items-center gap-3 text-center">
     {/*
       Explicit leading at both tiers — an unprefixed leading-* would otherwise
-      still win inside the xl: layer (see tokens.css §6).
+      still win inside the lg: layer (see tokens.css §6).
     */}
     <h2
-      class="text-display-lg-mobile leading-10 tracking-tight xl:text-display-lg xl:leading-display-lg"
+      class="text-display-lg-mobile leading-10 tracking-tight lg:text-display-lg lg:leading-display-lg"
     >
       How Sliceal Works
     </h2>
@@ -78,7 +78,7 @@ const steps = [
     Figma lays the four 314px cards on one 32px-gap row. Two columns from md so
     the tablet step is explicit rather than a jump straight to four.
   */}
-  <ol class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
+  <ol class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
     {
       steps.map(({ icon, title, description }, i) => (
         <IconTextCard

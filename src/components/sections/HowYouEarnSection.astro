@@ -8,9 +8,9 @@
  *
  * Same card language as cards/IconTextCard.astro's "bordered" variant (used by
  * BenefitsSection on /why-sliceal: border-line, bg-white, shadow-xs, bg-brand-25
- * icon box, text-lg→xl:text-xl title). Not reused directly because that
- * variant's padding (p-6 xl:p-8) is a guessed mobile placeholder — this page
- * has a real mobile frame calling for p-4 xl:p-8.
+ * icon box, text-lg→lg:text-xl title). Not reused directly because that
+ * variant's padding (p-6 lg:p-8) is a guessed mobile placeholder — this page
+ * has a real mobile frame calling for p-4 lg:p-8.
  */
 import Section from "../layout/Section.astro";
 import { Image } from "astro:assets";
@@ -51,11 +51,11 @@ const earnings = [
 <Section
   flush
   surface="alt"
-  class="py-10 xl:py-20"
-  innerClass="flex flex-col items-center gap-6 xl:gap-12"
+  class="py-10 lg:py-20"
+  innerClass="flex flex-col items-center gap-6 lg:gap-12"
 >
   <div class="flex flex-col items-center gap-3 text-center">
-    <h2 class="text-lg leading-lg font-semibold text-ink xl:text-display-lg xl:leading-display-lg xl:font-medium xl:tracking-tight">
+    <h2 class="text-lg leading-lg font-semibold text-ink lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight">
       How You Earn
     </h2>
     <p class="text-sm leading-sm text-ink-muted">
@@ -63,16 +63,16 @@ const earnings = [
     </p>
   </div>
 
-  <ul class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 xl:grid-cols-2">
+  <ul class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 lg:grid-cols-2">
     {
       earnings.map(({ icon, title, description }) => (
-        <li class="flex flex-col items-start gap-4 rounded-xl border border-line bg-white p-4 shadow-xs xl:p-8">
+        <li class="flex flex-col items-start gap-4 rounded-xl border border-line bg-white p-4 shadow-xs lg:p-8">
           <span class="flex shrink-0 rounded-lg bg-brand-25 p-3">
             <Image src={icon} alt="" aria-hidden="true" width={24} height={24} class="size-6" />
           </span>
 
           <div class="flex flex-col gap-2">
-            <h3 class="text-lg leading-lg font-semibold text-ink xl:text-xl xl:leading-xl">
+            <h3 class="text-lg leading-lg font-semibold text-ink lg:text-xl lg:leading-xl">
               {title}
             </h3>
             <p class="text-sm leading-sm text-ink-muted">{description}</p>
