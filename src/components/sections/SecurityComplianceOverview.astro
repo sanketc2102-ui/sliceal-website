@@ -46,18 +46,16 @@ const pillars = [
 ];
 ---
 
-<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
-     placeholder, not a designed layout. Revisit when frames land. -->
 <Section
-  class="shadow-[var(--shadow-glow)]"
+  class="bg-surface-alt shadow-[var(--shadow-glow)] xl:bg-white"
   innerClass="flex flex-col items-start gap-7"
 >
-  <div class="flex w-full flex-col items-start gap-6">
+  <div class="flex w-full flex-col items-center gap-6 text-center xl:items-start xl:text-left">
     <p class="rounded-pill border border-line px-3 py-1.5 text-sm leading-sm font-semibold text-brand shadow-pill">
       Regulated · VARA licensed · DLD registered
     </p>
 
-    <h2 class="text-display-lg-mobile leading-10 font-medium tracking-tight text-ink xl:text-display-lg xl:leading-display-lg">
+    <h2 class="text-display-xs-mobile leading-display-xs font-medium tracking-tight text-ink xl:text-display-lg xl:leading-display-lg">
       Your ownership is on the title deed. Your money sits in a bank. Neither
       one is on our balance sheet.
     </h2>
@@ -74,7 +72,7 @@ const pillars = [
       pillars.map(({ icon, title, description }, i) => (
         <li
           class:list={[
-            "flex flex-col gap-[1.125rem] border border-line bg-white p-[1.875rem]",
+            "flex flex-col gap-[1.125rem] rounded-xl border border-line bg-white p-4 xl:rounded-none xl:p-[1.875rem]",
             i === 0 && "xl:rounded-l-xl",
             i === pillars.length - 1 && "xl:rounded-r-lg",
           ]}
