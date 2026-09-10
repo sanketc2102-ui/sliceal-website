@@ -97,6 +97,15 @@ const fade = {
     </main>
 
     <slot name="footer" />
+
+    <script>
+      import { initReveal } from "../scripts/reveal.js";
+
+      // `astro:page-load` fires after the initial load AND after every
+      // subsequent navigation, so this one listener covers both — same
+      // re-init pattern as Header.astro's initHeader.
+      document.addEventListener("astro:page-load", initReveal);
+    </script>
   </body>
 </html>
 
