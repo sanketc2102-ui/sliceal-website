@@ -1,11 +1,9 @@
 ---
-// TODO(mobile): no mobile/tablet Figma yet — default state below is a
-//      placeholder, not a designed layout. Revisit when frames land.
-//
-// Desktop (md+) reproduces the Figma artboard: the group photo full-bleed with
-// ten hotspots absolutely positioned over it, each opening a card beneath its
-// dot. Below md the same <ul> reflows to a stacked list under the photo, so no
-// DOM/prop change is needed once real mobile frames arrive.
+// Mobile (node 30576:134041) shrinks the photo into a rounded card (408x217)
+// with the same ten hotspots overlaid, positioned via mobileX/mobileY. Tapping
+// a dot opens its popover next to it, same as desktop hover — the <li> is
+// absolutely positioned at every breakpoint, only the coordinates and dot/card
+// sizing change at md+, where the photo goes back to full-bleed.
 import { Image } from "astro:assets";
 
 import { teamMembers } from "../../data/team.js";
@@ -17,37 +15,41 @@ const { class: className } = Astro.props;
 <section class:list={["bg-white", className]}>
   <div class="relative">
     {/*
-      Figma's "Image" frame is 669 tall but deliberately does NOT clip its top:
-      the 1512x748.72 bitmap starts 66px ABOVE the frame, bleeding up behind the
-      headline, and "Rectangle 18" dissolves that bleed into the page with a
-      white gradient. Only the bottom is cropped (748.72 -> 735.3), so the
-      visible window is 1512/735 and the photo runs 2% past it.
+      Mobile: the photo is cropped to a 408x217 card (rounded-lg, no bleed).
+      Desktop (md+): Figma's "Image" frame is 669 tall but deliberately does
+      NOT clip its top — the 1512x748.72 bitmap starts 66px ABOVE the frame,
+      bleeding up behind the headline, and "Rectangle 18" dissolves that bleed
+      into the page with a white gradient. Only the bottom is cropped
+      (748.72 -> 735.3), so the visible window is 1512/735 and the photo runs
+      2% past it.
     */}
-    <div class="relative w-full overflow-hidden md:aspect-1512/735">
+    <div class="relative aspect-408/217 w-full overflow-hidden rounded-lg md:aspect-1512/735 md:rounded-none">
       <Image
         src={teamGroup}
         alt="The Sliceal team"
         widths={[768, 1024, 1512, 2048]}
         sizes="100vw"
         loading="eager"
-        class="w-full max-w-none md:absolute md:top-0 md:left-0"
+        class="absolute inset-0 size-full object-cover md:inset-auto md:top-0 md:left-0 md:size-auto md:w-full"
       />
 
       {/* Figma "Rectangle 18": opaque white over the photo's first 1.9%,
-          fully clear by 16.9% — the soft fade across the top of the heads. */}
+          fully clear by 16.9% — the soft fade across the top of the heads.
+          Desktop only — the mobile card has no top bleed to dissolve. */}
       <div
-        class="pointer-events-none absolute inset-x-0 top-0 h-[17.2%] bg-linear-to-b from-white from-11% to-transparent"
+        class="pointer-events-none absolute inset-x-0 top-0 hidden h-[17.2%] bg-linear-to-b from-white from-11% to-transparent md:block"
         aria-hidden="true"
       >
       </div>
     </div>
 
-    {/* At md+ the list is lifted out of flow and sized to the bitmap's own
-        2908x1440 aspect — not the cropped window — so the percentages in
-        team.js land on faces. Its mobile spacing needs no desktop override. */}
+    {/* Mobile: fills the card above (same box the hotspots were designed
+        against). At md+ the list is lifted out to the bitmap's own 2908x1440
+        aspect — not the cropped window — so the desktop percentages land on
+        faces. */}
     <ul
       data-team-points
-      class="mt-6 grid gap-8 px-5 pb-16 md:absolute md:inset-x-0 md:top-0 md:mt-0 md:block md:aspect-2908/1440 md:px-0"
+      class="absolute inset-0 md:inset-auto md:inset-x-0 md:top-0 md:aspect-2908/1440"
     >
       {
         teamMembers.map((member) => {
@@ -57,46 +59,48 @@ const { class: className } = Astro.props;
           return (
             <li
               class:list={[
-                "group flex flex-col items-center gap-4",
-                "md:absolute md:size-8 md:-translate-x-1/2 md:-translate-y-1/2 md:gap-0",
-                "md:top-(--point-y) md:left-(--point-x)",
-                !isInteractive && "hidden md:flex",
+                "group absolute size-[18px] -translate-x-1/2 -translate-y-1/2",
+                "top-(--point-y) left-(--point-x)",
+                "md:size-8 md:top-(--point-y-md) md:left-(--point-x-md)",
               ]}
-              style={`--point:${member.color};--point-x:${member.x}%;--point-y:${member.y}%`}
+              style={`--point:${member.color};--point-x:${member.mobileX}%;--point-y:${member.mobileY}%;--point-x-md:${member.x}%;--point-y-md:${member.y}%`}
             >
               {isInteractive ? (
-                /* The dot stays 32px as designed; the ::before pseudo-element
-                   widens the touch target to 44px without moving anything. */
+                /* The dot fills its <li> (18px mobile, 32px desktop); the
+                   ::before pseudo-element widens the touch target to 44px
+                   without moving anything. */
                 <button
                   type="button"
                   aria-expanded="false"
                   aria-controls={cardId}
-                  class="relative grid size-8 place-items-center rounded-full before:absolute before:top-1/2 before:left-1/2 before:size-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+                  class="relative grid size-full place-items-center rounded-full before:absolute before:top-1/2 before:left-1/2 before:size-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
                 >
                   <span class="sr-only">{`${member.name}, ${member.role}`}</span>
                   <span class="absolute inset-0 rounded-full bg-(--point) opacity-[0.32]" />
-                  <span class="relative size-4 rounded-full bg-(--point) opacity-80" />
+                  <span class="relative size-1/2 rounded-full bg-(--point) opacity-80" />
                 </button>
               ) : (
-                <span class="relative grid size-8 place-items-center" aria-hidden="true">
+                <span class="relative grid size-full place-items-center" aria-hidden="true">
                   <span class="absolute inset-0 rounded-full bg-(--point) opacity-[0.32]" />
-                  <span class="relative size-4 rounded-full bg-(--point) opacity-80" />
+                  <span class="relative size-1/2 rounded-full bg-(--point) opacity-80" />
                 </span>
               )}
 
               {isInteractive && (
                 <div
                   id={cardId}
-                  class="w-full max-w-75.75 rounded-lg border border-line bg-white px-4 pt-5 pb-4 text-center shadow-popover md:absolute md:top-[calc(100%+36px)] md:left-1/2 md:hidden md:w-75.75 md:max-w-none md:-translate-x-1/2 md:group-hover:block md:group-focus-within:block md:group-data-open:block"
+                  class="absolute top-[calc(100%+16px)] left-1/2 hidden w-42.5 -translate-x-1/2 rounded-lg border border-line bg-white p-3 text-center shadow-popover group-focus-within:block group-data-open:block md:top-[calc(100%+36px)] md:w-75.75 md:px-4 md:pt-5 md:pb-4 md:group-hover:block"
                 >
-                  <p class="text-xl font-semibold text-gray-900">{member.name}</p>
-                  <p class="mt-0.5 truncate text-xs leading-3.5 text-brand">
+                  <p class="text-xs font-semibold text-gray-900 md:text-xl">{member.name}</p>
+                  <p class="mt-0.5 truncate text-2xs text-brand md:text-xs md:leading-3.5">
                     {member.role}
                   </p>
-                  <p class="mt-3 text-sm font-semibold text-gray-600">{member.bio}</p>
+                  <p class="mt-2 text-2xs font-semibold text-gray-600 md:mt-3 md:text-sm">
+                    {member.bio}
+                  </p>
 
                   <span
-                    class="absolute -top-4.5 left-1/2 hidden size-0 -translate-x-1/2 border-x-[15.16px] border-b-[19.5px] border-x-transparent border-b-white md:block"
+                    class="absolute -top-3 left-1/2 size-0 -translate-x-1/2 border-x-[12px] border-b-[15px] border-x-transparent border-b-white md:-top-4.5 md:border-x-[15.16px] md:border-b-[19.5px]"
                     aria-hidden="true"
                   />
                 </div>
@@ -110,9 +114,9 @@ const { class: className } = Astro.props;
 </section>
 
 <script>
-  // Cards are visible by default so the stacked mobile list and the no-JS page
-  // both read correctly; at md+ Tailwind hides them until hover, focus, or a
-  // click sets data-open on the <li>.
+  // Cards are hidden by default; CSS alone shows one on :focus-within (no-JS
+  // keyboard nav) or, at md+, on :hover. This click handler adds tap-to-open
+  // (and tap-outside/Escape to close) for touch devices.
   const bindTeamPoints = () => {
     const list = document.querySelector("[data-team-points]");
 

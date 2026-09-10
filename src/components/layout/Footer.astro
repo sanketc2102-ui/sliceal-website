@@ -432,24 +432,22 @@ const socialLinks = [
 
               <ul class="flex flex-col gap-2">
                 {
-                  startTodayLinks
-                    .filter((link) => link.label !== "Team")
-                    .map((link) => (
-                      <li>
-                        <a
-                          href={link.href}
-                          class="
-                            block
-                            text-xs
-                            font-normal
-                            leading-4
-                            text-black
-                          "
-                        >
-                          {link.label}
-                        </a>
-                      </li>
-                    ))
+                  startTodayLinks.map((link) => (
+                    <li>
+                      <a
+                        href={link.href}
+                        class="
+                          block
+                          text-xs
+                          font-normal
+                          leading-4
+                          text-black
+                        "
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))
                 }
               </ul>
             </nav>

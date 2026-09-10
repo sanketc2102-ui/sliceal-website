@@ -1,7 +1,4 @@
 ---
-// TODO(mobile): no mobile/tablet Figma yet — default state below is a
-//      placeholder, not a designed layout. Revisit when frames land.
-
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
@@ -16,12 +13,12 @@ const description =
 <BaseLayout title={title} description={description}>
   <Header slot="header" />
 
-  <section class="bg-white pt-20">
+  <section class="bg-white pt-10 lg:pt-20">
     <div class="container-site flex flex-col items-center gap-6 text-center">
       <Breadcrumb trail={[{ label: "Team" }]} />
 
       <h1
-        class="text-display-lg-mobile leading-tight font-medium tracking-tight text-black lg:text-display-xl lg:leading-display-xl"
+        class="text-xl leading-xl font-semibold tracking-normal text-black lg:text-display-xl lg:leading-display-xl lg:font-medium lg:tracking-tight"
       >
         Meet the People Behind the Vision
       </h1>
@@ -33,9 +30,10 @@ const description =
     </div>
   </section>
 
-  {/* No gap: Figma's 64px flex gap is filled by the faded top of the photo,
-      which bleeds up to meet the sub-copy. */}
-  <TeamPhotoSection />
+  {/* Mobile: 48px gap + 16px side gutters + 60px bottom padding around the
+      photo card (Figma node 30576:134041, "Content" padding). Desktop: no
+      gap needed — the photo's own bleed/fade meets the sub-copy above. */}
+  <TeamPhotoSection class="mt-12 px-4 pb-15 md:mt-0 md:px-0 md:pb-0" />
 
   <Footer slot="footer" />
 </BaseLayout>
