@@ -1,7 +1,33 @@
 ---
-import PageUnderDevelopment from "../components/sections/PageUnderDevelopment.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import  ConcludingCTA  from "../components/sections/ConcludingCTA.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+import SellPropertyHero from "../components/sections/SellPropertyHero.astro";
+import HowToListPropertySteps from "../components/sections/HowToListPropertySteps.astro";
+import HowYouEarnSection from "../components/sections/HowYouEarnSection.astro";
 
+const title = "Sell your property";
+const description =
+  "Reach a global pool of verified investors through fractional ownership. List your property in minutes and start receiving capital from institutional-grade buyers.";
 ---
 
+<BaseLayout title={title} description={description}>
+  <Header slot="header" />
 
-<PageUnderDevelopment />
+  <SellPropertyHero />
+  <HowToListPropertySteps />
+  <HowYouEarnSection />
+
+  <ConcludingCTA
+    layout="centered"
+    heading="Ready to Sell? Register Now & Start Onboarding"
+    subtext="Join the thousands of property owners already using Sliceal to access global capital. Our team is ready to guide you through the process."
+    buttons={[
+      {label: "Register Now", href: '#'},
+      {label: "Contact Sales Team", href: '#', variant: "secondary"}
+      ]}
+   />
+  <Footer slot="footer" />
+</BaseLayout>
