@@ -53,7 +53,7 @@ const valueClass =
           {i > 0 && (
             <div aria-hidden="true" class="hidden h-12 w-px shrink-0 bg-line xl:block" />
           )}
-          <div class="flex flex-col-reverse gap-2 xl:w-[16.25rem] xl:shrink-0">
+          <div class="flex flex-col-reverse items-center gap-2 text-center xl:w-[16.25rem] xl:shrink-0 xl:items-start xl:text-left">
             <dt class="text-sm leading-sm text-ink-secondary">{label}</dt>
             {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
             <dd class:list={["m-0", valueClass, tone]}>{value}</dd>

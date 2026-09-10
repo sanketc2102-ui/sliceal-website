@@ -25,7 +25,7 @@ const stats = [
 /* 16/24 semibold, 20/12 padding, 12px radius, 48px tall — the Button
    component instance both CTAs use in the frame. */
 const btnBase =
-  "flex h-12 w-full items-center justify-center rounded-lg px-5 text-md font-semibold shadow-xs transition-colors sm:w-auto sm:flex-1 xl:flex-none";
+  "flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-lg px-4 text-center text-xs font-semibold shadow-xs transition-colors sm:text-sm sm:px-5 xl:flex-none xl:text-md";
 
 /* Figma "Shadow/lg": two stacked drop shadows, no token for it yet. */
 const cardShadow =
@@ -36,11 +36,12 @@ const cardShadow =
      placeholder, not a designed layout. Revisit when frames land. -->
 <Section
   flush
+  surface="alt"
   class="pt-10 pb-12 xl:pt-20 xl:pb-25"
   innerClass="flex flex-col gap-10 xl:flex-row xl:items-center xl:justify-between xl:gap-16"
 >
   <div class="flex flex-col gap-6 xl:max-w-[43rem] xl:gap-8">
-    <p class="text-sm font-semibold text-ink-muted">
+    <p class="text-center text-sm font-semibold text-ink-muted xl:text-left">
       <span aria-hidden="true">•</span> Dubai Land Department Verified
     </p>
 
@@ -52,14 +53,14 @@ const cardShadow =
         font stack falls back off SF Pro (see tokens.css §5).
       */}
       <h1
-        class="text-display-lg-mobile leading-10 tracking-tight xl:max-w-[43rem] xl:text-display-xl xl:leading-display-xl"
+        class="text-center text-display-lg-mobile leading-10 tracking-tight xl:max-w-[43rem] xl:text-left xl:text-display-xl xl:leading-display-xl"
       >
         Build premium wealth with <span class="text-brand">fractional</span> real
         estate.
       </h1>
 
       <p
-        class="max-w-[40rem] text-md leading-md text-ink-muted xl:max-w-none xl:text-lg xl:leading-lg"
+        class="max-w-[40rem] text-center text-md leading-md text-ink-muted xl:max-w-none xl:text-left xl:text-lg xl:leading-lg"
       >
         Diversify your portfolio across Dubai’s most sought-after properties.
         Start investing from just AED 2,000 with institutional-grade due
@@ -67,7 +68,7 @@ const cardShadow =
       </p>
     </div>
 
-    <div class="flex flex-wrap items-center gap-3 xl:gap-4">
+    <div class="flex items-center gap-2 sm:gap-3 xl:gap-4">
       <a
         href="/properties"
         class:list={[btnBase, "border border-brand bg-brand text-white hover:bg-brand-hover"]}
