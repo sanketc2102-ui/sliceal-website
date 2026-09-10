@@ -2,14 +2,90 @@
 const { class: className = "" } = Astro.props;
 ---
 
-<div class:list={["legal-content", className]}>
+<div
+  data-legal-content
+  class:list={[
+    "legal-content",
+    "flex",
+    "flex-col",
+    "gap-4",
+    "lg:gap-0",
+    className,
+  ]}
+>
   <slot />
 </div>
+
+<script>
+  const CARD_CLASSES = [
+    "legal-card",
+    "flex",
+    "flex-col",
+    "gap-3",
+    "rounded-lg",
+    "border",
+    "border-gray-200",
+    "p-5",
+    "lg:gap-0",
+    "lg:rounded-none",
+    "lg:border-t-0",
+    "lg:border-l-0",
+    "lg:border-r-0",
+    "lg:pt-0",
+    "lg:pl-0",
+    "lg:pr-0",
+    "lg:pb-7",
+    "lg:last:border-b-0",
+    "lg:last:pb-0",
+  ];
+  const BODY_CLASSES = ["legal-card-body", "flex", "flex-col"];
+
+  function wrapIntoCards(root) {
+    if (root.dataset.legalCardsApplied === "true") return;
+
+    const nodes = Array.from(root.childNodes);
+    const fragment = document.createDocumentFragment();
+    let card = null;
+    let body = null;
+
+    for (const node of nodes) {
+      const isHeading = node.nodeType === 1 && node.tagName === "H2";
+
+      if (isHeading) {
+        card = document.createElement("section");
+        card.classList.add(...CARD_CLASSES);
+        body = document.createElement("div");
+        body.classList.add(...BODY_CLASSES);
+        card.append(node, body);
+        fragment.append(card);
+        continue;
+      }
+
+      if (body) {
+        body.append(node);
+      } else {
+        fragment.append(node);
+      }
+    }
+
+    root.replaceChildren(fragment);
+    root.dataset.legalCardsApplied = "true";
+  }
+
+  function init() {
+    document
+      .querySelectorAll("[data-legal-content]")
+      .forEach(wrapIntoCards);
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>
 
 <style>
   .legal-content {
     width: 100%;
-    color: rgb(0 0 0 / 60%);
+    color: var(--color-gray-600);
     font-family: "SF Pro", sans-serif;
     font-size: 14px;
     font-weight: 400;
@@ -19,30 +95,44 @@ const { class: className = "" } = Astro.props;
   .legal-content :global(h2) {
     margin-top: 28px;
     margin-bottom: 8px;
-    color: rgb(0 0 0 / 20%);
+    color: var(--color-brand-950);
     font-family: "SF Pro", sans-serif;
     font-size: 18px;
     font-weight: 700;
     line-height: 28px;
   }
 
-  .legal-content :global(h2:first-child) {
-    margin-top: 0;
+  .legal-content :global(.legal-card > h2) {
+    margin: 0;
+  }
+
+  /* Desktop has no card chrome (see Figma node 30508:47274) — restore the
+     flat heading rhythm, with the 14px heading-to-body gap read off that
+     frame instead of the 8px card value. */
+  @media (min-width: 64rem) {
+    .legal-content :global(.legal-card > h2) {
+      margin-top: 28px;
+      margin-bottom: 14px;
+    }
   }
 
   .legal-content :global(h3) {
     margin-top: 20px;
     margin-bottom: 8px;
-    color: rgb(0 0 0 / 20%);
+    color: var(--color-brand-950);
     font-family: "SF Pro", sans-serif;
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
   }
 
+  .legal-content :global(.legal-card-body > *:last-child) {
+    margin-bottom: 0;
+  }
+
   .legal-content :global(p) {
     margin-bottom: 12px;
-    color: rgb(0 0 0 / 60%);
+    color: var(--color-gray-600);
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -65,12 +155,12 @@ const { class: className = "" } = Astro.props;
   }
 
   .legal-content :global(strong) {
-    color: rgb(0 0 0 / 60%);
+    color: var(--color-gray-600);
     font-weight: 700;
   }
 
   .legal-content :global(a) {
-    color: rgb(0 0 0 / 60%);
+    color: var(--color-gray-600);
     text-decoration: underline;
   }
 
