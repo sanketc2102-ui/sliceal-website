@@ -1,8 +1,8 @@
 ---
 
+import { Image } from "astro:assets";
 import Section from "../layout/Section.astro";
 import StepRow from "./StepRow.astro";
-import PropertyPreviewCard from "./PropertyPreviewCard.astro";
 import Breadcrumb from "../ui/Breadcrumb.astro";
 
 import goldLeft from "../../assets/own-slice/gold-left.png";
@@ -37,7 +37,7 @@ const steps = [
       "Start with as low as AED 2,000",
       "Tokens minted securely on the XRP Ledger",
     ],
-    visual: "property",
+    visual: "tokens",
   },
   {
     eyebrow: "STEP 03",
@@ -129,8 +129,74 @@ const steps = [
 
           <Fragment slot="visual">
             {
-              step.visual === "property" && (
-                <PropertyPreviewCard />
+              step.visual === "tokens" && (
+                <div
+                  class="
+                    relative
+                    h-[396px]
+                    w-full
+                    max-w-[360px]
+                    overflow-hidden
+                    rounded-[20px]
+                    border
+                    border-gray-200
+                    bg-white
+                    shadow-lg
+
+                    lg:h-[368px]
+                    lg:w-[500px]
+                    lg:max-w-none
+                  "
+                >
+                  <Image
+                    src={goldLeft}
+                    alt="Sliceal token purchase app"
+                    class="
+                      absolute
+                      left-1/2
+                      top-9
+                      w-[243px]
+                      max-w-none
+                      -translate-x-1/2
+
+                      lg:top-8
+                      lg:w-[330px]
+                    "
+                    loading="lazy"
+                  />
+
+                  <div
+                    class="
+                      absolute
+                      right-0
+                      top-[324px]
+                      flex
+                      items-center
+                      gap-2
+                      rounded-full
+                      border
+                      border-gray-200
+                      bg-white
+                      px-3
+                      py-1.5
+                      shadow-sm
+
+                      lg:hidden
+                    "
+                  >
+                    <svg viewBox="0 0 20 20" fill="none" class="size-3 shrink-0 text-indigo-500" aria-hidden="true">
+                      <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.3" />
+                      <path
+                        d="m6.5 10 2.3 2.3L13.5 7.8"
+                        stroke="currentColor"
+                        stroke-width="1.3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span class="text-xs font-medium text-gray-500">DLD Verified</span>
+                  </div>
+                </div>
               )
             }
 
@@ -154,8 +220,8 @@ const steps = [
                     lg:max-w-none
                   "
                 >
-                  <img
-                    src={goldLeft.src}
+                  <Image
+                    src={goldLeft}
                     alt="Sliceal property browsing app"
                     class="
                       absolute
@@ -226,8 +292,8 @@ const steps = [
                     lg:max-w-none
                   "
                 >
-                  <img
-                    src={goldMiddle.src}
+                  <Image
+                    src={goldMiddle}
                     alt="Sliceal investment portfolio"
                     class="
                       absolute
@@ -298,8 +364,8 @@ const steps = [
                     lg:max-w-none
                   "
                 >
-                  <img
-                    src={goldRight.src}
+                  <Image
+                    src={goldRight}
                     alt="Sliceal investment dashboard"
                     class="
                       absolute
