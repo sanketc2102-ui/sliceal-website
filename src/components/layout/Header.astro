@@ -85,12 +85,12 @@ const navLinks = [
  */
 const menuItems = [
   { label: "Home", detail: "View & edit your details", href: "/", Icon: IconHome, iconClass: "size-[18px]" },
-  { label: "How it Works", detail: "Manage linked accounts", href: "#how-it-works", Icon: IconHowItWorks, iconClass: "size-[18px]" },
-  { label: "Properties", detail: "Your wallet details", href: "#properties", Icon: IconProperties, iconClass: "size-[18px]" },
-  { label: "Sell Your Property", detail: "Your bookmarked listings", href: "#sell-your-property", Icon: IconSellProperty, iconClass: "size-[18px]" },
-  { label: "Why Sliceal", detail: "Complete Risk Profile", href: "#why-sliceal", Icon: IconWhySliceal, iconClass: "size-[22px]" },
-  { label: "FAQs", detail: "View Past Orders", href: "#faqs", Icon: IconFaqs, iconClass: "h-[16.67px] w-[17.32px]" },
-  { label: "Contact Us", detail: "Biometrics & preferences", href: "#contact", Icon: IconContact, iconClass: "size-[18px]" },
+  { label: "How it Works", detail: "Manage linked accounts", href: "/how-it-works", Icon: IconHowItWorks, iconClass: "size-[18px]" },
+  { label: "Properties", detail: "Your wallet details", href: "/properties", Icon: IconProperties, iconClass: "size-[18px]" },
+  { label: "Sell Your Property", detail: "Your bookmarked listings", href: "/sell-your-property", Icon: IconSellProperty, iconClass: "size-[18px]" },
+  { label: "Why Sliceal", detail: "Complete Risk Profile", href: "/why-sliceal", Icon: IconWhySliceal, iconClass: "size-[22px]" },
+  { label: "FAQs", detail: "View Past Orders", href: "/faq", Icon: IconFaqs, iconClass: "h-[16.67px] w-[17.32px]" },
+  { label: "Contact Us", detail: "Biometrics & preferences", href: "/contact-us", Icon: IconContact, iconClass: "size-[18px]" },
 ];
 
 // 14px / 1.5 / weight 500 — the one type treatment every button and nav label uses.
@@ -333,7 +333,7 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
           <p class="text-ink-muted">© 2026 Sliceal. All rights reserved.</p>
           <div class="flex flex-wrap justify-end gap-3 text-brand-purple">
             <a href="/privacy-policy" class="link-underline">Privacy policy</a>
-            <a href="/terms-of-service" class="link-underline">
+            <a href="/terms-and-conditions" class="link-underline">
               Terms of service
             </a>
           </div>
