@@ -161,12 +161,101 @@ const inactiveChipClasses =
     "hover:text-gray-900",
   ];
 
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  // Animates a <details> open/close height with the Web Animations API so
+  // reveal feels smooth instead of the native instant snap.
+  class AnimatedDetails {
+    constructor(details) {
+      this.details = details;
+      this.summary = details.querySelector(":scope > summary");
+      this.animation = null;
+      this.isClosing = false;
+      this.isExpanding = false;
+      this.summary.addEventListener("click", (event) => this.onClick(event));
+    }
+
+    onClick(event) {
+      event.preventDefault();
+      if (this.isClosing || !this.details.open) {
+        this.open();
+      } else if (this.isExpanding || this.details.open) {
+        this.shrink();
+      }
+    }
+
+    shrink() {
+      this.isClosing = true;
+      this.details.style.overflow = "hidden";
+      const startHeight = `${this.details.offsetHeight}px`;
+
+      // Measure the real closed-box height (includes the container's own
+      // padding) instead of just the summary — closing off/on is
+      // synchronous so nothing repaints in between.
+      this.details.open = false;
+      const endHeight = `${this.details.offsetHeight}px`;
+      this.details.open = true;
+
+      if (this.animation) this.animation.cancel();
+      this.animation = this.details.animate(
+        { height: [startHeight, endHeight] },
+        { duration: 250, easing: "ease-out" },
+      );
+      this.animation.onfinish = () => this.onAnimationFinish(false);
+      this.animation.oncancel = () => (this.isClosing = false);
+    }
+
+    open() {
+      this.details.style.overflow = "hidden";
+      this.details.style.height = `${this.details.offsetHeight}px`;
+      this.details.open = true;
+      window.requestAnimationFrame(() => this.expand());
+    }
+
+    expand() {
+      this.isExpanding = true;
+      const startHeight = `${this.details.offsetHeight}px`;
+
+      // Measure the real open-box height (includes padding + the flex gap
+      // between summary and answer) rather than summing child heights.
+      const pinnedHeight = this.details.style.height;
+      this.details.style.height = "auto";
+      const endHeight = `${this.details.offsetHeight}px`;
+      this.details.style.height = pinnedHeight;
+
+      if (this.animation) this.animation.cancel();
+      this.animation = this.details.animate(
+        { height: [startHeight, endHeight] },
+        { duration: 250, easing: "ease-out" },
+      );
+      this.animation.onfinish = () => this.onAnimationFinish(true);
+      this.animation.oncancel = () => (this.isExpanding = false);
+    }
+
+    onAnimationFinish(open) {
+      this.details.open = open;
+      this.animation = null;
+      this.isClosing = false;
+      this.isExpanding = false;
+      this.details.style.height = "";
+      this.details.style.overflow = "";
+    }
+  }
+
   const initFaqAccordions = () => {
     document
       .querySelectorAll("[data-faq-accordion]")
       .forEach((accordion) => {
         if (accordion.dataset.faqInitialized === "true") return;
         accordion.dataset.faqInitialized = "true";
+
+        if (!prefersReducedMotion) {
+          accordion
+            .querySelectorAll("[data-faq-panel] details")
+            .forEach((details) => new AnimatedDetails(details));
+        }
 
         const tabs = Array.from(
           accordion.querySelectorAll("[data-faq-tab]"),
