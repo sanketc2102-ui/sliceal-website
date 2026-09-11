@@ -13,7 +13,7 @@ const description =
 <BaseLayout title={title} description={description}>
   <Header slot="header" />
 
-  <section class="bg-white pt-10 lg:pt-20">
+  <section class="bg-white pt-10 lg:pt-20" data-reveal>
     <div class="container-site flex flex-col items-center gap-6 text-center">
       <Breadcrumb trail={[{ label: "Team" }]} />
 
@@ -33,7 +33,7 @@ const description =
   {/* Mobile: 48px gap + 16px side gutters + 60px bottom padding around the
       photo card (Figma node 30576:134041, "Content" padding). Desktop: no
       gap needed — the photo's own bleed/fade meets the sub-copy above. */}
-  <TeamPhotoSection class="mt-12 px-4 pb-15 md:mt-0 md:px-0 md:pb-0" />
+  <TeamPhotoSection class="mt-12 px-4 pb-15 md:mt-0 md:px-0 md:pb-0" data-reveal />
 
   <Footer slot="footer" />
 </BaseLayout>

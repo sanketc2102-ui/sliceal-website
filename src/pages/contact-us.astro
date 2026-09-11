@@ -25,7 +25,10 @@ const description =
       pill + headline + subtext. 140px/115px vertical/horizontal padding on
       the 1512 frame; the horizontal gutter is swapped for .container-site so
       the hero lines up with every section under it. */}
-  <section class="relative isolate flex items-center justify-center overflow-hidden py-16 lg:py-35">
+  <section
+    class="relative isolate flex items-center justify-center overflow-hidden py-16 lg:py-35"
+    data-reveal
+  >
     <Image
       src={heroBg}
       alt=""
@@ -52,9 +55,9 @@ const description =
     </div>
   </section>
 
-  <ContactFormSection />
+  <ContactFormSection data-reveal />
 
-  <LocationMapSection />
+  <LocationMapSection data-reveal />
 
   <Footer slot="footer" />
 </BaseLayout>

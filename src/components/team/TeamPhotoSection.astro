@@ -9,10 +9,10 @@ import { Image } from "astro:assets";
 import { teamMembers } from "../../data/team.js";
 import teamGroup from "../../assets/team/team-group.png";
 
-const { class: className } = Astro.props;
+const { class: className, ...rest } = Astro.props;
 ---
 
-<section class:list={["bg-white", className]}>
+<section class:list={["bg-white", className]} {...rest}>
   <div class="relative">
     {/*
       Mobile: the photo is cropped to a 408x217 card (rounded-lg, no bleed).

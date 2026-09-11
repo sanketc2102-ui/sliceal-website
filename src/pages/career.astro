@@ -65,7 +65,11 @@ const jobs = [
 <BaseLayout title={title} description={description}>
   <Header slot="header" />
 
-  <Section class="shadow-[var(--shadow-glow)]" innerClass="flex flex-col items-center gap-12.5">
+  <Section
+    class="shadow-[var(--shadow-glow)]"
+    innerClass="flex flex-col items-center gap-12.5"
+    data-reveal
+  >
     <div class="flex w-full flex-col items-center gap-6">
       <Breadcrumb trail={[{ label: "Careers" }]} />
 
@@ -139,9 +143,10 @@ const jobs = [
     </div>
   </Section>
 
-  <Faq />
+  <Faq data-reveal />
 
   <GlowCta
+    data-reveal
     heading="Can’t find your prefer role?"
     description="We are always open to discuss new value-adding partnerships. Do reach out if you are an exchange or a project looking for liquidity; an algorithmic trader or a software developer looking to improve the markets with us or just have a great idea you can’t wait to share with us!"
     buttons={[

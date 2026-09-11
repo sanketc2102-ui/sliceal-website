@@ -29,7 +29,10 @@ const description =
       pill + headline. 172px/115px vertical/horizontal padding on the 1512
       frame; the horizontal gutter is swapped for .container-site so the
       hero lines up with every section under it. */}
-  <section class="relative isolate flex items-center justify-center overflow-hidden py-16 lg:py-43">
+  <section
+    class="relative isolate flex items-center justify-center overflow-hidden py-16 lg:py-43"
+    data-reveal
+  >
     <Image
       src={heroBg}
       alt=""
@@ -52,9 +55,9 @@ const description =
     </div>
   </section>
 
-  <SecurityComplianceOverview />
+  <SecurityComplianceOverview data-reveal />
 
-  <Faq />
+  <Faq data-reveal />
 
   <GlowCta
     heading="How we protect your data"
@@ -63,6 +66,7 @@ const description =
       { label: "View Policies", href: "#" },
       { label: "Contact Security", href: "#" },
     ]}
+    data-reveal
     blobs={[
       {
         src: blobTopRight,
