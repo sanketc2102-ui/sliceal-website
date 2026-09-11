@@ -103,6 +103,13 @@ land, follow these rules instead of guessing per-component:
 When designs arrive, run `grep -rl "TODO(mobile)" src/` to get the exact
 list of components to revisit — not a full-site re-audit.
 
+### When a tablet Figma frame lands
+
+- Implement one frame/component at a time as given.
+- Only add/edit the `md:` classes on that component. Never touch its
+  unprefixed (mobile) or `lg:`/desktop classes.
+- Remove its `TODO(mobile)` comment once the real tablet frame is implemented.
+
 ## Accessibility & Semantics
 
 - Use semantic elements: `<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`, `<button>`, `<a>`.
