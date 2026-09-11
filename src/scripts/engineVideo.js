@@ -9,13 +9,33 @@
  */
 let observer;
 
-// Metric highlight follows the video's progress: the clip is split into 3
-// equal thirds (by its actual duration, not a hardcoded guess) so each
-// metric gets an even turn and the highlight visibly rotates every loop.
-function activeMetricIndex(currentTime, duration) {
+// Both the metric row (under the video) and the left-hand point list follow
+// the video's progress: the clip is split into as many equal segments as
+// there are items (by its actual duration, not a hardcoded guess) so each
+// item gets an even turn and the active one visibly rotates every loop.
+function activeSegmentIndex(currentTime, duration, segmentCount) {
   if (!Number.isFinite(duration) || duration === 0) return 0;
-  const segment = duration / 3;
-  return Math.min(2, Math.floor(currentTime / segment));
+  const segment = duration / segmentCount;
+  return Math.min(segmentCount - 1, Math.floor(currentTime / segment));
+}
+
+// The active point's highlight is a desktop-only rail treatment (lg:), so
+// these are the exact utilities from SlicealEngine.astro's ternary — keep
+// both files in sync if that markup changes.
+const ACTIVE_POINT_CLASSES = [
+  "lg:rounded-r-lg",
+  "lg:border-l-[3px]",
+  "lg:border-l-brand-purple",
+  "lg:bg-gray-200",
+  "lg:text-gray-900",
+];
+const INACTIVE_POINT_CLASSES = ["lg:border-l-0", "lg:bg-transparent", "lg:text-gray-500"];
+
+function highlightActivePoint(points, activeIndex) {
+  points.forEach((point, i) => {
+    point.classList.remove(...ACTIVE_POINT_CLASSES, ...INACTIVE_POINT_CLASSES);
+    point.classList.add(...(i === activeIndex ? ACTIVE_POINT_CLASSES : INACTIVE_POINT_CLASSES));
+  });
 }
 
 export function initEngineVideo() {
@@ -25,6 +45,7 @@ export function initEngineVideo() {
   if (!(video instanceof HTMLVideoElement)) return;
 
   const metrics = document.querySelectorAll("[data-metric]");
+  const points = document.querySelectorAll("[data-point]");
 
   observer = new IntersectionObserver(
     (entries) => {
@@ -46,7 +67,7 @@ export function initEngineVideo() {
 
   if (metrics.length) {
     const highlightActiveMetric = () => {
-      const activeIndex = activeMetricIndex(video.currentTime, video.duration);
+      const activeIndex = activeSegmentIndex(video.currentTime, video.duration, metrics.length);
       metrics.forEach((metric, i) => {
         metric.classList.toggle("opacity-100", i === activeIndex);
         metric.classList.toggle("opacity-40", i !== activeIndex);
@@ -55,5 +76,15 @@ export function initEngineVideo() {
 
     highlightActiveMetric();
     video.addEventListener("timeupdate", highlightActiveMetric);
+  }
+
+  if (points.length) {
+    const highlightActivePointFromVideo = () => {
+      const activeIndex = activeSegmentIndex(video.currentTime, video.duration, points.length);
+      highlightActivePoint(points, activeIndex);
+    };
+
+    highlightActivePointFromVideo();
+    video.addEventListener("timeupdate", highlightActivePointFromVideo);
   }
 }

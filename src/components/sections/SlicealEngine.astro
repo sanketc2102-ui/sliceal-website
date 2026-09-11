@@ -132,6 +132,7 @@ const stackCap = "md:mx-auto md:max-w-[36rem] lg:mx-0 lg:max-w-none";
       {
         points.map(({ title, body }, i) => (
           <li
+            data-point
             class:list={[
               /* Longhand border sides only: `border-0` plus `border-l-[3px]`
                  is a shorthand/longhand ordering gamble in the generated CSS. */
