@@ -36,7 +36,10 @@ export function initEngineVideo() {
         }
       }
     },
-    { threshold: 0.5 },
+    // rootMargin starts playback a bit before the panel is on screen so the
+    // video already has a frame rendered by the time it's visible, instead
+    // of showing the poster for a beat.
+    { threshold: 0.1, rootMargin: "20% 0px" },
   );
 
   observer.observe(video);
