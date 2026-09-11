@@ -13,7 +13,7 @@ let observer;
 // equal thirds (by its actual duration, not a hardcoded guess) so each
 // metric gets an even turn and the highlight visibly rotates every loop.
 function activeMetricIndex(currentTime, duration) {
-  if (!duration) return 0;
+  if (!Number.isFinite(duration) || duration === 0) return 0;
   const segment = duration / 3;
   return Math.min(2, Math.floor(currentTime / segment));
 }
