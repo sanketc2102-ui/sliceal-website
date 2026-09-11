@@ -26,6 +26,11 @@ import creditCardIcon from "../../assets/icons/how-sliceal-works/credit-card.svg
 import walletIcon from "../../assets/icons/how-sliceal-works/wallet.svg";
 import trendingUpIcon from "../../assets/icons/how-sliceal-works/trending-up.svg";
 
+// Reveal is applied per-card below (same convention as BarriersSection.astro)
+// so the 4 steps cascade in one after another instead of popping as one
+// block — the page-supplied data-reveal is consumed here, not forwarded.
+const { "data-reveal": _dataReveal, ...rest } = Astro.props;
+
 const steps = [
   {
     icon: searchIcon,
@@ -56,8 +61,8 @@ const steps = [
 
 <!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
      placeholder, not a designed layout. Revisit when frames land. -->
-<Section innerClass="flex flex-col items-center gap-10 lg:gap-12" {...Astro.props}>
-  <header class="flex flex-col items-center gap-3 text-center">
+<Section innerClass="flex flex-col items-center gap-10 lg:gap-12" {...rest}>
+  <header class="flex flex-col items-center gap-3 text-center" data-reveal>
     {/*
       Explicit leading at both tiers — an unprefixed leading-* would otherwise
       still win inside the lg: layer (see tokens.css §6).
@@ -86,6 +91,7 @@ const steps = [
           icon={icon}
           title={title}
           description={description}
+          data-reveal
         >
           <span
             slot="badge"

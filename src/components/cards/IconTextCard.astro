@@ -25,6 +25,9 @@
  *
  * Slots:
  *   badge — optional trailing content on the icon row (the STEP nn label).
+ *
+ * Any other attribute (e.g. data-reveal) is forwarded to the card element,
+ * so callers can reveal each card individually instead of as one block.
  */
 import { Image } from "astro:assets";
 
@@ -35,6 +38,7 @@ const {
   variant = "bordered",
   as: Tag = "li",
   class: className = "",
+  ...rest
 } = Astro.props;
 
 const surface = {
@@ -57,7 +61,7 @@ const titleClass = {
 const hasBadge = Astro.slots.has("badge");
 ---
 
-<Tag class:list={["flex flex-col gap-4 rounded-xl", surface, className]}>
+<Tag class:list={["flex flex-col gap-4 rounded-xl", surface, className]} {...rest}>
   <div
     class:list={[
       "flex items-center gap-3",
