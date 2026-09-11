@@ -77,30 +77,32 @@ const description =
     breadcrumb={[{ label: "How it Works" }]}
     subtitle="Own a share of DLD-verified Dubai real estate in three simple steps — from browsing to earning rental income, all on the XRP Ledger."
     steps={howItWorksSteps}
+    data-reveal
   >
     How Sliceal <span class="text-brand-purple">Works</span>
   </HowSlicealWorksSection>
-  <WealthGeneration />
-  <PartnersSection />
-  <ConcludingCTA 
+  <WealthGeneration data-reveal />
+  <PartnersSection data-reveal />
+  <ConcludingCTA
     layout="centered"
     heading="Start Your Investment Journey Today"
     subtext="Build your Dubai property portfolio in under four minutes Regulated by VARA. Verified by DLD."
     buttons={[
-      { 
-      label: "Start Investing", 
-      href: "/start-investing", 
-      variant: "primary" 
+      {
+      label: "Start Investing",
+      href: "/start-investing",
+      variant: "primary"
       },
-       { 
-          label: "Download the App", href: "#download", variant: "secondary" 
-        }, 
+       {
+          label: "Download the App", href: "#download", variant: "secondary"
+        },
       ]
     }
+    data-reveal
    />
-  <TestimonialsSection />
-  <Faq />
-  <OwnYouSliceSection />
+  <TestimonialsSection data-reveal />
+  <Faq data-reveal />
+  <OwnYouSliceSection data-reveal />
 
   <Footer slot="footer" />
 </BaseLayout>

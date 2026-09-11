@@ -21,30 +21,31 @@ import PageUnderDevelopment from "../components/sections/PageUnderDevelopment.as
 
 <BaseLayout title={title} description={description}>
   <Header slot="header" />
-  <WhySlicealHero />
-  <KpiProofBar />
-  <HowSlicealWorksSteps />
-  <BenefitsSection />
-  <PartnersSection />
-  <ConcludingCTA 
+  <WhySlicealHero data-reveal />
+  <KpiProofBar data-reveal />
+  <HowSlicealWorksSteps data-reveal />
+  <BenefitsSection data-reveal />
+  <PartnersSection data-reveal />
+  <ConcludingCTA
     layout="centered"
     heading="Start Your Investment Journey Today"
     subtext="Build your Dubai property portfolio in under four minutes Regulated by VARA. Verified by DLD."
     buttons={[
-      { 
-      label: "Start Investing", 
-      href: "/start-investing", 
-      variant: "primary" 
+      {
+      label: "Start Investing",
+      href: "/start-investing",
+      variant: "primary"
       },
-       { 
-          label: "Download the App", href: "#download", variant: "secondary" 
-        }, 
+       {
+          label: "Download the App", href: "#download", variant: "secondary"
+        },
       ]
     }
+    data-reveal
    />
-  <TestimonialsSection />
-  <Faq />
-  <OwnYouSliceSection />
+  <TestimonialsSection data-reveal />
+  <Faq data-reveal />
+  <OwnYouSliceSection data-reveal />
 
   <Footer slot="footer" />
 </BaseLayout> 

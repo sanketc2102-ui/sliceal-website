@@ -16,9 +16,9 @@ const description =
 <BaseLayout title={title} description={description}>
   <Header slot="header" />
 
-  <SellPropertyHero />
-  <HowToListPropertySteps />
-  <HowYouEarnSection />
+  <SellPropertyHero data-reveal />
+  <HowToListPropertySteps data-reveal />
+  <HowYouEarnSection data-reveal />
 
   <ConcludingCTA
     layout="centered"
@@ -28,6 +28,7 @@ const description =
       {label: "Register Now", href: '#'},
       {label: "Contact Sales Team", href: '#', variant: "secondary"}
       ]}
+    data-reveal
    />
   <Footer slot="footer" />
 </BaseLayout>
