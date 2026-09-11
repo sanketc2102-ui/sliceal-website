@@ -68,9 +68,8 @@ const jobs = [
   <Section
     class="shadow-[var(--shadow-glow)]"
     innerClass="flex flex-col items-center gap-12.5"
-    data-reveal
   >
-    <div class="flex w-full flex-col items-center gap-6">
+    <div class="flex w-full flex-col items-center gap-6" data-reveal>
       <Breadcrumb trail={[{ label: "Careers" }]} />
 
       <h1
@@ -83,7 +82,7 @@ const jobs = [
     <div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-5.5">
       {
         jobs.map((job) => (
-          <MediaCard image={job.image} alt={`${job.title} at ${job.company}`}>
+          <MediaCard image={job.image} alt={`${job.title} at ${job.company}`} data-reveal>
             <div class="flex flex-col gap-4">
               <div class="flex flex-col gap-3">
                 <div class="flex items-start justify-between gap-3">

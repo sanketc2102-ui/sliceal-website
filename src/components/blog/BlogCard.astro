@@ -6,7 +6,7 @@ import FlameIcon from "../../assets/icons/flame-outline.svg";
 const { post } = Astro.props;
 ---
 
-<article class="w-full" data-blog-card data-category={post.category}>
+<article class="w-full" data-blog-card data-category={post.category} data-reveal>
   <MediaCard image={post.image} alt={post.title}>
     <div class="flex flex-col gap-5">
       <div class="flex items-center justify-between gap-3">

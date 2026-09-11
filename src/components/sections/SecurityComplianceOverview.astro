@@ -44,14 +44,22 @@ const pillars = [
       "Every property stays on its own DLD title deed, with fractional ownership recorded against it — never pooled, never commingled.",
   },
 ];
+
+// Reveal is applied per-card below (same convention as Timeline.astro) so
+// the 4 pillars cascade in one after another instead of popping as one
+// block — the page-supplied data-reveal is consumed here, not forwarded.
+const { "data-reveal": _dataReveal, ...rest } = Astro.props;
 ---
 
 <Section
   class="bg-surface-alt shadow-[var(--shadow-glow)] lg:bg-white"
   innerClass="flex flex-col items-start gap-7"
-  {...Astro.props}
+  {...rest}
 >
-  <div class="flex w-full flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+  <div
+    class="flex w-full flex-col items-center gap-6 text-center lg:items-start lg:text-left"
+    data-reveal
+  >
     <p class="rounded-pill border border-line px-3 py-1.5 text-sm leading-sm font-semibold text-brand shadow-pill">
       Regulated · VARA licensed · DLD registered
     </p>
@@ -77,6 +85,7 @@ const pillars = [
             i === 0 && "lg:rounded-l-xl",
             i === pillars.length - 1 && "lg:rounded-r-lg",
           ]}
+          data-reveal
         >
           <Image src={icon} alt="" aria-hidden="true" width={24} height={24} class="size-6 shrink-0" />
 
