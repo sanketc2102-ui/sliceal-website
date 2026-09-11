@@ -112,7 +112,8 @@ const btnSecondary = `${btnBase} border border-black text-ink hover:-translate-y
 const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white hover:-translate-y-px hover:bg-brand-hover hover:shadow-md ${labelType}`;
 
 // Nav label: colour swap plus an underline that scales out from its centre.
-const navLink = `relative block p-1 text-ink ${motion} hover:text-brand
+// `group` lets the active pill (a sibling span) react to hover on the <a>.
+const navLink = `group relative block p-1 text-ink ${motion} hover:text-brand
   after:absolute after:inset-x-1 after:-bottom-px after:h-px after:origin-center
   after:scale-x-0 after:bg-brand after:transition-transform after:duration-200
   after:ease-out after:content-[''] hover:after:scale-x-100`;
@@ -133,14 +134,25 @@ const navLink = `relative block p-1 text-ink ${motion} hover:text-brand
  * source behind it.) The mobile panel is opaque white, so its rows get the
  * tint with no blur at all.
  *
- * LAYOUT IS UNCHANGED BY DESIGN. The pill's px-2.5 is cancelled by -mx-1.5 and
- * the outline is a ring (box-shadow, zero-width), so an active label occupies
- * exactly the same track as an inactive one. The collapse arithmetic in the
- * header comment above stays valid and the row does not reflow between pages.
+ * The pill is a separate absolutely-positioned span behind the label rather
+ * than a background on the <a> itself: being out of flow it never touches the
+ * link's own box (layout stays unchanged automatically, no margin-cancelling
+ * trick needed), and it gives the pill its own element to carry a
+ * `transition:name`. That name is what makes it slide: Astro's ClientRouter
+ * (already wired up in BaseLayout) treats same-named elements as one shared
+ * element across a navigation, so the browser's View Transition interpolates
+ * the old pill's rect into the new one's instead of an instant cut.
  */
-const navActive = `-mx-1.5 rounded-pill bg-brand-25/70 px-2.5 text-brand shadow-nav
-  ring-1 ring-brand-25 backdrop-blur-md backdrop-saturate-150 hover:bg-brand-25
-  hover:text-brand after:hidden`;
+const navActiveText = "text-brand after:hidden";
+// No backdrop-blur/saturate here: browsers rasterize a named element into a
+// flat snapshot for the View Transition, and backdrop-filter has no live
+// backdrop to sample inside that snapshot — it was rendering as a blank/washed
+// out patch for the slide's whole duration. Per the comment above, the tint
+// alone already carries every page this pill appears on (never the
+// transparent home-page state), so dropping the filter loses nothing.
+const navPill = `pointer-events-none absolute -inset-x-2.5 inset-y-0 -z-10
+  rounded-pill bg-brand-25/70 shadow-nav ring-1 ring-brand-25
+  group-hover:bg-brand-25`;
 
 /*
  * Exact match for "/", prefix match for everything else (so /properties/burj
@@ -226,17 +238,27 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
       {/* 18px is the tightened tier; the Figma 29px returns once there is room. */}
       <ul class="flex items-center gap-[18px] min-[1200px]:gap-[29px]">
         {
-          navLinks.map(({ label, href }, i) => (
-            <li>
-              <a
-                href={href}
-                aria-current={i === activeIndex ? "page" : undefined}
-                class:list={[navLink, labelType, i === activeIndex && navActive]}
-              >
-                {label}
-              </a>
-            </li>
-          ))
+          navLinks.map(({ label, href }, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <li>
+                <a
+                  href={href}
+                  aria-current={isActive ? "page" : undefined}
+                  class:list={[navLink, labelType, isActive && navActiveText]}
+                >
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      class={navPill}
+                      transition:name="nav-active-pill"
+                    />
+                  )}
+                  {label}
+                </a>
+              </li>
+            );
+          })
         }
       </ul>
     </nav>
@@ -342,6 +364,34 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
     </details>
   </div>
 </header>
+
+<style is:global>
+  /*
+   * Tailwind has no way to target ::view-transition-*() functional
+   * pseudo-elements, so this is unavoidably plain CSS — scoped to the pill's
+   * own transition name so it can't affect anything else on the page.
+   *
+   * mix-blend-mode: normal is the fix that actually matters: the UA
+   * stylesheet blends ::view-transition-old/new with plus-lighter, which
+   * assumes opaque snapshots. The pill's fill is bg-brand-25/70 (translucent),
+   * so under plus-lighter the outgoing and incoming snapshots add together
+   * mid-crossfade into a washed-out/blank patch instead of smoothly fading.
+   *
+   * The duration/easing override just matches the slide to the header's own
+   * motion tokens instead of the browser's default.
+   */
+  ::view-transition-group(nav-active-pill),
+  ::view-transition-old(nav-active-pill),
+  ::view-transition-new(nav-active-pill) {
+    animation-duration: var(--transition-duration-base);
+    animation-timing-function: var(--ease-out);
+  }
+
+  ::view-transition-old(nav-active-pill),
+  ::view-transition-new(nav-active-pill) {
+    mix-blend-mode: normal;
+  }
+</style>
 
 <script>
   /*
