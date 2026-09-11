@@ -26,13 +26,19 @@ const barriers = [
 
 const eyebrow =
   "rounded-[40px] border border-gray-200 px-3 py-1.5 text-xs leading-[0.875rem] text-brand-purple lg:text-sm lg:leading-5";
+
+// Reveal is applied per-card below (same convention as
+// SecurityComplianceOverview.astro) so the 4 barriers cascade in one after
+// another instead of popping as one block — the page-supplied data-reveal
+// is consumed here, not forwarded.
+const { "data-reveal": _dataReveal, ...rest } = Astro.props;
 ---
 
-<Section surface="alt" class="shadow-[var(--shadow-glow)]" {...Astro.props}>
+<Section surface="alt" class="shadow-[var(--shadow-glow)]" {...rest}>
   <div class="flex w-full flex-col gap-6 lg:gap-7">
 
     <!-- Heading -->
-    <header class="flex flex-col items-center gap-4 lg:items-start lg:gap-6">
+    <header class="flex flex-col items-center gap-4 lg:items-start lg:gap-6" data-reveal>
       <p class={eyebrow}>BUILD FOR THE MODERN INVESTOR</p>
 
       <h2
@@ -96,6 +102,7 @@ const eyebrow =
                 "lg:rounded-tr-2xl lg:rounded-br-2xl",
               index > 0 && "lg:border-l-0",
             ]}
+            data-reveal
           >
             <!-- Icon -->
             <div class="flex size-6 shrink-0 items-center justify-center">
@@ -243,6 +250,7 @@ const eyebrow =
           lg:h-64
           lg:p-7
         "
+        data-reveal
       >
         <p class={eyebrow}>OUR MISSION</p>
 
@@ -275,6 +283,7 @@ const eyebrow =
           lg:h-64
           lg:p-7
         "
+        data-reveal
       >
         <p class={eyebrow}>OUR VISION</p>
 
