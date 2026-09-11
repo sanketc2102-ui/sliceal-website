@@ -46,6 +46,11 @@ const earnings = [
       "The sale proceeds are settled to you after a small platform fee, agreed before you list - no hidden charges.",
   },
 ];
+
+// Reveal is applied per-card below (same convention as BarriersSection.astro)
+// so the 4 earnings cascade in one after another instead of popping as one
+// block — the page-supplied data-reveal is consumed here, not forwarded.
+const { "data-reveal": _dataReveal, ...rest } = Astro.props;
 ---
 
 <Section
@@ -53,9 +58,9 @@ const earnings = [
   surface="alt"
   class="py-10 lg:py-20"
   innerClass="flex flex-col items-center gap-6 lg:gap-12"
-  {...Astro.props}
+  {...rest}
 >
-  <div class="flex flex-col items-center gap-3 text-center">
+  <div class="flex flex-col items-center gap-3 text-center" data-reveal>
     <h2 class="text-lg leading-lg font-semibold text-ink lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight">
       How You Earn
     </h2>
@@ -67,7 +72,7 @@ const earnings = [
   <ul class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 lg:grid-cols-2">
     {
       earnings.map(({ icon, title, description }) => (
-        <li class="flex flex-col items-start gap-4 rounded-xl border border-line bg-white p-4 shadow-xs lg:p-8">
+        <li class="flex flex-col items-start gap-4 rounded-xl border border-line bg-white p-4 shadow-xs lg:p-8" data-reveal>
           <span class="flex shrink-0 rounded-lg bg-brand-25 p-3">
             <Image src={icon} alt="" aria-hidden="true" width={24} height={24} class="size-6" />
           </span>

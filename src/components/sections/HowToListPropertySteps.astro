@@ -52,15 +52,20 @@ const steps = [
       "Once your property is fully funded and the DLD title transfer is complete, the sale price is settled directly with you.",
   },
 ];
+
+// Reveal is applied per-card below (same convention as BarriersSection.astro)
+// so the 4 steps cascade in one after another instead of popping as one
+// block — the page-supplied data-reveal is consumed here, not forwarded.
+const { "data-reveal": _dataReveal, ...rest } = Astro.props;
 ---
 
 <Section
   flush
   class="py-10 shadow-[var(--shadow-glow)] lg:py-20"
   innerClass="flex flex-col items-center gap-8 lg:items-start lg:gap-7"
-  {...Astro.props}
+  {...rest}
 >
-  <div class="flex w-full flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+  <div class="flex w-full flex-col items-center gap-6 text-center lg:items-start lg:text-left" data-reveal>
     <p class="rounded-pill border border-line px-3 py-1.5 text-sm leading-sm font-semibold text-brand shadow-pill">
       Regulated · VARA licensed · DLD registered
     </p>
@@ -83,6 +88,7 @@ const steps = [
             i === 0 && "lg:rounded-l-xl",
             i === steps.length - 1 && "lg:rounded-r-lg",
           ]}
+          data-reveal
         >
           <div class="flex w-full items-center justify-between">
             <span class="flex shrink-0 rounded-lg bg-brand-50 p-3">
