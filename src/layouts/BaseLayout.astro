@@ -70,6 +70,24 @@ const fade = {
       });
     </script>
 
+    {/*
+      global.css sets html { scroll-behavior: smooth } for in-page anchor
+      jumps. Astro's router resets the outgoing page's scroll to (0, 0)
+      before swapping in the new page — without this, that reset inherits
+      the smooth behavior and plays as a visible scroll-up on the old page
+      before the new page's hero appears. Force instant scrolling for the
+      transition, then hand smooth scrolling back once the new page has
+      loaded.
+    */}
+    <script is:inline>
+      document.addEventListener("astro:before-preparation", () => {
+        document.documentElement.style.scrollBehavior = "auto";
+      });
+      document.addEventListener("astro:page-load", () => {
+        document.documentElement.style.scrollBehavior = "";
+      });
+    </script>
+
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />

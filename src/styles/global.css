@@ -215,6 +215,23 @@ html.js [data-reveal][data-reveal-delay="3"] { transition-delay: 300ms; }
 html.js [data-reveal][data-reveal-delay="4"] { transition-delay: 400ms; }
 
 /* --------------------------------------------------------------------------
+   Page transitions — see BaseLayout.astro's <main transition:animate={fade}>.
+
+   The browser's View Transitions API always adds its own size/position
+   interpolation on top of whatever old/new keyframes a transition supplies,
+   UNLESS ::view-transition-group(name) explicitly turns it off. <main>'s
+   on-screen rect is captured at whatever scrollY the outgoing page was at,
+   so leaving a scrolled page (main's captured rect starts far above the
+   viewport) reads as the new page sliding/scrolling up into place instead of
+   a plain crossfade. Astro only strips this for `transition:animate="none"`
+   (astro/dist/runtime/server/transition.js) — our custom fade object never
+   asked for it, so every named transition group gets it back here.
+   -------------------------------------------------------------------------- */
+::view-transition-group(*) {
+  animation: none;
+}
+
+/* --------------------------------------------------------------------------
    Layout primitives that every page uses. Kept here rather than in a
    component because they are pure layout and carry no markup of their own.
    -------------------------------------------------------------------------- */
