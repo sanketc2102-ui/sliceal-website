@@ -88,29 +88,29 @@ const buttonVariants = {
     class:list={[
       "w-full overflow-hidden md:rounded-2xl",
       layout === "centered"
-        ? "rounded-3xl bg-linear-to-r from-brand-600 to-brand-800 px-6 py-16 text-center md:p-16"
+        ? "rounded-3xl bg-linear-to-r from-brand-600 to-brand-800 px-6 py-16 text-center md:p-10 lg:p-16"
         : "rounded-xl bg-linear-to-br from-brand-800 to-brand-600 p-8 md:p-10",
     ]}
   >
     {
       layout === "centered" ? (
-        <div class="mx-auto flex max-w-[45.5rem] flex-col items-center gap-8 md:gap-5">
-          <div class="flex flex-col items-center gap-4 md:contents">
-            <h2 class="font-display text-lg font-semibold text-white md:text-display-lg md:font-normal">
+        <div class="mx-auto flex max-w-[45.5rem] flex-col items-center gap-8 lg:gap-5">
+          <div class="flex flex-col items-center gap-4 lg:contents">
+            <h2 class="font-display text-lg font-semibold text-white md:text-display-sm lg:text-display-lg lg:font-normal">
               {headingSegments.map(({ text, highlight }) =>
                 highlight ? <span class="text-mint-500">{text}</span> : <span>{text}</span>,
               )}
             </h2>
 
             {subtext && (
-              <p class="max-w-[38rem] text-sm text-white/70 md:text-md">
+              <p class="max-w-[38rem] text-sm text-white/70 lg:text-md">
                 {subtext}
               </p>
             )}
           </div>
 
           {buttons.length > 0 && (
-            <div class="flex flex-wrap items-center justify-center gap-4 md:mt-2">
+            <div class="flex flex-wrap items-center justify-center gap-4 lg:mt-2">
               {buttons.map((button) => (
                 <a
                   href={button.href}
@@ -124,7 +124,7 @@ const buttonVariants = {
         </div>
       ) : (
         <div class="flex flex-col items-stretch gap-6 md:flex-row md:items-center md:justify-between md:gap-8">
-          <h2 class="text-center font-display text-display-xs font-normal text-white md:max-w-[565px] md:text-left md:text-display-lg">
+          <h2 class="text-center font-display text-display-xs font-normal text-white md:max-w-[428px] md:text-left md:text-display-sm md:font-semibold lg:max-w-[565px] lg:text-display-lg lg:font-normal">
             {headingSegments.map(({ text, highlight }) =>
               highlight ? <span class="text-mint-500">{text}</span> : <span>{text}</span>,
             )}
