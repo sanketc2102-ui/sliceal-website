@@ -297,6 +297,11 @@
   --transition-duration-fast: 150ms;
   --transition-duration-base: 200ms;
   --transition-duration-slow: 700ms; /* scroll reveal — see global.css */
+
+  /* Partner logo marquee — see global.css for the `marquee` keyframes and
+     PartnersSection.astro for usage. One keyframe, reused via `reverse`. */
+  --animate-marquee-left:  marquee 34s linear infinite;
+  --animate-marquee-right: marquee 34s linear infinite reverse;
 }
 
 /* ==========================================================================

@@ -232,6 +232,18 @@ html.js [data-reveal][data-reveal-delay="4"] { transition-delay: 400ms; }
 }
 
 /* --------------------------------------------------------------------------
+   Partner logo marquee — see PartnersSection.astro / PartnerLogo.astro.
+   Track content is duplicated once in markup so a -50% translate is exactly
+   one full loop. The prefers-reduced-motion override above already zeroes
+   animation-duration/iteration-count, so the marquee freezes automatically.
+   -------------------------------------------------------------------------- */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --------------------------------------------------------------------------
    Layout primitives that every page uses. Kept here rather than in a
    component because they are pure layout and carry no markup of their own.
    -------------------------------------------------------------------------- */

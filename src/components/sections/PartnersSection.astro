@@ -27,6 +27,9 @@ const partners = [
   { src: xrpLedger, alt: "XRP Ledger" },
   { src: partner, alt: "Partner" },
 ];
+
+const row1 = partners.slice(0, 6);
+const row2 = partners.slice(6);
 ---
 
 <Section
@@ -47,7 +50,6 @@ const partners = [
         leading-7
         text-gray-900
 
-        lg:text-left
         lg:text-display-lg
       "
     >
@@ -63,7 +65,6 @@ const partners = [
         leading-5
         text-gray-500
 
-        lg:text-left
         lg:text-lg
         lg:leading-7
         lg:text-gray-600
@@ -87,40 +88,66 @@ const partners = [
     lg:gap-8
   "
 >
-  <!-- Desktop row 1 -->
+  <!-- Desktop row 1 — scrolls left -->
   <div
     class="
       contents
 
-      lg:grid
+      lg:block
       lg:w-full
-      lg:grid-cols-6
-      lg:gap-6
+      lg:overflow-hidden
+      lg:[mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]
     "
   >
-    {
-      partners.slice(0, 6).map((partner) => (
-        <PartnerLogo {...partner} />
-      ))
-    }
+    <div
+      class="
+        contents
+
+        lg:flex
+        lg:w-max
+        lg:gap-6
+        lg:animate-marquee-left
+        lg:will-change-transform
+
+        hover:lg:[animation-play-state:paused]
+      "
+    >
+      {row1.map((partner) => <PartnerLogo {...partner} />)}
+      <div class="hidden lg:contents">
+        {row1.map((partner) => <PartnerLogo {...partner} />)}
+      </div>
+    </div>
   </div>
 
-  <!-- Desktop row 2 -->
+  <!-- Desktop row 2 — scrolls right -->
   <div
     class="
       contents
 
-      lg:grid
+      lg:block
       lg:w-full
-      lg:grid-cols-5
-      lg:gap-6
+      lg:overflow-hidden
+      lg:[mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]
     "
   >
-    {
-      partners.slice(6).map((partner) => (
-        <PartnerLogo {...partner} />
-      ))
-    }
+    <div
+      class="
+        contents
+
+        lg:flex
+        lg:w-max
+        lg:gap-6
+        lg:animate-marquee-right
+        lg:will-change-transform
+
+        hover:lg:[animation-play-state:paused]
+      "
+    >
+      {row2.map((partner) => <PartnerLogo {...partner} />)}
+      <div class="hidden lg:contents">
+        {row2.map((partner) => <PartnerLogo {...partner} />)}
+      </div>
+    </div>
   </div>
 </div>
 </Section>
