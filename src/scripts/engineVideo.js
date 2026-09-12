@@ -19,17 +19,29 @@ function activeSegmentIndex(currentTime, duration, segmentCount) {
   return Math.min(segmentCount - 1, Math.floor(currentTime / segment));
 }
 
-// The active point's highlight is a desktop-only rail treatment (lg:), so
-// these are the exact utilities from SlicealEngine.astro's ternary — keep
+// The active point's highlight is a tablet/desktop rail treatment (md:/lg:),
+// so these are the exact utilities from SlicealEngine.astro's ternary — keep
 // both files in sync if that markup changes.
 const ACTIVE_POINT_CLASSES = [
+  "md:rounded-r-lg",
+  "md:border-l-[3px]",
+  "md:border-l-brand-purple",
+  "md:bg-gray-200",
+  "md:text-gray-900",
   "lg:rounded-r-lg",
   "lg:border-l-[3px]",
   "lg:border-l-brand-purple",
   "lg:bg-gray-200",
   "lg:text-gray-900",
 ];
-const INACTIVE_POINT_CLASSES = ["lg:border-l-0", "lg:bg-transparent", "lg:text-gray-500"];
+const INACTIVE_POINT_CLASSES = [
+  "md:border-l-0",
+  "md:bg-transparent",
+  "md:text-gray-500",
+  "lg:border-l-0",
+  "lg:bg-transparent",
+  "lg:text-gray-500",
+];
 
 function highlightActivePoint(points, activeIndex) {
   points.forEach((point, i) => {
