@@ -54,16 +54,16 @@ const stats = [
   innerClass="flex flex-col items-center"
   {...Astro.props}
 >
-  <div class="w-full flex flex-col items-center gap-6 lg:gap-16">
+  <div class="w-full flex flex-col items-center gap-6 md:gap-16 lg:gap-16">
 
     <!-- Heading -->
-    <header class="w-full flex flex-col items-center gap-4 lg:gap-6">
+    <header class="w-full flex flex-col items-center gap-4 md:gap-6 lg:gap-6">
 
-      <div class="flex items-center justify-center gap-3 lg:gap-6">
+      <div class="flex items-center justify-center gap-3 md:gap-4 lg:gap-6">
         <Image
           src={logoWordmark}
           alt="Sliceal"
-          class="h-6 w-auto lg:h-10"
+          class="h-6 w-auto md:h-[26px] lg:h-10"
         />
 
         <h2
@@ -72,6 +72,10 @@ const stats = [
             font-normal
             leading-8
             text-black
+
+            md:text-3xl
+            md:leading-[2.375rem]
+            md:font-medium
 
             lg:w-72
             lg:text-5xl
@@ -92,6 +96,8 @@ const stats = [
           leading-5
           text-gray-500
 
+          md:max-w-[830px]
+
           lg:w-[830px]
           lg:text-xl
           lg:leading-8
@@ -111,7 +117,12 @@ const stats = [
         grid-cols-2
         gap-2
 
-        lg:w-[1056px]
+        md:w-full
+        md:grid-cols-4
+        md:grid-rows-2
+        md:gap-0
+
+        lg:w-[880px]
         lg:grid-cols-4
         lg:grid-rows-2
         lg:gap-0
@@ -134,16 +145,29 @@ const stats = [
           p-4
           text-center
 
-          lg:h-[180px]
+          md:h-[136px]
+          md:w-full
+          md:min-h-0
+          md:rounded-none
+          md:border-0
+          md:px-5
+          md:pt-[30px]
+          md:pb-0
+          md:gap-4
+
+          lg:h-[136px]
+          lg:w-[220px]
           lg:min-h-0
           lg:rounded-none
           lg:border-0
-          lg:p-0
+          lg:px-5
+          lg:pt-[30px]
+          lg:pb-0
           lg:gap-4
         `,
-        stat.highlight ? "bg-brand-25 lg:bg-brand-25" : "bg-white lg:bg-transparent",
-        index % 4 !== 3 && "lg:border-r lg:border-gray-200",
-        index < 4 && "lg:border-b lg:border-gray-200",
+        stat.highlight ? "bg-brand-25 lg:bg-brand-25" : "bg-white md:bg-transparent lg:bg-transparent",
+        index % 4 !== 3 && "md:border-r md:border-gray-100 lg:border-r lg:border-gray-100",
+        index < 4 && "md:border-b md:border-gray-100 lg:border-b lg:border-gray-100",
       ]}
           >
             <div
@@ -153,9 +177,13 @@ const stats = [
                 leading-6
                 text-gray-900
 
-                lg:text-4xl
-                lg:font-normal
-                lg:leading-10
+                md:text-2xl
+                md:font-semibold
+                md:leading-8
+
+                lg:text-2xl
+                lg:font-semibold
+                lg:leading-8
               "
             >
               <span>{stat.value}</span>
@@ -186,9 +214,13 @@ const stats = [
                 leading-4
                 text-gray-500
 
+                md:max-w-[176px]
+                md:text-sm
+                md:leading-5
+
                 lg:max-w-[176px]
-                lg:text-lg
-                lg:leading-7
+                lg:text-sm
+                lg:leading-5
               "
             >
               {stat.description}
