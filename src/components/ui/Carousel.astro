@@ -4,6 +4,10 @@ const {
   controlsInHeader = false,
   showDots = false,
 } = Astro.props;
+
+// When both are requested, dots are the mobile control and arrows take over
+// from tablet up — otherwise each stays visible at every width, as before.
+const responsiveControls = showDots && showArrows;
 ---
 
 <div class="carousel">
@@ -83,7 +87,12 @@ const {
   <!-- Controls below carousel -->
   {
     showArrows && !controlsInHeader && (
-      <div class="carousel__controls mt-6 flex items-center justify-center gap-4">
+      <div
+        class:list={[
+          "carousel__controls mt-6 items-center justify-center gap-4",
+          responsiveControls ? "hidden md:flex" : "flex",
+        ]}
+      >
         <button
           type="button"
           aria-label="Previous slide"
@@ -135,7 +144,10 @@ const {
   {
     showDots && (
       <div
-        class="mt-6 flex items-center justify-center gap-1"
+        class:list={[
+          "mt-6 items-center justify-center gap-1",
+          responsiveControls ? "flex md:hidden" : "flex",
+        ]}
         data-carousel-dots
       />
     )

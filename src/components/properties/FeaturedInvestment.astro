@@ -97,14 +97,14 @@ const properties = [
         class="flex flex-col items-center gap-4 md:flex-row md:items-center md:justify-between"
       >
         <h2
-          class="text-center text-2xl font-normal leading-8 text-black md:text-left md:text-5xl md:leading-[60px]"
+          class="text-center text-2xl font-normal leading-8 text-black md:text-left md:text-display-sm md:font-semibold lg:text-5xl lg:font-normal lg:leading-[60px]"
         >
           Featured Investment Opportunity
         </h2>
 
         <a
           href="/properties"
-          class="hidden rounded-xl border border-zinc-300 px-5 py-3 text-base font-semibold leading-6 text-indigo-500 md:block"
+          class="hidden shrink-0 rounded-xl border border-zinc-300 px-5 py-3 text-base font-semibold leading-6 text-indigo-500 md:block"
         >
           View all Properties
         </a>
@@ -114,7 +114,7 @@ const properties = [
     <!-- Cards -->
     <!-- <PropertyCarousel properties={properties} /> -->
      <!-- <Carousel  properties={properties}/> -->
-      <Carousel showDots>
+      <Carousel showDots showArrows>
   {
     properties.map((property) => (
       <PropertyCard property={property} />
