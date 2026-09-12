@@ -45,12 +45,12 @@ const {
 } = Astro.props;
 ---
 
-<Section surface="alt" innerClass="flex flex-col gap-16 lg:gap-24" {...rest}>
+<Section surface="alt" innerClass="flex flex-col gap-16 md:gap-[34px] lg:gap-24" {...rest}>
   <header class="flex w-full flex-col items-center gap-4 text-center">
     {breadcrumb && <Breadcrumb trail={breadcrumb} />}
 
     <HeadingTag
-      class="w-full max-w-[680px] text-center text-2xl leading-8 text-gray-900 lg:text-5xl lg:leading-[60px]"
+      class="w-full max-w-[680px] text-center text-2xl leading-8 text-gray-900 md:text-[30px] md:leading-[38px] lg:text-5xl lg:leading-[60px]"
     >
       <slot />
     </HeadingTag>
@@ -62,12 +62,12 @@ const {
     </p>
   </header>
 
-  <div class="flex w-full flex-col gap-16 lg:gap-24">
+  <div class="flex w-full flex-col gap-16 md:gap-[34px] lg:gap-24">
     {
       steps.map((step, i) => (
         <StepRow eyebrow={step.eyebrow} reverse={alternate && i % 2 === 1}>
-          <div class="contents lg:flex lg:flex-col lg:items-start lg:gap-0">
-            <h3 class="max-w-xl text-lg leading-7 text-gray-900 lg:text-3xl lg:leading-9">
+          <div class="contents md:flex md:flex-col md:items-start md:gap-0 lg:flex lg:flex-col lg:items-start lg:gap-0">
+            <h3 class="max-w-xl text-lg leading-7 text-gray-900 md:text-[30px] md:leading-[38px] lg:text-3xl lg:leading-9">
               {step.highlight ? (
                 <>
                   {step.prefix}
@@ -79,12 +79,12 @@ const {
               )}
             </h3>
 
-            <p class="max-w-xl text-xs leading-[18px] text-gray-500 lg:mt-[26px] lg:text-base lg:leading-6">
+            <p class="max-w-xl text-xs leading-[18px] text-gray-500 md:mt-[26px] md:text-sm md:leading-5 lg:mt-[26px] lg:text-base lg:leading-6">
               {step.description}
             </p>
 
             {step.points && (
-              <ul class="flex max-w-xl flex-col gap-2 text-left lg:mt-4">
+              <ul class="flex max-w-xl flex-col gap-2 text-left md:mt-[18px] lg:mt-4">
                 {step.points.map((point) => (
                   <li class="flex items-start gap-2 text-sm leading-5 text-gray-600">
                     <svg
@@ -109,14 +109,14 @@ const {
             )}
 
             {step.stats && (
-              <div class="flex w-full max-w-xl flex-wrap gap-3 lg:mt-[18px]">
+              <div class="flex w-full max-w-xl flex-wrap gap-3 md:mt-[18px] lg:mt-[18px]">
                 {step.stats.map((stat) => (
-                  <div class="flex min-w-[9rem] flex-1 flex-col items-center gap-1 rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-[0_0_3px_rgba(0,0,0,0.1)]">
-                    <p class="text-xl font-semibold text-gray-900 lg:text-2xl">
+                  <div class="flex min-w-[9rem] flex-1 flex-col items-center gap-1 rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-[0_0_3px_rgba(0,0,0,0.1)] md:flex-none md:basis-[calc(50%-6px)]">
+                    <p class="text-xl font-semibold text-gray-900 md:text-2xl lg:text-2xl">
                       {stat.value}
                       <span class="text-brand-purple">{stat.suffix}</span>
                     </p>
-                    <p class="text-center text-xs leading-[18px] text-gray-500 lg:text-sm">
+                    <p class="text-center text-xs leading-[18px] text-gray-500 md:text-sm md:leading-5 lg:text-sm">
                       {stat.label}
                     </p>
                   </div>
@@ -139,6 +139,9 @@ const {
                 bg-white
                 shadow-lg
 
+                md:h-[414px]
+                md:max-w-[420px]
+
                 lg:h-[368px]
                 lg:w-[500px]
                 lg:max-w-none
@@ -155,8 +158,16 @@ const {
                   max-w-none
                   -translate-x-1/2
 
+                  md:top-0
+                  md:h-full
+                  md:w-4/5
+                  md:object-cover
+                  md:object-top
+
                   lg:top-8
+                  lg:h-auto
                   lg:w-[330px]
+                  lg:object-contain
                 "
                 loading="lazy"
               />
