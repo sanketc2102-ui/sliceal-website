@@ -17,7 +17,7 @@ import FaqAccordion from "../ui/FaqAccordion.astro";
 import { faqCategories } from "../../data/faq.js";
 
 const eyebrow =
-  "rounded-pill border border-line px-3 py-1.5 text-xs/[0.875rem] text-brand-purple lg:text-sm/5 lg:font-semibold lg:shadow-pill";
+  "rounded-pill border border-line px-3 py-1.5 text-xs/[0.875rem] text-brand-purple md:text-sm/5 md:font-semibold md:shadow-pill lg:text-sm/5 lg:font-semibold lg:shadow-pill";
 ---
 
 <Section id="faqs" class="shadow-[var(--shadow-glow)]" {...Astro.props}>
@@ -27,12 +27,12 @@ const eyebrow =
     <header class="flex w-full flex-col gap-6">
       <p class={`w-fit ${eyebrow}`}>QUESTIONS</p>
 
-      <h2 class="w-full text-2xl font-normal leading-8 text-black lg:text-5xl lg:leading-[60px]">
+      <h2 class="w-full text-2xl font-normal leading-8 text-black md:text-display-sm md:font-semibold lg:text-5xl lg:leading-[60px] lg:font-normal">
         Frequently asked.
       </h2>
     </header>
 
-    <hr class="h-px w-full border-0 bg-gray-200" />
+    <hr class="h-px w-full border-0 bg-gray-200 md:h-0.5 lg:h-px" />
 
     <!-- Tabs + accordion -->
     <FaqAccordion categories={faqCategories} instanceId="home-faqs" />
