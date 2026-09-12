@@ -73,6 +73,9 @@ const socialLinks = [
         px-4
         py-12
 
+        md:px-20
+        md:py-20
+
         lg:px-20
         lg:py-20
       "
@@ -100,6 +103,10 @@ const socialLinks = [
             flex-col
             gap-12
 
+            md:flex-row
+            md:items-start
+            md:justify-between
+
             lg:flex-row
             lg:items-start
             lg:justify-between
@@ -110,7 +117,7 @@ const socialLinks = [
                ================================================= -->
 
        <div
-  class="flex w-full flex-col gap-6 lg:w-[500px] lg:shrink-0"
+  class="flex w-full flex-col gap-6 md:w-[41%] md:min-w-[280px] md:shrink-0 lg:w-[500px] lg:shrink"
 >
   <!-- Logo -->
 
@@ -123,6 +130,9 @@ const socialLinks = [
       items-center
       justify-center
       self-center
+
+      md:justify-start
+      md:self-start
 
       lg:justify-start
       lg:self-start
@@ -154,6 +164,8 @@ const socialLinks = [
       font-normal
       leading-6
       text-black
+
+      md:text-left
 
       lg:text-left
     "
@@ -243,6 +255,11 @@ const socialLinks = [
           <div
             class="
               hidden
+
+              md:flex
+              md:min-w-0
+              md:flex-1
+              md:gap-10
 
               lg:flex
               lg:w-[678px]
@@ -404,6 +421,8 @@ const socialLinks = [
             flex-col
             gap-8
 
+            md:hidden
+
             lg:hidden
           "
         >
@@ -552,7 +571,9 @@ const socialLinks = [
             overflow-hidden
             -mb-12
 
-            lg:h-[224px]
+            md:h-[159px]
+
+            2xl:h-[224px]
           "
           aria-hidden="true"
         >
@@ -564,16 +585,15 @@ const socialLinks = [
             class="
               absolute
               left-1/2
-              top-1/2
+              bottom-0
               w-full
               h-auto
               max-w-none
               -translate-x-1/2
-              -translate-y-1/2
               opacity-[0.08]
 
-              lg:h-full
-              lg:w-auto
+              2xl:h-full
+              2xl:w-auto
             "
           />
 
@@ -596,6 +616,10 @@ const socialLinks = [
               flex
               flex-col
               gap-4
+
+              md:flex-row
+              md:items-start
+              md:justify-between
 
               lg:flex-row
               lg:items-start
