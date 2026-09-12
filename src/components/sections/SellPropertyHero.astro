@@ -5,6 +5,7 @@
  *
  * Figma: wBTbnZ7DJMzQwgaGC5k0wK
  *   Desktop: node 30732:150618 (1512 frame)
+ *   Tablet:  node 31002:50803 (1024 frame)
  *   Mobile:  node 30732:151394 (440 frame)
  */
 import { Image } from "astro:assets";
@@ -29,21 +30,21 @@ const btnBase =
 
 <Section
   flush
-  class="pt-[1.875rem] pb-10 lg:pt-20 lg:pb-25"
-  innerClass="flex flex-col items-center gap-[2.625rem] lg:flex-row lg:items-center lg:justify-between"
+  class="pt-[1.875rem] pb-10 md:pt-20 md:pb-25 lg:pt-20 lg:pb-25"
+  innerClass="flex flex-col items-center gap-[2.625rem] md:flex-row md:items-center md:justify-between lg:flex-row lg:items-center lg:justify-between"
   {...Astro.props}
 >
-  <div class="flex w-full flex-col items-center gap-6 text-center lg:w-[45.375rem] lg:items-start lg:gap-8 lg:text-left">
+  <div class="flex w-full flex-col items-center gap-6 text-center md:w-[44%] md:items-start md:gap-8 md:text-left lg:w-[45.375rem] lg:items-start lg:gap-8 lg:text-left">
     <p class="text-sm font-semibold text-ink-muted">
       <span aria-hidden="true">•</span> Dubai Land Department Verified
     </p>
 
     <div class="flex flex-col gap-4">
-      <h1 class="text-xl leading-xl font-semibold text-ink lg:text-display-xl lg:leading-display-xl lg:tracking-tight lg:font-medium">
+      <h1 class="text-xl leading-xl font-semibold text-ink md:text-display-sm md:leading-display-sm lg:text-display-xl lg:leading-display-xl lg:tracking-tight lg:font-medium">
         Sell Your Property on Sliceal
       </h1>
 
-      <p class="text-sm leading-sm text-ink-secondary lg:text-lg lg:leading-lg lg:text-ink-muted">
+      <p class="text-sm leading-sm text-ink-secondary md:text-ink-muted lg:text-lg lg:leading-lg lg:text-ink-muted">
         Reach a growing pool of verified investors through fractional ownership. List your
         property in minutes and start raising capital from verified buyers.
       </p>
@@ -68,15 +69,15 @@ const btnBase =
   <div
     class:list={[
       cardShadow,
-      "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-off-white p-4 lg:w-[32.5rem] lg:p-6",
+      "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-off-white p-4 md:w-[47%] md:min-w-[19rem] lg:w-[32.5rem] lg:p-6",
     ]}
   >
-    <div class="relative h-80 w-full overflow-hidden rounded-lg">
+    <div class="relative h-80 w-full overflow-hidden rounded-lg md:h-[14.5rem]">
       <Image
         src={heroProperty}
         alt="Dubai city skyline at dusk"
         widths={[400, 800, 1200]}
-        sizes="(min-width: 1024px) 30rem, 100vw"
+        sizes="(min-width: 1024px) 30rem, (min-width: 768px) 40vw, 100vw"
         quality={70}
         loading="eager"
         class="absolute inset-0 size-full object-cover"
@@ -88,7 +89,7 @@ const btnBase =
         stats.map(({ label, value }) => (
           <div class="flex flex-1 flex-col gap-1 rounded-sm bg-white p-3">
             <p class="text-xs text-ink-muted">{label}</p>
-            <p class="text-lg leading-lg font-bold text-ink whitespace-nowrap">{value}</p>
+            <p class="text-lg leading-lg font-bold text-ink whitespace-nowrap md:whitespace-normal">{value}</p>
           </div>
         ))
       }
