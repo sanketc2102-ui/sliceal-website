@@ -29,7 +29,7 @@ const btnBase =
 >
   {
     blobs.length > 0 && (
-      <div slot="bleed" class="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden="true">
+      <div slot="bleed" class="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
         {blobs.map((blob) => (
           <Image src={blob.src} alt="" class={blob.class} />
         ))}
@@ -38,7 +38,7 @@ const btnBase =
   }
 
   <h2
-    class="max-w-3xl text-lg leading-lg font-semibold tracking-normal text-ink lg:text-display-xl lg:leading-display-xl lg:font-medium lg:tracking-tight"
+    class="max-w-3xl text-lg leading-lg font-semibold tracking-normal text-ink md:text-display-sm md:leading-display-sm lg:text-display-xl lg:leading-display-xl lg:font-medium lg:tracking-tight"
   >
     {heading}
   </h2>
