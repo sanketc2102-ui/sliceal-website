@@ -2,13 +2,31 @@
 /**
  * WhySlicealHero — the "Build premium wealth" hero on /why-sliceal.
  *
- * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 29864:71247 (Hero-Section, 1512 frame).
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK
+ *   Desktop: node 29864:71247 (Hero-Section, 1512 frame)
+ *   Tablet:  node 31002:51121 (Hero-Section, 1024 frame) — its headline/CTA
+ *     text reads "Sell Your Property on Sliceal" / "List Your Property", a
+ *     stray copy-paste from the sell-your-property page's hero frame; the
+ *     dashboard card (Ahmed Hassan, portfolio stats, yield chart) is this
+ *     page's real content. Only the layout/sizing was ported, keeping this
+ *     component's own copy.
  *
  * One deliberate deviation from the frame: Figma draws this hero on a 120px
  * gutter (1272 content column) while every other section on the site sits on
  * `.container-site` (80px gutter, 1352). The hero follows the site column so
  * it stays aligned with the sections under it; the two tracks keep their
  * designed widths (688 copy / 520 card) and the extra 80px lands in the gap.
+ *
+ * The 688/520 desktop pixel values only fit once `.container-site` has
+ * actually widened to the 1512 frame — its padding jumps to 80px at `lg`
+ * (1024) but its content column doesn't reach 1352 until the viewport hits
+ * 1432. Binding those values to `lg:` (as this file used to) forces them on
+ * from 1024, well before there's room: the fixed 520px card refuses to
+ * shrink and overflows, squeezing the copy column and firing the desktop
+ * 60px headline in the same breath. So the desktop pixel values (copy
+ * max-width, card width, headline/paragraph size) are gated to `2xl` (1512,
+ * the artboard width) instead; `md`'s fluid 44%/45% split carries the layout
+ * through `lg`/`xl` without overflowing.
  */
 import { Image } from "astro:assets";
 
@@ -25,24 +43,22 @@ const stats = [
 /* 16/24 semibold, 20/12 padding, 12px radius, 48px tall — the Button
    component instance both CTAs use in the frame. */
 const btnBase =
-  "flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-lg px-4 text-center text-xs font-semibold shadow-xs transition-colors sm:text-sm sm:px-5 lg:flex-none lg:text-md";
+  "flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-lg px-4 text-center text-xs font-semibold shadow-xs transition-colors sm:text-sm sm:px-5 md:flex-none md:text-md lg:flex-none lg:text-md";
 
 /* Figma "Shadow/lg": two stacked drop shadows, no token for it yet. */
 const cardShadow =
   "shadow-[0_4px_6px_-2px_rgb(10_13_18/0.03),0_12px_16px_-4px_rgb(10_13_18/0.08)]";
 ---
 
-<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
-     placeholder, not a designed layout. Revisit when frames land. -->
 <Section
   flush
   surface="alt"
-  class="pt-10 pb-12 lg:pt-20 lg:pb-25"
-  innerClass="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16"
+  class="pt-10 pb-12 md:pt-20 md:pb-25 lg:pt-20 lg:pb-25"
+  innerClass="flex flex-col gap-10 md:flex-row md:items-center md:justify-between md:gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-16"
   {...Astro.props}
 >
-  <div class="flex flex-col gap-6 lg:max-w-[43rem] lg:gap-8">
-    <p class="text-center text-sm font-semibold text-ink-muted lg:text-left">
+  <div class="flex flex-col gap-6 md:w-[44%] md:shrink md:gap-8 2xl:max-w-[43rem]">
+    <p class="text-center text-sm font-semibold text-ink-muted md:text-left lg:text-left">
       <span aria-hidden="true">•</span> Dubai Land Department Verified
     </p>
 
@@ -54,14 +70,14 @@ const cardShadow =
         font stack falls back off SF Pro (see tokens.css §5).
       */}
       <h1
-        class="text-center text-display-lg-mobile leading-10 tracking-tight lg:max-w-[43rem] lg:text-left lg:text-display-xl lg:leading-display-xl"
+        class="text-center text-display-lg-mobile leading-10 tracking-tight md:text-left md:text-display-sm md:leading-display-sm md:tracking-normal 2xl:max-w-[43rem] 2xl:text-display-xl 2xl:leading-display-xl 2xl:tracking-tight"
       >
         Build premium wealth with <span class="text-brand">fractional</span> real
         estate.
       </h1>
 
       <p
-        class="max-w-[40rem] text-center text-md leading-md text-ink-muted lg:max-w-none lg:text-left lg:text-lg lg:leading-lg"
+        class="max-w-[40rem] text-center text-md leading-md text-ink-muted md:max-w-none md:text-left md:text-sm md:leading-sm 2xl:text-lg 2xl:leading-lg"
       >
         Diversify your portfolio across Dubai’s most sought-after properties.
         Start investing from just AED 2,000 with institutional-grade due
@@ -69,7 +85,7 @@ const cardShadow =
       </p>
     </div>
 
-    <div class="flex items-center gap-2 sm:gap-3 lg:gap-4">
+    <div class="flex items-center gap-2 sm:gap-3 md:gap-4 lg:gap-4">
       <a
         href="/properties"
         class:list={[btnBase, "border border-brand bg-brand text-white hover:bg-brand-hover"]}
@@ -92,7 +108,7 @@ const cardShadow =
   <div
     class:list={[
       cardShadow,
-      "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-white p-6 lg:w-[32.5rem]",
+      "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-white p-6 md:w-[45%] md:min-w-[19rem] 2xl:w-[32.5rem]",
     ]}
   >
     <div class="flex items-center gap-3">
@@ -122,7 +138,7 @@ const cardShadow =
               class:list={[
                 /* 18px is the frame's; stepped down below lg so the figure
                    still fits one line in a half-width box on a phone. */
-                "m-0 text-md leading-md font-bold whitespace-nowrap lg:text-lg lg:leading-lg",
+                "m-0 text-md leading-md font-bold whitespace-nowrap md:text-lg md:leading-lg lg:text-lg lg:leading-lg",
                 positive ? "text-success-600" : "text-ink",
               ]}
             >
