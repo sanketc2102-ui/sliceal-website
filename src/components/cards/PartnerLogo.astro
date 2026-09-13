@@ -19,17 +19,20 @@ const { src, alt } = Astro.props;
     p-3
     shadow-xs
 
+    md:h-24
+    md:w-40
+    md:rounded-[192px]
+    md:border-0
+    md:p-0
+    md:shadow-float
+
     lg:h-32
     lg:w-52
-    lg:rounded-[192px]
-    lg:border-0
-    lg:p-0
-    lg:shadow-float
   "
 >
   <Image
     src={src}
     alt={alt}
-    class="h-10 w-16 object-contain lg:h-11 lg:w-24"
+    class="h-10 w-16 object-contain md:h-10 md:w-20 lg:h-11 lg:w-24"
   />
 </div>

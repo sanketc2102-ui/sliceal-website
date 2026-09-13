@@ -50,7 +50,7 @@ const row2 = partners.slice(6);
         leading-7
         text-gray-900
 
-        lg:text-display-lg
+        md:text-display-lg
       "
     >
       Our Partners
@@ -65,9 +65,9 @@ const row2 = partners.slice(6);
         leading-5
         text-gray-500
 
-        lg:text-lg
-        lg:leading-7
-        lg:text-gray-600
+        md:text-lg
+        md:leading-7
+        md:text-gray-600
       "
     >
       Working with leading regulatory, financial, and PropTech institutions
@@ -83,9 +83,9 @@ const row2 = partners.slice(6);
     justify-center
     gap-3
 
-    lg:flex-col
-    lg:items-center
-    lg:gap-8
+    md:flex-col
+    md:items-center
+    md:gap-8
   "
 >
   <!-- Desktop row 1 — scrolls left -->
@@ -93,27 +93,27 @@ const row2 = partners.slice(6);
     class="
       contents
 
-      lg:block
-      lg:w-full
-      lg:overflow-hidden
-      lg:[mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]
+      md:block
+      md:w-full
+      md:overflow-hidden
+      md:[mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]
     "
   >
     <div
       class="
         contents
 
-        lg:flex
-        lg:w-max
-        lg:gap-6
-        lg:animate-marquee-left
-        lg:will-change-transform
+        md:flex
+        md:w-max
+        md:gap-6
+        md:animate-marquee-left
+        md:will-change-transform
 
-        hover:lg:[animation-play-state:paused]
+        hover:md:[animation-play-state:paused]
       "
     >
       {row1.map((partner) => <PartnerLogo {...partner} />)}
-      <div class="hidden lg:contents">
+      <div class="hidden md:contents">
         {row1.map((partner) => <PartnerLogo {...partner} />)}
       </div>
     </div>
@@ -124,27 +124,27 @@ const row2 = partners.slice(6);
     class="
       contents
 
-      lg:block
-      lg:w-full
-      lg:overflow-hidden
-      lg:[mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]
+      md:block
+      md:w-full
+      md:overflow-hidden
+      md:[mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]
     "
   >
     <div
       class="
         contents
 
-        lg:flex
-        lg:w-max
-        lg:gap-6
-        lg:animate-marquee-right
-        lg:will-change-transform
+        md:flex
+        md:w-max
+        md:gap-6
+        md:animate-marquee-right
+        md:will-change-transform
 
-        hover:lg:[animation-play-state:paused]
+        hover:md:[animation-play-state:paused]
       "
     >
       {row2.map((partner) => <PartnerLogo {...partner} />)}
-      <div class="hidden lg:contents">
+      <div class="hidden md:contents">
         {row2.map((partner) => <PartnerLogo {...partner} />)}
       </div>
     </div>
