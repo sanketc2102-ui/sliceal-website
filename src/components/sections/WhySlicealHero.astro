@@ -27,6 +27,17 @@
  * max-width, card width, headline/paragraph size) are gated to `2xl` (1512,
  * the artboard width) instead; `md`'s fluid 44%/45% split carries the layout
  * through `lg`/`xl` without overflowing.
+ *
+ * This page's real CTA copy ("Browse Live Properties" / "Calculate Potential
+ * ROI") is longer than the tablet frame's placeholder ("List Your Property" /
+ * "How it Works"), so the ported 44% copy column is too narrow for the two
+ * non-wrapping buttons below ~950px — they'd spill into the card. The copy
+ * column carries an explicit `md:min-w-[25rem]` (the CTA row's real minimum
+ * width) plus `md:grow` on both columns and `flex-wrap` on the row: once the
+ * viewport can't fit both columns at that minimum, the whole row wraps and
+ * the card drops below the copy, full-width, instead of overlapping it.
+ * `min-w-[25rem]` is tuned so the wrap only engages below ~950px — the 1024
+ * tablet frame still renders side by side untouched.
  */
 import { Image } from "astro:assets";
 
@@ -54,10 +65,10 @@ const cardShadow =
   flush
   surface="alt"
   class="pt-10 pb-12 md:pt-20 md:pb-25 lg:pt-20 lg:pb-25"
-  innerClass="flex flex-col gap-10 md:flex-row md:items-center md:justify-between md:gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-16"
+  innerClass="flex flex-col gap-10 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-16 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between lg:gap-16"
   {...Astro.props}
 >
-  <div class="flex flex-col gap-6 md:w-[44%] md:shrink md:gap-8 2xl:max-w-[43rem]">
+  <div class="flex flex-col gap-6 md:w-[44%] md:min-w-[25rem] md:grow md:shrink md:gap-8 2xl:max-w-[43rem]">
     <p class="text-center text-sm font-semibold text-ink-muted md:text-left lg:text-left">
       <span aria-hidden="true">•</span> Dubai Land Department Verified
     </p>
@@ -108,7 +119,7 @@ const cardShadow =
   <div
     class:list={[
       cardShadow,
-      "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-white p-6 md:w-[45%] md:min-w-[19rem] 2xl:w-[32.5rem]",
+      "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-white p-6 md:w-[45%] md:grow md:min-w-[19rem] 2xl:w-[32.5rem] 2xl:grow-0",
     ]}
   >
     <div class="flex items-center gap-3">
