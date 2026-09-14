@@ -56,17 +56,17 @@ const fieldInput =
 <section id="contact-form" class="section-y" {...Astro.props}>
   <div class="container-site">
     <div
-      class="rounded-2xl bg-white p-4 drop-shadow-[0px_4px_100px_rgba(232,249,247,0.2)] sm:p-6 lg:p-[15px]"
+      class="rounded-2xl bg-white p-4 drop-shadow-[0px_4px_100px_rgba(232,249,247,0.2)] sm:p-6 md:p-[15px] lg:p-[15px]"
     >
-      <div class="flex flex-col gap-10 lg:flex-row lg:items-stretch lg:gap-[57px]">
+      <div class="flex flex-col gap-10 md:flex-row md:items-stretch md:gap-8 lg:flex-row lg:items-stretch lg:gap-[57px]">
         <!-- Contact Information panel -->
         <div
-          class="relative flex w-full flex-col justify-between gap-16 overflow-hidden rounded-2xl bg-gray-200 p-8 lg:w-[555px] lg:shrink-0 lg:p-10"
+          class="relative flex w-full flex-col justify-between gap-16 overflow-hidden rounded-2xl bg-gray-200 p-8 md:w-1/2 md:shrink-0 md:p-10 lg:w-[555px] lg:shrink-0 lg:p-10"
         >
           <div class="relative z-10 flex flex-col gap-[50px]">
             <div class="flex flex-col gap-3">
               <h2
-                class="text-display-sm-mobile leading-9 font-semibold tracking-tight text-black lg:text-display-md lg:leading-[44px]"
+                class="text-display-sm-mobile leading-9 font-semibold tracking-tight text-black md:text-display-md md:leading-[44px] lg:text-display-md lg:leading-[44px]"
               >
                 Contact Information
               </h2>
@@ -119,19 +119,19 @@ const fieldInput =
           -->
           <div
             aria-hidden="true"
-            class="absolute -right-8 -bottom-15 size-40 rounded-full bg-brand-purple/60 lg:-right-[50px] lg:-bottom-24 lg:size-[269px]"
+            class="absolute -right-8 -bottom-15 size-40 rounded-full bg-brand-purple/60 md:-right-[134px] md:-bottom-[141px] md:size-[269px] lg:-right-[50px] lg:-bottom-24 lg:size-[269px]"
           >
           </div>
           <div
             aria-hidden="true"
-            class="absolute right-14 bottom-10 size-20 rounded-full bg-brand-purple/20 lg:right-23 lg:bottom-17 lg:size-[138px]"
+            class="absolute right-14 bottom-10 size-20 rounded-full bg-brand-purple/20 md:right-[15px] md:bottom-[6px] md:size-[138px] lg:right-23 lg:bottom-17 lg:size-[138px]"
           >
           </div>
         </div>
 
         <!-- Enquiry form -->
-        <form class="flex w-full flex-col gap-6 p-2 lg:gap-11" data-contact-form>
-          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-11">
+        <form class="flex w-full flex-col gap-6 p-2 md:w-auto md:flex-1 md:gap-11 lg:gap-11" data-contact-form>
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-11 md:gap-x-4">
             <div class="flex flex-col gap-2 sm:gap-3">
               <label for="contact-first-name" class={fieldLabel}>First Name</label>
               <input id="contact-first-name" name="firstName" type="text" autocomplete="given-name" placeholder="Enter your first name" required class={fieldInput} />
