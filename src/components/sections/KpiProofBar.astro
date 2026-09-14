@@ -3,7 +3,8 @@
  * KpiProofBar — the four-figure proof strip that sits directly under the
  * /why-sliceal hero.
  *
- * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 29864:71277 (KPIProofBar, 1512 frame).
+ * Figma: wBTbnZ7DJMzQwgaGC5k0wK, node 29864:71277 (KPIProofBar, 1512 frame)
+ * and node 31002:51448 (tablet, 1024 frame).
  *
  * Two deliberate deviations from the frame:
  *   1. Figma pads the band 64px on all four sides (1384 content column). The
@@ -29,31 +30,30 @@ const stats = [
 ];
 
 /* 32px bold. There is no desktop 32px step in the type scale — only
-   --text-display-lg-mobile — so that token carries the desktop size here, and
-   both tiers set leading explicitly so the mobile value can't leak into lg:. */
+   --text-display-lg-mobile — so that token carries the tablet/desktop size
+   here, and each tier sets leading explicitly so the mobile value can't
+   leak into md:/lg:. */
 const valueClass =
-  "text-display-xs leading-display-xs font-bold tracking-tight lg:text-display-lg-mobile lg:leading-display-sm";
+  "text-display-xs leading-display-xs font-bold tracking-tight md:text-display-lg-mobile md:leading-display-sm lg:text-display-lg-mobile lg:leading-display-sm";
 ---
 
-<!-- TODO(mobile): no mobile/tablet Figma yet — default state below is a
-     placeholder, not a designed layout. Revisit when frames land. -->
-<Section surface="alt" flush class="border-y border-line py-10 lg:py-16" {...Astro.props}>
+<Section surface="alt" flush class="border-y border-line py-10 md:py-8 lg:py-16" {...Astro.props}>
   {/*
-    Two columns up to lg, then the designed single row: four 260px tracks
-    spread across the content column with the hairlines between them.
-    dt/dd are reversed in the flow so the label still precedes its figure for
-    a screen reader while the figure renders on top.
+    Two columns below md. From md a single row of four equal-width tracks
+    with hairlines between them; lg swaps to fixed 260px tracks spread with
+    justify-between. dt/dd are reversed in the flow so the label still
+    precedes its figure for a screen reader while the figure renders on top.
   */}
   <dl
-    class="m-0 grid grid-cols-2 gap-x-6 gap-y-8 lg:flex lg:items-center lg:justify-between lg:gap-x-0"
+    class="m-0 grid grid-cols-2 gap-x-6 gap-y-8 md:flex md:items-center md:gap-x-4 lg:flex lg:items-center lg:justify-between lg:gap-x-0"
   >
     {
       stats.map(({ value, label, tone }, i) => (
         <>
           {i > 0 && (
-            <div aria-hidden="true" class="hidden h-12 w-px shrink-0 bg-line lg:block" />
+            <div aria-hidden="true" class="hidden h-12 w-px shrink-0 bg-line md:block lg:block" />
           )}
-          <div class="flex flex-col-reverse items-center gap-2 text-center lg:w-[16.25rem] lg:shrink-0 lg:items-start lg:text-left">
+          <div class="flex flex-col-reverse items-center gap-2 text-center md:grow md:basis-0 md:shrink-0 lg:w-[16.25rem] lg:shrink-0 lg:items-start lg:text-left">
             <dt class="text-sm leading-sm text-ink-secondary">{label}</dt>
             {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
             <dd class:list={["m-0", valueClass, tone]}>{value}</dd>
