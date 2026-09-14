@@ -105,9 +105,30 @@ list of components to revisit — not a full-site re-audit.
 
 ### When a tablet Figma frame lands
 
+- Before writing any code, use the Figma MCP tools (`get_metadata` /
+  `get_design_context`) directly on the frame's node URL to pull exact
+  position, size, and constraints for every relevant layer — including
+  nested/unnamed ones. Do not ask the user to click through Figma's UI or
+  export values manually; query the file directly.
+  - If Figma provides only one tablet frame width, don't hardcode that
+    frame's pixel values as fixed sizes. Convert them to percentages of
+    their parent container (using the frame's own width as the divisor) so
+    the layout scales fluidly across the full `md` range, not just the one
+    width Figma happened to draw.
 - Implement one frame/component at a time as given.
 - Only add/edit the `md:` classes on that component. Never touch its
   unprefixed (mobile) or `lg:`/desktop classes.
+- If the element is absolutely positioned at `lg:` (or any other tier),
+  read how that tier anchors it before writing `md:`. Match the same
+  _technique_, not just similar values — e.g. if `lg:` uses explicit
+  `top-[...] right-[...]`, don't switch to `inset-0` at `md:`. Never pair
+  `inset-0` (or any two opposing offsets like `top-*`+`bottom-*`) with an
+  explicit `w-[...]`/`h-[...]` on the same element at the same breakpoint —
+  the browser silently drops one of the offsets and the box lands in the
+  wrong place with no build error.
+- Before calling a tablet frame done, render the page and check it at
+  768px, 834px, 912px, and 1024px — not just the one Figma frame width.
+  `md` covers that whole range; one screenshot at one width isn't enough.
 - Remove its `TODO(mobile)` comment once the real tablet frame is implemented.
 
 ## Accessibility & Semantics
