@@ -12,7 +12,7 @@ const {
 
 <article
   class:list={[
-    "group w-full overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-card",
+    "group flex h-full w-full flex-col overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-card",
     className,
   ]}
   {...rest}
@@ -40,7 +40,7 @@ const {
     </div>
   </div>
 
-  <div class="flex flex-col gap-6 p-5">
+  <div class="flex grow flex-col gap-6 p-5">
     <slot />
   </div>
 </article>
