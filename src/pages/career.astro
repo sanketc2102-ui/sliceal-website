@@ -87,7 +87,7 @@ const jobs = [
               <div class="flex flex-col gap-3">
                 <div class="flex items-start justify-between gap-3">
                   <div class="flex flex-col gap-1">
-                    <p class="text-lg leading-lg font-bold text-slate-950">{job.title}</p>
+                    <p class="text-lg leading-lg font-bold text-ink">{job.title}</p>
                     <p class="text-sm leading-sm font-medium text-ink-secondary">
                       {job.company}
                     </p>
@@ -96,7 +96,7 @@ const jobs = [
                   <button
                     type="button"
                     aria-label={`Save ${job.title}`}
-                    class="flex size-8 shrink-0 items-center justify-center rounded-xl bg-slate-50"
+                    class="flex size-8 shrink-0 items-center justify-center rounded-xl bg-surface-sunken"
                   >
                     <HeartIcon class="size-4" aria-hidden="true" />
                   </button>
@@ -123,10 +123,10 @@ const jobs = [
               </div>
 
               <div class="flex flex-col gap-2">
-                <p class="text-2xs leading-normal font-bold tracking-wide text-slate-400 uppercase">
+                <p class="text-2xs leading-normal font-bold tracking-wide text-[var(--color-text-meta)] uppercase">
                   Key Requirements
                 </p>
-                <p class="text-[13px] leading-sm text-gray-700">{job.description}</p>
+                <p class="text-[13px] leading-sm text-ink-secondary">{job.description}</p>
               </div>
 
               <button

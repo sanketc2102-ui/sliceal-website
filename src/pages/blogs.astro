@@ -50,7 +50,7 @@ const description =
                     "shrink-0 rounded-pill px-5 py-2.5 text-sm leading-sm font-semibold whitespace-nowrap transition-colors",
                     index === 0
                       ? "bg-brand text-ink-inverse"
-                      : "border border-line text-gray-700 hover:bg-gray-25 hover:text-gray-900",
+                      : "border border-line text-ink-secondary hover:bg-surface-alt hover:text-ink",
                   ]}
                 >
                   {category}
@@ -77,9 +77,9 @@ const description =
   const INACTIVE_TAB_CLASSES = [
     "border",
     "border-line",
-    "text-gray-700",
-    "hover:bg-gray-25",
-    "hover:text-gray-900",
+    "text-ink-secondary",
+    "hover:bg-surface-alt",
+    "hover:text-ink",
   ];
 
   const initBlogFilters = () => {

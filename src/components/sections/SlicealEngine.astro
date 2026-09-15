@@ -57,7 +57,7 @@ const stackCap = "lg:mx-0 lg:max-w-none";
       <p class={eyebrow}>THE SLICEAL ENGINE</p>
 
       <h2
-        class="text-display-sm-mobile leading-[2.125rem] font-normal tracking-normal text-gray-900 md:text-display-sm md:leading-display-sm md:font-semibold md:tracking-normal lg:max-w-[33.0625rem] lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight lg:text-ink"
+        class="text-display-sm-mobile leading-[2.125rem] font-normal tracking-normal text-ink md:text-display-sm md:leading-display-sm md:font-semibold md:tracking-normal lg:max-w-[33.0625rem] lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight lg:text-ink"
       >
         One Apartment. 1.3 Million Digital Slices.
       </h2>
@@ -71,7 +71,7 @@ const stackCap = "lg:mx-0 lg:max-w-none";
       class="overflow-hidden rounded-2xl border border-line bg-surface md:col-start-2 md:row-start-1 md:row-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:ml-auto lg:w-full lg:max-w-[37.4375rem] lg:bg-transparent"
     >
       <div
-        class="relative aspect-[408/220] border-b border-line bg-slate-50 md:aspect-433/394 md:border-[1.875rem] md:border-surface lg:aspect-[598/566] lg:border-x-0 lg:border-t-0 lg:border-b lg:border-line"
+        class="relative aspect-[408/220] border-b border-line bg-surface md:aspect-433/394 md:border-[1.875rem] md:border-surface lg:aspect-[598/566] lg:border-x-0 lg:border-t-0 lg:border-b lg:border-line"
       >
         {/*
           The tablet frame insets the video in a white margin instead of
@@ -112,7 +112,7 @@ const stackCap = "lg:mx-0 lg:max-w-none";
               <dd
                 class:list={[
                   "m-0 text-md md:text-display-xs md:leading-display-xs md:font-semibold lg:text-display-xs lg:leading-display-xs lg:font-semibold lg:tracking-normal",
-                  brand ? "text-brand-purple" : "text-gray-900 lg:text-ink",
+                  brand ? "text-brand-purple" : "text-ink lg:text-ink",
                 ]}
               >
                 {prefix && (
@@ -145,14 +145,14 @@ const stackCap = "lg:mx-0 lg:max-w-none";
                  is a shorthand/longhand ordering gamble in the generated CSS. */
               "rounded-lg border border-line bg-surface p-4 md:rounded-none md:border-y-0 md:border-r-0 md:px-5 md:py-4 lg:rounded-none lg:border-y-0 lg:border-r-0 lg:px-5 lg:py-4",
               /* The lg background lives in both branches on purpose: pairing a
-                 shared lg:bg-transparent with a branch lg:bg-gray-200 is a
-                 same-variant collision the generated CSS order decides. */
+                 shared lg:bg-transparent with a branch lg:bg-[var(--color-surface-selected)]
+                 is a same-variant collision the generated CSS order decides. */
               i === 0
-                ? "md:rounded-r-lg md:border-l-[3px] md:border-l-brand-purple md:bg-gray-200 md:text-gray-900 lg:rounded-r-lg lg:border-l-[3px] lg:border-l-brand-purple lg:bg-gray-200 lg:text-gray-900"
-                : "md:border-l-0 md:bg-transparent md:text-gray-500 lg:border-l-0 lg:bg-transparent lg:text-gray-500",
+                ? "md:rounded-r-lg md:border-l-[3px] md:border-l-brand-purple md:bg-[var(--color-surface-selected)] md:text-ink lg:rounded-r-lg lg:border-l-[3px] lg:border-l-brand-purple lg:bg-[var(--color-surface-selected)] lg:text-ink"
+                : "md:border-l-0 md:bg-transparent md:text-ink-muted lg:border-l-0 lg:bg-transparent lg:text-ink-muted",
             ]}
           >
-            <h3 class="text-md font-normal text-gray-900 md:text-xl md:leading-xl md:font-semibold md:text-inherit lg:text-xl lg:leading-xl lg:font-semibold lg:text-inherit">
+            <h3 class="text-md font-normal text-ink md:text-xl md:leading-xl md:font-semibold md:text-inherit lg:text-xl lg:leading-xl lg:font-semibold lg:text-inherit">
               {title}
             </h3>
             <p class="mt-2 text-[0.8125rem] leading-xs text-ink-secondary md:mt-3 md:text-sm md:leading-sm md:text-inherit lg:mt-3 lg:text-sm lg:leading-sm lg:text-inherit">

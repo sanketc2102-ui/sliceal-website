@@ -149,6 +149,18 @@
   --color-line-strong: var(--color-gray-300); /* border-line-strong  */
   --color-line-brand: var(--color-brand-600); /* border-line-brand   */
 
+  /* Disabled interactive controls (buttons, dots). No existing ink/surface
+     role covers this — it's a distinct state, not page-section background
+     or body text. */
+  --color-control-disabled-bg: var(--color-gray-200);
+  --color-control-disabled-fg: var(--color-gray-400);
+
+  /* Interactive-state colors with no prior semantic role: a highlighted/
+     selected list item and a card meta-label color, both drawn from the
+     slate/gray ramps rather than the ink/surface scale. */
+  --color-text-meta: var(--color-slate-400);
+  --color-surface-selected: var(--color-gray-200);
+
   /* ------------------------------------------------------------------
      5. TYPOGRAPHY — FAMILIES
      The design is drawn in SF Pro (1379 text nodes), with Inter (72) on a
