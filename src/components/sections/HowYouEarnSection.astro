@@ -72,7 +72,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
   <ul class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 lg:grid-cols-2">
     {
       earnings.map(({ icon, title, description }) => (
-        <li class="flex flex-col items-start gap-4 rounded-xl border border-line bg-white p-4 shadow-xs lg:p-8" data-reveal>
+        <li class="flex flex-col items-start gap-4 rounded-xl border border-line bg-surface p-4 shadow-xs lg:p-8" data-reveal>
           <span class="flex shrink-0 rounded-lg bg-brand-25 p-3">
             <Image src={icon} alt="" aria-hidden="true" width={24} height={24} class="size-6" />
           </span>

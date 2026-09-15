@@ -22,13 +22,13 @@ const tabId = (categoryId) => `${instanceId}-tab-${categoryId}`;
 const panelId = (categoryId) => `${instanceId}-panel-${categoryId}`;
 
 const activeTabClasses =
-  "bg-brand text-white outline outline-2 outline-offset-[-2px] outline-brand-400";
+  "bg-brand text-ink-inverse outline outline-2 outline-offset-[-2px] outline-brand-400";
 const inactiveTabClasses =
   "text-gray-900 border-b border-gray-100 hover:bg-gray-25 hover:text-gray-900";
 
-const activeChipClasses = "border border-transparent bg-brand-600 text-white";
+const activeChipClasses = "border border-transparent bg-brand text-ink-inverse";
 const inactiveChipClasses =
-  "border border-gray-200 text-gray-700 hover:bg-gray-25 hover:text-gray-900";
+  "border border-line text-gray-700 hover:bg-gray-25 hover:text-gray-900";
 ---
 
 <div class="faq-accordion flex flex-col gap-8" data-faq-accordion>
@@ -104,14 +104,14 @@ const inactiveChipClasses =
             class:list={["flex flex-col gap-2 md:gap-0 lg:gap-0", index !== 0 && "hidden"]}
           >
             {category.questions.map((item) => (
-              <details class="group flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-4 md:gap-0 md:rounded-none md:border-0 md:border-t md:border-gray-200 md:bg-transparent md:px-5 md:py-5 lg:gap-0 lg:rounded-none lg:border-0 lg:border-t lg:border-gray-200 lg:bg-transparent lg:px-0 lg:py-5">
+              <details class="group flex flex-col gap-2 rounded-xl border border-line bg-surface p-4 md:gap-0 md:rounded-none md:border-0 md:border-t md:border-line md:bg-transparent md:px-5 md:py-5 lg:gap-0 lg:rounded-none lg:border-0 lg:border-t lg:border-line lg:bg-transparent lg:px-0 lg:py-5">
                 <summary class="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
                   <span class="text-sm font-semibold leading-5 text-gray-900 md:text-lg md:leading-[1.5] md:font-medium lg:text-lg lg:leading-7 lg:font-normal">
                     {item.question}
                   </span>
 
                   <span
-                    class="relative flex size-4 shrink-0 items-center justify-center text-brand-600 md:size-6 md:text-gray-900 lg:size-6 lg:text-gray-900"
+                    class="relative flex size-4 shrink-0 items-center justify-center text-brand md:size-6 md:text-gray-900 lg:size-6 lg:text-gray-900"
                     aria-hidden="true"
                   >
                     <span class="absolute h-0.5 w-2.5 rounded-full bg-current md:w-3.5 lg:w-3.5" />
@@ -119,7 +119,7 @@ const inactiveChipClasses =
                   </span>
                 </summary>
 
-                <p class="w-full text-xs leading-xs text-gray-500 md:mt-3.5 md:text-sm md:leading-5 lg:mt-3.5 lg:w-auto lg:max-w-[61.375rem] lg:text-sm lg:leading-5">
+                <p class="w-full text-xs leading-xs text-ink-muted md:mt-3.5 md:text-sm md:leading-5 lg:mt-3.5 lg:w-auto lg:max-w-[61.375rem] lg:text-sm lg:leading-5">
                   {item.answer}
                 </p>
               </details>
@@ -134,7 +134,7 @@ const inactiveChipClasses =
 <script>
   const ACTIVE_TAB_CLASSES = [
     "bg-brand",
-    "text-white",
+    "text-ink-inverse",
     "outline",
     "outline-2",
     "outline-offset-[-2px]",
@@ -150,12 +150,12 @@ const inactiveChipClasses =
   const ACTIVE_CHIP_CLASSES = [
     "border",
     "border-transparent",
-    "bg-brand-600",
-    "text-white",
+    "bg-brand",
+    "text-ink-inverse",
   ];
   const INACTIVE_CHIP_CLASSES = [
     "border",
-    "border-gray-200",
+    "border-line",
     "text-gray-700",
     "hover:bg-gray-25",
     "hover:text-gray-900",

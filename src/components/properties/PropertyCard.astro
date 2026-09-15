@@ -7,7 +7,7 @@ const { property } = Astro.props;
 ---
 
 <article
-  class="property-card group w-full shrink-0 overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-[0px_1px_2px_-1px_rgba(0,0,0,0.10),0px_1px_3px_0px_rgba(0,0,0,0.10)] sm:w-[384px] md:w-[calc(50%-12px)] lg:w-[384px]"
+  class="property-card group w-full shrink-0 overflow-hidden rounded-3xl border border-line-card/60 bg-surface shadow-[0px_1px_2px_-1px_rgba(0,0,0,0.10),0px_1px_3px_0px_rgba(0,0,0,0.10)] sm:w-[384px] md:w-[calc(50%-12px)] lg:w-[384px]"
 >
   <!-- Image -->
   <div class="relative h-56 overflow-hidden">
@@ -25,10 +25,10 @@ const { property } = Astro.props;
 
     <!-- Premium -->
     <div
-      class="absolute left-4 top-4 inline-flex h-7 items-center gap-1.5 rounded-full border border-white/20 bg-white/20 px-3 py-1.5 backdrop-blur-sm"
+      class="absolute left-4 top-4 inline-flex h-7 items-center gap-1.5 rounded-full border border-white/20 bg-surface/20 px-3 py-1.5 backdrop-blur-sm"
     >
-      <span class="size-1.5 rounded-full bg-white/50"></span>
-      <span class="text-[10px] font-bold text-white">
+      <span class="size-1.5 rounded-full bg-surface/50"></span>
+      <span class="text-[10px] font-bold text-ink-inverse">
         PREMIUM
       </span>
     </div>
@@ -56,19 +56,19 @@ const { property } = Astro.props;
 
     <!-- Image metadata -->
     <div class="absolute bottom-4 left-4 flex gap-2 overflow-hidden">
-      <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-white/20 px-3 text-xs text-white backdrop-blur-sm">
+      <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-surface/20 px-3 text-xs text-ink-inverse backdrop-blur-sm">
         {property.area}
       </span>
 
-      <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-white/20 px-3 text-xs text-white backdrop-blur-sm">
+      <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-surface/20 px-3 text-xs text-ink-inverse backdrop-blur-sm">
         {property.type}
       </span>
 
-      <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-white/20 px-3 text-xs text-white backdrop-blur-sm">
+      <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-surface/20 px-3 text-xs text-ink-inverse backdrop-blur-sm">
         {property.bedrooms}
       </span>
 
-      <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-white/20 px-3 text-xs text-white backdrop-blur-sm">
+      <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-surface/20 px-3 text-xs text-ink-inverse backdrop-blur-sm">
         {property.bathrooms}
       </span>
     </div>
@@ -101,7 +101,7 @@ const { property } = Astro.props;
               />
             </svg>
 
-            <span class="truncate text-sm leading-5 text-gray-600">
+            <span class="truncate text-sm leading-5 text-ink-secondary">
               {property.location}
             </span>
           </div>
@@ -173,7 +173,7 @@ const { property } = Astro.props;
     <!-- Button -->
     <button
       type="button"
-      class="h-11 w-full rounded-xl border border-zinc-300 bg-white px-4 py-2.5 text-sm leading-5 text-gray-700"
+      class="h-11 w-full rounded-xl border border-zinc-300 bg-surface px-4 py-2.5 text-sm leading-5 text-gray-700"
     >
       View Details
     </button>

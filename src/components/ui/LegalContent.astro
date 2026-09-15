@@ -24,7 +24,7 @@ const { class: className = "" } = Astro.props;
     "gap-3",
     "rounded-lg",
     "border",
-    "border-gray-200",
+    "border-line",
     "p-5",
     "lg:gap-0",
     "lg:rounded-none",
@@ -85,7 +85,7 @@ const { class: className = "" } = Astro.props;
 <style>
   .legal-content {
     width: 100%;
-    color: var(--color-gray-600);
+    color: var(--color-text-secondary);
     font-family: "SF Pro", sans-serif;
     font-size: 14px;
     font-weight: 400;
@@ -132,7 +132,7 @@ const { class: className = "" } = Astro.props;
 
   .legal-content :global(p) {
     margin-bottom: 12px;
-    color: var(--color-gray-600);
+    color: var(--color-text-secondary);
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -155,12 +155,12 @@ const { class: className = "" } = Astro.props;
   }
 
   .legal-content :global(strong) {
-    color: var(--color-gray-600);
+    color: var(--color-text-secondary);
     font-weight: 700;
   }
 
   .legal-content :global(a) {
-    color: var(--color-gray-600);
+    color: var(--color-text-secondary);
     text-decoration: underline;
   }
 

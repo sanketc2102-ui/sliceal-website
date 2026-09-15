@@ -48,15 +48,15 @@ const subjects = [
 ];
 
 const fieldLabel =
-  "text-xs font-semibold leading-[18px] text-black sm:text-lg sm:leading-7";
+  "text-xs font-semibold leading-[18px] text-ink sm:text-lg sm:leading-7";
 const fieldInput =
-  "peer w-full rounded-md border border-gray-200 bg-transparent p-4 text-sm leading-5 text-gray-600 outline-none placeholder:text-gray-500 focus:border-brand sm:rounded-none sm:border-0 sm:border-b sm:p-0 sm:pb-3";
+  "peer w-full rounded-md border border-line bg-transparent p-4 text-sm leading-5 text-ink-secondary outline-none placeholder:text-ink-muted focus:border-brand sm:rounded-none sm:border-0 sm:border-b sm:p-0 sm:pb-3";
 ---
 
 <section id="contact-form" class="section-y" {...Astro.props}>
   <div class="container-site">
     <div
-      class="rounded-2xl bg-white p-4 drop-shadow-[0px_4px_100px_rgba(232,249,247,0.2)] sm:p-6 md:p-[15px] lg:p-[15px]"
+      class="rounded-2xl bg-surface p-4 drop-shadow-[0px_4px_100px_rgba(232,249,247,0.2)] sm:p-6 md:p-[15px] lg:p-[15px]"
     >
       <div class="flex flex-col gap-10 md:flex-row md:items-stretch md:gap-8 lg:flex-row lg:items-stretch lg:gap-[57px]">
         <!-- Contact Information panel -->
@@ -66,11 +66,11 @@ const fieldInput =
           <div class="relative z-10 flex flex-col gap-[50px]">
             <div class="flex flex-col gap-3">
               <h2
-                class="text-display-sm-mobile leading-9 font-semibold tracking-tight text-black md:text-display-md md:leading-[44px] lg:text-display-md lg:leading-[44px]"
+                class="text-display-sm-mobile leading-9 font-semibold tracking-tight text-ink md:text-display-md md:leading-[44px] lg:text-display-md lg:leading-[44px]"
               >
                 Contact Information
               </h2>
-              <p class="text-base leading-6 text-gray-500">
+              <p class="text-base leading-6 text-ink-muted">
                 Say something to start a live chat!
               </p>
             </div>
@@ -81,7 +81,7 @@ const fieldInput =
                   <li>
                     <a
                       href={href}
-                      class="flex items-center gap-[25px] text-base leading-normal text-black transition-opacity hover:opacity-70"
+                      class="flex items-center gap-[25px] text-base leading-normal text-ink transition-opacity hover:opacity-70"
                     >
                       <Icon class="size-6 shrink-0" aria-hidden="true" />
                       {label}
@@ -89,7 +89,7 @@ const fieldInput =
                   </li>
                 ))
               }
-              <li class="flex items-start gap-[25px] text-base leading-normal text-black">
+              <li class="flex items-start gap-[25px] text-base leading-normal text-ink">
                 <LocationIcon class="size-6 shrink-0" aria-hidden="true" />
                 <span>50th Floor, Conrad Office Tower, World trade Center<br />Dubai, UAE</span>
               </li>
@@ -152,10 +152,10 @@ const fieldInput =
 
           <fieldset class="m-0 flex flex-col gap-2 border-0 p-0 sm:gap-3.5">
             <legend class={`${fieldLabel} p-0`}>Select Subject?</legend>
-            <div class="flex flex-col gap-4 rounded-md border border-gray-200 p-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3 sm:rounded-none sm:border-0 sm:p-0">
+            <div class="flex flex-col gap-4 rounded-md border border-line p-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3 sm:rounded-none sm:border-0 sm:p-0">
               {
                 subjects.map((subject, index) => (
-                  <label class="has-[:focus-visible]:ring-brand inline-flex cursor-pointer items-center gap-2 rounded-md text-sm leading-normal text-black has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-offset-2 sm:gap-1.5 sm:rounded-full sm:py-1 sm:text-xs sm:leading-5">
+                  <label class="has-[:focus-visible]:ring-brand inline-flex cursor-pointer items-center gap-2 rounded-md text-sm leading-normal text-ink has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-offset-2 sm:gap-1.5 sm:rounded-full sm:py-1 sm:text-xs sm:leading-5">
                     <input
                       type="radio"
                       name="subject"
@@ -186,12 +186,12 @@ const fieldInput =
 
           <button
             type="submit"
-            class="inline-flex w-full items-center justify-center rounded-lg border border-brand bg-brand px-5 py-3 text-base leading-6 font-semibold text-white shadow-xs transition-colors hover:bg-brand-hover sm:w-auto sm:self-start"
+            class="inline-flex w-full items-center justify-center rounded-lg border border-brand bg-brand px-5 py-3 text-base leading-6 font-semibold text-ink-inverse shadow-xs transition-colors hover:bg-brand-hover sm:w-auto sm:self-start"
           >
             Submit Enquiry
           </button>
 
-          <p class="hidden text-sm leading-5 text-gray-600" data-contact-form-message aria-live="polite"></p>
+          <p class="hidden text-sm leading-5 text-ink-secondary" data-contact-form-message aria-live="polite"></p>
         </form>
       </div>
     </div>

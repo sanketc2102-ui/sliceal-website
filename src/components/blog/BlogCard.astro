@@ -12,7 +12,7 @@ const { post } = Astro.props;
       <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-1.5">
           <CalendarIcon class="size-[18px]" aria-hidden="true" />
-          <span class="text-sm leading-sm font-semibold text-gray-500">{post.date}</span>
+          <span class="text-sm leading-sm font-semibold text-ink-muted">{post.date}</span>
         </div>
 
         <span class="inline-flex shrink-0 items-center gap-1 rounded-sm bg-yellow-50 px-2 py-1">
@@ -31,7 +31,7 @@ const { post } = Astro.props;
 
     <button
       type="button"
-      class="flex h-11 w-full items-center justify-center rounded-xl border border-gray-300 text-sm leading-sm font-semibold text-gray-700 transition-colors hover:bg-gray-25"
+      class="flex h-11 w-full items-center justify-center rounded-xl border border-line-strong text-sm leading-sm font-semibold text-gray-700 transition-colors hover:bg-gray-25"
     >
       View Details
     </button>

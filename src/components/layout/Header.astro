@@ -108,8 +108,8 @@ const labelType = "text-sm font-medium leading-normal";
  */
 const motion = "transition-colors duration-200 ease-out";
 const btnBase = `flex h-11 items-center justify-center rounded-md transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-out active:translate-y-0 active:shadow-xs`;
-const btnSecondary = `${btnBase} border border-black text-ink hover:-translate-y-px hover:bg-gray-100 hover:shadow-md ${labelType}`;
-const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white hover:-translate-y-px hover:bg-brand-hover hover:shadow-md ${labelType}`;
+const btnSecondary = `${btnBase} border border-black text-ink hover:-translate-y-px hover:bg-surface-sunken hover:shadow-md ${labelType}`;
+const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-ink-inverse hover:-translate-y-px hover:bg-brand-hover hover:shadow-md ${labelType}`;
 
 // Nav label: colour swap plus an underline that scales out from its centre.
 // `group` lets the active pill (a sibling span) react to hover on the <a>.
@@ -205,14 +205,14 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
 <header
   data-site-header
   class:list={[
-    "sticky top-0 z-50 border-b border-line bg-white",
+    "sticky top-0 z-50 border-b border-line bg-surface",
     "lg:border-b-0 lg:bg-transparent",
     "transition-[background-color,border-color,box-shadow] duration-200",
-    "data-scrolled:bg-white/70 data-scrolled:shadow-xs",
+    "data-scrolled:bg-surface/70 data-scrolled:shadow-xs",
     "data-scrolled:backdrop-blur-xl data-scrolled:backdrop-saturate-150",
     // lg:bg-transparent lives in a media query and outranks the base-layer
     // fill above, so the scrolled frost is restated at lg.
-    "lg:data-scrolled:border-b lg:data-scrolled:bg-white/70",
+    "lg:data-scrolled:border-b lg:data-scrolled:bg-surface/70",
     className,
   ]}
 >
@@ -279,7 +279,7 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
     */}
     <details data-mobile-menu class="group lg:hidden">
       <summary
-        class="relative flex size-[38px] shrink-0 cursor-pointer list-none items-center justify-center rounded-sm bg-gray-100 transition-colors duration-200 ease-out before:absolute before:-inset-[3px] before:content-[''] hover:bg-gray-200 active:bg-gray-300 [&::-webkit-details-marker]:hidden"
+        class="relative flex size-[38px] shrink-0 cursor-pointer list-none items-center justify-center rounded-sm bg-surface-sunken transition-colors duration-200 ease-out before:absolute before:-inset-[3px] before:content-[''] hover:bg-gray-200 active:bg-gray-300 [&::-webkit-details-marker]:hidden"
       >
         <span class="sr-only">Menu</span>
         <MenuIcon class="size-5 group-open:hidden" aria-hidden="true" />
@@ -295,7 +295,7 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
 
       <div
         id="site-menu"
-        class="absolute inset-x-4 top-[calc(100%+2px)] max-h-[calc(100dvh-5.25rem)] overflow-y-auto rounded-2xl bg-white p-5 opacity-100 transition-opacity duration-base starting:opacity-0"
+        class="absolute inset-x-4 top-[calc(100%+2px)] max-h-[calc(100dvh-5.25rem)] overflow-y-auto rounded-2xl bg-surface p-5 opacity-100 transition-opacity duration-base starting:opacity-0"
       >
         <nav aria-label="Mobile">
           <ul>
@@ -306,7 +306,7 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
                     href={href}
                     aria-current={i === menuActiveIndex ? "page" : undefined}
                     class:list={[
-                      "group/row -mx-1.5 flex items-center justify-between gap-3 rounded-lg px-3 py-3 transition-colors duration-200 ease-out hover:bg-gray-100 active:bg-gray-100",
+                      "group/row -mx-1.5 flex items-center justify-between gap-3 rounded-lg px-3 py-3 transition-colors duration-200 ease-out hover:bg-surface-sunken active:bg-surface-sunken",
                       // No blur here: the panel is opaque white, so there is
                       // nothing behind the row for a backdrop-filter to sample.
                       i === menuActiveIndex &&
@@ -314,7 +314,7 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
                     ]}
                   >
                     <span class="flex items-center gap-3">
-                      <span class="flex size-[34px] shrink-0 items-center justify-center rounded-md bg-brand-600">
+                      <span class="flex size-[34px] shrink-0 items-center justify-center rounded-md bg-brand">
                         <Icon class={iconClass} aria-hidden="true" />
                       </span>
                       <span class="flex flex-col gap-0.5">

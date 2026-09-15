@@ -17,18 +17,18 @@ const description =
 <BaseLayout title={title} description={description}>
   <Header slot="header" />
 
-  <section class="bg-white pt-20 pb-14 lg:pb-20">
+  <section class="bg-surface pt-20 pb-14 lg:pb-20">
       <div class="container-site flex flex-col items-center gap-8">
         <div class="flex flex-col items-center gap-6 text-center" data-reveal>
           <Breadcrumb trail={[{ label: "Blogs" }]} />
 
           <h1
-            class="text-display-lg-mobile leading-tight font-medium tracking-tight text-black lg:text-display-xl lg:leading-display-xl"
+            class="text-display-lg-mobile leading-tight font-medium tracking-tight text-ink lg:text-display-xl lg:leading-display-xl"
           >
             Latest Articles
           </h1>
 
-          <p class="max-w-141 text-sm leading-normal font-normal text-gray-600">
+          <p class="max-w-141 text-sm leading-normal font-normal text-ink-secondary">
             Fresh insights from our editorial team.
           </p>
 
@@ -49,8 +49,8 @@ const description =
                   class:list={[
                     "shrink-0 rounded-pill px-5 py-2.5 text-sm leading-sm font-semibold whitespace-nowrap transition-colors",
                     index === 0
-                      ? "bg-brand-600 text-white"
-                      : "border border-gray-200 text-gray-700 hover:bg-gray-25 hover:text-gray-900",
+                      ? "bg-brand text-ink-inverse"
+                      : "border border-line text-gray-700 hover:bg-gray-25 hover:text-gray-900",
                   ]}
                 >
                   {category}
@@ -73,10 +73,10 @@ const description =
 </BaseLayout>
 
 <script>
-  const ACTIVE_TAB_CLASSES = ["bg-brand-600", "text-white"];
+  const ACTIVE_TAB_CLASSES = ["bg-brand", "text-ink-inverse"];
   const INACTIVE_TAB_CLASSES = [
     "border",
-    "border-gray-200",
+    "border-line",
     "text-gray-700",
     "hover:bg-gray-25",
     "hover:text-gray-900",

@@ -4,8 +4,8 @@ import MediaCard from "../cards/MediaCard.astro";
 const { property } = Astro.props;
 
 const tagTone = {
-  neutral: "border-white/20 bg-white/20 text-white",
-  success: "border-white/20 bg-emerald-500/90 text-white",
+  neutral: "border-white/20 bg-surface/20 text-ink-inverse",
+  success: "border-white/20 bg-emerald-500/90 text-ink-inverse",
 };
 ---
 
@@ -21,7 +21,7 @@ const tagTone = {
                 tagTone[tag.tone] ?? tagTone.neutral,
               ]}
             >
-              <span class="size-1.5 rounded-full bg-white/80" aria-hidden="true" />
+              <span class="size-1.5 rounded-full bg-surface/80" aria-hidden="true" />
               <span class="text-[10px] font-bold">{tag.label}</span>
             </span>
           ))
@@ -34,7 +34,7 @@ const tagTone = {
         {
           [property.area, property.type, property.bedrooms, property.bathrooms].map(
             (value) => (
-              <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-white/20 px-3 text-xs text-white backdrop-blur-sm">
+              <span class="inline-flex h-8 shrink-0 items-center rounded-2xl border border-white/20 bg-surface/20 px-3 text-xs text-ink-inverse backdrop-blur-sm">
                 {value}
               </span>
             ),
@@ -49,7 +49,7 @@ const tagTone = {
           <path d="M20 10.5c0 5.5-8 11-8 11s-8-5.5-8-11a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.5" />
           <circle cx="12" cy="10.5" r="2.5" stroke="currentColor" stroke-width="1.5" />
         </svg>
-        <span class="truncate text-sm leading-5 text-gray-600">{property.location}</span>
+        <span class="truncate text-sm leading-5 text-ink-secondary">{property.location}</span>
       </div>
 
       <h3 class="text-lg font-bold leading-7 text-slate-900">{property.title}</h3>

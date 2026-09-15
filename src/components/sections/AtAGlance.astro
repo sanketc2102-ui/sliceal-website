@@ -71,7 +71,7 @@ const stats = [
             text-2xl
             font-normal
             leading-8
-            text-black
+            text-ink
 
             md:text-3xl
             md:leading-[2.375rem]
@@ -94,7 +94,7 @@ const stats = [
           text-sm
           font-normal
           leading-5
-          text-gray-500
+          text-ink-muted
 
           md:max-w-[830px]
 
@@ -141,7 +141,7 @@ const stats = [
           gap-2
           rounded-xl
           border
-          border-gray-200
+          border-line
           p-4
           text-center
 
@@ -165,7 +165,7 @@ const stats = [
           lg:pb-0
           lg:gap-4
         `,
-        stat.highlight ? "bg-brand-25 lg:bg-brand-25" : "bg-white md:bg-transparent lg:bg-transparent",
+        stat.highlight ? "bg-brand-25 lg:bg-brand-25" : "bg-surface md:bg-transparent lg:bg-transparent",
         index % 4 !== 3 && "md:border-r md:border-gray-100 lg:border-r lg:border-gray-100",
         index < 4 && "md:border-b md:border-gray-100 lg:border-b lg:border-gray-100",
       ]}
@@ -198,7 +198,7 @@ const stats = [
 
               {
                 stat.suffix && (
-                  <span class="text-black">
+                  <span class="text-ink">
                     {stat.suffix}
                   </span>
                 )
@@ -212,7 +212,7 @@ const stats = [
                 text-xs
                 font-normal
                 leading-4
-                text-gray-500
+                text-ink-muted
 
                 md:max-w-[176px]
                 md:text-sm

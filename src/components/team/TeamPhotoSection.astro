@@ -12,7 +12,7 @@ import teamGroup from "../../assets/team/team-group.png";
 const { class: className, ...rest } = Astro.props;
 ---
 
-<section class:list={["bg-white", className]} {...rest}>
+<section class:list={["bg-surface", className]} {...rest}>
   <div class="relative">
     {/*
       Mobile: the photo is cropped to a 408x217 card (rounded-lg, no bleed).
@@ -37,7 +37,7 @@ const { class: className, ...rest } = Astro.props;
           fully clear by 16.9% — the soft fade across the top of the heads.
           Desktop only — the mobile card has no top bleed to dissolve. */}
       <div
-        class="pointer-events-none absolute inset-x-0 top-0 hidden h-[17.2%] bg-linear-to-b from-white from-11% to-transparent md:block"
+        class="pointer-events-none absolute inset-x-0 top-0 hidden h-[17.2%] bg-linear-to-b from-surface from-11% to-transparent md:block"
         aria-hidden="true"
       >
       </div>
@@ -89,18 +89,18 @@ const { class: className, ...rest } = Astro.props;
               {isInteractive && (
                 <div
                   id={cardId}
-                  class="absolute top-[calc(100%+16px)] left-1/2 hidden w-42.5 -translate-x-1/2 rounded-lg border border-line bg-white p-3 text-center shadow-popover group-focus-within:block group-data-open:block md:top-[calc(100%+36px)] md:w-75.75 md:px-4 md:pt-5 md:pb-4 md:group-hover:block"
+                  class="absolute top-[calc(100%+16px)] left-1/2 hidden w-42.5 -translate-x-1/2 rounded-lg border border-line bg-surface p-3 text-center shadow-popover group-focus-within:block group-data-open:block md:top-[calc(100%+36px)] md:w-75.75 md:px-4 md:pt-5 md:pb-4 md:group-hover:block"
                 >
                   <p class="text-xs font-semibold text-gray-900 md:text-xl">{member.name}</p>
                   <p class="mt-0.5 truncate text-2xs text-brand md:text-xs md:leading-3.5">
                     {member.role}
                   </p>
-                  <p class="mt-2 text-2xs font-semibold text-gray-600 md:mt-3 md:text-sm">
+                  <p class="mt-2 text-2xs font-semibold text-ink-secondary md:mt-3 md:text-sm">
                     {member.bio}
                   </p>
 
                   <span
-                    class="absolute -top-3 left-1/2 size-0 -translate-x-1/2 border-x-[12px] border-b-[15px] border-x-transparent border-b-white md:-top-4.5 md:border-x-[15.16px] md:border-b-[19.5px]"
+                    class="absolute -top-3 left-1/2 size-0 -translate-x-1/2 border-x-[12px] border-b-[15px] border-x-transparent border-b-surface md:-top-4.5 md:border-x-[15.16px] md:border-b-[19.5px]"
                     aria-hidden="true"
                   />
                 </div>

@@ -83,7 +83,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
       steps.map(({ icon, title, description }, i) => (
         <li
           class:list={[
-            "flex flex-col gap-4 rounded-xl border border-line bg-white p-4 lg:gap-[1.125rem] lg:rounded-none lg:p-[1.875rem]",
+            "flex flex-col gap-4 rounded-xl border border-line bg-surface p-4 lg:gap-[1.125rem] lg:rounded-none lg:p-[1.875rem]",
             i === 0 && "lg:rounded-l-xl",
             i === steps.length - 1 && "lg:rounded-r-lg",
           ]}

@@ -68,10 +68,10 @@ const stackCap = "lg:mx-0 lg:max-w-none";
       graphic panel carries a fill — sampled off both frames.
     */}
     <div
-      class="overflow-hidden rounded-2xl border border-line bg-white md:col-start-2 md:row-start-1 md:row-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:ml-auto lg:w-full lg:max-w-[37.4375rem] lg:bg-transparent"
+      class="overflow-hidden rounded-2xl border border-line bg-surface md:col-start-2 md:row-start-1 md:row-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:ml-auto lg:w-full lg:max-w-[37.4375rem] lg:bg-transparent"
     >
       <div
-        class="relative aspect-[408/220] border-b border-line bg-slate-50 md:aspect-433/394 md:border-[1.875rem] md:border-white lg:aspect-[598/566] lg:border-x-0 lg:border-t-0 lg:border-b lg:border-line"
+        class="relative aspect-[408/220] border-b border-line bg-slate-50 md:aspect-433/394 md:border-[1.875rem] md:border-surface lg:aspect-[598/566] lg:border-x-0 lg:border-t-0 lg:border-b lg:border-line"
       >
         {/*
           The tablet frame insets the video in a white margin instead of
@@ -143,7 +143,7 @@ const stackCap = "lg:mx-0 lg:max-w-none";
             class:list={[
               /* Longhand border sides only: `border-0` plus `border-l-[3px]`
                  is a shorthand/longhand ordering gamble in the generated CSS. */
-              "rounded-lg border border-line bg-white p-4 md:rounded-none md:border-y-0 md:border-r-0 md:px-5 md:py-4 lg:rounded-none lg:border-y-0 lg:border-r-0 lg:px-5 lg:py-4",
+              "rounded-lg border border-line bg-surface p-4 md:rounded-none md:border-y-0 md:border-r-0 md:px-5 md:py-4 lg:rounded-none lg:border-y-0 lg:border-r-0 lg:px-5 lg:py-4",
               /* The lg background lives in both branches on purpose: pairing a
                  shared lg:bg-transparent with a branch lg:bg-gray-200 is a
                  same-variant collision the generated CSS order decides. */
