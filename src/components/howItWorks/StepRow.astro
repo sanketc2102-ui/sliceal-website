@@ -22,10 +22,10 @@ const { reverse = false, eyebrow, class: className = "" } = Astro.props;
   >
     {eyebrow && (
       <div class="flex items-center gap-2">
-        <span class="text-xs font-bold tracking-wide text-indigo-500 md:text-sm">
+        <span class="text-xs font-bold tracking-wide text-indigo-500 dark:text-mint-500 md:text-sm">
           {eyebrow}
         </span>
-        <span class="h-px w-3.5 bg-indigo-500 md:w-8 lg:w-8 lg:bg-gray-200" aria-hidden="true"></span>
+        <span class="h-px w-3.5 bg-indigo-500 dark:bg-mint-500 md:w-8 lg:w-8 lg:bg-gray-200" aria-hidden="true"></span>
       </div>
     )}
     <slot />
