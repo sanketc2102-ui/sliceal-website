@@ -78,7 +78,7 @@ const milestones = [
               class:list={[
                 "size-3 shrink-0 rounded-full border-2",
                 milestone.current
-                  ? "border-emerald-500 bg-emerald-500/10"
+                  ? "border-emerald-500 bg-emerald-500/10 dark:border-mint-500 dark:bg-mint-500/10"
                   : "border-indigo-500 bg-indigo-600/20",
               ]}
             />
@@ -87,7 +87,7 @@ const milestones = [
             </time>
           </div>
 
-          <article class="flex flex-col gap-3 rounded-xl border border-line bg-neutral-50 p-4">
+          <article class="flex flex-col gap-3 rounded-xl border border-line bg-surface p-4">
             <h3 class="text-base leading-6 text-ink">
               {milestone.title}
             </h3>
@@ -99,7 +99,7 @@ const milestones = [
            <span
             class:list={[
               "self-start rounded-md border border-line px-2 py-1 text-xs leading-4",
-              milestone.current ? "text-emerald-500" : "text-indigo-500",
+              milestone.current ? "text-emerald-500 dark:text-mint-500" : "text-indigo-500",
             ]}
           >
             {milestone.stat}
@@ -121,7 +121,7 @@ const milestones = [
               class:list={[
                 "size-6 shrink-0 rounded-full border-2",
                 milestone.current
-                  ? "border-emerald-500 bg-emerald-500/10"
+                  ? "border-emerald-500 bg-emerald-500/10 dark:border-mint-500 dark:bg-mint-500/10"
                   : "border-indigo-500 bg-indigo-600/20",
               ]}
             />
@@ -159,7 +159,7 @@ const milestones = [
             <span
               class:list={[
                 "mt-auto self-start rounded-lg border border-line px-3 py-1.5 text-sm font-semibold leading-5",
-                milestone.current ? "text-emerald-500" : "text-indigo-500",
+                milestone.current ? "text-emerald-500 dark:text-mint-500" : "text-indigo-500",
               ]}
             >
               {milestone.stat}
