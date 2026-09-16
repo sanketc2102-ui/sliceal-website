@@ -20,12 +20,14 @@ const stats = [
     accent: "%",
     suffix: " p.a.",
     description: "Average Capital Appreciation",
+    countable: false,
   },
   {
     value: "6–10",
     accent: "%",
     suffix: " p.a.",
     description: "Average rental yield distributed",
+    countable: false,
   },
   {
     value: "AED 2,000",
@@ -39,6 +41,7 @@ const stats = [
   {
     value: "24/7",
     description: "Secondary market trading",
+    countable: false,
   },
   {
     value: "100",
@@ -186,7 +189,7 @@ const stats = [
                 lg:leading-8
               "
             >
-              <span>{stat.value}</span>
+              <span data-count={stat.countable === false ? undefined : true}>{stat.value}</span>
 
               {
                 stat.accent && (

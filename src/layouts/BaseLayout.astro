@@ -142,11 +142,13 @@ const fade = {
 
     <script>
       import { initReveal } from "../scripts/reveal.js";
+      import { initCountUp } from "../scripts/count-up.js";
 
       // `astro:page-load` fires after the initial load AND after every
       // subsequent navigation, so this one listener covers both — same
       // re-init pattern as Header.astro's initHeader.
       document.addEventListener("astro:page-load", initReveal);
+      document.addEventListener("astro:page-load", initCountUp);
     </script>
   </body>
 </html>

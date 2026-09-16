@@ -9,6 +9,7 @@ const {
   description,
   value,
   label,
+  countable = true,
 } = Astro.props;
 
 import { Image } from "astro:assets";
@@ -104,6 +105,7 @@ import { Image } from "astro:assets";
 
         md:font-semibold
       "
+      data-count={countable ? true : undefined}
     >
       {value}
     </div>
