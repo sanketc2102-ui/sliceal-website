@@ -63,7 +63,12 @@ const Chevron = dark ? ChevronIconWhite : ChevronIcon;
 
         return (
           <li class="flex min-w-0 items-center gap-1">
-            {index > 0 && <Chevron class="size-3 shrink-0" aria-hidden="true" />}
+            {index > 0 && (
+              <Chevron
+                class:list={["size-3 shrink-0", dark ? "text-ink-inverse" : "text-ink-muted"]}
+                aria-hidden="true"
+              />
+            )}
 
             {isLast || !crumb.href ? (
               <span
