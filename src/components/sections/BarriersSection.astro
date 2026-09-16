@@ -25,7 +25,7 @@ const barriers = [
 ];
 
 const eyebrow =
-  "rounded-[40px] border border-line px-3 py-1.5 text-xs leading-[0.875rem] text-brand-purple lg:text-sm lg:leading-5";
+  "rounded-[40px] border border-line-brand px-3 py-1.5 text-xs leading-[0.875rem] text-text-brand lg:text-sm lg:leading-5";
 
 // Reveal is applied per-card below (same convention as
 // SecurityComplianceOverview.astro) so the 4 barriers cascade in one after
@@ -209,6 +209,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
                   text-gray-900
 
                   lg:text-2xl
+                  lg:text-ink
                   lg:leading-8
                 "
               >
@@ -255,7 +256,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
         <p class={eyebrow}>OUR MISSION</p>
 
         <div class="flex flex-col gap-3">
-          <h3 class="text-xl font-normal leading-7 text-gray-900 md:text-display-sm md:font-semibold">
+          <h3 class="text-xl font-normal leading-7 text-ink md:text-display-sm md:font-semibold">
             Making real estate ownership borderless
           </h3>
 

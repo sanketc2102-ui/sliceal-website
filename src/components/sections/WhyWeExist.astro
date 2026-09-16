@@ -21,7 +21,7 @@ const pillars = [
 ];
 
 const eyebrow =
-  "rounded-pill border border-line px-3 py-1.5 text-xs/[0.875rem] text-brand-purple md:text-sm/5 md:font-semibold md:shadow-pill lg:text-sm/5 lg:font-semibold lg:shadow-pill";
+  "rounded-pill border border-line-brand px-3 py-1.5 text-xs/[0.875rem] text-text-brand md:text-sm/5 md:font-semibold md:shadow-pill lg:text-sm/5 lg:font-semibold lg:shadow-pill";
 
 // Tablet frame (node 30859:64242): headline keeps its 655px design width.
 const headlineMeasureMd = "md:max-w-[40.9375rem]";
@@ -36,7 +36,7 @@ const headlineMeasureMd = "md:max-w-[40.9375rem]";
     <h2
       class:list={[
         headlineMeasureMd,
-        "text-display-sm-mobile leading-[2.125rem] font-normal tracking-normal text-gray-900 md:text-display-sm md:font-semibold md:tracking-tight md:text-ink lg:max-w-[40.9375rem] lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight lg:text-ink",
+        "text-display-sm-mobile leading-[2.125rem] font-normal tracking-normal text-ink md:text-display-sm md:font-semibold md:tracking-tight md:text-ink lg:max-w-[40.9375rem] lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight lg:text-ink",
       ]}
     >
       Real estate was illiquid, opaque and closed.{" "}
@@ -60,7 +60,7 @@ const headlineMeasureMd = "md:max-w-[40.9375rem]";
             {number}
           </span>
           <div class="flex flex-col gap-3">
-            <h3 class="text-xl font-semibold tracking-normal text-gray-900 md:text-display-xs md:font-medium md:text-brand-950 lg:text-display-xs lg:font-medium lg:text-brand-950">
+            <h3 class="text-xl font-semibold tracking-normal text-ink md:text-display-xs md:font-medium lg:text-display-xs lg:font-medium">
               {title}
             </h3>
             <p class="text-sm text-ink-secondary lg:max-w-[22.375rem] lg:text-[0.9375rem] lg:leading-normal">

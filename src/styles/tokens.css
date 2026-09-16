@@ -138,6 +138,7 @@
   --color-surface-alt: var(--color-off-white); /* alternating sections */
   --color-surface-sunken: var(--color-gray-100);
   --color-surface-dark: var(--color-brand-950);
+  --color-surface-fixed: var(--color-white); /* theme-invariant — no dark override */
 
   --color-border: var(--color-gray-200); /* hairlines, dividers */
   --color-border-card: var(--color-slate-200); /* media card outline  */
@@ -390,4 +391,45 @@
   --z-header: 50;
   --z-drawer: 60;
   --z-modal: 70;
+}
+
+/* ==========================================================================
+   Dark mode — OS preference only (no manual toggle, no JS).
+   Redeclares the semantic roles from section 4 above with dark-mode values.
+   Raw ramp tokens (--color-gray-*, --color-brand-*, --color-mint-*, …) are
+   unchanged; --color-surface-dark and --color-surface-fixed are intentionally
+   not overridden — they're already correct/invariant in both themes.
+   Source: Figma "Website - v4 Dark" canvas, node 31010:153892.
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: var(--color-white);
+    --color-text-secondary: var(--color-gray-400);
+    --color-text-muted: var(--color-gray-500);
+    --color-text-inverse: var(--color-black);
+    --color-text-brand: var(--color-mint-500);
+
+    --color-ink: var(--color-white);
+    --color-ink-secondary: var(--color-gray-400);
+    --color-ink-muted: var(--color-gray-500);
+    --color-ink-inverse: var(--color-black);
+
+    --color-surface: var(--color-charcoal);
+    --color-surface-alt: var(--color-gray-900);
+    --color-surface-sunken: var(--color-gray-800);
+
+    --color-border: var(--color-gray-800);
+    --color-border-card: var(--color-gray-700);
+    --color-border-strong: var(--color-gray-600);
+    --color-border-brand: var(--color-mint-500);
+
+    --color-line: var(--color-gray-800);
+    --color-line-card: var(--color-gray-700);
+    --color-line-strong: var(--color-gray-600);
+    --color-line-brand: var(--color-mint-500);
+
+    --color-control-disabled-bg: var(--color-gray-800);
+    --color-control-disabled-fg: var(--color-gray-600);
+    --color-surface-selected: var(--color-gray-800);
+  }
 }

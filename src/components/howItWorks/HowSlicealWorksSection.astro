@@ -50,7 +50,7 @@ const {
     {breadcrumb && <Breadcrumb trail={breadcrumb} />}
 
     <HeadingTag
-      class="w-full max-w-[680px] text-center text-2xl leading-8 text-gray-900 md:text-[30px] md:leading-[38px] lg:text-5xl lg:leading-[60px]"
+      class="w-full max-w-[680px] text-center text-2xl leading-8 text-ink md:text-[30px] md:leading-[38px] lg:text-5xl lg:leading-[60px]"
     >
       <slot />
     </HeadingTag>
@@ -67,7 +67,7 @@ const {
       steps.map((step, i) => (
         <StepRow eyebrow={step.eyebrow} reverse={alternate && i % 2 === 1}>
           <div class="contents md:flex md:flex-col md:items-start md:gap-0 lg:flex lg:flex-col lg:items-start lg:gap-0">
-            <h3 class="max-w-xl text-lg leading-7 text-gray-900 md:text-[30px] md:leading-[38px] lg:text-3xl lg:leading-9">
+            <h3 class="max-w-xl text-lg leading-7 text-ink md:text-[30px] md:leading-[38px] lg:text-3xl lg:leading-9">
               {step.highlight ? (
                 <>
                   {step.prefix}
@@ -112,7 +112,7 @@ const {
               <div class="flex w-full max-w-xl flex-wrap gap-3 md:mt-[18px] lg:mt-[18px]">
                 {step.stats.map((stat) => (
                   <div class="flex min-w-[9rem] flex-1 flex-col items-left gap-1 rounded-xl border border-line bg-surface px-3 py-2 shadow-[0_0_3px_rgba(0,0,0,0.1)] md:flex-none md:basis-[calc(50%-6px)]">
-                    <p class="text-xl font-semibold text-gray-900 md:text-2xl lg:text-2xl">
+                    <p class="text-xl font-semibold text-ink md:text-2xl lg:text-2xl">
                       {stat.value}
                       <span class="text-brand-purple">{stat.suffix}</span>
                     </p>

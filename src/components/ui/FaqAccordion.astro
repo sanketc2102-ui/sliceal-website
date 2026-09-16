@@ -22,11 +22,11 @@ const tabId = (categoryId) => `${instanceId}-tab-${categoryId}`;
 const panelId = (categoryId) => `${instanceId}-panel-${categoryId}`;
 
 const activeTabClasses =
-  "bg-brand text-ink-inverse outline outline-2 outline-offset-[-2px] outline-brand-400";
+  "bg-brand text-white outline outline-2 outline-offset-[-2px] outline-brand-400";
 const inactiveTabClasses =
   "text-ink border-b border-line hover:bg-surface-alt hover:text-ink";
 
-const activeChipClasses = "border border-transparent bg-brand text-ink-inverse";
+const activeChipClasses = "border border-transparent bg-brand text-white";
 const inactiveChipClasses =
   "border border-line text-ink-secondary hover:bg-surface-alt hover:text-ink";
 ---
@@ -134,7 +134,7 @@ const inactiveChipClasses =
 <script>
   const ACTIVE_TAB_CLASSES = [
     "bg-brand",
-    "text-ink-inverse",
+    "text-white",
     "outline",
     "outline-2",
     "outline-offset-[-2px]",
@@ -151,7 +151,7 @@ const inactiveChipClasses =
     "border",
     "border-transparent",
     "bg-brand",
-    "text-ink-inverse",
+    "text-white",
   ];
   const INACTIVE_CHIP_CLASSES = [
     "border",

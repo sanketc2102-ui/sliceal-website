@@ -11,6 +11,12 @@
 @import "tailwindcss";
 @import "./tokens.css";
 
+/* Dark mode is OS-preference only (see tokens.css) — there's no JS-driven
+   class/attribute to key a Tailwind variant off, so declare `dark:` directly
+   against the media query. Used sparingly, only where a structural change
+   (not just a color swap) is needed and the token layer alone can't do it. */
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
 /* --------------------------------------------------------------------------
    Theme bridge: none needed.
 
@@ -64,6 +70,7 @@
     scroll-behavior: smooth;
     /* offset anchor jumps so the sticky header never covers the target */
     scroll-padding-top: var(--header-height);
+    color-scheme: light dark;
   }
 
   body {

@@ -1,9 +1,28 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import heroPhoto from "../../assets/hero-app-in-hand.webp";
+import heroPhotoDark from "../../assets/hero-app-in-hand-dark.png";
 import Vara from "../../assets/logos/vara.svg";
+import VaraDark from "../../assets/logos/vara-dark.svg";
 import Dld from "../../assets/logos/dld.svg";
+import DldDark from "../../assets/logos/dld-dark.svg";
 import Dot from "../../assets/icons/radio-button-checked.svg";
+
+/*
+ * The dark-mode hero photo (Figma "Website - v4 Dark", node 31010:153893) is a
+ * different source image, not a CSS filter over the light one — its backdrop is
+ * genuinely black, where the light asset's is off-white. Astro's <Image> can't
+ * pick a source from a media query, so the dark variant is a hand-built srcset
+ * on a <picture><source media="(prefers-color-scheme: dark)"> pointed at
+ * <Image>'s light output, matching its widths so neither theme downloads both.
+ */
+const heroPhotoWidths = [440, 880, 1320, 1760, 2752];
+const heroPhotoDarkVariants = await Promise.all(
+  heroPhotoWidths.map((width) => getImage({ src: heroPhotoDark, width, format: "webp" })),
+);
+const heroPhotoDarkSrcset = heroPhotoDarkVariants
+  .map((img) => `${img.src} ${img.attributes.width}w`)
+  .join(", ");
 
 /*
  * `prefix` is the small "AED" that leads the second figure — 20px against the
@@ -30,7 +49,7 @@ const btnBase =
 
 
 <section
-  class="relative isolate flex flex-col overflow-hidden bg-surface-alt md:block md:aspect-[1024/625] lg:-mt-20 lg:block lg:aspect-auto lg:min-h-[clamp(55rem,100dvh,61.375rem)]"
+  class="relative isolate flex flex-col overflow-hidden bg-surface-alt dark:bg-black md:block md:aspect-[1024/625] lg:-mt-20 lg:block lg:aspect-auto lg:min-h-[clamp(55rem,100dvh,61.375rem)]"
   {...Astro.props}
 >
 
@@ -78,7 +97,7 @@ const btnBase =
             href="/properties"
             class:list={[
               btnBase,
-              "flex-1 border border-brand-purple bg-brand-purple text-ink-inverse shadow-xs transition-colors hover:border-brand-800 hover:bg-brand-800 md:w-[12.3125rem] md:flex-none lg:w-56 lg:flex-none",
+              "flex-1 border border-brand-purple bg-brand-purple text-white shadow-xs transition-colors hover:border-brand-800 hover:bg-brand-800 md:w-[12.3125rem] md:flex-none lg:w-56 lg:flex-none",
             ]}
           >
             Explore Properties
@@ -100,15 +119,23 @@ const btnBase =
     <div
       class="relative -z-10 order-2 aspect-[440/339] overflow-hidden sm:aspect-3/2 sm:max-h-[32rem] md:absolute md:top-0 md:right-0 md:aspect-auto md:h-full md:w-full md:max-h-none md:max-w-none lg:absolute lg:top-[4.52%] lg:right-[-9.33%] lg:aspect-auto lg:h-[83.86%] lg:max-h-none lg:w-[97.58%] lg:max-w-[92.1875rem]"
     >
-      <Image
-        src={heroPhoto}
-        alt="A hand holding a phone with the Sliceal app open on a tokenized two-bedroom apartment in Palm Jumeirah, Dubai."
-        widths={[440, 880, 1320, 1760, 2752]}
-        sizes="(min-width: 1024px) 98vw, 100vw"
-        loading="eager"
-        fetchpriority="high"
-        class="size-full object-cover object-[88%_50%] sm:object-[70%_50%] md:object-center lg:object-center 2xl:[mask-image:linear-gradient(to_right,transparent,#000_10%)]"
-      />
+      <picture class="contents">
+        <source
+          media="(prefers-color-scheme: dark)"
+          type="image/webp"
+          srcset={heroPhotoDarkSrcset}
+          sizes="(min-width: 1024px) 98vw, 100vw"
+        />
+        <Image
+          src={heroPhoto}
+          alt="A hand holding a phone with the Sliceal app open on a tokenized two-bedroom apartment in Palm Jumeirah, Dubai."
+          widths={[440, 880, 1320, 1760, 2752]}
+          sizes="(min-width: 1024px) 98vw, 100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="size-full object-cover object-[88%_50%] sm:object-[70%_50%] md:object-center lg:object-center 2xl:[mask-image:linear-gradient(to_right,transparent,#000_10%)]"
+        />
+      </picture>
     </div>
 
 
@@ -118,13 +145,18 @@ const btnBase =
       <div class="container-site py-5 md:py-0 lg:py-0">
 
         <div
-          class="mx-auto flex max-w-full flex-wrap items-center justify-center gap-3 min-[440px]:gap-4 md:mx-0 md:w-fit md:max-w-none md:flex-nowrap md:justify-start md:gap-6 md:rounded-lg md:bg-surface md:p-5 md:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] lg:mx-0 lg:w-fit lg:max-w-none lg:flex-nowrap lg:justify-start lg:gap-6 lg:rounded-lg lg:bg-surface lg:p-5 lg:shadow-[0_0_2.5px_rgb(0_0_0/0.1)]"
+          class="mx-auto flex max-w-full flex-wrap items-center justify-center gap-3 min-[440px]:gap-4 md:mx-0 md:w-fit md:max-w-none md:flex-nowrap md:justify-start md:gap-6 md:rounded-lg md:bg-surface md:p-5 md:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] md:dark:border md:dark:border-line-strong lg:mx-0 lg:w-fit lg:max-w-none lg:flex-nowrap lg:justify-start lg:gap-6 lg:rounded-lg lg:bg-surface lg:p-5 lg:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] lg:dark:border lg:dark:border-line-strong"
         >
           <div
             class="rounded-lg border border-line bg-surface/30 p-4 min-[440px]:p-5 md:rounded-none md:border-0 md:bg-transparent md:p-0 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0"
           >
             <Vara
-              class="h-8 w-[100px] min-[440px]:h-[38px] min-[440px]:w-[119px]"
+              class="h-8 w-[100px] dark:hidden min-[440px]:h-[38px] min-[440px]:w-[119px]"
+              role="img"
+              aria-label="Virtual Assets Regulatory Authority"
+            />
+            <VaraDark
+              class="hidden h-8 w-[100px] dark:block min-[440px]:h-[38px] min-[440px]:w-[119px]"
               role="img"
               aria-label="Virtual Assets Regulatory Authority"
             />
@@ -133,7 +165,12 @@ const btnBase =
             class="rounded-lg border border-line bg-surface/30 p-4 min-[440px]:p-5 md:rounded-none md:border-0 md:bg-transparent md:p-0 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0"
           >
             <Dld
-              class="h-8 w-[136px] min-[440px]:h-[38px] min-[440px]:w-[161px]"
+              class="h-8 w-[136px] dark:hidden min-[440px]:h-[38px] min-[440px]:w-[161px]"
+              role="img"
+              aria-label="Dubai Land Department"
+            />
+            <DldDark
+              class="hidden h-8 w-[136px] dark:block min-[440px]:h-[38px] min-[440px]:w-[161px]"
               role="img"
               aria-label="Dubai Land Department"
             />
@@ -156,11 +193,11 @@ const btnBase =
       /* dt precedes dd as the spec requires; `order` puts the figure on top. */
       stats.map(({ prefix, value, accent, label }) => (
         <div class="flex min-h-[5.6875rem] flex-col items-center justify-center gap-1 border-b border-l border-line p-4 text-center lg:min-h-[9.75rem] lg:gap-2.5 lg:px-[1.875rem] lg:py-2.5">
-          <dt class="order-2 text-sm leading-tight text-ink-muted lg:text-md lg:leading-md">
+          <dt class="order-2 text-sm leading-tight text-ink-muted lg:text-md lg:leading-md dark:text-off-white">
             {label}
           </dt>
           {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
-          <dd class="order-1 m-0 text-display-lg-mobile leading-[1.1875] font-normal tracking-tight text-gray-900 lg:text-display-lg lg:leading-display-lg lg:font-medium">
+          <dd class="order-1 m-0 text-display-lg-mobile leading-[1.1875] font-normal tracking-tight text-ink lg:text-display-lg lg:leading-display-lg lg:font-medium">
             {prefix && (
               <span class="text-sm font-semibold lg:text-xl">{prefix} </span>
             )}

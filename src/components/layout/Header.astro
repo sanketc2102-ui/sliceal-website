@@ -108,8 +108,8 @@ const labelType = "text-sm font-medium leading-normal";
  */
 const motion = "transition-colors duration-200 ease-out";
 const btnBase = `flex h-11 items-center justify-center rounded-md transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-out active:translate-y-0 active:shadow-xs`;
-const btnSecondary = `${btnBase} border border-black text-ink hover:-translate-y-px hover:bg-surface-sunken hover:shadow-md ${labelType}`;
-const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-ink-inverse hover:-translate-y-px hover:bg-brand-hover hover:shadow-md ${labelType}`;
+const btnSecondary = `${btnBase} border border-line-strong text-ink hover:-translate-y-px hover:bg-surface-sunken hover:shadow-md ${labelType}`;
+const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white hover:-translate-y-px hover:bg-brand-hover hover:shadow-md ${labelType}`;
 
 // Nav label: colour swap plus an underline that scales out from its centre.
 // `group` lets the active pill (a sibling span) react to hover on the <a>.
@@ -321,7 +321,7 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
                         <span
                           class:list={[
                             "text-sm font-medium",
-                            i === menuActiveIndex ? "text-brand" : "text-gray-900",
+                            i === menuActiveIndex ? "text-brand" : "text-ink",
                           ]}
                         >
                           {label}
