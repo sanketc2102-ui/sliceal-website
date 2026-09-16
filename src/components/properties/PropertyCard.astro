@@ -7,7 +7,7 @@ const { property } = Astro.props;
 ---
 
 <article
-  class="property-card group w-full shrink-0 overflow-hidden rounded-3xl border border-line-card/60 bg-surface shadow-[0px_1px_2px_-1px_rgba(0,0,0,0.10),0px_1px_3px_0px_rgba(0,0,0,0.10)] sm:w-[384px] md:w-[calc(50%-12px)] lg:w-[384px]"
+  class="property-card group w-full shrink-0 overflow-hidden rounded-3xl border border-line-card/60 bg-surface shadow-[0px_1px_2px_-1px_rgba(0,0,0,0.10),0px_1px_3px_0px_rgba(0,0,0,0.10)] transition-[transform,box-shadow] duration-300 ease-out will-change-transform hover:-translate-y-2 hover:shadow-float sm:w-[384px] md:w-[calc(50%-12px)] lg:w-[384px]"
 >
   <!-- Image -->
   <div class="relative h-56 overflow-hidden">
