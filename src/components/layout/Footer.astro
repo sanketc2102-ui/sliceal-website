@@ -12,6 +12,13 @@ import linkedIn from "../../assets/socials/LinkedIn.svg";
 import x from "../../assets/socials/X.svg";
 import yt from "../../assets/socials/Youtube.svg";
 
+// dark-mode variants (baked white fill, same convention as arrow_back_ios_new_white.svg)
+import fbWhite from "../../assets/socials/Facebook_white.svg";
+import instaWhite from "../../assets/socials/Instagram_white.svg";
+import linkedInWhite from "../../assets/socials/LinkedIn_white.svg";
+import xWhite from "../../assets/socials/X_white.svg";
+import ytWhite from "../../assets/socials/Youtube_white.svg";
+
 // Links resolve to real pages in src/pages/. Entries still on "#" have no page
 // yet (no Security, Blog, Career, or Contact route) — point them at a route the
 // moment one lands.
@@ -35,26 +42,31 @@ const socialLinks = [
     label: "Facebook",
     href: "#",
     icon: fb,
+    iconDark: fbWhite,
   },
   {
     label: "Instagram",
     href: "#",
     icon: insta,
+    iconDark: instaWhite,
   },
   {
     label: "X",
     href: "#",
     icon: x,
+    iconDark: xWhite,
   },
   {
     label: "LinkedIn",
     href: "#",
     icon: linkedIn,
+    iconDark: linkedInWhite,
   },
   {
     label: "YouTube",
     href: "#",
     icon: yt,
+    iconDark: ytWhite,
   },
 ];
 ---
@@ -397,7 +409,14 @@ const socialLinks = [
                           alt=""
                           width={24}
                           height={24}
-                          class="h-6 w-6 shrink-0"
+                          class="h-6 w-6 shrink-0 dark:hidden"
+                        />
+                        <Image
+                          src={social.iconDark}
+                          alt=""
+                          width={24}
+                          height={24}
+                          class="hidden h-6 w-6 shrink-0 dark:block"
                         />
 
                         <span>{social.label}</span>
@@ -546,7 +565,14 @@ const socialLinks = [
                       alt=""
                       width={24}
                       height={24}
-                      class="h-6 w-6"
+                      class="h-6 w-6 dark:hidden"
+                    />
+                    <Image
+                      src={social.iconDark}
+                      alt=""
+                      width={24}
+                      height={24}
+                      class="hidden h-6 w-6 dark:block"
                     />
                   </a>
                 ))
