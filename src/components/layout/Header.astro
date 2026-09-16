@@ -150,9 +150,12 @@ const navActiveText = "text-brand after:hidden";
 // out patch for the slide's whole duration. Per the comment above, the tint
 // alone already carries every page this pill appears on (never the
 // transparent home-page state), so dropping the filter loses nothing.
+// Dark mode has its own reference now (node 31010:131756): a transparent
+// pill with only the brand-25 border + shadow-nav, no fill tint.
 const navPill = `pointer-events-none absolute -inset-x-2.5 inset-y-0 -z-10
   rounded-pill bg-brand-25/70 shadow-nav ring-1 ring-brand-25
-  group-hover:bg-brand-25`;
+  group-hover:bg-brand-25
+  dark:bg-transparent dark:group-hover:bg-brand-25/20`;
 
 /*
  * Exact match for "/", prefix match for everything else (so /properties/burj
