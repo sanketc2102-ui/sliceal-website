@@ -35,22 +35,28 @@ const btnBase =
   {...Astro.props}
 >
   <div class="flex w-full flex-col items-center gap-6 text-center md:w-[44%] md:items-start md:gap-8 md:text-left lg:w-[45.375rem] lg:items-start lg:gap-8 lg:text-left">
-    <p class="text-sm font-semibold text-ink-muted">
+    <p class="text-sm font-semibold text-ink-muted" data-reveal>
       <span aria-hidden="true">•</span> Dubai Land Department Verified
     </p>
 
     <div class="flex flex-col gap-4">
-      <h1 class="text-xl leading-xl font-semibold text-ink md:text-display-sm md:leading-display-sm lg:text-display-xl lg:leading-display-xl lg:tracking-tight lg:font-medium">
+      <h1
+        class="text-xl leading-xl font-semibold text-ink md:text-display-sm md:leading-display-sm lg:text-display-xl lg:leading-display-xl lg:tracking-tight lg:font-medium"
+        data-reveal
+      >
         Sell Your Property on Sliceal
       </h1>
 
-      <p class="text-sm leading-sm text-ink-secondary md:text-ink-muted lg:text-lg lg:leading-lg lg:text-ink-muted">
+      <p
+        class="text-sm leading-sm text-ink-secondary md:text-ink-muted lg:text-lg lg:leading-lg lg:text-ink-muted"
+        data-reveal
+      >
         Reach a growing pool of verified investors through fractional ownership. List your
         property in minutes and start raising capital from verified buyers.
       </p>
     </div>
 
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4" data-reveal>
       <a
         href="#"
         class:list={[btnBase, "border-brand bg-brand text-white hover:bg-brand-hover"]}
@@ -71,6 +77,7 @@ const btnBase =
       cardShadow,
       "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-surface-alt p-4 md:w-[47%] md:min-w-[19rem] lg:w-[32.5rem] lg:p-6",
     ]}
+    data-reveal
   >
     <div class="relative h-80 w-full overflow-hidden rounded-lg md:h-[14.5rem] lg:h-80">
       <Image

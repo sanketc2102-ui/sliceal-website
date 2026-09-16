@@ -69,7 +69,7 @@ const cardShadow =
   {...Astro.props}
 >
   <div class="flex flex-col gap-6 md:w-[44%] md:min-w-[25rem] md:grow md:shrink md:gap-8 2xl:max-w-[43rem]">
-    <p class="text-center text-sm font-semibold text-ink-muted md:text-left lg:text-left">
+    <p class="text-center text-sm font-semibold text-ink-muted md:text-left lg:text-left" data-reveal>
       <span aria-hidden="true">•</span> Dubai Land Department Verified
     </p>
 
@@ -82,6 +82,7 @@ const cardShadow =
       */}
       <h1
         class="text-center text-display-lg-mobile leading-10 tracking-tight md:text-left md:text-display-sm md:leading-display-sm md:tracking-normal 2xl:max-w-[43rem] 2xl:text-display-xl 2xl:leading-display-xl 2xl:tracking-tight"
+        data-reveal
       >
         Build premium wealth with <span class="text-brand">fractional</span> real
         estate.
@@ -89,6 +90,7 @@ const cardShadow =
 
       <p
         class="max-w-[40rem] text-center text-md leading-md text-ink-muted md:max-w-none md:text-left md:text-sm md:leading-sm 2xl:text-lg 2xl:leading-lg"
+        data-reveal
       >
         Diversify your portfolio across Dubai’s most sought-after properties.
         Start investing from just AED 2,000 with institutional-grade due
@@ -96,7 +98,7 @@ const cardShadow =
       </p>
     </div>
 
-    <div class="flex items-center gap-2 sm:gap-3 md:gap-4 lg:gap-4">
+    <div class="flex items-center gap-2 sm:gap-3 md:gap-4 lg:gap-4" data-reveal>
       <a
         href="/properties"
         class:list={[btnBase, "border border-brand bg-brand text-white hover:bg-brand-hover"]}
@@ -121,6 +123,7 @@ const cardShadow =
       cardShadow,
       "flex w-full shrink-0 flex-col gap-5 rounded-2xl border border-line bg-surface p-6 md:w-[45%] md:grow md:min-w-[19rem] 2xl:w-[32.5rem] 2xl:grow-0",
     ]}
+    data-reveal
   >
     <div class="flex items-center gap-3">
       <Image
