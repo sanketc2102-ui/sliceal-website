@@ -34,6 +34,10 @@ import Breadcrumb from "../ui/Breadcrumb.astro";
  * @property {string} [imageAlt]
  */
 
+// Heading, subtitle, each step's text, and each step's image are split
+// into separate data-reveal stages (rather than one wrapped header block,
+// the convention elsewhere) so they cascade in on scroll: heading, then
+// subtitle, then a step's content, then that step's image.
 const {
   as: HeadingTag = "h1",
   subtitle,
@@ -41,6 +45,7 @@ const {
   /** @type {Step[]} */
   steps = [],
   alternate = true,
+  "data-reveal": _dataReveal,
   ...rest
 } = Astro.props;
 ---
@@ -51,12 +56,14 @@ const {
 
     <HeadingTag
       class="w-full max-w-[680px] text-center text-2xl leading-8 text-ink md:text-[30px] md:leading-[38px] lg:text-5xl lg:leading-[60px]"
+      data-reveal
     >
       <slot />
     </HeadingTag>
 
     <p
       class="w-full max-w-[680px] text-center text-sm leading-5 text-ink-muted lg:text-lg lg:leading-7"
+      data-reveal
     >
       {subtitle}
     </p>
@@ -66,7 +73,10 @@ const {
     {
       steps.map((step, i) => (
         <StepRow eyebrow={step.eyebrow} reverse={alternate && i % 2 === 1}>
-          <div class="contents md:flex md:flex-col md:items-start md:gap-0 lg:flex lg:flex-col lg:items-start lg:gap-0">
+          <div
+            class="contents md:flex md:flex-col md:items-start md:gap-0 lg:flex lg:flex-col lg:items-start lg:gap-0"
+            data-reveal
+          >
             <h3 class="max-w-xl text-lg leading-7 text-ink md:text-[30px] md:leading-[38px] lg:text-3xl lg:leading-9">
               {step.highlight ? (
                 <>
@@ -146,6 +156,7 @@ const {
                 lg:w-[500px]
                 lg:max-w-none
               "
+              data-reveal
             >
               <Image
                 src={step.image}
