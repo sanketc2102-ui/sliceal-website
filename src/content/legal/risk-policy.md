@@ -4,12 +4,12 @@
 
 _Last updated: 4 September 2026_ -->
 
-Investing through Sliceal involves risks that you should consider
+<!-- Investing through Sliceal involves risks that you should consider
 carefully before making any decision. Digital tokens representing
 fractional real estate ownership are speculative in nature, past
 performance is not indicative of future results, and you should only
 invest funds you can afford to lose. Please read the following
-disclosures thoroughly.
+disclosures thoroughly. -->
 
 ## **1. Investment & Financial Risks**
 
