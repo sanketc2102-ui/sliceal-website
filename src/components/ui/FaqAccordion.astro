@@ -15,8 +15,14 @@
  *   categories {Array<{ id, label, questions: Array<{ question, answer }> }>}
  *   instanceId {string} Optional. Disambiguates ids when this component is
  *              used more than once on the same page. Defaults to "faq".
+ *   tabStyle {"responsive"|"chips"} Optional. "responsive" (default) shows
+ *             the vertical sidebar at desktop and collapses to chip tabs at
+ *             tablet/mobile, matching the homepage preview. "chips" always
+ *             shows the chip row and stacks panels full-width, matching the
+ *             dedicated /faq page at every breakpoint.
  */
-const { categories, instanceId = "faq" } = Astro.props;
+const { categories, instanceId = "faq", tabStyle = "responsive" } = Astro.props;
+const chipsOnly = tabStyle === "chips";
 
 const tabId = (categoryId) => `${instanceId}-tab-${categoryId}`;
 const panelId = (categoryId) => `${instanceId}-panel-${categoryId}`;
@@ -26,55 +32,29 @@ const activeTabClasses =
 const inactiveTabClasses =
   "text-ink border-b border-line hover:bg-surface-alt hover:text-ink";
 
-const activeChipClasses = "border border-transparent bg-brand text-white";
+const activeChipClasses =
+  "bg-brand text-white shadow-[0_0_8px_rgba(0,0,0,0.3)] outline outline-2 outline-offset-[-2px] outline-brand-400";
 const inactiveChipClasses =
-  "border border-line text-ink-secondary hover:bg-surface-alt hover:text-ink";
+  "bg-surface text-ink-secondary border border-transparent hover:bg-surface-alt hover:text-ink";
 ---
 
 <div class="faq-accordion flex flex-col gap-8" data-faq-accordion>
-  <!-- Mobile: wrapped category tabs (same style as src/pages/blogs.astro) -->
+  <!-- Chip tabs: mobile always, tablet in "responsive" mode, every width in "chips" mode -->
   <div
-    class="flex flex-wrap items-center justify-center gap-2 md:hidden lg:hidden"
+    class:list={[
+      "flex flex-wrap items-center justify-center gap-2",
+      !chipsOnly && "lg:hidden",
+    ]}
     role="tablist"
     aria-label="FAQ categories"
     data-faq-chip-list
   >
     {
       categories.map((category, index) => (
-        <button
-          type="button"
-          id={`${tabId(category.id)}-mobile`}
-          role="tab"
-          aria-selected={index === 0 ? "true" : "false"}
-          aria-controls={panelId(category.id)}
-          tabindex={index === 0 ? 0 : -1}
-          data-faq-tab
-          data-target={category.id}
-          class:list={[
-            "shrink-0 rounded-pill px-2.5 py-2.5 text-sm leading-sm font-semibold whitespace-nowrap transition-colors",
-            index === 0 ? activeChipClasses : inactiveChipClasses,
-          ]}
-        >
-          {category.label}
-        </button>
-      ))
-    }
-  </div>
-
-  <div class="flex flex-col gap-8 md:flex-row md:items-start lg:flex-row lg:items-start">
-    <!-- Desktop: vertical sidebar -->
-    <div
-      class="hidden w-72 shrink-0 flex-col md:flex md:w-[246px] lg:flex lg:w-72"
-      role="tablist"
-      aria-orientation="vertical"
-      aria-label="FAQ categories"
-      data-faq-tab-list
-    >
-      {
-        categories.map((category, index) => (
+        <Fragment>
           <button
             type="button"
-            id={tabId(category.id)}
+            id={`${tabId(category.id)}-mobile`}
             role="tab"
             aria-selected={index === 0 ? "true" : "false"}
             aria-controls={panelId(category.id)}
@@ -82,15 +62,54 @@ const inactiveChipClasses =
             data-faq-tab
             data-target={category.id}
             class:list={[
-              "flex items-center justify-between gap-2.5 overflow-hidden rounded-[10px] px-5 py-3.5 text-left text-lg leading-7 transition-colors",
-              index === 0 ? activeTabClasses : inactiveTabClasses,
+              "shrink-0 rounded-lg px-4 py-2.5 text-sm leading-sm font-semibold whitespace-nowrap transition-colors md:text-base",
+              index === 0 ? activeChipClasses : inactiveChipClasses,
             ]}
           >
             {category.label}
           </button>
-        ))
-      }
-    </div>
+          {/* Force a line break every 5 chips on desktop, regardless of
+              how many would otherwise fit on one row. */}
+          {(index + 1) % 5 === 0 && index !== categories.length - 1 && (
+            <div class="hidden h-0 basis-full lg:block" aria-hidden="true" />
+          )}
+        </Fragment>
+      ))
+    }
+  </div>
+
+  <div class:list={["flex flex-col gap-8", !chipsOnly && "lg:flex-row lg:items-start"]}>
+    <!-- Desktop: vertical sidebar -->
+    {!chipsOnly && (
+      <div
+        class="hidden w-72 shrink-0 flex-col lg:flex"
+        role="tablist"
+        aria-orientation="vertical"
+        aria-label="FAQ categories"
+        data-faq-tab-list
+      >
+        {
+          categories.map((category, index) => (
+            <button
+              type="button"
+              id={tabId(category.id)}
+              role="tab"
+              aria-selected={index === 0 ? "true" : "false"}
+              aria-controls={panelId(category.id)}
+              tabindex={index === 0 ? 0 : -1}
+              data-faq-tab
+              data-target={category.id}
+              class:list={[
+                "flex items-center justify-between gap-2.5 overflow-hidden rounded-[10px] px-5 py-3.5 text-left text-lg leading-7 transition-colors",
+                index === 0 ? activeTabClasses : inactiveTabClasses,
+              ]}
+            >
+              {category.label}
+            </button>
+          ))
+        }
+      </div>
+    )}
 
     <!-- Panels -->
     <div class="min-w-0 flex-1" data-faq-panels>
@@ -101,12 +120,12 @@ const inactiveChipClasses =
             role="tabpanel"
             aria-labelledby={tabId(category.id)}
             data-faq-panel={category.id}
-            class:list={["flex flex-col gap-2 md:gap-0 lg:gap-0", index !== 0 && "hidden"]}
+            class:list={["flex flex-col gap-2 md:gap-2.5 lg:gap-2.5", index !== 0 && "hidden"]}
           >
             {category.questions.map((item) => (
-              <details class="group flex flex-col gap-2 rounded-xl border border-line bg-surface p-4 md:gap-0 md:rounded-none md:border-0 md:border-t md:border-line md:bg-transparent md:px-5 md:py-5 lg:gap-0 lg:rounded-none lg:border-0 lg:border-t lg:border-line lg:bg-transparent lg:px-0 lg:py-5">
+              <details class="group flex flex-col rounded-xl border border-line bg-surface p-4 md:rounded-2xl md:p-5 lg:rounded-2xl lg:p-5">
                 <summary class="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
-                  <span class="text-sm font-semibold leading-5 text-ink md:text-lg md:leading-[1.5] md:font-medium lg:text-lg lg:leading-7 lg:font-normal">
+                  <span class="text-sm font-semibold leading-5 text-ink md:text-lg md:leading-normal md:font-medium lg:text-lg lg:leading-normal lg:font-medium">
                     {item.question}
                   </span>
 
@@ -119,7 +138,7 @@ const inactiveChipClasses =
                   </span>
                 </summary>
 
-                <p class="w-full text-xs leading-xs text-ink-muted md:mt-3.5 md:text-sm md:leading-5 lg:mt-3.5 lg:w-auto lg:max-w-[61.375rem] lg:text-sm lg:leading-5">
+                <p class="hidden w-full text-xs leading-xs text-ink-muted group-open:mt-2 group-open:block md:group-open:mt-3.5 md:text-sm md:leading-5 lg:group-open:mt-3.5 lg:text-sm lg:leading-5">
                   {item.answer}
                 </p>
               </details>
@@ -148,15 +167,19 @@ const inactiveChipClasses =
     "hover:text-ink",
   ];
   const ACTIVE_CHIP_CLASSES = [
-    "border",
-    "border-transparent",
     "bg-brand",
     "text-white",
+    "shadow-[0_0_8px_rgba(0,0,0,0.3)]",
+    "outline",
+    "outline-2",
+    "outline-offset-[-2px]",
+    "outline-brand-400",
   ];
   const INACTIVE_CHIP_CLASSES = [
-    "border",
-    "border-line",
+    "bg-surface",
     "text-ink-secondary",
+    "border",
+    "border-transparent",
     "hover:bg-surface-alt",
     "hover:text-ink",
   ];
