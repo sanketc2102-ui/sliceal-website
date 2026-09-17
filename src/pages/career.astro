@@ -60,6 +60,30 @@ const jobs = [
       "Lead our regional marketing efforts. Experience with performance marketing, Google Analytics, and team management is essential for this role.",
   },
 ];
+
+/* Figma 30508:47614 (desktop) / 31059:75401 (dark) — no dedicated tablet
+   frame exists (both "desktop" and "tablet" links point at the same node),
+   so md: below is a fluid 2-column placeholder derived from the desktop
+   frame, not a designed tablet layout. Section is desktop/tablet only —
+   hidden on mobile per the design brief. */
+const enhanceItems = [
+  {
+    number: "01",
+    title: "Careers",
+    description: "Browse thousands of job listings across 20+ industries and apply in minutes.",
+  },
+  {
+    number: "02",
+    title: "Salaries",
+    description: "Explore salary data by job title and location to negotiate with confidence.",
+  },
+  {
+    number: "03",
+    title: "Insights",
+    description:
+      "Stay ahead with employment trends, employer rankings, and market insights across the Gulf.",
+  },
+];
 ---
 
 <BaseLayout title={title} description={description}>
@@ -137,6 +161,33 @@ const jobs = [
               </button>
             </div>
           </MediaCard>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section class="hidden md:block" innerClass="flex flex-col items-center gap-7">
+    <h2
+      class="text-display-sm leading-display-sm font-medium tracking-tight text-ink text-center lg:text-display-lg lg:leading-display-lg"
+      data-reveal
+    >
+      Enhance Your <span class="text-brand-purple">Careers</span>
+    </h2>
+
+    <hr class="w-full border-line-fixed" />
+
+    <div class="grid w-full grid-cols-2 gap-8 lg:grid-cols-3 lg:gap-5.5">
+      {
+        enhanceItems.map((item) => (
+          <div class="flex flex-col gap-4.5" data-reveal>
+            <p class="text-sm leading-sm font-semibold tracking-wide text-ink-secondary uppercase">
+              {item.number}
+            </p>
+            <div class="flex flex-col gap-3">
+              <p class="text-display-xs leading-display-xs font-medium text-ink">{item.title}</p>
+              <p class="text-sm leading-sm text-ink-secondary">{item.description}</p>
+            </div>
+          </div>
         ))
       }
     </div>
