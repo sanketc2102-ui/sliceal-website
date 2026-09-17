@@ -13,6 +13,9 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
 ---
 
 <!-- <Section flush class="overflow-hidden" innerClass="!max-w-none !px-0"> -->
+  <!-- TODO(mobile): no tablet Figma frame yet — md: layout below is a
+       percentage-scaled derivation of the desktop frame, not a designed
+       tablet composition. Revisit when a tablet frame lands. -->
   <section
     class="
       relative
@@ -63,6 +66,8 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
         relative
         mx-auto
         w-full
+        md:aspect-[1374/614]
+        lg:aspect-auto
         lg:h-[614px]
         lg:max-w-[1374px]
       "
@@ -84,12 +89,16 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
           pt-12
           pb-10
           text-center
-          lg:absolute
-          lg:left-0
-          lg:top-0
-          lg:h-[614px]
+          md:absolute
+          md:left-0
+          md:top-0
+          md:h-full
+          md:w-[40%]
+          md:justify-center
+          md:px-0
+          md:pt-0
+          md:pb-0
           lg:w-[550px]
-          lg:justify-center
           lg:px-0
           lg:pt-0
           lg:pb-0
@@ -126,8 +135,8 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
                 leading-8
                 tracking-tight
                 text-white
+                md:max-w-none
                 lg:w-[484px]
-                lg:max-w-none
                 lg:text-display-lg
                 lg:leading-display-lg
               "
@@ -145,9 +154,8 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
                 font-normal
                 leading-5
                 text-white
-
+                md:max-w-none
                 lg:w-[550px]
-                lg:max-w-none
               "
             >
               Get full control over your portfolio, track live property
@@ -239,23 +247,13 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
       <!-- =======================================================
            DESKTOP PHONES
 
-           IMPORTANT:
-
-           We use the Figma composition:
-           550px copy
-           + phone
-           + phone
-           + phone
-
-           But the phone images are anchored from the BOTTOM.
-
-           This matches the actual visual composition much better
-           than top-aligning all three images.
+           Exact positions from the Figma frame (1374 x 614, node
+           31754:134600): each phone is top-anchored within the
+           frame, not bottom-anchored — their differing heights
+           (564 / 710 / 548) just happen to land their bottoms
+           within a few px of each other, which reads as "bottom
+           aligned" but isn't.
            ======================================================= -->
-
-     <!-- =======================================================
-     DESKTOP PHONES
-     ======================================================= -->
 
 <div
   class="
@@ -273,11 +271,11 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
   <div
     class="
       absolute
-      bottom-0
+      top-[146px]
       left-[610px]
       z-10
-      h-[548px]
-      w-[267px]
+      h-[564px]
+      w-[274px]
     "
   >
     <Image
@@ -293,11 +291,11 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
   <div
     class="
       absolute
-      bottom-0
-      left-[820px]
+      top-0
+      left-[822px]
       z-20
-      h-[564px]
-      w-[274px]
+      h-[710px]
+      w-[346px]
     "
   >
     <Image
@@ -313,11 +311,94 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
   <div
     class="
       absolute
-      bottom-0
-      left-[1024px]
+      top-[153px]
+      left-[1107px]
       z-10
       h-[548px]
       w-[267px]
+    "
+  >
+    <Image
+      src={phoneRight}
+      alt=""
+      class="block h-full w-full object-contain"
+    />
+  </div>
+
+</div>
+
+
+      <!-- =======================================================
+           TABLET PHONES
+
+           No tablet Figma frame exists — positions/sizes below are
+           the desktop frame's px values converted to percentages of
+           the 1374 x 614 frame, so they scale fluidly across the
+           whole md range instead of only matching one width.
+           ======================================================= -->
+
+<div
+  class="
+    pointer-events-none
+    absolute
+    inset-0
+    z-20
+    hidden
+    md:block
+    lg:hidden
+  "
+  aria-hidden="true"
+>
+  <!-- LEFT PHONE -->
+
+  <div
+    class="
+      absolute
+      top-[23.78%]
+      left-[44.4%]
+      z-10
+      h-[91.86%]
+      w-[19.94%]
+    "
+  >
+    <Image
+      src={phoneLeft}
+      alt=""
+      class="block h-full w-full object-contain"
+    />
+  </div>
+
+
+  <!-- CENTER PHONE -->
+
+  <div
+    class="
+      absolute
+      top-0
+      left-[59.83%]
+      z-20
+      h-[115.64%]
+      w-[25.18%]
+    "
+  >
+    <Image
+      src={phoneCenter}
+      alt=""
+      class="block h-full w-full object-contain"
+    />
+  </div>
+
+
+  <!-- RIGHT PHONE -->
+
+  <div
+    class="
+      absolute
+      top-[24.92%]
+      left-[80.57%]
+      z-10
+      h-[89.25%]
+      w-[19.43%]
     "
   >
     <Image
@@ -343,7 +424,7 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
           justify-center
           gap-2
 
-          lg:hidden
+          md:hidden
         "
       >
         <div class="h-[226px] w-[110px] shrink-0">
