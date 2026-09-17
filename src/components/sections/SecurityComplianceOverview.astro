@@ -11,34 +11,40 @@
  * card to the row's tallest card instead of sizing each to its own content.
  */
 import Section from "../layout/Section.astro";
-import { Image } from "astro:assets";
 
-import deedVerifiedIcon from "../../assets/icons/security-compliance/deed-verified.svg";
-import segregatedFundsIcon from "../../assets/icons/security-compliance/segregated-funds.svg";
-import oneDeedIcon from "../../assets/icons/security-compliance/one-deed.svg";
-import varaLicensedIcon from "../../assets/icons/security-compliance/vara-licensed.svg";
+import DeedVerifiedIcon from "../../assets/icons/security-compliance/deed-verified.svg";
+import DeedVerifiedMintIcon from "../../assets/icons/security-compliance/deed-verfication-mint.svg";
+import SegregatedFundsIcon from "../../assets/icons/security-compliance/segregated-funds.svg";
+import SegregatedFundsMintIcon from "../../assets/icons/security-compliance/segregated-funds-mint.svg";
+import OneDeedIcon from "../../assets/icons/security-compliance/one-deed.svg";
+import OneDeedMintIcon from "../../assets/icons/security-compliance/one-deed-mint.svg";
+import VaraLicensedIcon from "../../assets/icons/security-compliance/vara-licensed.svg";
 
 const pillars = [
   {
-    icon: varaLicensedIcon,
+    icon: VaraLicensedIcon,
+    iconDark: null,
     title: "VARA licensed",
     description:
       "Supervised by Dubai's virtual assets regulator. We're not licensed to advise, lend or offer leverage.",
   },
   {
-    icon: deedVerifiedIcon,
+    icon: DeedVerifiedIcon,
+    iconDark: DeedVerifiedMintIcon,
     title: "DLD-verified deed",
     description:
       "Every deed checked against Dubai Land Department records, valued independently, encumbrances cleared.",
   },
   {
-    icon: segregatedFundsIcon,
+    icon: SegregatedFundsIcon,
+    iconDark: SegregatedFundsMintIcon,
     title: "Segregated client money",
     description:
       "When you place an order, the amount is locked in your account — not deducted. Funds move only once your tokens are issued; if funding fails, the lock is released.",
   },
   {
-    icon: oneDeedIcon,
+    icon: OneDeedIcon,
+    iconDark: OneDeedMintIcon,
     title: "One property, one deed",
     description:
       "Every property stays on its own DLD title deed, with fractional ownership recorded against it — never pooled, never commingled.",
@@ -78,7 +84,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
 
   <ul class="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 lg:grid-cols-4">
     {
-      pillars.map(({ icon, title, description }, i) => (
+      pillars.map(({ icon: Icon, iconDark: IconDark, title, description }, i) => (
         <li
           class:list={[
             "flex flex-col gap-[1.125rem] rounded-xl border border-line bg-surface p-4 lg:rounded-none lg:p-[1.875rem]",
@@ -87,10 +93,11 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
           ]}
           data-reveal
         >
-          <Image src={icon} alt="" aria-hidden="true" width={24} height={24} class="size-6 shrink-0" />
+          <Icon aria-hidden="true" class:list={["size-6 shrink-0 text-black", IconDark && "dark:hidden"]} />
+          {IconDark && <IconDark aria-hidden="true" class="hidden size-6 shrink-0 dark:block" />}
 
           <div class="flex flex-col gap-3">
-            <h3 class="text-display-xs leading-display-xs font-medium text-[#0c0626]">
+            <h3 class="text-display-xs leading-display-xs font-medium text-ink">
               {title}
             </h3>
             <p class="text-sm leading-normal text-ink-secondary">{description}</p>

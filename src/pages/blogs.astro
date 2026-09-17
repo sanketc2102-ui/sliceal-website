@@ -50,7 +50,7 @@ const description =
                     "shrink-0 rounded-pill px-5 py-2.5 text-sm leading-sm font-semibold whitespace-nowrap transition-colors",
                     index === 0
                       ? "bg-brand text-ink-inverse"
-                      : "border border-line text-ink-secondary hover:bg-surface-alt hover:text-ink",
+                      : "border border-line text-ink-secondary hover:bg-surface-alt hover:text-ink dark:border-white/20 dark:text-text-brand",
                   ]}
                 >
                   {category}
@@ -80,6 +80,8 @@ const description =
     "text-ink-secondary",
     "hover:bg-surface-alt",
     "hover:text-ink",
+    "dark:border-white/20",
+    "dark:text-text-brand",
   ];
 
   const initBlogFilters = () => {

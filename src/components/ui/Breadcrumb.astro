@@ -20,7 +20,10 @@
  * `dark`: for the pill laid over a photo (Figma node 29864:72392, the
  * Security & Compliance hero). Same layout, different baked icon colors —
  * mint dot + white chevron instead of brand-purple + black — so it needs its
- * own asset pair, not just a text-color swap.
+ * own asset pair, not just a text-color swap. The photo scrim is always
+ * dark regardless of site theme, so text/border use the `-fixed` tokens
+ * (theme-invariant), not `-inverse` (which flips with dark mode and would
+ * go invisible against the scrim in dark mode).
  *
  * Usage:
  *   <Breadcrumb trail={[{ label: "Properties", href: "/properties" }]} />
@@ -51,7 +54,7 @@ const Chevron = dark ? ChevronIconWhite : ChevronIcon;
   aria-label="Breadcrumb"
   class:list={[
     "inline-flex max-w-full items-center gap-2 rounded-pill px-3 py-1.5 shadow-pill",
-    dark ? "border border-line/50 bg-transparent" : "border border-line bg-surface",
+    dark ? "border border-line-fixed/50 bg-transparent" : "border border-line bg-surface",
   ]}
 >
   <Dot class="size-2.5 shrink-0" aria-hidden="true" />
@@ -65,7 +68,7 @@ const Chevron = dark ? ChevronIconWhite : ChevronIcon;
           <li class="flex min-w-0 items-center gap-1">
             {index > 0 && (
               <Chevron
-                class:list={["size-3 shrink-0", dark ? "text-ink-inverse" : "text-ink-muted"]}
+                class:list={["size-3 shrink-0", dark ? "text-ink-fixed" : "text-ink-muted"]}
                 aria-hidden="true"
               />
             )}
@@ -74,7 +77,7 @@ const Chevron = dark ? ChevronIconWhite : ChevronIcon;
               <span
                 class:list={[
                   "truncate text-xs leading-4 font-semibold",
-                  dark ? "text-ink-inverse" : "text-ink",
+                  dark ? "text-ink-fixed" : "text-ink",
                 ]}
                 aria-current={isLast ? "page" : undefined}
               >
@@ -85,7 +88,7 @@ const Chevron = dark ? ChevronIconWhite : ChevronIcon;
                 href={crumb.href}
                 class:list={[
                   "truncate text-xs leading-4 font-semibold transition-colors",
-                  dark ? "text-ink-inverse/90 hover:text-ink-inverse" : "text-ink-muted hover:text-ink",
+                  dark ? "text-ink-fixed/90 hover:text-ink-fixed" : "text-ink-muted hover:text-ink",
                 ]}
               >
                 {crumb.label}

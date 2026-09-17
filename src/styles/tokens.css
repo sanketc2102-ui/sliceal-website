@@ -133,6 +133,7 @@
   --color-ink-secondary: var(--color-gray-600); /* text-ink-secondary  */
   --color-ink-muted: var(--color-gray-500); /* text-ink-muted      */
   --color-ink-inverse: var(--color-white); /* text-ink-inverse    */
+  --color-ink-fixed: var(--color-white); /* text-ink-fixed — theme-invariant, no dark override */
 
   --color-surface: var(--color-white);
   --color-surface-alt: var(--color-off-white); /* alternating sections */
@@ -149,6 +150,7 @@
   --color-line-card: var(--color-slate-200); /* border-line-card    */
   --color-line-strong: var(--color-gray-300); /* border-line-strong  */
   --color-line-brand: var(--color-brand-600); /* border-line-brand   */
+  --color-line-fixed: var(--color-gray-200); /* border-line-fixed — theme-invariant, no dark override */
 
   /* Disabled interactive controls (buttons, dots). No existing ink/surface
      role covers this — it's a distinct state, not page-section background
@@ -397,8 +399,9 @@
    Dark mode — OS preference only (no manual toggle, no JS).
    Redeclares the semantic roles from section 4 above with dark-mode values.
    Raw ramp tokens (--color-gray-*, --color-brand-*, --color-mint-*, …) are
-   unchanged; --color-surface-dark and --color-surface-fixed are intentionally
-   not overridden — they're already correct/invariant in both themes.
+   unchanged; --color-surface-dark, --color-surface-fixed, --color-ink-fixed,
+   and --color-line-fixed are intentionally not overridden — they're already
+   correct/invariant in both themes.
    Source: Figma "Website - v4 Dark" canvas, node 31010:153892.
    ========================================================================== */
 @media (prefers-color-scheme: dark) {
