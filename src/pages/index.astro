@@ -3,12 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/layout/Header.astro";
 import Hero from "../components/sections/Hero.astro";
 import WhyWeExist from "../components/sections/WhyWeExist.astro";
-import  AtAGlance  from "../components/sections/AtAGlance.astro";
 import SlicealEngine from "../components/sections/SlicealEngine.astro";
 import HowSlicealWorksFlow from "../components/sections/HowSlicealWorksFlow.astro";
 import HowSlicealWorksSection from "../components/howItWorks/HowSlicealWorksSection.astro";
 import BarriersSection from "../components/sections/BarriersSection.astro"
-import Timeline from '../components/sections/Timeline.astro'
 import FeaturedInvestment from '../components/properties/FeaturedInvestment.astro'
 import TestimonialsSection from '../components/sections/TestimonialsSection.astro'
 import ConcludingCTA from '../components/sections/ConcludingCTA.astro'
@@ -104,7 +102,6 @@ const makeMoneySteps = [
   <WhyWeExist data-reveal />
   <SlicealEngine data-reveal />
   <HowSlicealWorksFlow data-reveal />
-  <AtAGlance data-reveal />
   <HowSlicealWorksSection
     as="h2"
     subtitle="Three ways: monthly rent, long-term appreciation, and the option to sell."
@@ -115,7 +112,6 @@ const makeMoneySteps = [
     So how do I actually make money?
   </HowSlicealWorksSection>
   <BarriersSection data-reveal />
-  <Timeline data-reveal />
   <FeaturedInvestment data-reveal />
   <TestimonialsSection data-reveal />
   <ConcludingCTA data-reveal />
