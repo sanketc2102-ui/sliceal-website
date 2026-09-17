@@ -26,21 +26,21 @@ const ACTIVE_POINT_CLASSES = [
   "md:rounded-r-lg",
   "md:border-l-[3px]",
   "md:border-l-brand-purple",
-  "md:bg-gray-200",
-  "md:text-gray-900",
+  "md:bg-[var(--color-surface-selected)]",
+  "md:text-ink",
   "lg:rounded-r-lg",
   "lg:border-l-[3px]",
   "lg:border-l-brand-purple",
-  "lg:bg-gray-200",
-  "lg:text-gray-900",
+  "lg:bg-[var(--color-surface-selected)]",
+  "lg:text-ink",
 ];
 const INACTIVE_POINT_CLASSES = [
   "md:border-l-0",
   "md:bg-transparent",
-  "md:text-gray-500",
+  "md:text-ink-muted",
   "lg:border-l-0",
   "lg:bg-transparent",
-  "lg:text-gray-500",
+  "lg:text-ink-muted",
 ];
 
 function highlightActivePoint(points, activeIndex) {
