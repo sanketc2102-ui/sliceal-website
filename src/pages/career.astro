@@ -19,6 +19,9 @@ import blobBottomRight from "../assets/security-compliance/cta-blob-bottom-right
 import HeartIcon from "../assets/icons/career/heart.svg";
 import MapPinIcon from "../assets/icons/career/map-pin.svg";
 import WalletIcon from "../assets/icons/career/wallet.svg";
+import HeartIconDark from "../assets/icons/career/heart-mint.svg";
+import MapPinIconDark from "../assets/icons/career/map-pin-mint.svg";
+import WalletIconDark from "../assets/icons/career/wallet-mint.svg";
 import jobProductDesigner from "../assets/career/job-product-designer.png";
 import jobFrontendEngineer from "../assets/career/job-frontend-engineer.png";
 import jobMarketingManager from "../assets/career/job-marketing-manager.png";
@@ -122,17 +125,20 @@ const enhanceItems = [
                     aria-label={`Save ${job.title}`}
                     class="flex size-8 shrink-0 items-center justify-center rounded-xl bg-surface-sunken"
                   >
-                    <HeartIcon class="size-4" aria-hidden="true" />
+                    <HeartIcon class="size-4 dark:hidden" aria-hidden="true" />
+                    <HeartIconDark class="hidden size-4 dark:block" aria-hidden="true" />
                   </button>
                 </div>
 
                 <div class="flex items-center gap-3">
                   <span class="flex items-center gap-1.5">
-                    <MapPinIcon class="size-3.5" aria-hidden="true" />
+                    <MapPinIcon class="size-3.5 dark:hidden" aria-hidden="true" />
+                    <MapPinIconDark class="hidden size-3.5 dark:block" aria-hidden="true" />
                     <span class="text-sm leading-sm text-ink-secondary">{job.location}</span>
                   </span>
                   <span class="flex items-center gap-1.5">
-                    <WalletIcon class="size-3.5" aria-hidden="true" />
+                    <WalletIcon class="size-3.5 dark:hidden" aria-hidden="true" />
+                    <WalletIconDark class="hidden size-3.5 dark:block" aria-hidden="true" />
                     <span class="text-sm leading-sm text-ink-secondary">{job.salary}</span>
                   </span>
                 </div>
