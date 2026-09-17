@@ -26,18 +26,24 @@ import LocationIcon from "../../assets/contact-us/icons/location.svg";
 import TwitterIcon from "../../assets/contact-us/icons/social-twitter.svg";
 import InstagramIcon from "../../assets/contact-us/icons/social-instagram.svg";
 import DiscordIcon from "../../assets/contact-us/icons/social-discord.svg";
+import PhoneIconDark from "../../assets/contact-us/icons/phone-call-mint.svg";
+import EmailIconDark from "../../assets/contact-us/icons/email-mint.svg";
+import LocationIconDark from "../../assets/contact-us/icons/location-mint.svg";
+import TwitterIconDark from "../../assets/contact-us/icons/social-twitter-mint.svg";
+import InstagramIconDark from "../../assets/contact-us/icons/social-instagram-mint.svg";
+import DiscordIconDark from "../../assets/contact-us/icons/social-discord-mint.svg";
 import TickChecked from "../../assets/contact-us/icons/tick-checked.svg";
 import TickUnchecked from "../../assets/contact-us/icons/tick-unchecked.svg";
 
 const contactRows = [
-  { Icon: PhoneIcon, label: "+971 528770054", href: "tel:+971528770054" },
-  { Icon: EmailIcon, label: "Support@sliceal.io", href: "mailto:Support@sliceal.io" },
+  { Icon: PhoneIcon, IconDark: PhoneIconDark, label: "+971 528770054", href: "tel:+971528770054" },
+  { Icon: EmailIcon, IconDark: EmailIconDark, label: "Support@sliceal.io", href: "mailto:Support@sliceal.io" },
 ];
 
 const socialLinks = [
-  { label: "Twitter", href: "#", Icon: TwitterIcon },
-  { label: "Instagram", href: "#", Icon: InstagramIcon },
-  { label: "Discord", href: "#", Icon: DiscordIcon },
+  { label: "Twitter", href: "#", Icon: TwitterIcon, IconDark: TwitterIconDark },
+  { label: "Instagram", href: "#", Icon: InstagramIcon, IconDark: InstagramIconDark },
+  { label: "Discord", href: "#", Icon: DiscordIcon, IconDark: DiscordIconDark },
 ];
 
 const subjects = [
@@ -56,12 +62,12 @@ const fieldInput =
 <section id="contact-form" class="section-y" {...Astro.props}>
   <div class="container-site">
     <div
-      class="rounded-2xl bg-surface p-4 drop-shadow-[0px_4px_100px_rgba(232,249,247,0.2)] sm:p-6 md:p-[15px] lg:p-[15px]"
+      class="rounded-2xl bg-surface p-4 drop-shadow-[0px_4px_100px_rgba(232,249,247,0.2)] sm:p-6 md:p-[15px] lg:p-[15px] dark:border-[15px] dark:border-[#4228ac]"
     >
       <div class="flex flex-col gap-10 md:flex-row md:items-stretch md:gap-8 lg:flex-row lg:items-stretch lg:gap-[57px]">
         <!-- Contact Information panel -->
         <div
-          class="relative flex w-full flex-col justify-between gap-16 overflow-hidden rounded-2xl bg-gray-200 p-8 md:w-1/2 md:shrink-0 md:p-10 lg:w-[555px] lg:shrink-0 lg:p-10"
+          class="relative flex w-full flex-col justify-between gap-16 overflow-hidden rounded-2xl bg-gray-200 p-8 md:w-1/2 md:shrink-0 md:p-10 lg:w-[555px] lg:shrink-0 lg:p-10 dark:bg-[#23184e]"
         >
           <div class="relative z-10 flex flex-col gap-[50px]">
             <div class="flex flex-col gap-3">
@@ -77,20 +83,22 @@ const fieldInput =
 
             <ul class="m-0 flex list-none flex-col gap-[31px] p-0">
               {
-                contactRows.map(({ Icon, label, href }) => (
+                contactRows.map(({ Icon, IconDark, label, href }) => (
                   <li>
                     <a
                       href={href}
                       class="flex items-center gap-[25px] text-base leading-normal text-ink transition-opacity hover:opacity-70"
                     >
-                      <Icon class="size-6 shrink-0" aria-hidden="true" />
+                      <Icon class="size-6 shrink-0 dark:hidden" aria-hidden="true" />
+                      <IconDark class="hidden size-6 shrink-0 dark:block" aria-hidden="true" />
                       {label}
                     </a>
                   </li>
                 ))
               }
               <li class="flex items-start gap-[25px] text-base leading-normal text-ink">
-                <LocationIcon class="size-6 shrink-0" aria-hidden="true" />
+                <LocationIcon class="size-6 shrink-0 dark:hidden" aria-hidden="true" />
+                <LocationIconDark class="hidden size-6 shrink-0 dark:block" aria-hidden="true" />
                 <span>50th Floor, Conrad Office Tower, World trade Center<br />Dubai, UAE</span>
               </li>
             </ul>
@@ -98,13 +106,14 @@ const fieldInput =
 
           <div class="relative z-10 flex items-center gap-[25px]">
             {
-              socialLinks.map(({ label, href, Icon }) => (
+              socialLinks.map(({ label, href, Icon, IconDark }) => (
                 <a
                   href={href}
                   aria-label={label}
                   class="flex size-[30px] shrink-0 items-center justify-center transition-opacity hover:opacity-80"
                 >
-                  <Icon class="size-[30px]" aria-hidden="true" />
+                  <Icon class="size-[30px] dark:hidden" aria-hidden="true" />
+                  <IconDark class="hidden size-[30px] dark:block" aria-hidden="true" />
                 </a>
               ))
             }
