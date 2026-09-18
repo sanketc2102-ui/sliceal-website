@@ -1,12 +1,12 @@
 ---
 /**
- * FaqAccordion — category tabs + accordion, reusable across pages.
+ * FaqAccordion — category chip tabs + accordion, reusable across pages.
  *
- * Renders two synchronized tab lists (a horizontal chip row for mobile, a
- * vertical sidebar for desktop) plus one accordion panel per category. Only
- * the active category's panel is shown; JS swaps the active state on click.
- * Without JS, the first category's panel still renders and is fully
- * readable — the rest are just a click away from working once JS loads.
+ * Renders a wrapping row of category chips plus one accordion panel per
+ * category, at every breakpoint (Figma node 31918-74915). Only the active
+ * category's panel is shown; JS swaps the active state on click. Without
+ * JS, the first category's panel still renders and is fully readable — the
+ * rest are just a click away from working once JS loads.
  *
  * Each question/answer pair is a native <details>/<summary>, so opening and
  * closing an answer needs no JS at all.
@@ -15,22 +15,11 @@
  *   categories {Array<{ id, label, questions: Array<{ question, answer }> }>}
  *   instanceId {string} Optional. Disambiguates ids when this component is
  *              used more than once on the same page. Defaults to "faq".
- *   tabStyle {"responsive"|"chips"} Optional. "responsive" (default) shows
- *             the vertical sidebar at desktop and collapses to chip tabs at
- *             tablet/mobile, matching the homepage preview. "chips" always
- *             shows the chip row and stacks panels full-width, matching the
- *             dedicated /faq page at every breakpoint.
  */
-const { categories, instanceId = "faq", tabStyle = "responsive" } = Astro.props;
-const chipsOnly = tabStyle === "chips";
+const { categories, instanceId = "faq" } = Astro.props;
 
 const tabId = (categoryId) => `${instanceId}-tab-${categoryId}`;
 const panelId = (categoryId) => `${instanceId}-panel-${categoryId}`;
-
-const activeTabClasses =
-  "bg-brand text-white outline outline-2 outline-offset-[-2px] outline-brand-400";
-const inactiveTabClasses =
-  "text-ink border-b border-line hover:bg-surface-alt hover:text-ink";
 
 const activeChipClasses =
   "bg-brand text-white shadow-[0_0_8px_rgba(0,0,0,0.3)] outline outline-2 outline-offset-[-2px] outline-brand-400";
@@ -39,22 +28,18 @@ const inactiveChipClasses =
 ---
 
 <div class="faq-accordion flex flex-col gap-8" data-faq-accordion>
-  <!-- Chip tabs: mobile always, tablet in "responsive" mode, every width in "chips" mode -->
+  <!-- Chip tabs -->
   <div
-    class:list={[
-      "flex flex-wrap items-center justify-center gap-2",
-      !chipsOnly && "lg:hidden",
-    ]}
+    class="flex flex-wrap items-center justify-center gap-2"
     role="tablist"
     aria-label="FAQ categories"
-    data-faq-chip-list
   >
     {
       categories.map((category, index) => (
         <Fragment>
           <button
             type="button"
-            id={`${tabId(category.id)}-mobile`}
+            id={tabId(category.id)}
             role="tab"
             aria-selected={index === 0 ? "true" : "false"}
             aria-controls={panelId(category.id)}
@@ -78,39 +63,7 @@ const inactiveChipClasses =
     }
   </div>
 
-  <div class:list={["flex flex-col gap-8", !chipsOnly && "lg:flex-row lg:items-start"]}>
-    <!-- Desktop: vertical sidebar -->
-    {!chipsOnly && (
-      <div
-        class="hidden w-72 shrink-0 flex-col lg:flex"
-        role="tablist"
-        aria-orientation="vertical"
-        aria-label="FAQ categories"
-        data-faq-tab-list
-      >
-        {
-          categories.map((category, index) => (
-            <button
-              type="button"
-              id={tabId(category.id)}
-              role="tab"
-              aria-selected={index === 0 ? "true" : "false"}
-              aria-controls={panelId(category.id)}
-              tabindex={index === 0 ? 0 : -1}
-              data-faq-tab
-              data-target={category.id}
-              class:list={[
-                "flex items-center justify-between gap-2.5 overflow-hidden rounded-[10px] px-5 py-3.5 text-left text-lg leading-7 transition-colors",
-                index === 0 ? activeTabClasses : inactiveTabClasses,
-              ]}
-            >
-              {category.label}
-            </button>
-          ))
-        }
-      </div>
-    )}
-
+  <div class="flex flex-col gap-8">
     <!-- Panels -->
     <div class="min-w-0 flex-1" data-faq-panels>
       {
@@ -151,21 +104,6 @@ const inactiveChipClasses =
 </div>
 
 <script>
-  const ACTIVE_TAB_CLASSES = [
-    "bg-brand",
-    "text-white",
-    "outline",
-    "outline-2",
-    "outline-offset-[-2px]",
-    "outline-brand-400",
-  ];
-  const INACTIVE_TAB_CLASSES = [
-    "text-ink",
-    "border-b",
-    "border-line",
-    "hover:bg-surface-alt",
-    "hover:text-ink",
-  ];
   const ACTIVE_CHIP_CLASSES = [
     "bg-brand",
     "text-white",
@@ -289,25 +227,14 @@ const inactiveChipClasses =
 
         if (!tabs.length || !panels.length) return;
 
-        const isChip = (tab) =>
-          tab.closest("[data-faq-chip-list]") !== null;
-
         const activate = (targetId, { focusTab = false } = {}) => {
           tabs.forEach((tab) => {
             const active = tab.dataset.target === targetId;
-            const activeClasses = isChip(tab)
-              ? ACTIVE_CHIP_CLASSES
-              : ACTIVE_TAB_CLASSES;
-            const inactiveClasses = isChip(tab)
-              ? INACTIVE_CHIP_CLASSES
-              : INACTIVE_TAB_CLASSES;
 
             tab.setAttribute("aria-selected", active ? "true" : "false");
             tab.tabIndex = active ? 0 : -1;
-            tab.classList.remove(...activeClasses, ...inactiveClasses);
-            tab.classList.add(
-              ...(active ? activeClasses : inactiveClasses),
-            );
+            tab.classList.remove(...ACTIVE_CHIP_CLASSES, ...INACTIVE_CHIP_CLASSES);
+            tab.classList.add(...(active ? ACTIVE_CHIP_CLASSES : INACTIVE_CHIP_CLASSES));
 
             if (active && focusTab) tab.focus();
           });
@@ -332,15 +259,13 @@ const inactiveChipClasses =
 
             event.preventDefault();
 
-            const group = tabs.filter((t) => isChip(t) === isChip(tab));
-            const currentIndex = group.indexOf(tab);
+            const currentIndex = tabs.indexOf(tab);
             const forward =
               event.key === "ArrowRight" || event.key === "ArrowDown";
             const nextIndex =
-              (currentIndex + (forward ? 1 : -1) + group.length) %
-              group.length;
+              (currentIndex + (forward ? 1 : -1) + tabs.length) % tabs.length;
 
-            activate(group[nextIndex].dataset.target, { focusTab: true });
+            activate(tabs[nextIndex].dataset.target, { focusTab: true });
           });
         });
       });

@@ -16,13 +16,9 @@ import Section from "../layout/Section.astro";
 import FaqAccordion from "../ui/FaqAccordion.astro";
 import { faqCategories } from "../../data/faq.js";
 
-const eyebrow =
-  "rounded-pill border border-line-brand px-3 py-1.5 text-xs/[0.875rem] text-text-brand md:text-sm/5 md:font-semibold md:shadow-pill lg:text-sm/5 lg:font-semibold lg:shadow-pill";
-
 // showHeader: false lets a page render its own heading above this section
 // (e.g. /faq.astro's breadcrumb + <h1>) instead of duplicating it here.
-// tabStyle is passed straight through to <FaqAccordion />.
-const { showHeader = true, tabStyle, ...rest } = Astro.props;
+const { showHeader = true, ...rest } = Astro.props;
 ---
 
 <Section id="faqs" class="shadow-[var(--shadow-glow)] dark:shadow-none" {...rest}>
@@ -31,11 +27,9 @@ const { showHeader = true, tabStyle, ...rest } = Astro.props;
     {showHeader && (
       <Fragment>
         <!-- Heading -->
-        <header class="flex w-full flex-col gap-6">
-          <p class={`w-fit ${eyebrow}`}>QUESTIONS</p>
-
+        <header class="flex w-full flex-col items-center gap-6 text-center">
           <h2 class="w-full text-2xl font-normal leading-8 text-ink md:text-display-sm md:font-semibold lg:text-5xl lg:leading-[60px] lg:font-normal">
-            Frequently asked.
+            Frequently Asked Questions
           </h2>
         </header>
 
@@ -44,7 +38,7 @@ const { showHeader = true, tabStyle, ...rest } = Astro.props;
     )}
 
     <!-- Tabs + accordion -->
-    <FaqAccordion categories={faqCategories} instanceId="home-faqs" tabStyle={tabStyle} />
+    <FaqAccordion categories={faqCategories} instanceId="home-faqs" />
 
   </div>
 </Section>
