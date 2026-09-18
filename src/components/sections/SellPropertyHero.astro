@@ -13,6 +13,11 @@ import { Image } from "astro:assets";
 import Section from "../layout/Section.astro";
 
 import heroProperty from "../../assets/sell-your-property/hero-property.png";
+import Dot from "../../assets/icons/radio-button-checked.svg";
+import Vara from "../../assets/logos/vara.svg";
+import VaraDark from "../../assets/logos/vara-dark.svg";
+import Dld from "../../assets/logos/dld.svg";
+import DldDark from "../../assets/logos/dld-dark.svg";
 
 const stats = [
   { label: "GLOBAL REACH", value: "+100k Investors" },
@@ -35,9 +40,24 @@ const btnBase =
   {...Astro.props}
 >
   <div class="flex w-full flex-col items-center gap-6 text-center md:w-[44%] md:items-start md:gap-8 md:text-left lg:w-[45.375rem] lg:items-start lg:gap-8 lg:text-left">
-    <p class="text-sm font-semibold text-ink-muted" data-reveal>
-      <span aria-hidden="true">•</span> Dubai Land Department Verified
-    </p>
+    {/* Verification badge + partner logos — same lockup WhySlicealHero.astro built for this exact copy. */}
+    <div class="flex flex-col items-center gap-8 md:items-start" data-reveal>
+      <p class="flex w-fit items-center gap-2 rounded-pill border border-gray-100/20 bg-surface px-3 py-1.5 text-2xs font-semibold shadow-pill">
+        <Dot class="size-2.5 shrink-0" aria-hidden="true" />
+        Licensed by VARA - In partnership with DLD
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:flex-nowrap">
+        <div class="flex items-center rounded-xl bg-surface p-4 shadow-[0_0_2.5px_rgb(0_0_0/0.1)] sm:p-5">
+          <Vara class="h-8 w-[100px] dark:hidden sm:h-[38px] sm:w-[119px]" role="img" aria-label="Virtual Assets Regulatory Authority" />
+          <VaraDark class="hidden h-8 w-[100px] dark:block sm:h-[38px] sm:w-[119px]" role="img" aria-label="Virtual Assets Regulatory Authority" />
+        </div>
+        <div class="flex items-center rounded-xl bg-surface p-4 shadow-[0_0_2.5px_rgb(0_0_0/0.1)] sm:p-5">
+          <Dld class="h-8 w-[136px] dark:hidden sm:h-[38px] sm:w-[161px]" role="img" aria-label="Dubai Land Department" />
+          <DldDark class="hidden h-8 w-[136px] dark:block sm:h-[38px] sm:w-[161px]" role="img" aria-label="Dubai Land Department" />
+        </div>
+      </div>
+    </div>
 
     <div class="flex flex-col gap-4">
       <h1
