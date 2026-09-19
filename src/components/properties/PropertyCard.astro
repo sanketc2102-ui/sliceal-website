@@ -10,17 +10,17 @@ const { property } = Astro.props;
   class="property-card group w-full shrink-0 overflow-hidden rounded-3xl border border-line-card/60 bg-surface shadow-[0px_1px_2px_-1px_rgba(0,0,0,0.10),0px_1px_3px_0px_rgba(0,0,0,0.10)] transition-[transform,box-shadow] duration-300 ease-out will-change-transform hover:-translate-y-2 hover:shadow-float sm:w-[384px] md:w-[calc(50%-12px)] lg:w-[384px]"
 >
   <!-- Image -->
-  <div class="relative h-56 overflow-hidden">
+  <div class="relative h-56 overflow-hidden rounded-3xl">
     <img
       src={property.image.src}
       alt={property.title}
-      class="absolute inset-0 h-full w-full object-cover transition-transform duration-200 ease-out group-hover:scale-105"
+      class="absolute inset-0 h-full w-full rounded-3xl object-cover transition-transform duration-200 ease-out group-hover:scale-105"
       loading="lazy"
     />
 
     <!-- Image overlay -->
     <div
-      class="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-black/20"
+      class="absolute inset-0 rounded-3xl bg-linear-to-t from-black/30 via-transparent to-black/20"
     ></div>
 
     <!-- Premium -->

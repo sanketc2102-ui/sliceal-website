@@ -16,12 +16,12 @@ const {
 ---
 
 <div class="w-full max-w-[340px] overflow-hidden rounded-2xl border border-line bg-surface shadow-lg">
-  <div class="relative h-32 bg-linear-to-br from-brand-purple/30 to-brand-800/40">
+  <div class="relative h-32 overflow-hidden rounded-2xl bg-linear-to-br from-brand-purple/30 to-brand-800/40">
     {image && (
       <Image
         src={image}
         alt={title}
-        class="absolute inset-0 h-full w-full object-cover"
+        class="absolute inset-0 h-full w-full rounded-2xl object-cover"
       />
     )}
 

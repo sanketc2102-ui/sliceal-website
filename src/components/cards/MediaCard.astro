@@ -17,16 +17,16 @@ const {
   ]}
   {...rest}
 >
-  <div class:list={["relative overflow-hidden", imageHeightClass]}>
+  <div class:list={["relative overflow-hidden rounded-3xl", imageHeightClass]}>
     <Image
       src={image}
       alt={alt}
-      class="absolute inset-0 h-full w-full object-cover transition-transform duration-200 ease-out group-hover:scale-105"
+      class="absolute inset-0 h-full w-full rounded-3xl object-cover transition-transform duration-200 ease-out group-hover:scale-105"
       loading="lazy"
     />
 
     <div
-      class="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-black/20"
+      class="absolute inset-0 rounded-3xl bg-linear-to-t from-black/30 via-transparent to-black/20"
       aria-hidden="true"
     >
     </div>
