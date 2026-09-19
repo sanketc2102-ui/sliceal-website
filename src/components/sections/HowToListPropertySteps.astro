@@ -4,14 +4,10 @@
  * /sell-your-property.
  *
  * Figma: wBTbnZ7DJMzQwgaGC5k0wK
- *   Desktop: node 30732:150172 (Hero, 1512 frame) — 4 cards fused into one
- *     strip: only the first (16px) and last (12px) corners are rounded.
+ *   Desktop: node 30732:150172 (Hero, 1512 frame) — 4 standalone cards, each
+ *     fully rounded (16px), with a 16px gap between them.
  *   Mobile:  node 30732:151490 (Content, 440 frame) — 4 standalone cards,
  *     each fully rounded (16px), stacked with an 18px gap.
- *
- * The eyebrow pill and the fused-strip corner treatment (first lg:rounded-l-xl,
- * last lg:rounded-r-lg, middles lg:rounded-none) are the same pattern
- * SecurityComplianceOverview.astro uses — reused verbatim.
  *
  * Tablet: node 30941:134935 (Ways_To_Earn_Section, 768–1023px) — a real
  *   tablet frame, 2x2 grid of the same standalone rounded cards, header
@@ -64,7 +60,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
   innerClass="flex flex-col items-center gap-8 md:items-start md:gap-14 lg:gap-7"
   {...rest}
 >
-  <div class="flex w-full flex-col items-center gap-6 text-center md:items-start md:gap-4 md:text-left lg:items-start lg:text-left" data-reveal>
+  <div class="flex w-full flex-col items-center gap-6 text-center md:items-start md:gap-4 md:text-left lg:items-center lg:text-left" data-reveal>
     <p class="rounded-pill border border-line-brand px-3 py-1.5 text-sm leading-sm font-semibold text-text-brand shadow-pill">
       Regulated · VARA licensed · DLD registered
     </p>
@@ -78,15 +74,11 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
     </p>
   </div>
 
-  <ol class="m-0 grid w-full list-none grid-cols-1 gap-[1.125rem] p-0 md:grid-cols-2 md:gap-4 lg:grid-cols-4 lg:gap-0">
+  <ol class="m-0 grid w-full list-none grid-cols-1 gap-[1.125rem] p-0 md:grid-cols-2 md:gap-4 lg:grid-cols-4 lg:gap-4">
     {
       steps.map(({ icon, title, description }, i) => (
         <li
-          class:list={[
-            "flex flex-col gap-4 rounded-xl border border-line bg-surface p-4 lg:gap-[1.125rem] lg:rounded-none lg:p-[1.875rem]",
-            i === 0 && "lg:rounded-l-xl",
-            i === steps.length - 1 && "lg:rounded-r-lg",
-          ]}
+          class="flex flex-col gap-4 rounded-xl border border-line bg-surface p-4 lg:gap-[1.125rem] lg:p-[1.875rem]"
           data-reveal
         >
           <div class="flex w-full items-center justify-between">
