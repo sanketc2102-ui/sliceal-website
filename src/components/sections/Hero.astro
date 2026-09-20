@@ -7,6 +7,7 @@ import VaraDark from "../../assets/logos/vara-dark.svg";
 import Dld from "../../assets/logos/dld.svg";
 import DldDark from "../../assets/logos/dld-dark.svg";
 import Dot from "../../assets/icons/radio-button-checked.svg";
+import dirhamSymbol from "../../assets/icons/dirham-symbol.png";
 
 /*
  * The dark-mode hero photo (Figma "Website - v4 Dark", node 31010:153893) is a
@@ -199,7 +200,11 @@ const btnBase =
           {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
           <dd class="order-1 m-0 text-display-lg-mobile leading-[1.1875] font-normal tracking-tight text-ink lg:text-display-lg lg:leading-display-lg lg:font-medium">
             {prefix && (
-              <span class="text-sm font-semibold lg:text-xl">{prefix} </span>
+              <Image
+                src={dirhamSymbol}
+                alt={prefix}
+                class="mr-1 inline-block h-[0.7em] w-auto align-baseline"
+              />
             )}
             <span data-count>{value}</span>
             <span class="text-brand-purple">{accent}</span>

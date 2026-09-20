@@ -19,6 +19,7 @@ import { Image } from "astro:assets";
 import Section from "../layout/Section.astro";
 import StepRow from "./StepRow.astro";
 import Breadcrumb from "../ui/Breadcrumb.astro";
+import dirhamSymbol from "../../assets/icons/dirham-symbol.png";
 
 /**
  * @typedef {Object} Step
@@ -123,7 +124,14 @@ const {
                 {step.stats.map((stat) => (
                   <div class="flex min-w-[9rem] flex-1 flex-col items-left gap-1 rounded-xl border border-line bg-surface px-3 py-2 shadow-[0_0_3px_rgba(0,0,0,0.1)] md:flex-none md:basis-[calc(50%-6px)]">
                     <p class="text-xl font-semibold text-ink md:text-2xl lg:text-2xl">
-                      {stat.value}
+                      {stat.value.startsWith("AED") ? (
+                        <span class="inline-flex items-center gap-1 align-middle">
+                          <Image src={dirhamSymbol} alt="AED" class="h-[0.8em] w-auto" />
+                          {stat.value.replace(/^AED\s*/, "")}
+                        </span>
+                      ) : (
+                        stat.value
+                      )}
                       <span class="text-brand-purple">{stat.suffix}</span>
                     </p>
                     <p class="text-left  text-xs leading-[18px] text-ink-muted md:text-sm md:leading-5 lg:text-sm">
