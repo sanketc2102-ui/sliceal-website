@@ -39,7 +39,7 @@ const metrics = [
 ];
 
 const eyebrow =
-  "rounded-pill border border-line-brand px-3 py-1.5 text-xs/[0.875rem] text-text-brand md:text-sm/5 md:font-semibold md:shadow-pill lg:text-sm/5 lg:font-semibold lg:shadow-pill";
+  "rounded-pill border border-line px-3 py-1.5 text-xs font-bold text-text-brand md:text-sm/5 md:font-semibold md:shadow-pill lg:text-sm/5 lg:font-semibold lg:shadow-pill";
 
 const stackCap = "lg:mx-0 lg:max-w-none";
 ---
@@ -57,7 +57,7 @@ const stackCap = "lg:mx-0 lg:max-w-none";
       <p class={eyebrow}>THE SLICEAL ENGINE</p>
 
       <h2
-        class="text-display-sm-mobile leading-[2.125rem] font-normal tracking-normal text-ink md:text-display-sm md:leading-display-sm md:font-semibold md:tracking-normal lg:max-w-[33.0625rem] lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight lg:text-ink"
+        class="text-display-xs leading-display-xs font-semibold tracking-normal text-ink md:text-display-sm md:leading-display-sm md:font-semibold md:tracking-normal lg:max-w-[33.0625rem] lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight lg:text-ink"
       >
         One Apartment. 1.3 Million Digital Slices.
       </h2>
@@ -68,10 +68,10 @@ const stackCap = "lg:mx-0 lg:max-w-none";
       graphic panel carries a fill — sampled off both frames.
     */}
     <div
-      class="overflow-hidden rounded-2xl border border-line bg-surface md:col-start-2 md:row-start-1 md:row-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:ml-auto lg:w-full lg:max-w-[37.4375rem] lg:bg-transparent"
+      class="order-3 overflow-hidden rounded-2xl border border-line bg-surface md:order-0 md:col-start-2 md:row-start-1 md:row-span-2 lg:order-0 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:ml-auto lg:w-full lg:max-w-[37.4375rem] lg:bg-transparent"
     >
       <div
-        class="relative aspect-[408/220] border-b border-line bg-surface md:aspect-433/394 md:border-[1.875rem] md:border-surface lg:aspect-[598/566] lg:border-x-0 lg:border-t-0 lg:border-b lg:border-line"
+        class="relative aspect-square border-b border-line bg-surface md:aspect-433/394 md:border-[1.875rem] md:border-surface lg:aspect-[598/566] lg:border-x-0 lg:border-t-0 lg:border-b lg:border-line"
       >
         {/*
           The tablet frame insets the video in a white margin instead of
@@ -134,7 +134,7 @@ const stackCap = "lg:mx-0 lg:max-w-none";
       with the first one filled and tagged by the 3px purple bar.
     */}
     <ul
-      class="flex list-none flex-col gap-2 md:col-start-1 md:row-start-2 md:gap-1.5 md:border-l md:border-line lg:col-start-1 lg:row-start-2 lg:max-w-[40.8125rem] lg:gap-1.5 lg:border-l lg:border-line"
+      class="order-2 flex list-none flex-col gap-2 md:order-0 md:col-start-1 md:row-start-2 md:gap-1.5 md:border-l md:border-line lg:order-0 lg:col-start-1 lg:row-start-2 lg:max-w-[40.8125rem] lg:gap-1.5 lg:border-l lg:border-line"
     >
       {
         points.map(({ title, body }, i) => (
@@ -143,19 +143,31 @@ const stackCap = "lg:mx-0 lg:max-w-none";
             class:list={[
               /* Longhand border sides only: `border-0` plus `border-l-[3px]`
                  is a shorthand/longhand ordering gamble in the generated CSS. */
-              "rounded-lg border border-line bg-surface p-4 md:rounded-none md:border-y-0 md:border-r-0 md:px-5 md:py-4 lg:rounded-none lg:border-y-0 lg:border-r-0 lg:px-5 lg:py-4",
+              "rounded-lg border p-4 text-center md:rounded-none md:border-y-0 md:border-r-0 md:px-5 md:py-4 md:text-left lg:rounded-none lg:border-y-0 lg:border-r-0 lg:px-5 lg:py-4 lg:text-left",
               /* The lg background lives in both branches on purpose: pairing a
                  shared lg:bg-transparent with a branch lg:bg-[var(--color-surface-selected)]
                  is a same-variant collision the generated CSS order decides. */
               i === 0
-                ? "md:rounded-r-lg md:border-l-[3px] md:border-l-brand-purple md:bg-[var(--color-surface-selected)] md:text-ink lg:rounded-r-lg lg:border-l-[3px] lg:border-l-brand-purple lg:bg-[var(--color-surface-selected)] lg:text-ink"
-                : "md:border-l-0 md:bg-transparent md:text-ink-muted lg:border-l-0 lg:bg-transparent lg:text-ink-muted",
+                ? "border-brand-400 bg-brand-600 md:rounded-r-lg md:border-l-[3px] md:border-l-brand-purple md:bg-[var(--color-surface-selected)] md:text-ink lg:rounded-r-lg lg:border-l-[3px] lg:border-l-brand-purple lg:bg-[var(--color-surface-selected)] lg:text-ink"
+                : "border-line bg-surface md:border-l-0 md:bg-transparent md:text-ink-muted lg:border-l-0 lg:bg-transparent lg:text-ink-muted",
             ]}
           >
-            <h3 class="text-md font-normal text-ink md:text-xl md:leading-xl md:font-semibold md:text-inherit lg:text-xl lg:leading-xl lg:font-semibold lg:text-inherit">
+            <h3
+              data-point-title
+              class:list={[
+                "text-md font-bold md:text-xl md:leading-xl md:font-semibold md:text-inherit lg:text-xl lg:leading-xl lg:font-semibold lg:text-inherit",
+                i === 0 ? "text-ink-fixed" : "text-ink",
+              ]}
+            >
               {title}
             </h3>
-            <p class="mt-2 text-[0.8125rem] leading-xs text-ink-secondary md:mt-3 md:text-sm md:leading-sm md:text-inherit lg:mt-3 lg:text-sm lg:leading-sm lg:text-inherit">
+            <p
+              data-point-body
+              class:list={[
+                "mt-2 text-sm leading-sm md:mt-3 md:text-sm md:leading-sm md:text-inherit lg:mt-3 lg:text-sm lg:leading-sm lg:text-inherit",
+                i === 0 ? "text-ink-fixed" : "text-ink-muted",
+              ]}
+            >
               {body}
             </p>
           </li>

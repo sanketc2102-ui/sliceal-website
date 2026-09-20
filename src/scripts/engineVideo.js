@@ -19,10 +19,13 @@ function activeSegmentIndex(currentTime, duration, segmentCount) {
   return Math.min(segmentCount - 1, Math.floor(currentTime / segment));
 }
 
-// The active point's highlight is a tablet/desktop rail treatment (md:/lg:),
-// so these are the exact utilities from SlicealEngine.astro's ternary — keep
-// both files in sync if that markup changes.
+// The active point's highlight is a solid card fill on mobile and a rail
+// treatment on tablet/desktop (md:/lg:) — these are the exact utilities from
+// SlicealEngine.astro's ternaries — keep both files in sync if that markup
+// changes.
 const ACTIVE_POINT_CLASSES = [
+  "border-brand-400",
+  "bg-brand-600",
   "md:rounded-r-lg",
   "md:border-l-[3px]",
   "md:border-l-brand-purple",
@@ -35,6 +38,8 @@ const ACTIVE_POINT_CLASSES = [
   "lg:text-ink",
 ];
 const INACTIVE_POINT_CLASSES = [
+  "border-line",
+  "bg-surface",
   "md:border-l-0",
   "md:bg-transparent",
   "md:text-ink-muted",
@@ -42,11 +47,25 @@ const INACTIVE_POINT_CLASSES = [
   "lg:bg-transparent",
   "lg:text-ink-muted",
 ];
+const ACTIVE_TITLE_CLASSES = ["text-ink-fixed"];
+const INACTIVE_TITLE_CLASSES = ["text-ink"];
+const ACTIVE_BODY_CLASSES = ["text-ink-fixed"];
+const INACTIVE_BODY_CLASSES = ["text-ink-muted"];
 
 function highlightActivePoint(points, activeIndex) {
   points.forEach((point, i) => {
+    const isActive = i === activeIndex;
+
     point.classList.remove(...ACTIVE_POINT_CLASSES, ...INACTIVE_POINT_CLASSES);
-    point.classList.add(...(i === activeIndex ? ACTIVE_POINT_CLASSES : INACTIVE_POINT_CLASSES));
+    point.classList.add(...(isActive ? ACTIVE_POINT_CLASSES : INACTIVE_POINT_CLASSES));
+
+    const title = point.querySelector("[data-point-title]");
+    title?.classList.remove(...ACTIVE_TITLE_CLASSES, ...INACTIVE_TITLE_CLASSES);
+    title?.classList.add(...(isActive ? ACTIVE_TITLE_CLASSES : INACTIVE_TITLE_CLASSES));
+
+    const body = point.querySelector("[data-point-body]");
+    body?.classList.remove(...ACTIVE_BODY_CLASSES, ...INACTIVE_BODY_CLASSES);
+    body?.classList.add(...(isActive ? ACTIVE_BODY_CLASSES : INACTIVE_BODY_CLASSES));
   });
 }
 
