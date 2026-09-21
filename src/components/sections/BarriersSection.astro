@@ -25,7 +25,7 @@ const barriers = [
 ];
 
 const eyebrow =
-  "rounded-[40px] border border-line-brand px-3 py-1.5 text-xs leading-[0.875rem] text-text-brand lg:text-sm lg:leading-5";
+  "rounded-[40px] border border-line-brand dark:border-white px-3 py-1.5 text-xs leading-[0.875rem] text-text-brand lg:text-sm lg:leading-5";
 
 // Reveal is applied per-card below (same convention as
 // SecurityComplianceOverview.astro) so the 4 barriers cascade in one after
@@ -254,7 +254,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
         "
         data-reveal
       >
-        <p class={`${eyebrow} border-transparent! dark:border-white! shadow-[0_0_5px_0_rgba(0,0,0,0.12)] lg:border-line-brand! lg:shadow-none`}>OUR MISSION</p>
+        <p class={`${eyebrow} border-transparent! dark:border-white! shadow-[0_0_5px_0_rgba(0,0,0,0.12)] lg:border-line-brand! lg:dark:border-white! lg:shadow-none`}>OUR MISSION</p>
 
         <div class="flex flex-col gap-3">
           <h3 class="text-xl font-normal leading-7 text-ink md:text-display-sm md:font-semibold">
@@ -291,7 +291,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
         "
         data-reveal
       >
-        <p class={`${eyebrow} border-transparent! dark:border-white! shadow-[0_0_5px_0_rgba(0,0,0,0.12)] lg:border-line-brand! lg:shadow-none`}>OUR VISION</p>
+        <p class={`${eyebrow} border-transparent! dark:border-white! shadow-[0_0_5px_0_rgba(0,0,0,0.12)] lg:border-line-brand! lg:dark:border-white! lg:shadow-none`}>OUR VISION</p>
 
         <div class="flex flex-col gap-3">
           <h3 class="text-xl font-normal leading-7 text-ink md:text-display-sm md:font-semibold">
