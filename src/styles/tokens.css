@@ -162,7 +162,7 @@
      selected list item and a card meta-label color, both drawn from the
      slate/gray ramps rather than the ink/surface scale. */
   --color-text-meta: var(--color-slate-400);
-  --color-surface-selected: var(--color-gray-200);
+  --color-surface-selected: var(--color-brand-50);
 
   /* ------------------------------------------------------------------
      5. TYPOGRAPHY — FAMILIES
