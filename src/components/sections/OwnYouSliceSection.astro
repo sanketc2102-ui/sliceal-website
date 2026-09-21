@@ -26,6 +26,8 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
       to-brand-400
       dark:bg-none
       dark:bg-surface-dark
+      md:pt-[min(8.879%,122px)]
+      md:pb-[min(6.914%,95px)]
     "
     {...Astro.props}
   >
@@ -78,8 +80,6 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
         mx-auto
         w-full
         md:aspect-[1374/614]
-        lg:aspect-auto
-        lg:h-[614px]
         lg:max-w-[1374px]
       "
     >
@@ -256,96 +256,17 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
 
 
       <!-- =======================================================
-           DESKTOP PHONES
+           PHONES (md and up)
 
-           Exact positions from the Figma frame (1374 x 614, node
-           31754:134600): each phone is top-anchored within the
-           frame, not bottom-anchored — their differing heights
-           (564 / 710 / 548) just happen to land their bottoms
-           within a few px of each other, which reads as "bottom
-           aligned" but isn't.
-           ======================================================= -->
-
-<div
-  class="
-    pointer-events-none
-    absolute
-    inset-0
-    z-20
-    hidden
-    lg:block
-  "
-  aria-hidden="true"
->
-  <!-- LEFT PHONE -->
-
-  <div
-    class="
-      absolute
-      top-[146px]
-      left-[610px]
-      z-10
-      h-[564px]
-      w-[274px]
-    "
-  >
-    <Image
-      src={phoneLeft}
-      alt=""
-      class="block h-full w-full object-contain"
-    />
-  </div>
-
-
-  <!-- CENTER PHONE -->
-
-  <div
-    class="
-      absolute
-      top-0
-      left-[822px]
-      z-20
-      h-[710px]
-      w-[346px]
-    "
-  >
-    <Image
-      src={phoneCenter}
-      alt=""
-      class="block h-full w-full object-contain"
-    />
-  </div>
-
-
-  <!-- RIGHT PHONE -->
-
-  <div
-    class="
-      absolute
-      top-[153px]
-      left-[1107px]
-      z-10
-      h-[548px]
-      w-[267px]
-    "
-  >
-    <Image
-      src={phoneRight}
-      alt=""
-      class="block h-full w-full object-contain"
-    />
-  </div>
-
-</div>
-
-
-      <!-- =======================================================
-           TABLET PHONES
-
-           No tablet Figma frame exists — positions/sizes below are
-           the desktop frame's px values converted to percentages of
-           the 1374 x 614 frame, so they scale fluidly across the
-           whole md range instead of only matching one width.
+           Positions/sizes are the desktop Figma frame's px values
+           (1374 x 614, node 31754:134600) converted to percentages
+           of that frame, so they scale fluidly at every width from
+           md up through the lg:max-w-[1374px] cap instead of only
+           matching one exact viewport width. Each phone is
+           top-anchored, not bottom-anchored — their differing
+           heights (564 / 710 / 548) just happen to land their
+           bottoms within a few px of each other, which reads as
+           "bottom aligned" but isn't.
            ======================================================= -->
 
 <div
@@ -356,7 +277,6 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
     z-20
     hidden
     md:block
-    lg:hidden
   "
   aria-hidden="true"
 >
@@ -365,10 +285,10 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
   <div
     class="
       absolute
-      top-[23.78%]
+      top-[29.48%]
       left-[44.4%]
       z-10
-      h-[91.86%]
+      h-[86.16%]
       w-[19.94%]
     "
   >
@@ -405,10 +325,10 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
   <div
     class="
       absolute
-      top-[24.92%]
+      top-[29.13%]
       left-[80.57%]
       z-10
-      h-[89.25%]
+      h-[85.08%]
       w-[19.43%]
     "
   >
@@ -438,7 +358,7 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
           md:hidden
         "
       >
-        <div class="h-[226px] w-[110px] shrink-0">
+        <div class="h-[212px] w-[110px] shrink-0">
           <Image
             src={phoneLeft}
             alt="Sliceal property investment app"
@@ -454,7 +374,7 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
           />
         </div>
 
-        <div class="h-[226px] w-[110px] shrink-0">
+        <div class="h-[215px] w-[110px] shrink-0">
           <Image
             src={phoneRight}
             alt="Sliceal investment app"
