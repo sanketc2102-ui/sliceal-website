@@ -97,7 +97,7 @@ const cardBody =
 
   {/* md and up: same cards, dragged/paged through the shared carousel — the
       row is wider than the column at both tiers, matching the frames. */}
-  <div class="hidden md:block">
+  <div class="hidden md:block" data-worksflow-carousel>
     <Carousel showArrows>
       {
         steps.map(({ title, body }, i) => (
@@ -117,3 +117,63 @@ const cardBody =
     </Carousel>
   </div>
 </Section>
+
+<script>
+  // Trackpad horizontal swipe fires wheel events with deltaX, not pointer
+  // drag events, so the shared Carousel's pointer-based drag never sees it.
+  // This drives the carousel's own prev/next buttons instead of touching
+  // Carousel.astro, so the behavior stays scoped to this section only —
+  // clicking a disabled button is a no-op, so first/last-slide clamping
+  // comes for free from the carousel's existing bounds logic.
+  function initWorksFlowCarouselWheel() {
+    const zone = document.querySelector("[data-worksflow-carousel]");
+
+    if (!zone || zone.dataset.wheelInitialized === "true") return;
+
+    zone.dataset.wheelInitialized = "true";
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const viewport = zone.querySelector("[data-carousel-viewport]");
+    const prevButton = zone.querySelector("[data-carousel-prev]");
+    const nextButton = zone.querySelector("[data-carousel-next]");
+
+    if (!viewport || !prevButton || !nextButton) return;
+
+    let isInView = false;
+    let isPaging = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isInView = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(viewport);
+
+    viewport.addEventListener(
+      "wheel",
+      (event) => {
+        if (!isInView || isPaging) return;
+
+        // Vertical/diagonal-dominant gestures are page scroll, not paging.
+        if (Math.abs(event.deltaY) >= Math.abs(event.deltaX)) return;
+
+        event.preventDefault();
+
+        isPaging = true;
+        setTimeout(() => {
+          isPaging = false;
+        }, 350);
+
+        (event.deltaX > 0 ? nextButton : prevButton).click();
+      },
+      { passive: false },
+    );
+  }
+
+  document.addEventListener("astro:page-load", initWorksFlowCarouselWheel);
+</script>
