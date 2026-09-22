@@ -2,11 +2,13 @@
 /**
  * FaqAccordion — category chip tabs + accordion, reusable across pages.
  *
- * Renders a wrapping row of category chips plus one accordion panel per
- * category, at every breakpoint (Figma node 31918-74915). Only the active
- * category's panel is shown; JS swaps the active state on click. Without
- * JS, the first category's panel still renders and is fully readable — the
- * rest are just a click away from working once JS loads.
+ * Renders one accordion panel per category, gated by a category tab list.
+ * Desktop/tablet (Figma node 31918-74915): wrapping row of individual chips.
+ * Mobile (Figma node 32065-153976): a single scrollable segmented bar
+ * instead — same tabs, same JS, just a different visual treatment. Only the
+ * active category's panel is shown; JS swaps the active state on click.
+ * Without JS, the first category's panel still renders and is fully
+ * readable — the rest are just a click away from working once JS loads.
  *
  * Each question/answer pair is a native <details>/<summary>, so opening and
  * closing an answer needs no JS at all.
@@ -21,16 +23,19 @@ const { categories, instanceId = "faq" } = Astro.props;
 const tabId = (categoryId) => `${instanceId}-tab-${categoryId}`;
 const panelId = (categoryId) => `${instanceId}-panel-${categoryId}`;
 
+// Mobile: a selected segment in the bar (surface pill, brand text).
+// md+: back to the original standalone chip treatment.
 const activeChipClasses =
-  "bg-brand text-white shadow-[0_0_8px_rgba(0,0,0,0.3)] outline outline-2 outline-offset-[-2px] outline-brand-400";
+  "bg-surface text-brand shadow-sm md:bg-brand md:text-white md:shadow-[0_0_8px_rgba(0,0,0,0.3)] md:outline md:outline-2 md:outline-offset-[-2px] md:outline-brand-400";
 const inactiveChipClasses =
-  "bg-surface text-ink-secondary border border-transparent hover:bg-surface-alt hover:text-ink";
+  "bg-transparent text-ink-secondary md:border md:border-transparent md:bg-surface md:hover:bg-surface-alt md:hover:text-ink";
 ---
 
 <div class="faq-accordion flex flex-col gap-8" data-faq-accordion>
-  <!-- Chip tabs -->
+  <!-- Category tabs: a scrollable segmented bar on mobile, wrapping
+       standalone chips at md+ -->
   <div
-    class="flex flex-wrap items-center justify-center gap-2"
+    class="flex items-center gap-1 overflow-x-auto rounded-xl bg-surface-sunken p-1 md:flex-wrap md:justify-center md:gap-2 md:overflow-visible md:rounded-none md:bg-transparent md:p-0"
     role="tablist"
     aria-label="FAQ categories"
   >
@@ -47,7 +52,7 @@ const inactiveChipClasses =
             data-faq-tab
             data-target={category.id}
             class:list={[
-              "shrink-0 rounded-lg px-4 py-2.5 text-sm leading-sm font-semibold whitespace-nowrap transition-colors md:text-base",
+              "shrink-0 rounded-lg px-3 py-1.5 text-sm leading-sm font-semibold whitespace-nowrap transition-colors md:px-4 md:py-2.5 md:text-base",
               index === 0 ? activeChipClasses : inactiveChipClasses,
             ]}
           >
@@ -105,21 +110,25 @@ const inactiveChipClasses =
 
 <script>
   const ACTIVE_CHIP_CLASSES = [
-    "bg-brand",
-    "text-white",
-    "shadow-[0_0_8px_rgba(0,0,0,0.3)]",
-    "outline",
-    "outline-2",
-    "outline-offset-[-2px]",
-    "outline-brand-400",
+    "bg-surface",
+    "text-brand",
+    "shadow-sm",
+    "md:bg-brand",
+    "md:text-white",
+    "md:shadow-[0_0_8px_rgba(0,0,0,0.3)]",
+    "md:outline",
+    "md:outline-2",
+    "md:outline-offset-[-2px]",
+    "md:outline-brand-400",
   ];
   const INACTIVE_CHIP_CLASSES = [
-    "bg-surface",
+    "bg-transparent",
     "text-ink-secondary",
-    "border",
-    "border-transparent",
-    "hover:bg-surface-alt",
-    "hover:text-ink",
+    "md:border",
+    "md:border-transparent",
+    "md:bg-surface",
+    "md:hover:bg-surface-alt",
+    "md:hover:text-ink",
   ];
 
   const prefersReducedMotion = window.matchMedia(
