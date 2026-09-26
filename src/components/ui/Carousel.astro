@@ -3,6 +3,9 @@ const {
   showArrows = false,
   controlsInHeader = false,
   showDots = false,
+  // Extra classes for the below-carousel arrow row, e.g. "lg:hidden" when the
+  // track fits every slide at that width and arrows would sit disabled.
+  controlsClass = "",
 } = Astro.props;
 
 // When both are requested, dots are the mobile control and arrows take over
@@ -91,6 +94,7 @@ const responsiveControls = showDots && showArrows;
         class:list={[
           "carousel__controls mt-6 items-center justify-center gap-4",
           responsiveControls ? "hidden md:flex" : "flex",
+          controlsClass,
         ]}
       >
         <button
