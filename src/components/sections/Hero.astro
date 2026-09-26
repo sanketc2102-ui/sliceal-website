@@ -42,9 +42,9 @@ const stats = [
 
 ---
 
-<!-- TODO(mobile): no mobile/tablet Figma yet for the store badges and the
-     UAE flag added to the headline — their default state below is a
-     placeholder, not a designed layout. Revisit when frames land. -->
+<!-- TODO(mobile): no tablet Figma yet for the store badges and the UAE flag
+     added to the headline — their md: state below is a placeholder, not a
+     designed layout. Mobile follows Figma node 32065:153483. -->
 <section
   class="relative isolate flex flex-col overflow-hidden bg-surface-alt dark:bg-black md:block md:aspect-[1024/625] md:min-h-[37.5rem] lg:-mt-20 lg:block lg:aspect-auto lg:min-h-[clamp(55rem,100dvh,61.375rem)]"
   {...Astro.props}
@@ -52,21 +52,20 @@ const stats = [
 
   <div class="flex flex-col md:absolute md:inset-0 md:justify-center md:gap-8 lg:absolute lg:inset-0 lg:justify-center lg:gap-8">
     <div class="order-1 container-site pt-[3.125rem] pb-8 md:pt-0 md:pb-0 lg:pt-0 lg:pb-0">
-      <div class="flex flex-col gap-5 md:w-[31.0625rem] md:gap-8 lg:w-[41.5rem] lg:gap-8">
+      <div class="flex flex-col items-center gap-5 text-center md:w-[31.0625rem] md:items-stretch md:text-left md:gap-8 lg:w-[41.5rem] lg:gap-8">
         {/*
-          The badge is the first thing on mobile and the last on desktop, so it
-          is ordered rather than duplicated. 18px of extra top margin turns the
-          column's 32px gap into the 50px Figma draws above it.
+          Mobile Figma drops the badge; on desktop it sits last. 18px of extra
+          top margin turns the column's 32px gap into the 50px Figma draws.
         */}
         <p
-          class="order-1 flex w-fit items-center gap-2 rounded-pill border border-gray-100/20 bg-surface-alt px-3 py-1.5 text-2xs md:order-4 md:bg-transparent md:font-semibold md:shadow-pill lg:order-4 lg:mt-[1.125rem] lg:bg-transparent lg:font-semibold lg:shadow-pill"
+          class="order-1 hidden w-fit md:flex items-center gap-2 rounded-pill border border-gray-100/20 bg-surface-alt px-3 py-1.5 text-2xs md:order-4 md:bg-transparent md:font-semibold md:shadow-pill lg:order-4 lg:mt-[1.125rem] lg:bg-transparent lg:font-semibold lg:shadow-pill"
         >
           <Dot class="size-2.5 shrink-0" aria-hidden="true" />
           Licensed by VARA - In partnership with DLD
         </p>
 
         <h1
-          class="order-2 text-display-lg-mobile leading-10 tracking-tight md:order-1 md:max-w-[32.5rem] lg:order-1 lg:max-w-[40rem] lg:text-display-xl lg:leading-display-xl"
+          class="order-2 text-display-md-mobile leading-display-sm font-semibold tracking-tight md:order-1 md:text-display-lg-mobile md:leading-10 md:font-medium md:max-w-[32.5rem] lg:order-1 lg:max-w-[40rem] lg:text-display-xl lg:leading-display-xl"
         >
           Own Your <span class="text-brand-purple">Slice</span> of Real Estate
           In Dubai.
@@ -75,21 +74,20 @@ const stats = [
             alt=""
             width={81}
             height={41}
-            class="ml-2 inline-block h-[0.7em] w-auto align-baseline"
+            class="ml-2 hidden h-[0.7em] md:inline-block w-auto align-baseline"
           />
         </h1>
 
-        {/* 15/22 is not on the type scale; it exists only here. */}
-        <p class="order-3 text-[0.9375rem]/[1.375rem] md:order-2 md:text-sm lg:text-lg">
+        <p class="order-3 text-sm text-ink-muted md:order-2 md:text-text lg:text-lg">
           Invest in Dubai real estate from AED 2,000. Earn monthly rent and sell
           anytime on a regulated market with DLD-verified properties on the XRP
           Ledger.
         </p>
 
-        <div class="order-4 flex gap-3 md:order-3 md:gap-4 lg:order-3 lg:gap-4">
+        <div class="order-4 flex justify-center gap-2 md:order-3 md:justify-start md:gap-4 lg:order-3 lg:gap-4">
           <a
             href="/download"
-            class="flex min-h-11 flex-1 items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-2 shadow-xs transition-colors hover:bg-surface-sunken md:w-[8.5rem] md:flex-none lg:w-[8.5rem] lg:flex-none"
+            class="flex min-h-11 w-30 flex-none items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-2 shadow-xs transition-colors hover:bg-surface-sunken md:w-[8.5rem] md:flex-none lg:w-[8.5rem] lg:flex-none"
           >
             <Playstore class="size-5 shrink-0" aria-hidden="true" />
             <span class="flex flex-col text-ink">
@@ -99,7 +97,7 @@ const stats = [
           </a>
           <a
             href="/download"
-            class="flex min-h-11 flex-1 items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-2 text-ink shadow-xs transition-colors hover:bg-surface-sunken md:w-[8.5rem] md:flex-none lg:w-[8.5rem] lg:flex-none"
+            class="flex min-h-11 w-30 flex-none items-center gap-1.5 rounded-md border border-line bg-surface px-2 py-2 text-ink shadow-xs transition-colors hover:bg-surface-sunken md:w-[8.5rem] md:flex-none lg:w-[8.5rem] lg:flex-none"
           >
             <Apple class="size-5 shrink-0" aria-hidden="true" />
             <span class="flex flex-col">
@@ -141,32 +139,34 @@ const stats = [
       <div class="container-site py-5 md:py-0 lg:py-0">
 
         <div
-          class="mx-auto flex max-w-full flex-wrap items-center justify-center gap-3 min-[440px]:gap-4 md:mx-0 md:w-fit md:max-w-none md:flex-nowrap md:justify-start md:gap-6 lg:mx-0 lg:w-fit lg:max-w-none lg:flex-nowrap lg:justify-start lg:gap-6"
+          class="mx-auto flex max-w-full flex-wrap items-center justify-center gap-4 md:mx-0 md:w-fit md:max-w-none md:flex-nowrap md:justify-start md:gap-6 lg:mx-0 lg:w-fit lg:max-w-none lg:flex-nowrap lg:justify-start lg:gap-6"
         >
           <div
-            class="rounded-lg border border-line bg-surface/30 p-4 min-[440px]:p-5 md:rounded-lg md:border-0 md:bg-surface md:p-5 md:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] md:dark:border md:dark:border-line-strong lg:rounded-lg lg:border-0 lg:bg-surface lg:p-5 lg:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] lg:dark:border lg:dark:border-line-strong"
+            class="flex flex-col items-center gap-2.5 rounded-xl border border-line bg-surface/30 px-5 py-3 md:rounded-lg md:border-0 md:bg-surface md:p-5 md:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] md:dark:border md:dark:border-line-strong lg:rounded-lg lg:border-0 lg:bg-surface lg:p-5 lg:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] lg:dark:border lg:dark:border-line-strong"
           >
+            <p class="text-2xs whitespace-nowrap text-text-brand md:hidden">Licensed by</p>
             <Vara
-              class="h-8 w-[100px] dark:hidden min-[440px]:h-[38px] min-[440px]:w-[119px]"
+              class="h-[29px] w-[91px] dark:hidden md:h-[38px] md:w-[119px]"
               role="img"
               aria-label="Virtual Assets Regulatory Authority"
             />
             <VaraDark
-              class="hidden h-8 w-[100px] dark:block min-[440px]:h-[38px] min-[440px]:w-[119px]"
+              class="hidden h-[29px] w-[91px] dark:block md:h-[38px] md:w-[119px]"
               role="img"
               aria-label="Virtual Assets Regulatory Authority"
             />
           </div>
           <div
-            class="rounded-lg border border-line bg-surface/30 p-4 min-[440px]:p-5 md:rounded-lg md:border-0 md:bg-surface md:p-5 md:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] md:dark:border md:dark:border-line-strong lg:rounded-lg lg:border-0 lg:bg-surface lg:p-5 lg:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] lg:dark:border lg:dark:border-line-strong"
+            class="flex flex-col items-center gap-2.5 rounded-xl border border-line bg-surface/30 px-5 py-3 md:rounded-lg md:border-0 md:bg-surface md:p-5 md:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] md:dark:border md:dark:border-line-strong lg:rounded-lg lg:border-0 lg:bg-surface lg:p-5 lg:shadow-[0_0_2.5px_rgb(0_0_0/0.1)] lg:dark:border lg:dark:border-line-strong"
           >
+            <p class="text-2xs whitespace-nowrap text-text-brand md:hidden">In strategic partnership with</p>
             <Dld
-              class="h-8 w-[136px] dark:hidden min-[440px]:h-[38px] min-[440px]:w-[161px]"
+              class="h-[30px] w-[127px] dark:hidden md:h-[38px] md:w-[161px]"
               role="img"
               aria-label="Dubai Land Department"
             />
             <DldDark
-              class="hidden h-8 w-[136px] dark:block min-[440px]:h-[38px] min-[440px]:w-[161px]"
+              class="hidden h-[30px] w-[127px] dark:block md:h-[38px] md:w-[161px]"
               role="img"
               aria-label="Dubai Land Department"
             />
