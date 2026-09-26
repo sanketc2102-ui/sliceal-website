@@ -59,7 +59,7 @@ const {
     {breadcrumb && <Breadcrumb trail={breadcrumb} />}
 
     <HeadingTag
-      class="w-full max-w-[680px] text-center text-2xl leading-8 text-ink md:text-[30px] md:leading-[38px] lg:text-5xl lg:leading-[60px]"
+      class="w-full max-w-[680px] text-center text-2xl leading-8 font-semibold text-ink md:text-[30px] md:leading-[38px] lg:text-5xl lg:leading-[60px] lg:font-medium"
       data-reveal
     >
       <slot />
@@ -93,7 +93,7 @@ const {
             class="contents md:flex md:flex-col md:items-start md:gap-0 lg:flex lg:flex-col lg:items-start lg:gap-0"
             data-reveal
           >
-            <h3 class="max-w-xl text-lg leading-7 text-ink md:text-[30px] md:leading-[38px] lg:text-3xl lg:leading-9">
+            <h3 class="max-w-xl text-lg leading-7 font-semibold text-ink md:text-[30px] md:leading-[38px] lg:text-3xl lg:leading-9 lg:font-medium">
               {step.highlight ? (
                 <>
                   {step.prefix}
