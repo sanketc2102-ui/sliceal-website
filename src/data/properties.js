@@ -1,11 +1,13 @@
-import burjAlArab from "../assets/properties-imgs/burj-al-arab.png";
-import jbr from "../assets/properties-imgs/jbr.png";
-import damacHills from "../assets/properties-imgs/damac-hills.png";
-import property4 from "../assets/properties-imgs/property-4.png";
+import palmJumeirah from "../assets/properties-imgs/featured-palm-jumeirah.png";
+import jlt from "../assets/properties-imgs/featured-jlt.png";
+import businessBay from "../assets/properties-imgs/business-bay.png";
+import dubaiMarina from "../assets/properties-imgs/dubai-marina.jpg";
+import jbrResidence from "../assets/properties-imgs/jbr-residence.png";
+import downtownDubai from "../assets/properties-imgs/downtown-dubai.png";
 
 export const properties = [
   {
-    image: property4,
+    image: palmJumeirah,
     location: "Palm Jumeirah, Dubai",
     title: "Two Bedroom Apartment in Palm Jumeirah",
     tags: [
@@ -24,7 +26,7 @@ export const properties = [
     bathrooms: "3",
   },
   {
-    image: jbr,
+    image: jlt,
     location: "Jumeirah Lakes Towers, Dubai",
     title: "Two Bedroom Apartment in JLT",
     tags: [{ label: "24% Funded", tone: "success" }],
@@ -40,7 +42,7 @@ export const properties = [
     bathrooms: "3",
   },
   {
-    image: burjAlArab,
+    image: businessBay,
     location: "Business Bay, Dubai",
     title: "Two Bedroom Apartment in Business Bay",
     tags: [
@@ -59,7 +61,7 @@ export const properties = [
     bathrooms: "3",
   },
   {
-    image: damacHills,
+    image: dubaiMarina,
     location: "Dubai Marina, Dubai",
     title: "Two Bedroom Apartment in Dubai Marina",
     tags: [
@@ -78,7 +80,7 @@ export const properties = [
     bathrooms: "3",
   },
   {
-    image: property4,
+    image: jbrResidence,
     location: "Jumeirah Beach Residence, Dubai",
     title: "Two Bedroom Apartment in JBR",
     tags: [{ label: "20% Funded", tone: "success" }],
@@ -94,7 +96,7 @@ export const properties = [
     bathrooms: "3",
   },
   {
-    image: jbr,
+    image: downtownDubai,
     location: "Downtown Dubai, Dubai",
     title: "Two Bedroom Apartment in Downtown Dubai",
     tags: [
