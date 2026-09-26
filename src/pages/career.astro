@@ -64,11 +64,8 @@ const jobs = [
   },
 ];
 
-/* Figma 30508:47614 (desktop) / 31059:75401 (dark) — no dedicated tablet
-   frame exists (both "desktop" and "tablet" links point at the same node),
-   so md: below is a fluid 2-column placeholder derived from the desktop
-   frame, not a designed tablet layout. Section is desktop/tablet only —
-   hidden on mobile per the design brief. */
+/* Figma 30508:47614 (desktop) / 30908:58933 (tablet) / 32273:220362 (mobile)
+   / 31059:75401 (dark). */
 const enhanceItems = [
   {
     number: "01",
@@ -172,7 +169,7 @@ const enhanceItems = [
     </div>
   </Section>
 
-  <Section class="hidden md:block" innerClass="flex flex-col items-center gap-7">
+  <Section innerClass="flex flex-col items-center gap-6 lg:gap-7">
     <h2
       class="text-display-sm leading-display-sm font-semibold tracking-tight text-ink text-center lg:text-display-lg lg:leading-display-lg lg:font-medium"
       data-reveal
@@ -182,17 +179,22 @@ const enhanceItems = [
 
     <hr class="w-full border-line-fixed" />
 
-    <div class="grid w-full grid-cols-2 gap-8 lg:grid-cols-3 lg:gap-5.5">
+    <div class="grid w-full grid-cols-1 gap-5.5 md:grid-cols-3">
       {
         enhanceItems.map((item) => (
-          <div class="flex flex-col gap-4.5" data-reveal>
-            <p class="text-sm leading-sm font-semibold tracking-wide text-ink-secondary uppercase">
-              {item.number}
-            </p>
-            <div class="flex flex-col gap-3">
+          <div
+            class="flex flex-col gap-3 overflow-clip rounded-xl border border-brand-50 bg-surface p-4 text-center dark:border-line-card md:text-left lg:p-7.5"
+            data-reveal
+          >
+            <div class="flex items-center justify-center gap-4.5 md:flex-col md:items-start">
+              <p class="text-sm leading-normal font-semibold text-brand-purple uppercase">
+                {item.number}
+              </p>
               <p class="text-display-xs leading-display-xs font-medium text-ink">{item.title}</p>
-              <p class="text-sm leading-sm text-ink-secondary">{item.description}</p>
             </div>
+            <p class="text-sm leading-sm text-ink-secondary lg:text-[15px] lg:leading-normal">
+              {item.description}
+            </p>
           </div>
         ))
       }
