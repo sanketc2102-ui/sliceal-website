@@ -46,6 +46,9 @@ const {
   /** @type {Step[]} */
   steps = [],
   alternate = true,
+  // Mobile only: steps become a swipeable scroll-snap row with dots
+  // (homepage, Figma 32065:153740). md+ is the stacked layout either way.
+  carousel = false,
   "data-reveal": _dataReveal,
   ...rest
 } = Astro.props;
@@ -70,10 +73,22 @@ const {
     </p>
   </header>
 
-  <div class="flex w-full flex-col gap-16 md:gap-[34px] lg:gap-24">
+  <div
+    class:list={[
+      "flex md:flex-col md:gap-[34px] lg:gap-24",
+      carousel
+        ? "-mx-4 snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 scrollbar-none md:mx-0 md:w-full md:snap-none md:overflow-visible md:px-0"
+        : "w-full flex-col gap-16",
+    ]}
+    data-steps-track={carousel ? "" : undefined}
+  >
     {
       steps.map((step, i) => (
-        <StepRow eyebrow={step.eyebrow} reverse={alternate && i % 2 === 1}>
+        <StepRow
+          eyebrow={step.eyebrow}
+          reverse={alternate && i % 2 === 1}
+          class={carousel ? "w-full shrink-0 snap-center md:shrink" : ""}
+        >
           <div
             class="contents md:flex md:flex-col md:items-start md:gap-0 lg:flex lg:flex-col lg:items-start lg:gap-0"
             data-reveal
@@ -235,4 +250,52 @@ const {
       ))
     }
   </div>
+
+  {
+    carousel && (
+      <div class="-mt-8 flex items-center justify-center gap-1 md:hidden" data-steps-dots>
+        {steps.map((_, i) => (
+          <button
+            type="button"
+            class="group flex h-11 items-center"
+            aria-label={`Go to step ${i + 1}`}
+            aria-current={i === 0 ? "true" : "false"}
+            data-steps-dot={i}
+          >
+            <span class="h-2.5 w-5 rounded-md bg-[var(--color-control-disabled-bg)] transition-all duration-200 group-aria-[current=true]:w-8 group-aria-[current=true]:bg-indigo-500" />
+          </button>
+        ))}
+      </div>
+    )
+  }
 </Section>
+
+<script>
+  const initStepCarousels = () => {
+    document.querySelectorAll("[data-steps-track]").forEach((track) => {
+      const dots = Array.from(track.parentElement?.querySelectorAll("[data-steps-dot]") ?? []);
+      const slides = Array.from(track.children);
+      if (!dots.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const index = slides.indexOf(entry.target);
+            dots.forEach((dot, i) => dot.setAttribute("aria-current", String(i === index)));
+          });
+        },
+        { root: track, threshold: 0.6 },
+      );
+      slides.forEach((slide) => observer.observe(slide));
+
+      dots.forEach((dot, i) =>
+        dot.addEventListener("click", () =>
+          slides[i].scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" }),
+        ),
+      );
+    });
+  };
+
+  document.addEventListener("astro:page-load", initStepCarousels);
+</script>
