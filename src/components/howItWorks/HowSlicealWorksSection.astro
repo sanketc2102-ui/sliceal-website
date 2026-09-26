@@ -82,8 +82,16 @@ const {
               {step.highlight ? (
                 <>
                   {step.prefix}
-                  <span class="text-brand-purple">{step.highlight}</span>
-                  {step.suffix}
+                  {/* Desktop: always two lines — a prefixed highlight drops to
+                      line 2; otherwise the suffix does, leaving its leading
+                      punctuation ("Liquidity,") on line 1. */}
+                  <span class:list={["text-brand-purple", step.prefix && "lg:block"]}>{step.highlight}</span>
+                  {step.suffix && (
+                    <>
+                      {step.suffix.match(/^[,.:;]?/)[0]}{" "}
+                      <span class="lg:block">{step.suffix.replace(/^[,.:;]?\s*/, "")}</span>
+                    </>
+                  )}
                 </>
               ) : (
                 step.title
