@@ -24,14 +24,14 @@ import { Image } from "astro:assets";
     flex-col
     items-start
     gap-6
-    p-6
+    p-4
 
     md:h-[354px]
     md:justify-between
     md:p-4
   "
 >
-  <div class="flex w-full flex-col items-start gap-6">
+  <div class="flex w-full items-start gap-4 md:flex-col md:gap-6">
     <div
       class="
         flex
@@ -49,12 +49,12 @@ import { Image } from "astro:assets";
       />
     </div>
 
-    <div class="flex w-full flex-col items-start gap-3">
+    <div class="flex min-w-0 flex-1 flex-col items-start gap-3 md:w-full">
       <h3
         class="
           w-full
           text-lg
-          font-normal
+          font-semibold
           leading-7
           text-ink
 
@@ -70,12 +70,13 @@ import { Image } from "astro:assets";
         class="
           w-full
           max-w-prose
-          text-sm
+          text-xs
           font-normal
-          leading-5
-          text-ink-secondary
+          leading-xs
+          text-ink-muted
 
-          md:text-ink-muted
+          md:text-sm
+          md:leading-5
         "
       >
         {description}
@@ -87,23 +88,26 @@ import { Image } from "astro:assets";
     class="
       flex
       w-full
-      flex-col
-      items-start
+      flex-wrap
+      items-center
       gap-2
       border-t
       border-line
       pt-4
+
+      md:flex-col
+      md:flex-nowrap
+      md:items-start
     "
   >
     <div
       class="
-        w-full
         text-2xl
-        font-normal
+        font-semibold
         leading-8
         text-indigo-600
 
-        md:font-semibold
+        md:w-full
       "
       data-count={countable ? true : undefined}
     >
@@ -112,11 +116,12 @@ import { Image } from "astro:assets";
 
     <p
       class="
-        w-full
         text-xs
         font-normal
-        leading-4
+        leading-xs
         text-ink-muted
+
+        md:w-full
 
         md:leading-xs
       "

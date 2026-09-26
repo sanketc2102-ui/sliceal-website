@@ -37,16 +37,17 @@ const cards = [
 
 <Section
   surface="alt"
-  innerClass="flex flex-col gap-14"
+  innerClass="flex flex-col gap-8 md:gap-14"
   {...Astro.props}
 >
   <!-- Heading -->
-  <header class="flex w-full flex-col items-center gap-4 text-center">
+  <header class="flex w-full flex-col items-center gap-3 text-center md:gap-4">
     <div
       class="
         rounded-[40px]
         border
-        border-line-brand
+        border-transparent
+        dark:border-white
         bg-surface
         px-3.5
         py-1.5
@@ -62,6 +63,7 @@ const cards = [
         w-full
         max-w-[680px]
         text-center
+        text-lg
         font-semibold
         text-ink
 
@@ -78,16 +80,18 @@ const cards = [
         w-full
         max-w-[680px]
         text-center
-        text-base
+        text-sm
         font-normal
-        leading-6
-        text-ink-secondary
+        leading-5
+        text-ink-muted
 
-        md:text-sm
-        md:leading-5
+        md:text-ink-secondary
       "
     >
-      Three ways. Monthly rent, long-term appreciation, and the option to sell.
+      <span class="md:hidden">Three ways you'll be filling your bank</span>
+      <span class="hidden md:inline">
+        Three ways. Monthly rent, long-term appreciation, and the option to sell.
+      </span>
     </p>
   </header>
 
@@ -97,7 +101,7 @@ const cards = [
       grid
       w-full
       grid-cols-1
-      gap-6
+      gap-4
 
       md:grid-cols-3
       md:gap-4
