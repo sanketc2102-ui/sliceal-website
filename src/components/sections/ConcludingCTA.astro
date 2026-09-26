@@ -96,7 +96,7 @@ const buttonVariants = {
       layout === "centered" ? (
         <div class="mx-auto flex max-w-[45.5rem] flex-col items-center gap-8 lg:gap-5">
           <div class="flex flex-col items-center gap-4 lg:contents">
-            <h2 class="font-display text-lg font-semibold text-white md:text-display-sm lg:text-display-lg lg:font-normal">
+            <h2 class="font-display text-lg font-semibold text-white md:text-display-sm lg:text-display-lg lg:font-medium">
               {headingSegments.map(({ text, highlight }) =>
                 highlight ? <span class="text-mint-500">{text}</span> : <span>{text}</span>,
               )}
@@ -124,7 +124,7 @@ const buttonVariants = {
         </div>
       ) : (
         <div class="flex flex-col items-stretch gap-6 md:flex-row md:items-center md:justify-between md:gap-8">
-          <h2 class="text-center font-display text-display-xs font-normal text-white md:max-w-[428px] md:text-left md:text-display-sm md:font-semibold lg:max-w-[565px] lg:text-display-lg lg:font-normal">
+          <h2 class="text-center font-display text-display-xs font-semibold text-white md:max-w-[428px] md:text-left md:text-display-sm lg:max-w-[565px] lg:text-display-lg lg:font-medium">
             {headingSegments.map(({ text, highlight }) =>
               highlight ? <span class="text-mint-500">{text}</span> : <span>{text}</span>,
             )}
