@@ -11,7 +11,7 @@ const pillars = [
   {
     number: "02",
     title: "Liquidity",
-    body: "Property tokens clear on our secondary marketplace in seconds after lock-in.",
+    body: "List and sell your tokens on our secondary marketplace 24/7, once the 3-month lock-in ends.",
   },
   {
     number: "03",
@@ -21,25 +21,25 @@ const pillars = [
 ];
 
 const eyebrow =
-  "rounded-pill border border-line-brand dark:border-white px-3 py-1.5 text-xs/[0.875rem] text-text-brand md:text-sm/5 md:font-semibold md:shadow-pill lg:text-sm/5 lg:font-semibold lg:shadow-pill";
+  "rounded-pill border border-line px-3 py-1.5 text-sm/5 font-semibold text-text-brand shadow-pill";
 
 // Tablet frame (node 30859:64242): headline keeps its 655px design width.
-const headlineMeasureMd = "md:max-w-[40.9375rem]";
+// md+: the <br> sets the Figma two-line break; lg drops the cap so fallback fonts
+// wider than SF Pro don't push it to three lines.
+const headlineMeasureMd = "md:max-w-[40.9375rem] lg:max-w-none";
 ---
 
 <Section surface="alt" innerClass="flex flex-col gap-6 lg:gap-7" {...Astro.props}>
-  <header
-    class="flex flex-col items-center gap-4 text-center md:items-start md:gap-6 md:text-left lg:items-start lg:gap-8 lg:text-left"
-  >
+  <header class="flex flex-col items-center gap-4 text-center md:gap-6 lg:gap-8">
     <p class={eyebrow}>THE OLD DAY</p>
 
     <h2
       class:list={[
         headlineMeasureMd,
-        "text-display-sm-mobile leading-[2.125rem] font-normal tracking-normal text-ink md:text-display-sm md:font-semibold md:tracking-tight md:text-ink lg:max-w-[40.9375rem] lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight lg:text-ink",
+        "text-display-sm-mobile leading-[2.125rem] font-normal tracking-normal text-ink md:text-display-sm md:font-semibold md:tracking-tight md:text-ink lg:text-display-lg lg:leading-display-lg lg:font-medium lg:tracking-tight lg:text-ink",
       ]}
     >
-      Real estate was illiquid, opaque and closed.{" "}
+      Real estate was illiquid, non transparent <br class="hidden md:inline" />and closed.{" "}
       <span class="text-brand-purple">We unlocked it.</span>
     </h2>
   </header>
@@ -55,22 +55,23 @@ const headlineMeasureMd = "md:max-w-[40.9375rem]";
   <ol
     role="list"
     data-pillars
-    class="grid list-none gap-6 md:grid-cols-3 md:gap-5.5 lg:grid-cols-3 lg:gap-5.5"
+    class="grid list-none gap-4 md:grid-cols-3 lg:grid-cols-3"
   >
     {
       pillars.map(({ number, title, body }) => (
         <li
           data-pillar
-          class="flex flex-col gap-3 opacity-0 translate-y-6 transition-all duration-700 ease-out lg:gap-4.5"
+          class="flex flex-wrap items-baseline justify-center gap-x-2 gap-y-2 text-center overflow-clip rounded-xl border border-brand-50 bg-surface px-6 py-7 opacity-0 translate-y-6 transition-all duration-700 ease-out dark:border-line-card md:flex-col md:flex-nowrap md:items-stretch md:justify-start md:gap-4 md:text-left md:p-6 lg:gap-4.5 lg:p-7.5"
         >
-          <span class="text-sm font-semibold text-ink-muted" aria-hidden="true">
+          <span class="text-lg font-semibold text-text-brand" aria-hidden="true">
             {number}
           </span>
-          <div class="flex flex-col gap-3">
-            <h3 class="text-xl font-semibold tracking-normal text-ink md:text-display-xs md:font-medium lg:text-display-xs lg:font-medium">
+          {/* Mobile: `contents` lifts title + body into the li's wrap row so the number sits beside the title. */}
+          <div class="contents md:flex md:flex-col md:gap-3">
+            <h3 class="text-xl font-medium tracking-normal text-ink md:text-display-xs md:font-medium lg:text-display-xs lg:font-medium">
               {title}
             </h3>
-            <p class="text-sm text-ink-secondary lg:max-w-[22.375rem] lg:text-[0.9375rem] lg:leading-normal">
+            <p class="basis-full text-sm text-ink-secondary md:basis-auto">
               {body}
             </p>
           </div>
