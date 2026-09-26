@@ -56,16 +56,23 @@ const steps = [
   },
 ];
 
-const cardInner = "flex flex-col items-center gap-3";
+// The page-supplied data-reveal is consumed here rather than forwarded: on
+// mobile the stacked cards make the section several screens tall, so one
+// whole-section reveal finishes before the lower cards are ever seen. The
+// header, each mobile card, and the md+ carousel reveal individually instead.
+const { "data-reveal": _dataReveal, ...rest } = Astro.props;
+
+const cardInner ="flex flex-col items-center gap-3";
 const cardTitle =
   "text-xl leading-xl font-semibold md:text-display-xs md:leading-display-xs md:font-medium";
 const cardBody =
   "w-full max-w-[22.375rem] text-sm leading-sm text-ink-muted lg:text-md lg:leading-md";
 ---
 
-<Section innerClass="flex flex-col gap-6 md:gap-8" class="lg:bg-surface-alt" {...Astro.props}>
+<Section innerClass="flex flex-col gap-6 md:gap-8" class="lg:bg-surface-alt" {...rest}>
   <header
     class="flex flex-col items-center gap-3 text-center md:gap-3.5 lg:gap-6"
+    data-reveal
   >
     <h2
       class="text-display-sm-mobile leading-8.5 font-semibold tracking-normal md:text-display-sm md:leading-display-sm lg:text-display-2xl lg:leading-display-2xl lg:font-medium lg:tracking-tight"
@@ -85,7 +92,7 @@ const cardBody =
   <ol class="m-0 flex list-none flex-col gap-4 p-0 md:hidden">
     {
       steps.map(({ title, body }) => (
-        <li class="flex w-full flex-col items-center gap-3 rounded-xl border border-brand-25 bg-surface p-4 text-center">
+        <li class="flex w-full flex-col items-center gap-3 rounded-xl border border-brand-25 bg-surface p-4 text-center" data-reveal>
           <p class:list={[cardTitle, "text-brand-purple dark:text-mint-500"]}>
             {title}
           </p>
@@ -97,7 +104,7 @@ const cardBody =
 
   {/* md and up: same cards, dragged/paged through the shared carousel — the
       row is wider than the column at both tiers, matching the frames. */}
-  <div class="hidden md:block" data-worksflow-carousel>
+  <div class="hidden md:block" data-worksflow-carousel data-reveal>
     <Carousel showArrows>
       {
         steps.map(({ title, body }, i) => (
