@@ -37,6 +37,7 @@
      ------------------------------------------------------------------ */
   --color-brand-25: #eeefff; /* Figma Brand/25  — active nav pill border */
   --color-brand-50: #dee2ff; /* Figma Brand/50 == Brand/100 (duplicate)  */
+  --color-brand-300: #9fa4ff; /* Figma Brand/300 — selected subject pill  */
   --color-brand-400: #7e79ff; /* Figma Brand/400 — 2px accent borders     */
   --color-brand-500: #6655f5; /* Figma Brand/500                          */
   --color-brand-600: #5c3cf0; /* Figma Brand/600 — PRIMARY ACTION         */
