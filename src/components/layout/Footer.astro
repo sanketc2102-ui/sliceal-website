@@ -12,12 +12,12 @@ import linkedIn from "../../assets/socials/LinkedIn.svg";
 import x from "../../assets/socials/X.svg";
 import yt from "../../assets/socials/Youtube.svg";
 
-// dark-mode variants (baked white fill, same convention as arrow_back_ios_new_white.svg)
-import fbWhite from "../../assets/socials/Facebook_white.svg";
-import instaWhite from "../../assets/socials/Instagram_white.svg";
-import linkedInWhite from "../../assets/socials/LinkedIn_white.svg";
-import xWhite from "../../assets/socials/X_white.svg";
-import ytWhite from "../../assets/socials/Youtube_white.svg";
+// dark-mode variants (baked Neon Mint #02EBAC fill per Figma dark footer)
+import fbMint from "../../assets/socials/Facebook_mint.svg";
+import instaMint from "../../assets/socials/Instagram_mint.svg";
+import linkedInMint from "../../assets/socials/LinkedIn_mint.svg";
+import xMint from "../../assets/socials/X_mint.svg";
+import ytMint from "../../assets/socials/Youtube_mint.svg";
 
 // Links resolve to real pages in src/pages/. Entries still on "#" have no page
 // yet (no Security, Blog, Career, or Contact route) — point them at a route the
@@ -42,31 +42,31 @@ const socialLinks = [
     label: "Facebook",
     href: "#",
     icon: fb,
-    iconDark: fbWhite,
+    iconDark: fbMint,
   },
   {
     label: "Instagram",
     href: "#",
     icon: insta,
-    iconDark: instaWhite,
+    iconDark: instaMint,
   },
   {
     label: "X",
     href: "#",
     icon: x,
-    iconDark: xWhite,
+    iconDark: xMint,
   },
   {
     label: "LinkedIn",
     href: "#",
     icon: linkedIn,
-    iconDark: linkedInWhite,
+    iconDark: linkedInMint,
   },
   {
     label: "YouTube",
     href: "#",
     icon: yt,
-    iconDark: ytWhite,
+    iconDark: ytMint,
   },
 ];
 ---
@@ -617,6 +617,7 @@ const socialLinks = [
               max-w-none
               -translate-x-1/2
               opacity-[0.08]
+              dark:opacity-20
 
               2xl:h-full
               2xl:w-auto
