@@ -11,27 +11,27 @@ const { post } = Astro.props;
     <div class="flex flex-col gap-5">
       <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-1.5">
-          <CalendarIcon class="size-[18px]" aria-hidden="true" />
-          <span class="text-sm leading-sm font-semibold text-ink-muted">{post.date}</span>
+          <CalendarIcon class="size-[18px] text-gray-900 dark:text-mint-500" aria-hidden="true" />
+          <span class="text-sm leading-sm font-semibold text-ink-muted dark:text-night-300">{post.date}</span>
         </div>
 
-        <span class="inline-flex shrink-0 items-center gap-1 rounded-sm bg-yellow-50 px-2 py-1">
+        <span class="inline-flex shrink-0 items-center gap-1 rounded-sm bg-yellow-50 px-2 py-1 dark:bg-night-950">
           <FlameIcon class="size-3" aria-hidden="true" />
-          <span class="text-xs leading-xs font-bold whitespace-nowrap text-warning-600">
+          <span class="text-xs leading-xs font-bold whitespace-nowrap text-warning-600 dark:text-night-300">
             {post.category}
           </span>
         </span>
       </div>
 
       <div class="flex flex-col gap-3">
-        <h3 class="text-lg leading-lg font-bold text-ink">{post.title}</h3>
-        <p class="text-[13px] leading-sm text-gray-700">{post.excerpt}</p>
+        <h3 class="text-lg leading-lg font-bold text-ink dark:tracking-tight dark:text-night-100">{post.title}</h3>
+        <p class="text-[13px] leading-sm text-gray-700 dark:text-night-300">{post.excerpt}</p>
       </div>
     </div>
 
     <button
       type="button"
-      class="flex h-11 w-full items-center justify-center rounded-xl border border-line-strong text-sm leading-sm font-semibold text-gray-700 transition-colors hover:bg-gray-25"
+      class="flex h-11 w-full items-center justify-center rounded-xl border border-line-strong text-sm leading-sm font-semibold text-gray-700 transition-colors hover:bg-gray-25 dark:border-night-700 dark:bg-night-950 dark:text-night-300 dark:hover:bg-gray-900"
     >
       View Details
     </button>

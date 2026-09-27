@@ -86,6 +86,12 @@
   --color-slate-400: #90a1b9; /* card meta labels                         */
   --color-slate-950: #0f172b;
 
+  /* Cool-tinted neutrals from the dark-mode blog card (Figma 32273:203360). */
+  --color-night-100: #f0f0f5; /* card title                               */
+  --color-night-300: #a8a8b3; /* card meta, excerpt, badge + button label */
+  --color-night-700: #2a2a35; /* card button border                       */
+  --color-night-950: #0d0d0d; /* card badge + button fill                 */
+
   /* ------------------------------------------------------------------
      3. COLOR — SEMANTIC / ACCENT
      ------------------------------------------------------------------ */
