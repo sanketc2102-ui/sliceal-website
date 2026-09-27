@@ -54,9 +54,12 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
           leading-8
           text-ink
 
-          lg:text-5xl
-          lg:leading-[3.75rem]
+          lg:text-4xl
+          lg:leading-[2.75rem]
           lg:font-medium
+
+          xl:text-5xl
+          xl:leading-[3.75rem]
         "
       >
         Own, earn, and exit — without the old barriers.
@@ -94,11 +97,13 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
                 bg-surface
                 p-4
 
-                lg:h-80
+                lg:min-h-80
                 lg:items-start
                 lg:rounded-none
-                lg:p-7
+                lg:p-5
                 lg:gap-4
+
+                xl:p-7
               `,
               index === 0 && "lg:rounded-tl-2xl lg:rounded-bl-2xl",
               index === barriers.length - 1 &&
@@ -211,9 +216,12 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
                   leading-7
                   text-ink
 
-                  lg:text-2xl
+                  lg:text-xl
                   lg:font-normal
-                  lg:leading-8
+                  lg:leading-7
+
+                  xl:text-2xl
+                  xl:leading-8
                 "
               >
                 {barrier.title}
@@ -252,10 +260,11 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
           p-4
           text-center
 
-          lg:h-64
+          lg:min-h-64
           lg:items-start
           lg:border-line
-          lg:p-7
+          lg:p-5
+          xl:p-7
           lg:text-left
         "
         data-reveal
@@ -289,10 +298,11 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
           p-4
           text-center
 
-          lg:h-64
+          lg:min-h-64
           lg:items-start
           lg:border-line
-          lg:p-7
+          lg:p-5
+          xl:p-7
           lg:text-left
         "
         data-reveal
