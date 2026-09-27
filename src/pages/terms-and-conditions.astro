@@ -1,6 +1,5 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
-import Section from "../components/layout/Section.astro";
 import LegalContent from "../components/ui/LegalContent.astro";
 
 import { Content } from "../content/legal/terms-condtion.md" ;
@@ -17,11 +16,7 @@ const lastUpdated = "4 September 2026";
   description={description}
   lastUpdated={lastUpdated}
 >
-  <Section>
-    <article class="mx-auto w-full max-w-[900px]">
-      <LegalContent>
-        <Content />
-      </LegalContent>
-    </article>
-  </Section>
+  <LegalContent>
+    <Content />
+  </LegalContent>
 </LegalLayout>

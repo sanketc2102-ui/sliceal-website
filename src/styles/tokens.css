@@ -129,6 +129,7 @@
   --color-text-muted: var(--color-gray-500);
   --color-text-inverse: var(--color-white);
   --color-text-brand: var(--color-brand-600);
+  --color-text-heading: var(--color-brand-950); /* legal section headings */
 
   --color-ink: var(--color-black); /* text-ink            */
   --color-ink-secondary: var(--color-gray-600); /* text-ink-secondary  */
@@ -412,6 +413,7 @@
     --color-text-muted: var(--color-gray-500);
     --color-text-inverse: var(--color-black);
     --color-text-brand: var(--color-mint-500);
+    --color-text-heading: var(--color-white);
 
     --color-ink: var(--color-white);
     --color-ink-secondary: var(--color-gray-400);

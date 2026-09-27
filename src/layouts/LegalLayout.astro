@@ -1,6 +1,4 @@
 ---
-// TODO(mobile): Review and adjust the legal page layout when mobile Figma frames are available.
-
 import BaseLayout from "./BaseLayout.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
@@ -20,22 +18,16 @@ const {
 >
   <Header slot="header" />
 
-  <!-- Legal page header -->
+  <!-- Figma: mobile 30540:128559, tablet 30908:59398, desktop 30508:46886 -->
   <section
-    data-reveal
     class="
       w-full
-      border-b
-      border-line
       bg-surface
-      px-6
-      pt-10
-      pb-6
+      px-4
+      py-10
 
-      lg:border-b-0
-      lg:px-20
-      lg:pt-14
-      lg:pb-0
+      md:p-15
+      lg:p-20
     "
   >
     <div
@@ -43,59 +35,90 @@ const {
         mx-auto
         flex
         w-full
-        max-w-[900px]
+        max-w-site
         flex-col
-        items-center
-        gap-4
-        text-center
+        gap-8
+
+        md:gap-[50px]
       "
     >
-      <Breadcrumb trail={[{ label: title }]} />
-
-      <h1
+      <!-- Legal page header -->
+      <header
+        data-reveal
         class="
-          text-4xl
-          font-normal
-          leading-tight
-          tracking-tight
-          text-ink
+          flex
+          w-full
+          flex-col
+          items-center
+          gap-8
+          text-center
 
-          lg:text-5xl
-          lg:leading-[60px]
+          md:gap-6
         "
       >
-        {title}
-      </h1>
+        <Breadcrumb trail={[{ label: title }]} />
 
-      {
-        lastUpdated && (
-          <p class="text-sm font-normal leading-5 text-ink-muted">
-            Last updated: {lastUpdated}
-          </p>
-        )
-      }
+        <div
+          class="
+            flex
+            w-full
+            flex-col
+            items-center
+            gap-4
 
-      {
-        intro && (
-          <p
+            md:gap-6
+          "
+        >
+          <h1
             class="
-              w-full
-              max-w-[680px]
-              text-sm
-              font-normal
-              leading-5
-              text-ink-secondary
+              text-xl
+              font-semibold
+              leading-xl
+              tracking-normal
+              text-ink
+
+              md:text-display-sm
+              md:leading-display-sm
+              lg:text-display-xl
+              lg:font-medium
+              lg:leading-display-xl
+              lg:tracking-tight
             "
           >
-            {intro}
-          </p>
-        )
-      }
+            {title}
+          </h1>
+
+          {
+            lastUpdated && (
+              <p class="text-sm font-normal leading-normal text-ink-secondary">
+                Last updated: {lastUpdated}
+              </p>
+            )
+          }
+
+          {
+            intro && (
+              <p
+                class="
+                  w-full
+                  max-w-[680px]
+                  text-sm
+                  font-normal
+                  leading-normal
+                  text-ink-secondary
+                "
+              >
+                {intro}
+              </p>
+            )
+          }
+        </div>
+      </header>
+
+      <!-- Markdown content -->
+      <slot />
     </div>
   </section>
-
-  <!-- Markdown content -->
-  <slot />
 
   <Footer slot="footer" />
 </BaseLayout>

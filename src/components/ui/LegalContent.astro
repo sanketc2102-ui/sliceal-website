@@ -7,9 +7,8 @@ const { class: className = "" } = Astro.props;
   class:list={[
     "legal-content",
     "flex",
+    "w-full",
     "flex-col",
-    "gap-4",
-    "lg:gap-0",
     className,
   ]}
 >
@@ -17,26 +16,18 @@ const { class: className = "" } = Astro.props;
 </div>
 
 <script>
+  // Figma draws each h2 + its body as a flat row: 20px padding, 14px
+  // heading-to-body gap, hairline divider between rows — same at every
+  // breakpoint (mobile 30926:59564, tablet 30908:59407, desktop 30508:46896).
   const CARD_CLASSES = [
     "legal-card",
     "flex",
     "flex-col",
-    "gap-3",
-    "rounded-lg",
-    "border",
+    "gap-3.5",
+    "border-t",
     "border-line",
     "p-5",
-    "lg:gap-0",
-    "lg:rounded-none",
-    "lg:border-t-0",
-    "lg:border-l-0",
-    "lg:border-r-0",
-    "lg:pt-0",
-    "lg:pl-0",
-    "lg:pr-0",
-    "lg:pb-7",
-    "lg:last:border-b-0",
-    "lg:last:pb-0",
+    "first:border-t-0",
   ];
   const BODY_CLASSES = ["legal-card-body", "flex", "flex-col"];
 
@@ -83,90 +74,107 @@ const { class: className = "" } = Astro.props;
 </script>
 
 <style>
+  /* Mobile (Figma 30926:59564): 12/18 body, 12px between blocks, 18px
+     bullet indent. */
   .legal-content {
-    width: 100%;
     color: var(--color-text-secondary);
-    font-family: "SF Pro", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-xs);
   }
 
   .legal-content :global(h2) {
-    margin-top: 28px;
-    margin-bottom: 8px;
-    color: var(--color-brand-950);
-    font-family: "SF Pro", sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 28px;
+    margin: 28px 0 14px;
+    color: var(--color-text-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--leading-normal);
+    letter-spacing: normal;
   }
 
   .legal-content :global(.legal-card > h2) {
     margin: 0;
   }
 
-  /* Desktop has no card chrome (see Figma node 30508:47274) — restore the
-     flat heading rhythm, with the 14px heading-to-body gap read off that
-     frame instead of the 8px card value. */
-  @media (min-width: 64rem) {
-    .legal-content :global(.legal-card > h2) {
-      margin-top: 28px;
-      margin-bottom: 14px;
-    }
+  /* Markdown headings are written `## **1. Title**` — keep the <strong>
+     from repainting them in body grey. */
+  .legal-content :global(h2 strong),
+  .legal-content :global(h3 strong) {
+    color: inherit;
   }
 
   .legal-content :global(h3) {
-    margin-top: 20px;
-    margin-bottom: 8px;
-    color: var(--color-brand-950);
-    font-family: "SF Pro", sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 24px;
+    margin: 20px 0 8px;
+    color: var(--color-text-heading);
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--leading-md);
+    letter-spacing: normal;
+  }
+
+  .legal-content :global(p),
+  .legal-content :global(ul),
+  .legal-content :global(ol) {
+    margin: 0 0 12px;
+  }
+
+  .legal-content :global(ul),
+  .legal-content :global(ol) {
+    padding-left: 18px;
+  }
+
+  .legal-content :global(ul) {
+    list-style-type: disc;
+  }
+
+  .legal-content :global(ol) {
+    list-style-type: decimal;
+  }
+
+  /* Loose markdown lists wrap each item in a <p>; Figma stacks items flush. */
+  .legal-content :global(li > p) {
+    margin: 0;
   }
 
   .legal-content :global(.legal-card-body > *:last-child) {
     margin-bottom: 0;
   }
 
-  .legal-content :global(p) {
-    margin-bottom: 12px;
-    color: var(--color-text-secondary);
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-  }
-
-  .legal-content :global(ul) {
-    margin: 0 0 12px;
-    padding-left: 20px;
-    list-style-type: disc;
-  }
-
-  .legal-content :global(ol) {
-    margin: 0 0 12px;
-    padding-left: 20px;
-    list-style-type: decimal;
-  }
-
-  .legal-content :global(li) {
-    margin-bottom: 4px;
-  }
-
   .legal-content :global(strong) {
-    color: var(--color-text-secondary);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
   }
 
   .legal-content :global(a) {
-    color: var(--color-text-secondary);
     text-decoration: underline;
   }
 
   .legal-content :global(hr) {
     margin: 20px 0;
-    border: 0;
-    border-top: 1px solid rgb(0 0 0 / 10%);
+  }
+
+  /* Tablet + desktop (Figma 30908:59407, 30508:46896): 14/21 body, blocks
+     stacked with no gap, 21px bullet indent. Consecutive paragraphs never
+     appear in the frame; they keep a 12px gap so they stay distinguishable. */
+  @media (width >= 48rem) {
+    .legal-content {
+      font-size: var(--text-sm);
+      line-height: var(--leading-normal);
+    }
+
+    .legal-content :global(p),
+    .legal-content :global(ul),
+    .legal-content :global(ol) {
+      margin-bottom: 0;
+    }
+
+    .legal-content :global(p + p) {
+      margin-top: 12px;
+    }
+
+    .legal-content :global(ul),
+    .legal-content :global(ol) {
+      padding-left: 21px;
+    }
   }
 </style>
