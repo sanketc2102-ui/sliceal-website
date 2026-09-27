@@ -426,6 +426,9 @@
     --color-ink-muted: var(--color-gray-500);
     --color-ink-inverse: var(--color-black);
 
+    /* Near-white ambient wash reads as a halo on dark surfaces. */
+    --shadow-glow: none;
+
     --color-surface: var(--color-charcoal);
     --color-surface-alt: var(--color-gray-900);
     --color-surface-sunken: var(--color-gray-800);
