@@ -113,7 +113,7 @@ const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white hov
 
 // Nav label: colour swap plus an underline that scales out from its centre.
 // `group` lets the active pill (a sibling span) react to hover on the <a>.
-const navLink = `group relative block p-1 text-ink ${motion} hover:text-brand
+const navLink = `group relative block p-1 ${motion} hover:text-brand
   after:absolute after:inset-x-1 after:-bottom-px after:h-px after:origin-center
   after:scale-x-0 after:bg-brand after:transition-transform after:duration-200
   after:ease-out after:content-[''] hover:after:scale-x-100`;
@@ -143,7 +143,10 @@ const navLink = `group relative block p-1 text-ink ${motion} hover:text-brand
  * element across a navigation, so the browser's View Transition interpolates
  * the old pill's rect into the new one's instead of an instant cut.
  */
-const navActiveText = "text-brand after:hidden";
+// Light: Main/Brand Purple per node 30732:150165. Dark keeps its ink label —
+// text-ink used to outrank text-brand in the CSS order, so ink is what dark
+// has always rendered. text-ink is now applied only to inactive links.
+const navActiveText = "text-brand-purple hover:text-brand-purple dark:text-ink dark:hover:text-brand after:hidden";
 // No backdrop-blur/saturate here: browsers rasterize a named element into a
 // flat snapshot for the View Transition, and backdrop-filter has no live
 // backdrop to sample inside that snapshot — it was rendering as a blank/washed
@@ -152,10 +155,14 @@ const navActiveText = "text-brand after:hidden";
 // transparent home-page state), so dropping the filter loses nothing.
 // Dark mode has its own reference now (node 31010:131756): a transparent
 // pill with only the brand-25 border + shadow-nav, no fill tint.
-const navPill = `pointer-events-none absolute -inset-x-2.5 inset-y-0 -z-10
-  rounded-pill bg-brand-25/70 shadow-nav ring-1 ring-brand-25
+// Light reference (node 30732:150165): same unfilled treatment, but a 12px
+// radius and 12px side padding (link p-1 + 8px bleed). Dark keeps its own
+// pill radius and 10px bleed.
+const navPill = `pointer-events-none absolute -inset-x-2 inset-y-0 -z-10
+  rounded-lg shadow-nav ring-1 ring-brand-25
   group-hover:bg-brand-25
-  dark:bg-transparent dark:group-hover:bg-brand-25/20`;
+  dark:-inset-x-2.5 dark:rounded-pill dark:bg-transparent
+  dark:group-hover:bg-brand-25/20`;
 
 /*
  * Exact match for "/", prefix match for everything else (so /properties/burj
@@ -248,7 +255,7 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
                 <a
                   href={href}
                   aria-current={isActive ? "page" : undefined}
-                  class:list={[navLink, labelType, isActive && navActiveText]}
+                  class:list={[navLink, labelType, isActive ? navActiveText : "text-ink"]}
                 >
                   {isActive && (
                     <span
