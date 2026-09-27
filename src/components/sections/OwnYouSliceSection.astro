@@ -3,6 +3,8 @@ import Section from "../layout/Section.astro";
 import { Image } from "astro:assets";
 
 import desktopBackground from "../../assets/own-slice/own-your-slice-bg-img-desktop.png";
+import darkBackground from "../../assets/own-slice/own-your-slice-bg-img-dark.png";
+import darkGrain from "../../assets/own-slice/own-your-slice-grain-dark.png";
 
 import phoneLeft from "../../assets/own-slice/gold-left.png";
 import phoneCenter from "../../assets/own-slice/gold-middle.png";
@@ -25,7 +27,7 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
       from-brand-800
       to-brand-400
       dark:bg-none
-      dark:bg-surface-dark
+      dark:bg-black
       md:pt-[min(8.879%,122px)]
       md:pb-[min(6.914%,95px)]
     "
@@ -55,14 +57,22 @@ import appStoreIcon from "../../assets/own-slice/Apple-logo.svg";
       ></div>
     </div>
 
+    <!-- Dark mode, all breakpoints (Figma 31010:155504): black fill, city
+         photo @20%, then a soft-light grain @20%. Grain rect is its rotated
+         Figma bounds as % of the 1512×658 frame. -->
     <div
-      class="pointer-events-none absolute inset-0 hidden dark:lg:block"
+      class="pointer-events-none absolute inset-0 hidden dark:block"
       aria-hidden="true"
     >
       <Image
-        src={desktopBackground}
+        src={darkBackground}
         alt=""
-        class="absolute inset-0 h-full w-full object-cover opacity-20 mix-blend-soft-light"
+        class="absolute inset-0 h-full w-full object-cover opacity-20"
+      />
+      <Image
+        src={darkGrain}
+        alt=""
+        class="absolute top-[-7.26%] left-[-5.5%] h-[151.54%] w-[107.75%] max-w-none opacity-20 mix-blend-soft-light"
       />
     </div>
 
