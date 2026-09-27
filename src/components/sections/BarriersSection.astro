@@ -25,7 +25,7 @@ const barriers = [
 ];
 
 const eyebrow =
-  "rounded-[40px] border border-line-brand dark:border-white px-3 py-1.5 text-xs leading-[0.875rem] text-text-brand lg:text-sm lg:leading-5";
+  "rounded-[40px] border border-line-brand dark:border-white px-3 py-1.5 text-xs font-semibold leading-[0.875rem] text-text-brand lg:text-sm lg:font-normal lg:leading-5";
 
 // Matches SlicealEngine.astro's eyebrow exactly — the two are meant to read
 // as the same pill style.
@@ -86,7 +86,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
               `
                 flex
                 flex-col
-                items-start
+                items-center
                 gap-3
                 rounded-2xl
                 border
@@ -95,6 +95,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
                 p-4
 
                 lg:h-80
+                lg:items-start
                 lg:rounded-none
                 lg:p-7
                 lg:gap-4
@@ -107,7 +108,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
             data-reveal
           >
             <!-- Icon -->
-            <div class="hidden size-6 shrink-0 items-center justify-center lg:flex">
+            <div class="flex size-6 shrink-0 items-center justify-center">
               {barrier.icon === "grid" && (
                 <svg
                   viewBox="0 0 24 24"
@@ -262,7 +263,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
         <p class={`${eyebrow} border-transparent! dark:border-white! shadow-[0_0_5px_0_rgba(0,0,0,0.12)] lg:border-line-brand! lg:dark:border-white! lg:shadow-none`}>OUR MISSION</p>
 
         <div class="flex flex-col gap-3">
-          <h3 class="text-xl font-normal leading-7 text-ink md:text-display-sm md:font-semibold">
+          <h3 class="text-xl font-semibold leading-7 text-ink md:text-display-sm">
             Making real estate ownership borderless
           </h3>
 
@@ -299,7 +300,7 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
         <p class={`${eyebrow} border-transparent! dark:border-white! shadow-[0_0_5px_0_rgba(0,0,0,0.12)] lg:border-line-brand! lg:dark:border-white! lg:shadow-none`}>OUR VISION</p>
 
         <div class="flex flex-col gap-3">
-          <h3 class="text-xl font-normal leading-7 text-ink md:text-display-sm md:font-semibold">
+          <h3 class="text-xl font-semibold leading-7 text-ink md:text-display-sm">
             The global standard for property ownership
           </h3>
 
