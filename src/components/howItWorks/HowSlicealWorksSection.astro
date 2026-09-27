@@ -38,7 +38,9 @@ import dirhamSymbol from "../../assets/icons/dirham-symbol.png";
 // Heading, subtitle, each step's text, and each step's image are split
 // into separate data-reveal stages (rather than one wrapped header block,
 // the convention elsewhere) so they cascade in on scroll: heading, then
-// subtitle, then a step's content, then that step's image.
+// subtitle, then per step: eyebrow → title → description → image
+// (data-reveal-delay 1–4). The text wrapper is `display: contents` on
+// mobile, so it can't carry data-reveal itself — it has no box to animate.
 const {
   as: HeadingTag = "h1",
   subtitle,
@@ -91,9 +93,8 @@ const {
         >
           <div
             class="contents md:flex md:flex-col md:items-start md:gap-0 lg:flex lg:flex-col lg:items-start lg:gap-0"
-            data-reveal
           >
-            <h3 class="max-w-xl text-lg leading-7 font-semibold text-ink md:text-[30px] md:leading-[38px] lg:text-3xl lg:leading-9 lg:font-medium">
+            <h3 data-reveal data-reveal-delay="2" class="max-w-xl text-lg leading-7 font-semibold text-ink md:text-[30px] md:leading-[38px] lg:text-3xl lg:leading-9 lg:font-bold">
               {step.highlight ? (
                 <>
                   {step.prefix}
@@ -113,12 +114,12 @@ const {
               )}
             </h3>
 
-            <p class="max-w-xl text-xs leading-[18px] text-ink-muted md:mt-[26px] md:text-sm md:leading-5 lg:mt-[26px] lg:text-base lg:leading-6">
+            <p data-reveal data-reveal-delay="3" class="max-w-xl text-xs leading-[18px] text-ink-muted md:mt-[26px] md:text-sm md:leading-5 lg:mt-[26px] lg:text-base lg:leading-6">
               {step.description}
             </p>
 
             {step.points && (
-              <ul class="flex max-w-xl flex-col gap-2 text-left md:mt-[18px] lg:mt-4">
+              <ul data-reveal data-reveal-delay="3" class="flex max-w-xl flex-col gap-2 text-left md:mt-[18px] lg:mt-4">
                 {step.points.map((point) => (
                   <li class="flex items-start gap-2 text-sm leading-5 text-ink-secondary">
                     <svg
@@ -143,7 +144,7 @@ const {
             )}
 
             {step.stats && (
-              <div class="flex w-full max-w-xl flex-wrap gap-3 md:mt-[18px] lg:mt-[18px]">
+              <div data-reveal data-reveal-delay="3" class="flex w-full max-w-xl flex-wrap gap-3 md:mt-[18px] lg:mt-[18px]">
                 {step.stats.map((stat) => (
                   <div class="flex min-w-[9rem] flex-1 flex-col items-left gap-1 rounded-xl border border-line bg-surface px-3 py-2 shadow-[0_0_3px_rgba(0,0,0,0.1)] md:flex-none md:basis-[calc(50%-6px)]">
                     <p class="text-xl font-semibold text-ink md:text-2xl lg:text-2xl">
@@ -188,6 +189,7 @@ const {
                 lg:max-w-none
               "
               data-reveal
+              data-reveal-delay="4"
             >
               <Image
                 src={step.image}
