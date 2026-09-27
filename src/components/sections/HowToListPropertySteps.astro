@@ -87,13 +87,13 @@ const { "data-reveal": _dataReveal, ...rest } = Astro.props;
               <Image src={icon} alt="" aria-hidden="true" width={24} height={24} class="size-6" />
             </span>
 
-            <span class="text-xs leading-xs font-bold whitespace-nowrap text-brand">
+            <span class="text-xs leading-xs font-bold whitespace-nowrap text-brand dark:text-mint-500">
               STEP {String(i + 1).padStart(2, "0")}
             </span>
           </div>
 
           <div class="flex flex-col gap-3">
-            <h3 class="text-lg leading-lg font-semibold text-[#0c0626] md:text-xl md:leading-xl lg:text-display-xs lg:leading-display-xs lg:font-medium">
+            <h3 class="text-lg leading-lg font-semibold text-[#0c0626] dark:text-ink md:text-xl md:leading-xl lg:text-display-xs lg:leading-display-xs lg:font-medium">
               {title}
             </h3>
             <p class="text-xs leading-xs text-ink-secondary md:text-sm md:leading-sm lg:text-[0.9375rem] lg:leading-normal">
