@@ -7,10 +7,10 @@
  * and node 31002:51448 (tablet, 1024 frame).
  *
  * Two deliberate deviations from the frame:
- *   1. Figma pads the band 64px on all four sides (1384 content column). The
- *      horizontal gutter follows `.container-site` (80px / 1352) instead, so
- *      the figures line up with the hero above and the partner logos below.
- *      Only the 64px padding-block is kept.
+ *   1. Figma (node 30508:46642) pads the band 54px × 64px. The horizontal
+ *      gutter follows `.container-site` (80px / 1352) instead, so the figures
+ *      line up with the hero above and the partner logos below. Only the
+ *      54px padding-block is kept.
  *   2. The dividers are drawn in Figma as 1px × 48px vector lines. They are
  *      hairlines, not artwork, so they are `w-px` boxes filled with the
  *      border token rather than four copies of the same exported SVG.
@@ -20,48 +20,45 @@
  */
 import Section from "../layout/Section.astro";
 
-/* tone → the value colour. Figma paints figure 1 brand purple, figure 4
-   success green, and the middle two the dark heading grey. */
+/* Figma (node 30508:46642) paints the figure in ink and its unit suffix
+   ("+" / "%") in brand purple; VARA, having no number, is all brand. The
+   suffix is a sibling span so count-up.js (which skips elements with
+   children) still animates the number. */
 const stats = [
-  { value: "AED 50M+", label: "Total Property Value Tokenized", tone: "text-brand", countable: true },
-  { value: "14.2%", label: "Projected Annual ROI", tone: "text-ink", countable: true },
-  { value: "0%", label: "DLD-Registered Title Deeds", tone: "text-ink", countable: true, countFrom: 100 },
-  { value: "VARA", label: "Fully Regulated Platform", tone: "text-success-500", countable: false },
+  { value: "AED 50M", suffix: "+", label: "Total Property Value Tokenized", tone: "text-ink", countable: true },
+  { value: "14.2", suffix: "%", label: "Projected Annual ROI", tone: "text-ink", countable: true },
+  { value: "0", suffix: "%", label: "DLD-Registered Title Deeds", tone: "text-ink", countable: true, countFrom: 100 },
+  { value: "VARA", label: "Fully Regulated Platform", tone: "text-brand", countable: false },
 ];
 
-/* 32px bold. There is no desktop 32px step in the type scale — only
-   --text-display-lg-mobile — so that token carries the tablet/desktop size
-   here, and each tier sets leading explicitly so the mobile value can't
-   leak into md:/lg:. */
+/* Tablet: 32px bold via --text-display-lg-mobile (no 32px desktop step).
+   Desktop: Display md/Semibold (36/44). Each tier sets leading explicitly so
+   the mobile value can't leak into md:/lg:. */
 const valueClass =
-  "text-display-xs leading-display-xs font-bold tracking-tight md:text-display-lg-mobile md:leading-display-sm lg:text-display-lg-mobile lg:leading-display-sm";
+  "text-display-xs leading-display-xs font-bold tracking-tight md:text-display-lg-mobile md:leading-display-sm lg:text-display-md lg:leading-display-md lg:font-semibold";
 ---
 
-<Section surface="alt" flush class="border-y border-line py-10 md:py-8 lg:py-16" {...Astro.props}>
+<Section surface="alt" flush class="border-y border-line py-10 md:py-8 lg:py-13.5" {...Astro.props}>
   {/*
     Two columns below md. From md a single row of four equal-width tracks
-    with hairlines between them; lg swaps to fixed 260px tracks spread with
-    justify-between. dt/dd are reversed in the flow so the label still
+    with hairlines between them; lg swaps to fixed 260px centred tracks spread
+    with justify-between. dt/dd are reversed in the flow so the label still
     precedes its figure for a screen reader while the figure renders on top.
   */}
   <dl
     class="m-0 grid grid-cols-2 gap-x-6 gap-y-8 md:flex md:items-center md:gap-x-4 lg:flex lg:items-center lg:justify-between lg:gap-x-0"
   >
     {
-      stats.map(({ value, label, tone, countable, countFrom }, i) => (
+      stats.map(({ value, suffix, label, tone, countable, countFrom }, i) => (
         <>
           {i > 0 && (
             <div aria-hidden="true" class="hidden h-12 w-px shrink-0 bg-line md:block lg:block" />
           )}
-          <div class="flex flex-col-reverse items-center gap-2 text-center md:grow md:basis-0 md:shrink-0 lg:w-[16.25rem] lg:shrink-0 lg:items-start lg:text-left">
+          <div class="flex flex-col-reverse justify-end items-center gap-2 text-center md:grow md:basis-0 md:shrink-0 lg:w-[16.25rem] lg:grow-0 lg:basis-auto lg:shrink-0">
             <dt class="text-sm leading-sm text-ink-secondary">{label}</dt>
             {/* m-0 kills the UA stylesheet's 40px margin-inline-start on <dd>. */}
-            <dd
-              class:list={["m-0", valueClass, tone]}
-              data-count={countable ? true : undefined}
-              data-count-from={countFrom}
-            >
-              {value}
+            <dd class:list={["m-0", valueClass, tone]}>
+              <span data-count={countable ? true : undefined} data-count-from={countFrom}>{value}</span>{suffix && <span class="text-brand">{suffix}</span>}
             </dd>
           </div>
         </>
