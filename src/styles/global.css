@@ -282,9 +282,15 @@ html.js [data-reveal][data-reveal-delay="4"] { transition-delay: 400ms; }
     max-width: calc(var(--container-site) + (var(--gutter) * 2));
   }
 
-  @media (width >= 64rem) {
+  /* Tablet: gutter scales 40px @768 → 80px @1024 (the reference tablet
+     width), then holds at 80px. */
+  @media (width >= 48rem) {
     .container-site {
-      padding-inline: var(--gutter); /* 80px */
+      padding-inline: clamp(
+        var(--gutter-header),
+        calc(var(--gutter-header) + (100vw - 48rem) * 0.15625),
+        var(--gutter)
+      );
     }
   }
 
@@ -305,9 +311,14 @@ html.js [data-reveal][data-reveal-delay="4"] { transition-delay: 400ms; }
     padding-block: var(--section-py-mobile);
   }
 
-  @media (width >= 64rem) {
+  /* Tablet: 48px @768 → 80px @1024, then holds at 80px. */
+  @media (width >= 48rem) {
     .section-y {
-      padding-block: var(--section-py);
+      padding-block: clamp(
+        var(--section-py-mobile),
+        calc(var(--section-py-mobile) + (100vw - 48rem) * 0.125),
+        var(--section-py)
+      );
     }
   }
 
