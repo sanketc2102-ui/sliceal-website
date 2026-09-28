@@ -189,6 +189,7 @@ const socialLinks = [
 
   <form
     class="flex flex-col gap-3"
+    method="post"
     data-newsletter-form
   >
     <div
@@ -734,12 +735,16 @@ const socialLinks = [
 </footer>
 
 <script>
-  const newsletterForm = document.querySelector("[data-newsletter-form]");
-  const newsletterMessage = document.querySelector(
-    "[data-newsletter-message]",
-  );
+  const initNewsletterForm = () => {
+    const newsletterForm = document.querySelector("[data-newsletter-form]");
+    const newsletterMessage = document.querySelector(
+      "[data-newsletter-message]",
+    );
 
-  if (newsletterForm && newsletterMessage) {
+    if (!(newsletterForm instanceof HTMLFormElement) || !newsletterMessage) return;
+    if (newsletterForm.dataset.bound) return;
+    newsletterForm.dataset.bound = "true";
+
     newsletterForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
@@ -749,5 +754,10 @@ const socialLinks = [
 
       newsletterForm.reset();
     });
-  }
+  };
+
+  // ClientRouter swaps the DOM on navigation without a full page load, so a
+  // plain top-level call only ever runs once. `astro:page-load` fires after
+  // the initial load and after every subsequent navigation.
+  document.addEventListener("astro:page-load", initNewsletterForm);
 </script>
