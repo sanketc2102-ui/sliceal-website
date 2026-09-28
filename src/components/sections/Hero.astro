@@ -46,13 +46,13 @@ const stats = [
      added to the headline — their md: state below is a placeholder, not a
      designed layout. Mobile follows Figma node 32065:153483. -->
 <section
-  class="relative isolate flex flex-col overflow-hidden bg-surface-alt dark:bg-black md:block md:aspect-[1024/625] md:min-h-[37.5rem] lg:-mt-20 lg:block lg:aspect-auto lg:min-h-[clamp(55rem,100dvh,61.375rem)]"
+  class="relative isolate flex flex-col overflow-hidden bg-surface-alt dark:bg-black md:block md:min-h-[39.0625rem] lg:-mt-20 lg:block lg:aspect-auto lg:min-h-[clamp(55rem,100dvh,61.375rem)]"
   {...Astro.props}
 >
 
-  <div class="flex flex-col md:absolute md:inset-0 md:justify-center md:gap-8 lg:absolute lg:inset-0 lg:justify-center lg:gap-8">
+  <div class="flex flex-col md:absolute md:inset-0 md:justify-center md:gap-8 md:pb-[calc((64rem-100vw)*0.4)] lg:absolute lg:pb-0 lg:inset-0 lg:justify-center lg:gap-8">
     <div class="order-1 container-site pt-[3.125rem] pb-8 md:pt-0 md:pb-0 lg:pt-0 lg:pb-0">
-      <div class="flex flex-col items-center gap-5 text-center md:w-[31.0625rem] md:items-stretch md:text-left md:gap-8 lg:w-[41.5rem] lg:gap-8">
+      <div class="flex flex-col items-center gap-5 text-center md:w-[min(31.0625rem,52vw)] md:items-stretch md:text-left md:gap-8 lg:w-[41.5rem] lg:gap-8">
         {/*
           Mobile Figma drops the badge; on desktop it sits last. 18px of extra
           top margin turns the column's 32px gap into the 50px Figma draws.
