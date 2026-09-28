@@ -159,7 +159,13 @@ const responsiveControls = showDots && showArrows;
 </div>
 
 <script>
+  // Window listeners outlive the swapped DOM, so drop the previous page's.
+  let resizeController = new AbortController();
+
   const initCarousels = () => {
+    resizeController.abort();
+    resizeController = new AbortController();
+
     document.querySelectorAll('.carousel').forEach((carousel) => {
       if (carousel.dataset.carouselInitialized === 'true') return;
 
@@ -433,7 +439,7 @@ const responsiveControls = showDots && showArrows;
 
       window.addEventListener('resize', () => {
         update(currentIndex);
-      });
+      }, { signal: resizeController.signal });
     });
   };
 
