@@ -62,7 +62,8 @@ const { title, body, cta } = messages.default;
   // Document-level delegation, bound once: the dialog is transition:persist'd
   // and `document` survives ClientRouter swaps, so nothing to re-bind on
   // astro:page-load. Capture phase so this runs before ClientRouter's own
-  // click handler tries to treat `href="#"` as a navigation.
+  // click handler tries to treat `href="#"` as a navigation — and before its
+  // submit handler re-POSTs the form to the current page (looks like a reload).
 
   /** @param {HTMLElement} trigger */
   function openComingSoon(trigger) {
@@ -107,12 +108,16 @@ const { title, body, cta } = messages.default;
     true,
   );
 
-  document.addEventListener("submit", (event) => {
-    const form = event.target;
-    if (!(form instanceof HTMLFormElement) || !form.matches("[data-coming-soon]")) return;
+  document.addEventListener(
+    "submit",
+    (event) => {
+      const form = event.target;
+      if (!(form instanceof HTMLFormElement) || !form.matches("[data-coming-soon]")) return;
 
-    event.preventDefault();
-    openComingSoon(form);
-    form.reset();
-  });
+      event.preventDefault();
+      openComingSoon(form);
+      form.reset();
+    },
+    true,
+  );
 </script>
