@@ -190,7 +190,7 @@ const socialLinks = [
   <form
     class="flex flex-col gap-3"
     method="post"
-    data-newsletter-form
+    data-coming-soon="newsletter"
   >
     <div
       class="
@@ -251,12 +251,6 @@ const socialLinks = [
         Subscribe
       </button>
     </div>
-
-    <p
-      class="hidden text-xs leading-4 text-ink-secondary"
-      data-newsletter-message
-      aria-live="polite"
-    ></p>
   </form>
 </div>
 
@@ -391,6 +385,7 @@ const socialLinks = [
                     <li>
                       <a
                         href={social.href}
+                        data-coming-soon="social"
                         aria-label={social.label}
                         class="
                           flex
@@ -550,6 +545,7 @@ const socialLinks = [
                 socialLinks.map((social) => (
                   <a
                     href={social.href}
+                    data-coming-soon="social"
                     aria-label={social.label}
                     class="
                       flex
@@ -733,31 +729,3 @@ const socialLinks = [
     </div>
   </Section>
 </footer>
-
-<script>
-  const initNewsletterForm = () => {
-    const newsletterForm = document.querySelector("[data-newsletter-form]");
-    const newsletterMessage = document.querySelector(
-      "[data-newsletter-message]",
-    );
-
-    if (!(newsletterForm instanceof HTMLFormElement) || !newsletterMessage) return;
-    if (newsletterForm.dataset.bound) return;
-    newsletterForm.dataset.bound = "true";
-
-    newsletterForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      newsletterMessage.textContent =
-        "Thanks! You're subscribed to Sliceal updates.";
-      newsletterMessage.classList.remove("hidden");
-
-      newsletterForm.reset();
-    });
-  };
-
-  // ClientRouter swaps the DOM on navigation without a full page load, so a
-  // plain top-level call only ever runs once. `astro:page-load` fires after
-  // the initial load and after every subsequent navigation.
-  document.addEventListener("astro:page-load", initNewsletterForm);
-</script>

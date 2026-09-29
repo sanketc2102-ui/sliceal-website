@@ -119,6 +119,7 @@ const enhanceItems = [
 
                   <button
                     type="button"
+                    data-coming-soon="save-job"
                     aria-label={`Save ${job.title}`}
                     class="flex size-8 shrink-0 items-center justify-center rounded-xl bg-surface-sunken"
                   >
@@ -158,6 +159,7 @@ const enhanceItems = [
 
               <button
                 type="button"
+                data-coming-soon="apply-job"
                 class="flex h-11 w-full items-center justify-center rounded-lg bg-brand text-sm leading-sm font-semibold text-ink-inverse shadow-xs"
               >
                 Apply Now
@@ -208,7 +210,7 @@ const enhanceItems = [
     heading="Can’t find your prefer role?"
     description="We are always open to discuss new value-adding partnerships. Do reach out if you are an exchange or a project looking for liquidity; an algorithmic trader or a software developer looking to improve the markets with us or just have a great idea you can’t wait to share with us!"
     buttons={[
-      { label: "Get In Touch", href: "#" },
+      { label: "Get In Touch", href: "/contact-us" },
     ]}
     blobs={[
       {

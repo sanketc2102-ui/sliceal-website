@@ -107,6 +107,7 @@ const fieldInput = `${fieldBox} w-full px-3.5 py-2.5 text-md text-ink outline-no
             socialLinks.map(({ label, href, Icon, IconDark }) => (
               <a
                 href={href}
+                data-coming-soon="social"
                 aria-label={label}
                 class="flex size-[30px] shrink-0 items-center justify-center transition-opacity hover:opacity-80"
               >
@@ -138,7 +139,7 @@ const fieldInput = `${fieldBox} w-full px-3.5 py-2.5 text-md text-ink outline-no
       <form
         class="flex w-full flex-col gap-6 rounded-lg bg-surface p-3 md:min-w-0 md:flex-1 md:rounded-none md:bg-transparent md:p-0"
         method="post"
-        data-contact-form
+        data-coming-soon="contact-form"
       >
         <div class="flex flex-col gap-3 text-center md:hidden">
           <h2 class="text-lg font-semibold text-ink">Send us A Message</h2>
@@ -224,35 +225,7 @@ const fieldInput = `${fieldBox} w-full px-3.5 py-2.5 text-md text-ink outline-no
             Submit Enquiry
           </button>
         </div>
-
-        <p class="hidden text-sm text-ink-secondary" data-contact-form-message aria-live="polite"></p>
       </form>
     </div>
   </div>
 </section>
-
-<script>
-  const initContactForm = () => {
-    const form = document.querySelector("[data-contact-form]");
-    const message = document.querySelector("[data-contact-form-message]");
-
-    if (!(form instanceof HTMLFormElement) || !message) return;
-    if (form.dataset.bound) return;
-    form.dataset.bound = "true";
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      message.textContent =
-        "Thanks! Your enquiry has been sent — we'll get back to you shortly.";
-      message.classList.remove("hidden");
-
-      form.reset();
-    });
-  };
-
-  // ClientRouter swaps the DOM on navigation without a full page load, so a
-  // plain top-level call only ever runs once. `astro:page-load` fires after
-  // the initial load and after every subsequent navigation.
-  document.addEventListener("astro:page-load", initContactForm);
-</script>

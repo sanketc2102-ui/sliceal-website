@@ -95,6 +95,7 @@
   /* ------------------------------------------------------------------
      3. COLOR — SEMANTIC / ACCENT
      ------------------------------------------------------------------ */
+  --color-success-25: #f6fef9; /* Figma Success/25 — Coming Soon card wash */
   --color-success-50: #ecfdf3;
   --color-success-500: #12b76a;
   --color-success-600: #039855;
@@ -171,6 +172,13 @@
      slate/gray ramps rather than the ink/surface scale. */
   --color-text-meta: var(--color-slate-400);
   --color-surface-selected: var(--color-brand-50);
+
+  /* Coming Soon modal (Figma 33885:323363 / 33885:322002): card gradient
+     stops (md+ only; mobile sheet is plain surface) and the backdrop. */
+  --color-popup-from: var(--color-success-25);
+  --color-popup-via: var(--color-white);
+  --color-popup-to: var(--color-gray-200);
+  --color-scrim: rgb(0 0 0 / 0.58); /* Figma 33885:322025 */
 
   /* ------------------------------------------------------------------
      5. TYPOGRAPHY — FAMILIES
@@ -284,6 +292,7 @@
   --shadow-nav: 0 0 4px 0 rgb(0 0 0 / 0.25); /* active nav pill*/
   --shadow-popover: 0 4px 19.65px 0 rgb(0 0 0 / 0.12); /* team hotspot   */
   --shadow-float: 0 35px 64px 0 rgb(0 0 0 / 0.08); /* raised mockups */
+  --shadow-modal: 20px 20px 10px 0 rgb(0 0 0 / 0.08); /* coming soon  */
   --shadow-glow: 0 4px 200px 0 rgb(232 249 247 / 0.2); /* ambient wash   */
 
   /* ------------------------------------------------------------------
@@ -446,5 +455,10 @@
     --color-control-disabled-bg: var(--color-gray-800);
     --color-control-disabled-fg: var(--color-gray-600);
     --color-surface-selected: var(--color-gray-800);
+
+    /* No dark frame for the modal — same top-lit wash, on dark surfaces. */
+    --color-popup-from: var(--color-gray-900);
+    --color-popup-via: var(--color-charcoal);
+    --color-popup-to: var(--color-charcoal);
   }
 }

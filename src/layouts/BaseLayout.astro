@@ -16,6 +16,7 @@
  */
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import ComingSoonModal from "../components/ui/ComingSoonModal.astro";
 
 const {
   title,
@@ -124,7 +125,7 @@ const fade = {
     <slot name="head" />
   </head>
 
-  <body class={bodyClass}>
+  <body class:list={["has-[dialog[open]]:overflow-hidden", bodyClass]}>
     <a href="#main" class="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-2 focus-visible:left-2 focus-visible:z-70 focus-visible:rounded-md focus-visible:bg-surface focus-visible:px-5 focus-visible:py-3 focus-visible:font-medium focus-visible:text-text-brand focus-visible:shadow-md">Skip to content</a>
 
     {/*
@@ -139,6 +140,9 @@ const fade = {
     </main>
 
     <slot name="footer" />
+
+    {/* Outside <main> so the page fade doesn't animate it. */}
+    <ComingSoonModal />
 
     <script>
       import { initReveal } from "../scripts/reveal.js";

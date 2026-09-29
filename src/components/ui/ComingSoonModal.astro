@@ -1,0 +1,118 @@
+---
+/**
+ * ComingSoonModal — one shared <dialog> for every CTA that has no destination
+ * yet. Mounted once in BaseLayout.
+ *
+ * Figma: mobile bottom sheet 33885:322002 (+ scrim 33885:322025), desktop
+ * card 33885:323363. No tablet frame — md: uses the desktop card (488px fits
+ * from 768 up).
+ *
+ * Trigger: add `data-coming-soon="<key>"` to any <a>, <button> or <form>.
+ * Copy comes from src/data/coming-soon.js (key → default fallback); a trigger
+ * can override inline with `data-cs-title` / `data-cs-body` / `data-cs-cta`.
+ * Forms open the modal on a valid submit and are reset.
+ */
+import RocketIcon from "../../assets/icons/rocket-takeoff.svg";
+import messages from "../../data/coming-soon.js";
+
+const { title, body, cta } = messages.default;
+---
+
+<!-- TODO(tablet): no tablet Figma yet — md: reuses the desktop card. -->
+<dialog
+  data-coming-soon-dialog
+  data-messages={JSON.stringify(messages)}
+  aria-labelledby="coming-soon-title"
+  transition:persist="coming-soon-modal"
+  class="mx-0 mt-auto mb-0 max-h-[90dvh] w-full max-w-full overflow-y-auto bg-transparent p-0 backdrop:bg-scrim md:m-auto md:max-h-[calc(100dvh-2rem)] md:max-w-[488px]"
+>
+  <div
+    class="flex flex-col items-center gap-6 rounded-t-[36px] border border-black/10 bg-surface px-[30px] pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-modal dark:border-line md:gap-8 md:rounded-xl md:bg-linear-to-b md:from-popup-from md:via-popup-via md:via-52% md:to-popup-to md:p-[42px]"
+  >
+    <div class="flex size-[95px] shrink-0 items-center justify-center rounded-full bg-brand-25 text-brand-purple md:size-[107px]" aria-hidden="true">
+      <RocketIcon class="size-[35px] md:size-10" />
+    </div>
+
+    <div class="flex w-full flex-col items-center gap-[11px] text-center md:gap-5">
+      <h2
+        id="coming-soon-title"
+        data-cs-title
+        class="text-display-xs leading-display-sm font-semibold tracking-normal text-ink md:text-[2.125rem] md:leading-display-sm md:tracking-normal"
+      >
+        {title}
+      </h2>
+      <p data-cs-body class="w-full text-sm leading-sm text-gray-700 dark:text-ink-secondary">
+        {body}
+      </p>
+    </div>
+
+    <form method="dialog" class="w-full">
+      <button
+        type="submit"
+        data-cs-cta
+        class="flex min-h-12 w-full items-center justify-center rounded-lg border border-brand bg-brand px-5 py-3 text-md font-semibold text-white shadow-xs transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+      >
+        {cta}
+      </button>
+    </form>
+  </div>
+</dialog>
+
+<script>
+  // Document-level delegation, bound once: the dialog is transition:persist'd
+  // and `document` survives ClientRouter swaps, so nothing to re-bind on
+  // astro:page-load. Capture phase so this runs before ClientRouter's own
+  // click handler tries to treat `href="#"` as a navigation.
+
+  /** @param {HTMLElement} trigger */
+  function openComingSoon(trigger) {
+    const dialog = document.querySelector("[data-coming-soon-dialog]");
+    if (!(dialog instanceof HTMLDialogElement)) return;
+
+    const messages = JSON.parse(dialog.dataset.messages || "{}");
+    const key = trigger.dataset.comingSoon || "default";
+    const copy = { ...messages.default, ...messages[key] };
+    if (trigger.dataset.csTitle) copy.title = trigger.dataset.csTitle;
+    if (trigger.dataset.csBody) copy.body = trigger.dataset.csBody;
+    if (trigger.dataset.csCta) copy.cta = trigger.dataset.csCta;
+
+    for (const field of ["title", "body", "cta"]) {
+      const node = dialog.querySelector(`[data-cs-${field}]`);
+      if (node) node.textContent = copy[field];
+    }
+
+    if (!dialog.open) dialog.showModal();
+  }
+
+  document.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      // Light dismiss: the dialog has no padding, so a click whose target is
+      // the <dialog> itself landed on the backdrop.
+      if (target instanceof HTMLDialogElement && target.matches("[data-coming-soon-dialog]")) {
+        target.close();
+        return;
+      }
+
+      const trigger = target.closest("[data-coming-soon]");
+      // Forms are handled on submit so native validation still runs.
+      if (!(trigger instanceof HTMLElement) || trigger instanceof HTMLFormElement) return;
+
+      event.preventDefault();
+      openComingSoon(trigger);
+    },
+    true,
+  );
+
+  document.addEventListener("submit", (event) => {
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement) || !form.matches("[data-coming-soon]")) return;
+
+    event.preventDefault();
+    openComingSoon(form);
+    form.reset();
+  });
+</script>

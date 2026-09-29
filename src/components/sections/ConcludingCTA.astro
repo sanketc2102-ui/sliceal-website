@@ -52,7 +52,9 @@ const {
     { text: "It’s Possible.", highlight: true },
   ],
   subtext,
-  buttons = [{ label: "Start Investing", href: "#", variant: "primary" }],
+  // `comingSoon` (optional) = key in src/data/coming-soon.js → opens the
+  // shared Coming Soon modal instead of navigating.
+  buttons = [{ label: "Start Investing", href: "#", variant: "primary", comingSoon: "start-investing" }],
   ...rest
 } = Astro.props;
 
@@ -114,6 +116,7 @@ const buttonVariants = {
               {buttons.map((button) => (
                 <a
                   href={button.href}
+                  data-coming-soon={button.comingSoon}
                   class:list={[buttonBase, buttonVariants.centered[button.variant ?? "primary"]]}
                 >
                   {button.label}
@@ -134,6 +137,7 @@ const buttonVariants = {
             {buttons.map((button) => (
               <a
                 href={button.href}
+                data-coming-soon={button.comingSoon}
                 class:list={[buttonBase, "w-full md:w-44", buttonVariants.split[button.variant ?? "primary"]]}
               >
                 {button.label}

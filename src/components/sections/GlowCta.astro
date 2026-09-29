@@ -56,7 +56,7 @@ const btnDark =
     buttons.length > 0 && (
       <div class="flex w-full flex-row flex-wrap items-center justify-center gap-4 sm:w-auto sm:gap-3">
         {buttons.map((button) => (
-          <a href={button.href} class={`${btnBase} ${btnDark}`}>
+          <a href={button.href} data-coming-soon={button.comingSoon} class={`${btnBase} ${btnDark}`}>
             {button.label}
           </a>
         ))}
