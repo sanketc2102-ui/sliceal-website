@@ -54,7 +54,22 @@ const {
   subtext,
   // `comingSoon` (optional) = key in src/data/coming-soon.js → opens the
   // shared Coming Soon modal instead of navigating.
-  buttons = [{ label: "Start Investing", href: "#", variant: "primary", comingSoon: "start-investing" }],
+  // `copy` (optional) = inline data-cs-* overrides, same as Header's nav buttons.
+  buttons = [
+    {
+      label: "Start Investing",
+      href: "#",
+      variant: "primary",
+      comingSoon: "start-investing",
+      // Figma 33894:1249
+      copy: {
+        "data-cs-title": "Investing opens at launch.",
+        "data-cs-body":
+          "We’re completing our licensing first — because owning Dubai property should be done properly. You’ll be able to invest from AED 2,000 the day we go live.",
+        "data-cs-cta": "Got it",
+      },
+    },
+  ],
   ...rest
 } = Astro.props;
 
@@ -117,6 +132,7 @@ const buttonVariants = {
                 <a
                   href={button.href}
                   data-coming-soon={button.comingSoon}
+                  {...button.copy}
                   class:list={[buttonBase, buttonVariants.centered[button.variant ?? "primary"]]}
                 >
                   {button.label}
@@ -138,6 +154,7 @@ const buttonVariants = {
               <a
                 href={button.href}
                 data-coming-soon={button.comingSoon}
+                {...button.copy}
                 class:list={[buttonBase, "w-full md:w-44", buttonVariants.split[button.variant ?? "primary"]]}
               >
                 {button.label}
