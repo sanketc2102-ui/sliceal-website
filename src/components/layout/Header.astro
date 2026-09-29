@@ -111,6 +111,23 @@ const btnBase = `flex h-11 items-center justify-center rounded-md transition-[ba
 const btnSecondary = `${btnBase} border border-line-strong text-ink hover:-translate-y-px hover:bg-surface-sunken hover:shadow-md ${labelType}`;
 const btnPrimary = `${btnBase} bg-brand-purple py-2.5 pr-2.5 pl-4 text-white hover:-translate-y-px hover:bg-brand-hover hover:shadow-md ${labelType}`;
 
+// "Start Investing" modal copy (Figma 33894:1249), overriding the shared
+// start-investing entry for the nav buttons only.
+const startInvestingCopy = {
+  "data-cs-title": "Investing opens at launch.",
+  "data-cs-body":
+    "We’re completing our licensing first — because owning Dubai property should be done properly. You’ll be able to invest from AED 2,000 the day we go live.",
+  "data-cs-cta": "Got it",
+};
+
+// "Log In" modal copy (Figma 33894:1261), nav buttons only.
+const loginCopy = {
+  "data-cs-title": "Accounts aren’t open yet.",
+  "data-cs-body":
+    "We’re in preview while licensing wraps up. Sign-ups open at launch — you’ll be first through the door.",
+  "data-cs-cta": "Got it",
+};
+
 // Nav label: colour swap plus an underline that scales out from its centre.
 // `group` lets the active pill (a sibling span) react to hover on the <a>.
 const navLink = `group relative block p-1 ${motion} hover:text-brand
@@ -274,10 +291,10 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
     </nav>
 
     <div class="hidden lg:flex lg:items-center lg:gap-3">
-      <a href="#" data-coming-soon="login" class:list={[btnSecondary, "w-[92px]"]}>
+      <a href="#" data-coming-soon="login" {...loginCopy} class:list={[btnSecondary, "w-[92px]"]}>
         <span class="p-1">Log In</span>
       </a>
-      <a href="#" data-coming-soon="start-investing" class={btnPrimary}>
+      <a href="#" data-coming-soon="start-investing" {...startInvestingCopy} class={btnPrimary}>
         <span class="p-1">Start Investing</span>
       </a>
     </div>
@@ -355,10 +372,10 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
         </nav>
 
         <div class="mt-4 flex items-center justify-center gap-3">
-          <a href="#" data-coming-soon="login" class:list={[btnSecondary, "flex-1"]}>
+          <a href="#" data-coming-soon="login" {...loginCopy} class:list={[btnSecondary, "flex-1"]}>
             <span class="p-1">Log In</span>
           </a>
-          <a href="#" data-coming-soon="start-investing" class:list={[btnPrimary, "flex-1"]}>
+          <a href="#" data-coming-soon="start-investing" {...startInvestingCopy} class:list={[btnPrimary, "flex-1"]}>
             <span class="p-1">Start Investing</span>
           </a>
         </div>
