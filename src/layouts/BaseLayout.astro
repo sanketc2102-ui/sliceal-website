@@ -17,6 +17,7 @@
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import ComingSoonModal from "../components/ui/ComingSoonModal.astro";
+import PreviewNotice from "../components/layout/PreviewNotice.astro";
 
 const {
   title,
@@ -127,6 +128,8 @@ const fade = {
 
   <body class:list={["has-[dialog[open]]:overflow-hidden", bodyClass]}>
     <a href="#main" class="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-2 focus-visible:left-2 focus-visible:z-70 focus-visible:rounded-md focus-visible:bg-surface focus-visible:px-5 focus-visible:py-3 focus-visible:font-medium focus-visible:text-text-brand focus-visible:shadow-md">Skip to content</a>
+
+    <PreviewNotice />
 
     {/*
       In Figma the 80px header frame is positioned at y=0, overlapping the

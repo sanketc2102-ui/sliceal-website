@@ -1,0 +1,20 @@
+---
+/**
+ * PreviewNotice — the licensing disclaimer bar above the header on every page.
+ *
+ * Figma: desktop 33831:164035, tablet 33918:78333, mobile 33920:80028.
+ * Figma steps the type 10/12/14px per frame; this bar scales fluidly instead
+ * (see --text-fluid-xs / --spacing-notice-* in tokens.css), so no breakpoint
+ * classes. One text colour throughout — Figma's desktop-only #d8d8f0 is
+ * dropped in favour of the white/90 the other two frames use.
+ *
+ * In flow, not sticky: it scrolls away and the sticky header pins beneath it.
+ */
+---
+
+<aside aria-label="Site notice" class="bg-notice px-notice-x py-notice-y">
+  <p class="mx-auto max-w-5xl text-center text-fluid-xs text-balance text-ink-fixed/90">
+    This is a preview website. Licensing is in progress, and all properties and
+    figures shown are illustrative and not an offer to invest.
+  </p>
+</aside>

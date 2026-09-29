@@ -180,6 +180,10 @@
   --color-popup-to: var(--color-gray-200);
   --color-scrim: rgb(0 0 0 / 0.58); /* Figma 33885:322025 */
 
+  /* Preview notice bar (Figma 33831:164035) — theme-invariant, no dark
+     override: the bar stays navy in both themes. */
+  --color-notice: #1f1f70; /* Figma "Selected_BG Chip 2" */
+
   /* ------------------------------------------------------------------
      5. TYPOGRAPHY — FAMILIES
      The design is drawn in SF Pro (1379 text nodes), with Inter (72) on a
@@ -239,6 +243,19 @@
   --text-display-md-mobile: 1.875rem; /* 30px, replaces 36px              */
   --text-display-sm-mobile: 1.625rem; /* 26px, replaces 30px              */
   --text-display-xs-mobile: 1.375rem; /* 22px, replaces 24px              */
+
+  /* Fluid xs→sm (preview notice) — instead of Figma's 10/12/14px steps: 12px
+     up to 768px, linear to 14px at 1512px. 12px floor overrides the 10px
+     mobile frame for legibility. Not "--text-notice": that would collide
+     with --color-notice and `text-notice` would resolve to the colour. */
+  --text-fluid-xs: clamp(0.75rem, 0.621rem + 0.269vw, 0.875rem);
+  --text-fluid-xs--line-height: 1.5;
+
+  /* Preview notice padding — fluid: 16px on phones → 80px at 1600px inline;
+     10px through tablet → 14px at 1512px block. Namespaced --spacing-* so
+     they emit px-notice-x / py-notice-y. */
+  --spacing-notice-x: clamp(1rem, 5vw, 5rem);
+  --spacing-notice-y: clamp(0.625rem, 0.1rem + 0.82vw, 0.875rem);
 
   /* Standalone line-heights — emits leading-display-lg, leading-md, etc.
      These are the same values the --text-* modifiers above carry; they are

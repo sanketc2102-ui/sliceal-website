@@ -296,10 +296,14 @@ const menuActiveIndex = menuItems.findIndex(({ href }) =>
         <CloseIcon class="hidden size-5 group-open:block" aria-hidden="true" />
       </summary>
 
-      {/* Scrim: gray-600 (#535862), sampled from the frame, below the header. */}
+      {/*
+        Scrim: gray-600 (#535862), sampled from the frame, below the header.
+        Anchored to the sticky header (top-full), not the viewport — the
+        preview notice above can push the header down at scrollY=0.
+      */}
       <div
         data-menu-scrim
-        class="fixed inset-x-0 top-[3.875rem] bottom-0 bg-gray-600"
+        class="absolute inset-x-0 top-full h-dvh bg-gray-600"
       >
       </div>
 
