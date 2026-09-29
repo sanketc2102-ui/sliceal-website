@@ -6,6 +6,8 @@ const {
   // Extra classes for the below-carousel arrow row, e.g. "lg:hidden" when the
   // track fits every slide at that width and arrows would sit disabled.
   controlsClass = "",
+  // Extra classes for the track, e.g. "lg:gap-8" to widen the slide gap.
+  trackClass = "",
 } = Astro.props;
 
 // When both are requested, dots are the mobile control and arrows take over
@@ -80,7 +82,7 @@ const responsiveControls = showDots && showArrows;
   >
     <!-- Track -->
     <div
-      class="carousel__track flex"
+      class:list={["carousel__track flex gap-6", trackClass]}
       data-carousel-track
     >
       <slot />
@@ -451,7 +453,6 @@ const responsiveControls = showDots && showArrows;
 
 <style>
   .carousel__track {
-    gap: 1.5rem;
     transition: transform 300ms ease;
     will-change: transform;
   }
