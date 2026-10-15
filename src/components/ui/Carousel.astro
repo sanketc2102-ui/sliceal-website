@@ -201,6 +201,7 @@ const responsiveControls = showDots && showArrows;
 
       let currentIndex = 0;
       let dragging = false;
+      let captured = false;
       let startX = 0;
       let startTranslate = 0;
 
@@ -363,10 +364,7 @@ const responsiveControls = showDots && showArrows;
             getTranslateForIndex(currentIndex);
 
           track.style.transition = 'none';
-
-          viewport.setPointerCapture(
-            event.pointerId,
-          );
+          captured = false;
         },
       );
 
@@ -378,6 +376,15 @@ const responsiveControls = showDots && showArrows;
           const delta =
             event.clientX - startX;
 
+           // Only own the pointer once it's a real drag, so clicks on
+          // buttons/links inside a slide still reach their target.
+          if (!captured) {
+            if (Math.abs(delta) < 6) return;
+            captured = true;
+            viewport.setPointerCapture(event.pointerId);
+          }
+            
+            
           let translate =
             startTranslate - delta;
 

@@ -142,13 +142,17 @@
   --color-ink-secondary: var(--color-gray-600); /* text-ink-secondary  */
   --color-ink-muted: var(--color-gray-500); /* text-ink-muted      */
   --color-ink-inverse: var(--color-white); /* text-ink-inverse    */
-  --color-ink-fixed: var(--color-white); /* text-ink-fixed — theme-invariant, no dark override */
+  --color-ink-fixed: var(
+    --color-white
+  ); /* text-ink-fixed — theme-invariant, no dark override */
 
   --color-surface: var(--color-white);
   --color-surface-alt: var(--color-off-white); /* alternating sections */
   --color-surface-sunken: var(--color-gray-100);
   --color-surface-dark: var(--color-brand-950);
-  --color-surface-fixed: var(--color-white); /* theme-invariant — no dark override */
+  --color-surface-fixed: var(
+    --color-white
+  ); /* theme-invariant — no dark override */
 
   --color-border: var(--color-gray-200); /* hairlines, dividers */
   --color-border-card: var(--color-slate-200); /* media card outline  */
@@ -159,7 +163,9 @@
   --color-line-card: var(--color-slate-200); /* border-line-card    */
   --color-line-strong: var(--color-gray-300); /* border-line-strong  */
   --color-line-brand: var(--color-brand-600); /* border-line-brand   */
-  --color-line-fixed: var(--color-gray-200); /* border-line-fixed — theme-invariant, no dark override */
+  --color-line-fixed: var(
+    --color-gray-200
+  ); /* border-line-fixed — theme-invariant, no dark override */
 
   /* Disabled interactive controls (buttons, dots). No existing ink/surface
      role covers this — it's a distinct state, not page-section background
@@ -180,9 +186,29 @@
   --color-popup-to: var(--color-gray-200);
   --color-scrim: rgb(0 0 0 / 0.58); /* Figma 33885:322025 */
 
+  /* Property card (PropertyListingCard) — every surface/text role that
+     differs between themes. Light values measured from the Figma card;
+     dark overrides live in the prefers-color-scheme block below.
+     pcard-from/via/to : card body wash (lavender -> mint in light)
+     pcard-line        : card outline + the four metric boxes' outline
+     pcard-box         : metric-box + "View Details" fill
+     pcard-btn-*       : "View Details" outline + label
+     pcard-title/value/meta : title, metric values, location line */
+  --color-pcard-from: #f8f7fe;
+  --color-pcard-via: #f9f8fe;
+  --color-pcard-to: #f3fbf7;
+  --color-pcard-line: var(--color-brand-50);
+  --color-pcard-box: var(--color-white);
+  --color-pcard-btn-line: var(--color-gray-300);
+  --color-pcard-btn-text: var(--color-gray-700);
+  --color-pcard-title: var(--color-slate-950);
+  --color-pcard-value: var(--color-gray-900);
+  --color-pcard-meta: var(--color-gray-600);
+
   /* Preview notice bar (Figma 33831:164035) — theme-invariant, no dark
      override: the bar stays navy in both themes. */
   --color-notice: #1f1f70; /* Figma "Selected_BG Chip 2" */
+  --color-slate-300: #cbd5e1; /* property card meta text (dark mode)      */
 
   /* ------------------------------------------------------------------
      5. TYPOGRAPHY — FAMILIES
@@ -477,5 +503,17 @@
     --color-popup-from: var(--color-gray-900);
     --color-popup-via: var(--color-charcoal);
     --color-popup-to: var(--color-charcoal);
+
+    /* Property card — Figma dark card (navy wash fading to teal). */
+    --color-pcard-from: #1a2139;
+    --color-pcard-via: #0f1629;
+    --color-pcard-to: #11212f;
+    --color-pcard-line: #1f2937;
+    --color-pcard-box: #111827;
+    --color-pcard-btn-line: #1f2937;
+    --color-pcard-btn-text: #e5e7eb;
+    --color-pcard-title: #f0f2fa;
+    --color-pcard-value: #f0f2fa;
+    --color-pcard-meta: var(--color-slate-300);
   }
 }

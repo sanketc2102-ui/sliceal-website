@@ -1,21 +1,18 @@
 ---
-import MediaCard from "../cards/MediaCard.astro";
+import { Image } from "astro:assets";
 import AreaIcon from "../../assets/icons/properties/area.svg";
 import ApartmentIcon from "../../assets/icons/properties/apartment-type.svg";
 import BedroomsIcon from "../../assets/icons/properties/bedrooms.svg";
 import BathroomsIcon from "../../assets/icons/properties/bathrooms.svg";
 import LocationPinIcon from "../../assets/icons/properties/location-pin.svg";
-import TrendArrowIcon from "../../assets/icons/properties/trend-arrow.svg";
 import InfoIcon from "../../assets/icons/properties/info.svg";
-import RentedIcon from "../../assets/icons/bedroom_parent.svg";
-import FundedIcon from "../../assets/icons/green-fire.svg";
+import TokenIcon from "../../assets/icons/properties/token.svg";
+import DiscountIcon from "../../assets/icons/properties/discount.svg";
+import BookmarkIcon from "../../assets/icons/properties/bookmark.svg";
+import FlameIcon from "../../assets/icons/flame-outline.svg";
 
 const { property } = Astro.props;
-
-const tagTone = {
-  neutral: { bg: "bg-brand-50", text: "text-brand-600", Icon: RentedIcon },
-  success: { bg: "bg-success-50", text: "text-success-600", Icon: FundedIcon },
-};
+const fmt = (n) => Number(n).toLocaleString("en-US");
 
 const stats = [
   { Icon: AreaIcon, label: property.area },
@@ -23,81 +20,120 @@ const stats = [
   { Icon: BedroomsIcon, label: property.bedrooms },
   { Icon: BathroomsIcon, label: property.bathrooms },
 ];
+
+const metrics = [
+  {
+    label: "Sliceal Price",
+    value: property.slicealPrice,
+    note: property.discount ? `${property.discount} off` : "",
+    success: Boolean(property.discount),
+  },
+  { label: "Market Price", value: property.marketPrice, note: "Current Valuation" },
+  { label: "Rental Yield", value: property.rentalYield, note: "Before expenses" },
+  { label: "Projected ROI", value: property.projectedRoi, note: "Annually" },
+];
 ---
 
-<article class="h-full w-full" data-reveal>
-  <MediaCard image={property.image} alt={property.title}>
-    <Fragment slot="bottomOverlay">
-      <div class="flex gap-2 overflow-hidden">
+<!-- @container: everything below sizes itself from the CARD's width, not the screen's.
+     Colors come from the pcard-* tokens in tokens.css (light + dark). -->
+<div class="@container mx-auto h-full w-full max-w-[434px] md:max-w-none" data-reveal>
+  <article
+    class="group flex h-full w-full flex-col overflow-hidden rounded-3xl border border-pcard-line bg-surface bg-linear-to-b from-pcard-from via-pcard-via via-85% to-pcard-to shadow-card transition-[transform,box-shadow] duration-300 ease-out will-change-transform [@media(hover:hover)]:hover:-translate-y-2 [@media(hover:hover)]:hover:shadow-float"
+  >
+    <!-- Image -->
+    <div class="relative h-40 overflow-hidden rounded-3xl @[340px]:h-44">
+      <Image
+        src={property.image}
+        alt={property.title}
+        class="absolute inset-0 h-full w-full rounded-3xl object-cover transition-transform duration-200 ease-out [@media(hover:hover)]:group-hover:scale-105"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 rounded-3xl bg-linear-to-t from-black/30 via-transparent to-black/20" aria-hidden="true"></div>
+
+      <span class="absolute left-3 top-3.5 inline-flex h-6 max-w-[calc(100%-4.5rem)] items-center gap-1.5 rounded-full border border-white/20 bg-black/35 px-2.5 text-2xs font-medium text-white backdrop-blur-sm">
+        <TokenIcon class="size-3 shrink-0 text-brand-300" aria-hidden="true" />
+        <span class="truncate">{fmt(property.tokensLeft)} of {fmt(property.tokensTotal)} tokens left</span>
+      </span>
+
+      <button
+        type="button"
+        aria-label={`Save ${property.title}`}
+        data-coming-soon="save-property"
+        class="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full bg-surface-fixed text-gray-900 shadow-sm transition-opacity duration-200 opacity-0 focus-visible:opacity-100 @[340px]:right-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:none)]:size-10 [@media(hover:none)]:opacity-100"
+      >
+        <BookmarkIcon class="size-4" aria-hidden="true" />
+      </button>
+
+      <div class="absolute bottom-3.5 left-3 right-3 flex gap-1 overflow-hidden @[320px]:gap-1.5 @[340px]:bottom-4.5 @[340px]:gap-2">
         {
           stats.map(({ Icon, label }) => (
-            <span class="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-2xl border border-white/20 bg-white/20 px-3 text-xs font-medium text-white backdrop-blur-sm">
-              <Icon class="size-3.5 shrink-0" aria-hidden="true" />
+            <span class="inline-flex h-7 shrink-0 items-center gap-1 rounded-full border border-white/20 bg-white/20 px-2 text-[11px] font-medium text-white backdrop-blur-sm @[320px]:px-2.5 @[320px]:text-xs @[340px]:gap-1.5 @[340px]:px-3">
+              <Icon class="size-3 shrink-0 @[320px]:size-3.5" aria-hidden="true" />
               {label}
             </span>
           ))
         }
       </div>
-    </Fragment>
-
-    <div class="flex flex-col gap-3">
-      <div class="flex items-center justify-between gap-2">
-        <span class="flex min-w-0 items-center gap-1.5">
-          <LocationPinIcon class="size-3.5 shrink-0" aria-hidden="true" />
-          <span class="truncate text-sm text-ink-secondary">{property.location}</span>
-        </span>
-
-        <span class="flex shrink-0 items-center gap-2">
-          {
-            property.tags.map((tag) => {
-              const tone = tagTone[tag.tone] ?? tagTone.success;
-              const TagIcon = tone.Icon;
-              return (
-                <span class:list={["inline-flex items-center gap-1 rounded-lg px-2 py-1", tone.bg]}>
-                  <TagIcon class="size-3 shrink-0" aria-hidden="true" />
-                  <span class:list={["whitespace-nowrap text-xs font-bold", tone.text]}>{tag.label}</span>
-                </span>
-              );
-            })
-          }
-        </span>
-      </div>
-
-      <h3 class="text-lg font-bold leading-7 text-ink">{property.title}</h3>
     </div>
 
-    <div class="flex flex-col gap-3">
-      <div class="flex items-center justify-between">
-        <p class="text-sm text-ink-secondary">{property.priceLabel}</p>
-        <p class="text-sm font-semibold text-ink">{property.listedPrice}</p>
-      </div>
-
-      <div class="flex items-center justify-between">
-        <p class="text-sm text-ink-secondary">Current Valuation</p>
-        <span class="flex items-center gap-3">
-          <p class="text-sm font-semibold text-ink">{property.currentValuation}</p>
-          <span class="inline-flex items-center gap-0.5 rounded-full border border-[#d1fadf] bg-[#f6fef9] px-1.5 py-0.5 text-2xs text-success-600">
-            <TrendArrowIcon class="size-3 -rotate-90" aria-hidden="true" />
-            {property.valuationChange}
+    <!-- Content -->
+    <div class="flex grow flex-col gap-4 p-3 @[320px]:p-3.5 @[340px]:p-4">
+      <div class="flex flex-col gap-3 @[340px]:gap-4">
+        <div class="flex items-center justify-between gap-2">
+          <span class="flex min-w-0 items-center gap-1.5">
+            <LocationPinIcon class="size-3.5 shrink-0" aria-hidden="true" />
+            <span class="truncate text-xs text-pcard-meta" title={property.location}>{property.location}</span>
           </span>
-        </span>
+          {
+            property.status && (
+              <span class="inline-flex h-5 shrink-0 items-center gap-1 rounded-full border border-warning-600 bg-yellow-50 px-2 text-2xs font-bold text-warning-600">
+                <FlameIcon class="size-3 shrink-0" aria-hidden="true" />
+                {property.status}
+              </span>
+            )
+          }
+        </div>
+
+        <h3 class="line-clamp-2 text-base font-bold leading-6 text-pcard-title @[340px]:text-lg @[340px]:leading-7">
+          {property.title}
+        </h3>
       </div>
 
-      <div class="flex items-center justify-between">
-        <span class="flex items-center gap-1.5">
-          <p class="text-sm text-ink-secondary">Projected ROI</p>
-          <InfoIcon class="size-5" aria-hidden="true" />
-        </span>
-        <p class="text-sm font-semibold text-ink">{property.projectedRoi}</p>
+      <div class="grid grid-cols-2 gap-x-2 gap-y-3 @[320px]:gap-x-2.5 @[340px]:gap-x-3 @[340px]:gap-y-4">
+        {
+          metrics.map((m) => (
+            <div class="flex min-w-0 flex-col gap-0.5 rounded-xl border border-pcard-line bg-pcard-box p-2 @[320px]:p-3">
+              <div class="flex items-start justify-between gap-1">
+                <p class="truncate text-2xs font-semibold uppercase leading-4 tracking-normal text-slate-400 @[320px]:tracking-wide">
+                  {m.label}
+                </p>
+                <InfoIcon class="-mr-0.5 -mt-0.5 hidden size-4 shrink-0 @[300px]:block @[320px]:-mr-1 @[320px]:-mt-1 @[320px]:size-5" aria-hidden="true" />
+              </div>
+
+              <p class="whitespace-nowrap text-xs font-bold leading-5 text-pcard-value @[320px]:text-[13px] @[360px]:text-sm">
+                {m.value}
+              </p>
+
+              {m.success ? (
+                <p class="flex items-center gap-1 text-2xs font-medium leading-4 text-success-600">
+                  <DiscountIcon class="size-3 shrink-0" aria-hidden="true" />
+                  {m.note}
+                </p>
+              ) : (
+                <p class="text-2xs leading-4 text-slate-400">{m.note}</p>
+              )}
+            </div>
+          ))
+        }
       </div>
 
-      <div class="flex items-center justify-between">
-        <span class="flex items-center gap-1.5">
-          <p class="text-sm text-ink-secondary">Gross Rental Yield</p>
-          <InfoIcon class="size-5" aria-hidden="true" />
-        </span>
-        <p class="text-sm font-semibold text-ink">{property.grossRentalYield}</p>
-      </div>
+      <button
+        type="button"
+        data-coming-soon="property-details"
+        class="mt-auto h-10 w-full rounded-lg border border-pcard-btn-line bg-pcard-box px-4 text-sm font-medium text-pcard-btn-text transition-colors hover:border-border-brand hover:bg-surface-selected dark:w-auto dark:self-center dark:px-5"
+      >
+        View Details
+      </button>
     </div>
-  </MediaCard>
-</article>
+  </article>
+</div>
