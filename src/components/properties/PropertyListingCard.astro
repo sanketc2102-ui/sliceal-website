@@ -40,15 +40,15 @@ const metrics = [
   <article
     class="group flex h-full w-full flex-col overflow-hidden rounded-3xl border border-pcard-line bg-surface bg-linear-to-b from-pcard-from via-pcard-via via-85% to-pcard-to shadow-card transition-[transform,box-shadow] duration-300 ease-out will-change-transform [@media(hover:hover)]:hover:-translate-y-2 [@media(hover:hover)]:hover:shadow-float"
   >
-    <!-- Image -->
-    <div class="relative h-40 overflow-hidden rounded-3xl @[340px]:h-44">
+       <!-- Image -->
+    <div class="relative h-40 overflow-hidden @[340px]:h-44">
       <Image
         src={property.image}
         alt={property.title}
-        class="absolute inset-0 h-full w-full rounded-3xl object-cover transition-transform duration-200 ease-out [@media(hover:hover)]:group-hover:scale-105"
+        class="absolute inset-0 h-full w-full object-cover transition-transform duration-200 ease-out [@media(hover:hover)]:group-hover:scale-105"
         loading="lazy"
       />
-      <div class="absolute inset-0 rounded-3xl bg-linear-to-t from-black/30 via-transparent to-black/20" aria-hidden="true"></div>
+      <div class="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-black/20" aria-hidden="true"></div>
 
       <span class="absolute left-3 top-3.5 inline-flex h-6 max-w-[calc(100%-4.5rem)] items-center gap-1.5 rounded-full border border-white/20 bg-black/35 px-2.5 text-2xs font-medium text-white backdrop-blur-sm">
         <TokenIcon class="size-3 shrink-0 text-brand-300" aria-hidden="true" />
