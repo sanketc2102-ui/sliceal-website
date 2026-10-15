@@ -16,50 +16,50 @@ export const blogCategories = [
 export const blogs = [
   {
     image: sustainableRealEstate,
-    date: "Oct 20, 2026",
+    date: "Oct 12, 2026",
     category: "Market Trends",
-    title: "The Rise of Sustainable Real Estate in the GCC",
+    title: "Dubai Property: What Drives Long-Term Value",
     excerpt:
-      "We are looking for a senior product designer to lead our mobile app redesign. 5+ years of experience in Figma and a strong portfolio of consumer-facing products.",
+      "Compare location, transport links and new supply to assess demand across Dubai's established and emerging communities.",
   },
   {
     image: defiPropertyOwnership,
-    date: "Oct 20, 2026",
+    date: "Oct 09, 2026",
     category: "Tokenization",
-    title: "Decentralized Finance: A New Era for Property Ownership",
+    title: "Tokenized Property in Dubai: Know the Risks",
     excerpt:
-      "DeFi protocols are enabling the creation of liquid, tradable assets from traditionally illiquid real estate holdings.",
+      "Understand ownership rights, platform licensing and resale limits before considering a tokenized Dubai property investment.",
   },
   {
     image: generationalWealth,
-    date: "Oct 20, 2026",
+    date: "Oct 06, 2026",
     category: "Wealth Creation",
-    title: "Building Generational Wealth through Diversified Portfolios",
+    title: "Dubai Rental Yields: Beyond the Headline",
     excerpt:
-      "We are looking for a senior product designer to lead our mobile app redesign. 5+ years of experience in Figma and a strong portfolio of consumer-facing products.",
+      "Estimate net income after service charges, vacancy and maintenance when comparing Dubai Marina, JLT and Business Bay.",
   },
   {
     image: regulatoryLandscape,
-    date: "Oct 20, 2026",
+    date: "Oct 02, 2026",
     category: "Regulation",
-    title: "Navigating the New Regulatory Landscape for Digital Assets",
+    title: "Buying Off-Plan in Dubai: A Due Diligence Guide",
     excerpt:
-      "Understanding the evolving legal frameworks that govern tokenized real estate and digital securities in the Middle East.",
+      "Check project registration, escrow arrangements and developer history before reviewing payment plans and handover timelines.",
   },
   {
     image: mixedUseDevelopments,
-    date: "Oct 20, 2026",
+    date: "Sep 28, 2026",
     category: "Market Trends",
-    title: "Why Commercial Real Estate is Shifting to Mixed-Use Developments",
+    title: "Dubai's Mixed-Use Communities: What to Compare",
     excerpt:
-      "As work-life balance becomes a priority, mixed-use projects are seeing higher demand and better long-term value retention.",
+      "Weigh access to offices, schools, retail and public transport when comparing communities for rental demand and daily living.",
   },
   {
     image: psychologyInvestors,
-    date: "Oct 20, 2026",
+    date: "Sep 24, 2026",
     category: "Wealth Creation",
-    title: "The Psychology of Successful Real Estate Investors",
+    title: "Ready vs Off-Plan: Your Dubai Property Strategy",
     excerpt:
-      "Beyond the numbers, what mindset shifts are required to build a successful portfolio in today's fast-paced market?",
+      "Compare rental readiness, completion risk and ongoing costs to choose a Dubai property strategy that fits your time horizon.",
   },
 ];
