@@ -11,6 +11,9 @@
  * Copy comes from src/data/coming-soon.js (key → default fallback); a trigger
  * can override inline with `data-cs-title` / `data-cs-body` / `data-cs-cta`.
  * Forms open the modal on a valid submit and are reset.
+ *
+ * Motion: open/close animations live in the <style> block below; the script
+ * plays the exit animation before really closing the <dialog>.
  */
 import RocketIcon from "../../assets/icons/rocket-takeoff.svg";
 import messages from "../../data/coming-soon.js";
@@ -27,30 +30,43 @@ const { title, body, cta } = messages.default;
   class="mx-0 mt-auto mb-0 max-h-[90dvh] w-full max-w-full overflow-y-auto bg-transparent p-0 backdrop:bg-scrim md:m-auto md:max-h-[calc(100dvh-2rem)] md:max-w-[488px]"
 >
   <div
+    data-cs-card
     class="flex flex-col items-center gap-6 rounded-t-[36px] border border-black/10 bg-surface px-[30px] pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-modal dark:border-line md:gap-8 md:rounded-xl md:bg-linear-to-b md:from-popup-from md:via-popup-via md:via-52% md:to-popup-to md:p-[42px]"
   >
-    <div class="flex size-[95px] shrink-0 items-center justify-center rounded-full bg-brand-25 text-brand-purple md:size-[107px]" aria-hidden="true">
-      <RocketIcon class="size-[35px] md:size-10" />
+    <div
+      data-cs-icon
+      style="--i: 0"
+      class="flex size-[95px] shrink-0 items-center justify-center rounded-full bg-brand-25 text-brand-purple md:size-[107px]"
+      aria-hidden="true"
+    >
+      <RocketIcon data-cs-rocket class="size-[35px] md:size-10" />
     </div>
 
     <div class="flex w-full flex-col items-center gap-[11px] text-center md:gap-5">
       <h2
         id="coming-soon-title"
         data-cs-title
+        data-cs-stagger
+        style="--i: 1"
         class="text-display-xs leading-display-sm font-semibold tracking-normal text-ink md:text-[2.125rem] md:leading-display-sm md:tracking-normal"
       >
         {title}
       </h2>
-      <p data-cs-body class="w-full text-sm leading-sm text-gray-700 dark:text-ink-secondary">
+      <p
+        data-cs-body
+        data-cs-stagger
+        style="--i: 2"
+        class="w-full text-sm leading-sm text-gray-700 dark:text-ink-secondary"
+      >
         {body}
       </p>
     </div>
 
-    <form method="dialog" class="w-full">
+    <form method="dialog" data-cs-stagger style="--i: 3" class="w-full">
       <button
         type="submit"
         data-cs-cta
-        class="flex min-h-12 w-full items-center justify-center rounded-lg border border-brand bg-brand px-5 py-3 text-md font-semibold text-white shadow-xs transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+        class="flex min-h-12 w-full items-center justify-center rounded-lg border border-brand bg-brand px-5 py-3 text-md font-semibold text-white shadow-xs transition-[background-color,transform] duration-200 ease-out hover:bg-brand-hover active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       >
         {cta}
       </button>
@@ -58,12 +74,177 @@ const { title, body, cta } = messages.default;
   </div>
 </dialog>
 
+<style is:global>
+  /* Stops the page jumping sideways when the scroll lock hides the scrollbar. */
+  html {
+    scrollbar-gutter: stable;
+  }
+  /* Safety net for browsers that ignore scrollbar-gutter: the script measures
+     how much the page widened when the scrollbar vanished (0 where the rule
+     above works) and pads exactly that much while the modal is open. */
+  body:has(dialog[data-coming-soon-dialog][open]) {
+    padding-right: var(--cs-sbw, 0px);
+  }
+  /* global.css gives reduced-motion users a 0.01ms transition on everything,
+     which still lasts one frame — enough to show as a flicker on that padding. */
+  @media (prefers-reduced-motion: reduce) {
+    body {
+      transition: none !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* ---------- OPEN ---------- */
+    /* The dialog is overflow-y-auto (so tiny screens can scroll), but while the
+       card slides/scales it briefly pokes outside the dialog's box and a
+       scrollbar flashes. Keep overflow visible for the length of the entrance
+       (a bit longer than the slowest child animation), then it reverts to auto. */
+    [data-coming-soon-dialog][open]:not([data-closing]) {
+      animation: cs-no-scrollbar 900ms step-end;
+    }
+    [data-coming-soon-dialog][open]:not([data-closing])::backdrop {
+      animation: cs-backdrop-in 320ms ease-out both;
+    }
+
+    /* Mobile: bottom sheet rises and settles with a soft overshoot */
+    [data-coming-soon-dialog][open]:not([data-closing]) [data-cs-card] {
+      animation: cs-sheet-in 560ms cubic-bezier(0.22, 1.15, 0.36, 1) both;
+    }
+
+    /* Desktop: card grows out of the clicked button (--cs-origin set in JS) */
+    @media (min-width: 48rem) {
+      [data-coming-soon-dialog][open]:not([data-closing]) [data-cs-card] {
+        transform-origin: var(--cs-origin, center);
+        animation: cs-card-in 520ms cubic-bezier(0.22, 1.2, 0.36, 1) both;
+      }
+    }
+
+    /* Content settles in one after another */
+    [data-coming-soon-dialog][open]:not([data-closing]) [data-cs-stagger] {
+      animation: cs-rise 520ms var(--ease-out) both;
+      animation-delay: calc(160ms + var(--i, 0) * 70ms);
+    }
+    [data-coming-soon-dialog][open]:not([data-closing]) [data-cs-icon] {
+      animation: cs-pop 620ms cubic-bezier(0.34, 1.56, 0.64, 1) 100ms both;
+    }
+    /* One small "lift-off" nudge on the rocket after it lands */
+    [data-coming-soon-dialog][open]:not([data-closing]) [data-cs-rocket] {
+      animation: cs-liftoff 900ms var(--ease-out) 650ms both;
+    }
+
+    /* ---------- CLOSE (faster, softer) ---------- */
+    [data-coming-soon-dialog][data-closing] {
+      overflow: visible !important;
+    }
+    [data-coming-soon-dialog][data-closing]::backdrop {
+      animation: cs-backdrop-out 200ms ease-in both;
+    }
+    [data-coming-soon-dialog][data-closing] [data-cs-card] {
+      animation: cs-sheet-out 220ms cubic-bezier(0.4, 0, 1, 1) both;
+    }
+    @media (min-width: 48rem) {
+      [data-coming-soon-dialog][data-closing] [data-cs-card] {
+        animation: cs-card-out 180ms cubic-bezier(0.4, 0, 1, 1) both;
+      }
+    }
+
+    /* ---------- Store badges: hover lift + press ---------- */
+    a[data-coming-soon="app-download"] {
+      transition:
+        background-color 200ms ease-out,
+        transform 220ms var(--ease-out),
+        box-shadow 220ms var(--ease-out);
+    }
+    a[data-coming-soon="app-download"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgb(0 0 0 / 0.12);
+    }
+    a[data-coming-soon="app-download"]:active {
+      transform: translateY(0) scale(0.96);
+      box-shadow: none;
+    }
+  }
+
+  @keyframes cs-no-scrollbar {
+    from, to { overflow: visible; }
+  }
+  @keyframes cs-backdrop-in {
+    from { opacity: 0; backdrop-filter: blur(0); }
+    to   { opacity: 1; backdrop-filter: blur(4px); }
+  }
+  @keyframes cs-backdrop-out {
+    from { opacity: 1; backdrop-filter: blur(4px); }
+    to   { opacity: 0; backdrop-filter: blur(0); }
+  }
+  @keyframes cs-sheet-in {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+  @keyframes cs-sheet-out {
+    to { transform: translateY(100%); }
+  }
+  @keyframes cs-card-in {
+    from { opacity: 0; transform: scale(0.86) translateY(12px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes cs-card-out {
+    to { opacity: 0; transform: scale(0.96) translateY(6px); }
+  }
+  @keyframes cs-rise {
+    from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes cs-pop {
+    from { opacity: 0; transform: scale(0.55); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes cs-liftoff {
+    0%   { transform: translate(0, 0) rotate(0); }
+    35%  { transform: translate(2px, -5px) rotate(4deg); }
+    100% { transform: translate(0, 0) rotate(0); }
+  }
+</style>
+
 <script>
   // Document-level delegation, bound once: the dialog is transition:persist'd
   // and `document` survives ClientRouter swaps, so nothing to re-bind on
   // astro:page-load. Capture phase so this runs before ClientRouter's own
   // click handler tries to treat `href="#"` as a navigation — and before its
   // submit handler re-POSTs the form to the current page (looks like a reload).
+
+  const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /**
+   * Play the exit animation, then really close the dialog.
+   * @param {HTMLDialogElement} dialog
+   */
+  function closeComingSoon(dialog) {
+    if (!dialog.open || dialog.hasAttribute("data-closing")) return;
+    if (reducedMotion()) {
+      dialog.close();
+      document.documentElement.style.removeProperty("--cs-sbw");
+      return;
+    }
+
+    const card = dialog.querySelector("[data-cs-card]");
+    let finished = false;
+
+    const onEnd = (e) => {
+      if (e.target === card) finish();
+    };
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      card?.removeEventListener("animationend", onEnd);
+      dialog.close();
+      dialog.removeAttribute("data-closing");
+      document.documentElement.style.removeProperty("--cs-sbw");
+    };
+
+    dialog.setAttribute("data-closing", "");
+    card?.addEventListener("animationend", onEnd);
+    setTimeout(finish, 320); // safety net if animationend never fires
+  }
 
   /** @param {HTMLElement} trigger */
   function openComingSoon(trigger) {
@@ -82,7 +263,25 @@ const { title, body, cta } = messages.default;
       if (node) node.textContent = copy[field];
     }
 
-    if (!dialog.open) dialog.showModal();
+    dialog.removeAttribute("data-closing");
+    if (!dialog.open) {
+      // BaseLayout locks body scroll while a dialog is open, which removes the
+      // scrollbar and widens the page. Measure that jump and cancel it out.
+      const root = document.documentElement;
+      root.style.removeProperty("--cs-sbw");
+      const widthBefore = document.body.getBoundingClientRect().width;
+      dialog.showModal();
+      const jump = document.body.getBoundingClientRect().width - widthBefore;
+      if (jump > 0.5) root.style.setProperty("--cs-sbw", `${jump}px`);
+    }
+
+    // Desktop card grows out of the button that was clicked.
+    const card = dialog.querySelector("[data-cs-card]");
+    if (card instanceof HTMLElement) {
+      const c = card.getBoundingClientRect();
+      const t = trigger.getBoundingClientRect();
+      card.style.setProperty("--cs-origin", `${t.left + t.width / 2 - c.left}px ${t.top + t.height / 2 - c.top}px`);
+    }
   }
 
   document.addEventListener(
@@ -94,7 +293,20 @@ const { title, body, cta } = messages.default;
       // Light dismiss: the dialog has no padding, so a click whose target is
       // the <dialog> itself landed on the backdrop.
       if (target instanceof HTMLDialogElement && target.matches("[data-coming-soon-dialog]")) {
-        target.close();
+        closeComingSoon(target);
+        return;
+      }
+
+      // The modal's own "Got it" button. IMPORTANT: scoped to the dialog —
+      // triggers also carry a `data-cs-cta` attribute (copy override), so a
+      // bare `[data-cs-cta]` match would swallow clicks on those triggers.
+      const dialogCta = target.closest("[data-coming-soon-dialog] [data-cs-cta]");
+      if (dialogCta) {
+        const dialog = dialogCta.closest("[data-coming-soon-dialog]");
+        if (dialog instanceof HTMLDialogElement) {
+          event.preventDefault();
+          closeComingSoon(dialog);
+        }
         return;
       }
 
@@ -104,6 +316,18 @@ const { title, body, cta } = messages.default;
 
       event.preventDefault();
       openComingSoon(trigger);
+    },
+    true,
+  );
+
+  // Esc key — `cancel` doesn't bubble, but capture on document still sees it.
+  document.addEventListener(
+    "cancel",
+    (event) => {
+      const dialog = event.target;
+      if (!(dialog instanceof HTMLDialogElement) || !dialog.matches("[data-coming-soon-dialog]")) return;
+      event.preventDefault();
+      closeComingSoon(dialog);
     },
     true,
   );
