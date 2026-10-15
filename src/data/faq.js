@@ -18,7 +18,7 @@ export const faqCategories = [
       {
         question: "Is Sliceal regulated?",
         answer:
-          "Yes, SliceAL operates under applicable UAE financial and real estate regulations. We are committed to full regulatory compliance to ensure the safety and transparency of your investments..",
+          "Yes, Sliceal operates under applicable UAE financial and real estate regulations. We are committed to full regulatory compliance to ensure the safety and transparency of your investments..",
       },
       {
         question: "How secure is my data?",
@@ -34,12 +34,12 @@ export const faqCategories = [
   },
   {
     id: "getting-started",
-    label: "Getting Start",
+    label: "Getting Started",
     questions: [
       {
         question: "Who can invest on Sliceal?",
         answer:
-          "SliceAL is open to UAE residents and international investors who meet our KYC requirements. You must be at least 18 years old and have a valid government-issued ID to register and invest.",
+          "Sliceal is open to UAE residents and international investors who meet our KYC requirements. You must be at least 18 years old and have a valid government-issued ID to register and invest.",
       },
       {
         question: "Can I cancel an investment after placing an order?",
@@ -75,7 +75,7 @@ export const faqCategories = [
       {
         question: "How long does KYC approval take?",
         answer:
-          "KYC verification is usually completed within 1â€“2 business days. During peak periods it may take slightly longer. You will receive an email notification as soon as your account is verified.",
+          "KYC verification is usually completed within 1-2 business days. During peak periods it may take slightly longer. You will receive an email notification as soon as your account is verified.",
       },
     ],
   },
@@ -91,7 +91,7 @@ export const faqCategories = [
       {
         question: "What is the minimum investment?",
         answer:
-          "You can start investing from as little as AED 500 per property. Each property listing displays the minimum ticket size clearly on its detail page.",
+          "You can start investing from as little as AED 2000 per property. Each property listing displays the minimum ticket size clearly on its detail page.",
       },
       {
         question: "How do I invest in a property?",
@@ -112,17 +112,17 @@ export const faqCategories = [
       {
         question: "What is the Platform Wallet?",
         answer:
-          "Your SliceAL wallet is a digital balance that holds your funds on the platform. You deposit money into it before investing, and all rental income distributions and refunds are credited directly to it.",
+          "Your Sliceal wallet is a digital balance that holds your funds on the platform. You deposit money into it before investing, and all rental income distributions and refunds are credited directly to it.",
       },
       {
         question: "How do I add funds to my wallet?",
         answer:
-          "Go to Wallet â†’ Deposit, enter the amount, and follow the payment instructions. We support bank transfers and select debit/credit cards. Bank transfers settle within 1â€“2 business days.",
+          "Go to Wallet → Deposit, enter the amount, and follow the payment instructions. We support bank transfers and select debit/credit cards. Bank transfers settle within 1-2 business days.",
       },
       {
         question: "How do I link a bank account?",
         answer:
-          "Go to Profile â†’ Bank Accounts and tap 'Add Bank Account'. Enter your IBAN and account details. Your bank account is required for withdrawals and will be verified before your first withdrawal.",
+          "Go to Profile → Bank Accounts and tap 'Add Bank Account'. Enter your IBAN and account details. Your bank account is required for withdrawals and will be verified before your first withdrawal.",
       },
       {
         question: "Why is my wallet activation failing?",
@@ -148,7 +148,7 @@ export const faqCategories = [
       {
         question: "Where can I see my transaction history?",
         answer:
-          "Go to Wallet â†’ Transaction History to view all deposits, withdrawals, investments, and income distributions with full details and timestamps.",
+          "Go to Wallet → Transaction History to view all deposits, withdrawals, investments, and income distributions with full details and timestamps.",
       },
     ],
   },
@@ -162,14 +162,14 @@ export const faqCategories = [
           "Each token represents a fractional ownership share in a specific property held within a Special Purpose Vehicle (SPV). Tokens give you the right to proportional rental income and proceeds from property sale.",
       },
       {
-        question: "What does a token represent?",
-        answer:
-          "Each token represents a fractional ownership share in a specific property held within a Special Purpose Vehicle (SPV). Tokens give you the right to proportional rental income and proceeds from property sale.",
-      },
-      {
         question: "When will I receive my tokens?",
         answer:
           "Tokens are issued once the property reaches its full funding target and the legal transfer to the SPV is finalised. You will be notified when tokens appear in your portfolio.",
+      },
+      {
+        question: "Can I transfer my tokens to another person?",
+        answer:
+          "Token transfers between investors are not currently supported. We are building a secondary market that will allow you to sell your tokens. Updates will be communicated via email and in-app notifications.",
       },
     ],
   },
